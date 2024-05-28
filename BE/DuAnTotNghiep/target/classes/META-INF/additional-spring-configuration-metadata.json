@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "qrcode",
+      "type": "java.lang.String",
+      "description": "Description for qrcode."
+    }
+  ]
+}
