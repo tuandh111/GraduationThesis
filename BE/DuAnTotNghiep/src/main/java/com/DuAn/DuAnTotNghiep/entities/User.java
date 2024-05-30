@@ -16,7 +16,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -58,6 +57,10 @@ public class User implements UserDetails {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "roleId")
     private Role role;
+
+    @OneToOne
+    @JoinColumn(name = "dentalStaffId")
+    private DentalStaff dentalStaff;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
