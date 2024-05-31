@@ -30,19 +30,19 @@ public class Appointment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_TypeId")
-    private  Appointment_Type appointmentType;
+    private AppointmentType appointmentType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_StatusId")
-    private  Appointment_Status appointmentStatus;
+    private AppointmentStatus appointmentStatus;
 
     @OneToMany(mappedBy = "dentalSupplies_AppointmentId")
     @JsonIgnore
-    private List <DentalSupplies_Appointment> dentalSuppliesAppointments;
+    private List <DentalSuppliesAppointment> dentalSuppliesAppointments;
 
     @OneToMany(mappedBy = "appointment_ServiceId")
     @JsonIgnore
-    private List <Appointment_Service> appointmentServices;
+    private List <AppointmentService> appointmentServices;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointmentPatientRecordId")

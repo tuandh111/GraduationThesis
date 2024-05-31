@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-public class DentalSupplies_Appointment {
+public class DentalSuppliesAppointment {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer dentalSupplies_AppointmentId;

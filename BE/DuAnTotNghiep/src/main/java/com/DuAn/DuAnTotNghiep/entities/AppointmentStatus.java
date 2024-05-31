@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Appointment_Status {
+public class AppointmentStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer appointment_StatusId;

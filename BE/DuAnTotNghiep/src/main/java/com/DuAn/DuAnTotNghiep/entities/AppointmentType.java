@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Appointment_Type {
+public class AppointmentType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer appointment_TypeId;

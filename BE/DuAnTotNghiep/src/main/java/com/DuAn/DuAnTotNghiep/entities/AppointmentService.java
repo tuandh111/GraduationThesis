@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Builder
-public class Appointment_Service {
+public class AppointmentService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer appointment_ServiceId;

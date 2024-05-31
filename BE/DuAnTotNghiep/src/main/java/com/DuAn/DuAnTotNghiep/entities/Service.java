@@ -31,7 +31,7 @@ public class Service {
 
     @OneToMany(mappedBy = "appointment_ServiceId")
     @JsonIgnore
-    private List<Appointment_Service> appointmentServices;
+    private List<AppointmentService> appointmentServices;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "serviceTypeId")

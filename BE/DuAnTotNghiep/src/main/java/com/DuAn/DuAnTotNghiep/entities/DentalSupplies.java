@@ -29,6 +29,6 @@ public class DentalSupplies {
 
     @OneToMany(mappedBy = "dentalSupplies_AppointmentId")
     @JsonIgnore
-    private  List<DentalSupplies_Appointment>  dentalSuppliesAppointments;
+    private  List<DentalSuppliesAppointment>  dentalSuppliesAppointments;
     
 }
