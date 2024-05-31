@@ -62,6 +62,14 @@ public class User implements UserDetails {
     @JoinColumn(name = "dentalStaffId")
     private DentalStaff dentalStaff;
 
+    @OneToOne
+    @JoinColumn(name = "patientId")
+    private Patient patient;
+
+    @OneToOne
+    @JoinColumn(name = "doctorId")
+    private Doctor doctor;
+
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Token> tokens;

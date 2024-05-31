@@ -59,4 +59,8 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dentalStaffId")
     private DentalStaff dentalStaff;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doctorId")
+    private Doctor doctor;
 }

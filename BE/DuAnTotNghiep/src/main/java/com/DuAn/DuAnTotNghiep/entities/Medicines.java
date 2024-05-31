@@ -26,4 +26,20 @@ public class Medicines {
     @OneToMany(mappedBy = "prescriptionMedicinesId")
     @JsonIgnore
     private List<PrescriptionMedicines> prescriptionMedicines;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "medicinesDosageUnitId")
+    private MedicinesDosageUnit medicinesDosageUnit;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "distributionMedicinesId")
+    private DistributionMedicines  distributionMedicines;
+
+    @ManyToOne(fetch =  FetchType.LAZY)
+    @JoinColumn(name = "medicinesDosageAmountId")
+    private MedicinesDosageAmount medicinesDosageAmount;
+
+    @OneToMany(mappedBy = "frequencyMedicinesId")
+    @JsonIgnore
+    private List<FrequencyMedicines> frequencyMedicines;
 }

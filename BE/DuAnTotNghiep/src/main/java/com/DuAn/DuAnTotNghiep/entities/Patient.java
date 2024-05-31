@@ -44,4 +44,7 @@ public class Patient {
     @OneToMany(mappedBy = "medicalHistoryDetailId")
     @JsonIgnore
     private List<MedicalHistoryDetail> medicalHistoryDetails;
+
+    @OneToOne(mappedBy = "patient")
+    private User user;
 }
