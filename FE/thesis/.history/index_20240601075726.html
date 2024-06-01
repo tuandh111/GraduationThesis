@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="dentisHub">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Dentis - Home</title>
+  <link rel="icon" href="/assets/images/logo.jpg" type="image/png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Icon Font Css -->
+  <link rel="stylesheet" href="/assets/plugins/icofont/icofont.min.css">
+  <!-- Slick Slider  CSS -->
+  <link rel="stylesheet" href="/assets/plugins/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="/assets/plugins/slick-carousel/slick/slick-theme.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <!-- AngularJs -->
+  <script src="/assets/js/vendor/angular.min.js"></script>
+  <script src="/assets/js/vendor/angular-route.min.js"></script>
+</head>
+
+<body id="top">
+  <!--================ Start Header Menu Area =================-->
+  <header class="header_area" ng-include="'component/header.html'"></header>
+  <!--================ End Header Menu Area =================-->
+
+  <main class="site-main">
+    <ng-view></ng-view>
+  </main>
+  <!--================ Start footer Area  =================-->
+  <footer class="footer section gray-bg" ng-include="'component/footer.html'"></footer>
+  <!--================ End footer Area  =================-->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Main jQuery -->
+  <script src="/assets/plugins/jquery/jquery.js"></script>
+  <!-- Bootstrap 4.3.2 -->
+  <script src="/assets/plugins/bootstrap/js/popper.js"></script>
+  <script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/assets/plugins/counterup/jquery.easing.js"></script>
+  <!-- Slick Slider -->
+  <script src="/assets/plugins/slick-carousel/slick/slick.min.js"></script>
+  <!-- Counterup -->
+  <script src="/assets/plugins/counterup/jquery.waypoints.min.js"></script>
+  <script src="/assets/plugins/shuffle/shuffle.min.js"></script>
+  <script src="/assets/plugins/counterup/jquery.counterup.min.js"></script>
+  <!-- Google Map -->
+  <script src="/assets/plugins/google-map/map.js"></script>
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
+  <!-- Dentis App -->
+  <script src="/assets/js/app/app.js"></script>
+</body>
+
+</html>
