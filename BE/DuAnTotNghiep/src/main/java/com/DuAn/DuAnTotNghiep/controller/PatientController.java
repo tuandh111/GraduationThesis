@@ -1,10 +1,20 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
+import com.DuAn.DuAnTotNghiep.entities.Patient;
+import com.DuAn.DuAnTotNghiep.entities.Role;
+import com.DuAn.DuAnTotNghiep.model.request.PatientRequest;
+import com.DuAn.DuAnTotNghiep.model.request.RoleRequest;
+import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import com.DuAn.DuAnTotNghiep.service.service.PatientService;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -12,5 +22,33 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 @Validated
 public class PatientController {
+    @Autowired
+    PatientService patientService;
+    @GetMapping("list-patient")
+    @Operation(summary = "List patient")
+    public ResponseEntity<List<Patient>> getAllPatient() {
+        return ResponseEntity.ok(patientService.findAll());
+    }
 
+    @GetMapping("patient-id/{Id}")
+    @Operation(summary = "patientId")
+    public ResponseEntity<Patient> getPatient( @PathVariable Integer Id) {
+        return ResponseEntity.ok(patientService.findByPatientId(Id));
+    }
+    @PostMapping("save-patient")
+    @Operation(summary = "Save patient")
+    public ResponseEntity<Patient> savePatient(@Valid @RequestBody PatientRequest patientRequest){
+        return ResponseEntity.ok(patientService.savePatient(patientRequest));
+    }
+    @PutMapping("update-patient/{Id}")
+    @Operation(summary = "update patient")
+    public ResponseEntity<Patient> updatePatient(@PathVariable int Id, @Valid @RequestBody PatientRequest patientRequest){
+        return ResponseEntity.ok(patientService.updatePatient(Id, patientRequest));
+    }
+
+    @DeleteMapping("delete-patient/{Id}")
+    @Operation(summary = "delete patient")
+    public ResponseEntity<MessageResponse> deletePatient(@PathVariable int Id){
+        return ResponseEntity.ok(patientService.delete(Id));
+    }
 }

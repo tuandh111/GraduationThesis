@@ -1,22 +1,27 @@
 package com.DuAn.DuAnTotNghiep.model.request;
 
+import com.DuAn.DuAnTotNghiep.entities._enum.Gender;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 public class PatientRequest {
     @NotNull
-    private  String distribution;
+    private  String fullName;
     @NotNull
-    private String  name;
+    private String  phoneNumber;
     @NotNull
-    private String address;
+    private String Type;
     @NotNull
-    private  String contactPerson;
+    private String CitizenIdentificationNumber;
     @NotNull
-    private String email;
+    private Date birthday;
     @NotNull
-    private String  note;
+    private String imageURL;
     @NotNull
-    private String taxCode;
+    private String gender;
 }

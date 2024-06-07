@@ -18,11 +18,11 @@ public class MedicalHistoryDetail {
 
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "patientId")
     private Patient patient;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "medicalHistoryId")
     private MedicalHistory medicalHistory;
 }
