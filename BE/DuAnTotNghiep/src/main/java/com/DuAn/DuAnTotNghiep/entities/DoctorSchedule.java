@@ -1,5 +1,6 @@
 package com.DuAn.DuAnTotNghiep.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,11 +25,11 @@ public class DoctorSchedule {
 
     private Date date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "doctorId")
     private Doctor doctor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "shiftId")
     private Shift shift;
 }

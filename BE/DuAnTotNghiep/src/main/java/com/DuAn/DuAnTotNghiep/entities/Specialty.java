@@ -2,10 +2,7 @@ package com.DuAn.DuAnTotNghiep.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -26,4 +23,9 @@ public class Specialty {
     @OneToMany(mappedBy = "doctorId")
     @JsonIgnore
     private List<Doctor> doctors;
+
+    @Override
+    public String toString() {
+        return "Specialty{" + "specialtyId=" + specialtyId + ", specialtyName='" + specialtyName + '\'' + ", description='" + description + '\'' + '}';
+    }
 }

@@ -18,17 +18,17 @@ public class DentalSupplies {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer SuppliesId;
-    
-    private  String  SuppliesName;
 
-    private  String description;
+    private String SuppliesName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    private String description;
+
+    @ManyToOne
     @JoinColumn(name = "distributionId")
     public DistributionSupplies distributionSupplies;
 
     @OneToMany(mappedBy = "dentalSupplies_AppointmentId")
     @JsonIgnore
-    private  List<DentalSuppliesAppointment>  dentalSuppliesAppointments;
-    
+    private List<DentalSuppliesAppointment> dentalSuppliesAppointments;
+
 }

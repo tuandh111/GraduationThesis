@@ -21,6 +21,7 @@ public class DistributionSupplies {
     private  String distribution;
     private String  name;
     private String address;
+    private String email;
     private  String contactPerson;
     private String  note;
     private String taxCode;

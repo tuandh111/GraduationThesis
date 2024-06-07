@@ -41,7 +41,7 @@ public class Doctor {
     @JsonIgnore
     private List<Appointment> appointments;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "specialtyId")
     private Specialty specialty;
 
@@ -50,5 +50,6 @@ public class Doctor {
     private List<DoctorSchedule> doctorSchedules;
 
     @OneToOne(mappedBy = "doctor")
+    @JsonIgnore
     private User user;
 }
