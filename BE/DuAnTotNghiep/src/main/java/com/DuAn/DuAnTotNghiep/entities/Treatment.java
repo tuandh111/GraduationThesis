@@ -21,9 +21,11 @@ public class Treatment {
 
     private String description;
 
+    private String treatmentName;
+
     @OneToMany(mappedBy = "service_TreatmentId")
     @JsonIgnore
-    private List<Service_Treatment> serviceTreatments;
+    private List<ServiceTreatment> serviceTreatments;
 
     @OneToMany(mappedBy = "IssuesTreatmentAutomationId")
     @JsonIgnore

@@ -29,16 +29,18 @@ public class Service {
     @Temporal(TemporalType.DATE)
     private Date timeEstimate;
 
+    private String description;
+
     @OneToMany(mappedBy = "appointment_ServiceId")
     @JsonIgnore
     private List<AppointmentService> appointmentServices;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "serviceTypeId")
-    private Service_Type serviceType;
+    private ServiceType serviceType;
 
     @OneToMany(mappedBy = "service_TreatmentId")
     @JsonIgnore
-    private List<Service_Treatment> serviceTreatments;
+    private List<ServiceTreatment> serviceTreatments;
 
 }

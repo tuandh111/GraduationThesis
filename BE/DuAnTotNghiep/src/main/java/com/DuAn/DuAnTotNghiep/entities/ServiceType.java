@@ -1,30 +1,29 @@
 package com.DuAn.DuAnTotNghiep.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-
-public class IssuesTreatmentAutomation {
+public class ServiceType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer IssuesTreatmentAutomationId;
+    private Integer service_TypeId;
 
-    private  String description;
+    private  String typeName;
 
-    @ManyToOne
-    @JoinColumn(name = "treatmentId")
-    private Treatment treatment;
+    private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "dentalIssuesId")
-    private DentalIssues dentalIssues;
-
+    @OneToMany(mappedBy = "serviceId")
+    @JsonIgnore
+    private List<Service> services;
 }

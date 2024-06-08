@@ -1,8 +1,6 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
-import com.DuAn.DuAnTotNghiep.entities.Role;
 import com.DuAn.DuAnTotNghiep.entities.Shift;
-import com.DuAn.DuAnTotNghiep.model.request.RoleRequest;
 import com.DuAn.DuAnTotNghiep.model.request.ShiftRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.service.service.ShiftService;
@@ -33,7 +31,7 @@ public class ShiftController {
     @GetMapping("shift-id/{Id}")
     @Operation(summary = "ShiftId")
     public ResponseEntity<Shift> getShiftId( @PathVariable Integer Id) {
-        return ResponseEntity.ok(shiftService.findByRoleId(Id));
+        return ResponseEntity.ok(shiftService.findByShiftId(Id));
     }
     @PostMapping("save-shift")
     @Operation(summary = "Save shift")

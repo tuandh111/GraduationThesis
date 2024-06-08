@@ -17,7 +17,7 @@ public class ShiftServiceImpl implements ShiftService {
     ShiftRepository shiftRepository;
 
     @Override
-    public Shift findByRoleId(int shift) {
+    public Shift findByShiftId(int shift) {
         return shiftRepository.findById(shift).orElseThrow(null);
     }
 

@@ -28,11 +28,11 @@ public class Appointment {
     @Temporal(TemporalType.DATE)
     private Date AppointmentDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "appointment_TypeId")
     private AppointmentType appointmentType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "appointment_StatusId")
     private AppointmentStatus appointmentStatus;
 
@@ -44,7 +44,7 @@ public class Appointment {
     @JsonIgnore
     private List <AppointmentService> appointmentServices;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "appointmentPatientRecordId")
     private AppointmentPatientRecord appointmentPatientRecord;
 
@@ -56,11 +56,11 @@ public class Appointment {
     @JsonIgnore
     private List<AppointmentCTResult> appointmentCTResults;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "dentalStaffId")
     private DentalStaff dentalStaff;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "doctorId")
     private Doctor doctor;
 }

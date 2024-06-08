@@ -42,4 +42,8 @@ public class Medicines {
     @OneToMany(mappedBy = "frequencyMedicinesId")
     @JsonIgnore
     private List<FrequencyMedicines> frequencyMedicines;
+
+    @ManyToOne(fetch =  FetchType.LAZY)
+    @JoinColumn(name = "medicineCategoryId")
+    private MedicineCategory medicineCategory;
 }

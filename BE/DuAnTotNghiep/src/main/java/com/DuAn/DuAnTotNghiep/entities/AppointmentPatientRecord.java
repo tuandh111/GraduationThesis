@@ -39,7 +39,7 @@ public class AppointmentPatientRecord {
     @JsonIgnore
     private List<Appointment> appointments;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="patientId")
     private Patient patient;
 

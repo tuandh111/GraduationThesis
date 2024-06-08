@@ -11,18 +11,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Builder
-public class Service_Treatment {
+public class ServiceTreatment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer service_TreatmentId;
 
     private  String Description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "serviceId")
     private Service service;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "treatmentId")
     private Treatment treatment;
 }

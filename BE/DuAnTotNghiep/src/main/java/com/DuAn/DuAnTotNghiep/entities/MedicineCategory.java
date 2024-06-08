@@ -10,20 +10,20 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
-public class Service_Type {
+public class MedicineCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer service_TypeId;
+    private Integer medicineCategoryId;
 
-    private  String typeName;
+    private String name;
 
     private String description;
 
-    @OneToMany(mappedBy = "serviceId")
+    @OneToMany(mappedBy = "medicinesId")
     @JsonIgnore
-    private List<Service> services;
+    private List<Medicines> medicines;
 }
