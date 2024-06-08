@@ -16,7 +16,7 @@ import java.util.List;
 @Builder
 @Entity
 
-public class DentalStaff {
+public class    DentalStaff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer dentalStaffId;
@@ -42,7 +42,7 @@ public class DentalStaff {
     @JsonIgnore
     private List<Appointment> appointments;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "departmentId")
     private Department department;
 

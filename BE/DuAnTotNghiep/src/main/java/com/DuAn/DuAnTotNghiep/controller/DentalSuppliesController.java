@@ -48,7 +48,7 @@ public class DentalSuppliesController {
     }
 
     @DeleteMapping("delete-dental-supplies/{Id}")
-    @Operation(summary = "delete dentail supplies")
+    @Operation(summary = "delete dental supplies")
     public ResponseEntity<MessageResponse> deleteDentailSupplies(@PathVariable int Id){
         return ResponseEntity.ok(dentalSuppliesService.delete(Id));
     }
