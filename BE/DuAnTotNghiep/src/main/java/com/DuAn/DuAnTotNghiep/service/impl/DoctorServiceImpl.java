@@ -72,12 +72,28 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public MessageResponse delete(int doctorId) {
         try {
+            var doctor = Doctor
+                                 .builder()
+                                 .doctorId(doctorId)
+                                 .isDeleted(true)
+                                 .build();
+            doctorRepository.save(doctor);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+
+    }
+
+    @Override
+    public MessageResponse sortDeleteDoctor(int doctorId) {
+        try {
             doctorRepository.deleteById(doctorId);
             return new MessageResponse("successfully");
         }catch (Exception e){
             e.printStackTrace();
-
+            return new MessageResponse("fail");
         }
-        return new MessageResponse("fail");
     }
 }

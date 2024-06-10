@@ -58,4 +58,20 @@ public class SpecialtyServiceImpl implements SpecialtyService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse sortDeleteSpecialty(int specialtyId) {
+        try {
+            var specialty= Specialty
+                                   .builder()
+                                   .specialtyId(specialtyId)
+                                   .isDeleted(true)
+                                   .build();
+            specialtyRepository.save(specialty);
+            return new MessageResponse("successfully");
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }

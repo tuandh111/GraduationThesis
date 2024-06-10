@@ -25,7 +25,7 @@ import java.util.List;
 public class MedicalHistoryController {
     @Autowired
     MedicalHistoryService medicalHistoryService;
-    @GetMapping("list-medical-history")
+    @GetMapping("medical-history")
     @Operation(summary = "List medical history")
     public ResponseEntity<List<MedicalHistory>> getAllMedicalHistory() {
         return ResponseEntity.ok(medicalHistoryService.findAll());
@@ -36,20 +36,26 @@ public class MedicalHistoryController {
     public ResponseEntity<MedicalHistory> getMedicalHistory( @PathVariable Integer Id) {
         return ResponseEntity.ok(medicalHistoryService.findByMedicalHistoryId(Id));
     }
-    @PostMapping("save-medical-history")
+    @PostMapping("medical-history")
     @Operation(summary = "Save Medical History")
     public ResponseEntity<MedicalHistory> saveMedicalHistory(@Valid @RequestBody MedicalHistoryRequest medicalHistoryRequest){
         return ResponseEntity.ok(medicalHistoryService.saveMedicalHistory(medicalHistoryRequest));
     }
-    @PutMapping("update-medical-history/{Id}")
+    @PutMapping("medical-history/{Id}")
     @Operation(summary = "update medical history")
     public ResponseEntity<MedicalHistory> updateMedicalHistory(@PathVariable int Id, @Valid @RequestBody MedicalHistoryRequest medicalHistoryRequest){
         return ResponseEntity.ok(medicalHistoryService.updateMedicalHistory(Id, medicalHistoryRequest));
     }
 
-    @DeleteMapping("delete-medical-history/{Id}")
+    @DeleteMapping("medical-history/{Id}")
     @Operation(summary = "delete medical history")
     public ResponseEntity<MessageResponse> deleteMedicalHistory(@PathVariable int Id){
         return ResponseEntity.ok(medicalHistoryService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-medical-history/{Id}")
+    @Operation(summary = "delete sort medical history")
+    public ResponseEntity<MessageResponse> sortDeleteMedicalHistory(@PathVariable int Id){
+        return ResponseEntity.ok(medicalHistoryService.sortDeleteMedicalHistory(Id));
     }
 }

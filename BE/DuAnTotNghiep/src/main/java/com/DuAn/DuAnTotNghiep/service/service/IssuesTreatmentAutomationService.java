@@ -17,4 +17,6 @@ public interface IssuesTreatmentAutomationService {
     IssuesTreatmentAutomation updateIssuesTreatmentAutomation(int issuesTreatmentAutomationId, IssuesTreatmentAutomationRequest issuesTreatmentAutomationRequest);
 
     MessageResponse delete(int issuesTreatmentAutomationId);
+
+    MessageResponse sortDeleteIssuesTreatmentAutomation(int issuesTreatmentAutomationId);
 }

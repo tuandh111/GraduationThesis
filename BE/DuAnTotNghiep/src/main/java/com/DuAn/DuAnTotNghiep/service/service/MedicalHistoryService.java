@@ -18,4 +18,6 @@ public interface MedicalHistoryService {
     MedicalHistory updateMedicalHistory(int medicalHistoryId, MedicalHistoryRequest medicalHistoryRequest);
 
     MessageResponse delete(int medicalHistoryId);
+
+    MessageResponse sortDeleteMedicalHistory(int medicalHistoryId);
 }

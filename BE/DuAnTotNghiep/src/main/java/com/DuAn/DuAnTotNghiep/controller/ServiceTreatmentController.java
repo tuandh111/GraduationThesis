@@ -22,7 +22,7 @@ import java.util.List;
 public class ServiceTreatmentController {
     @Autowired
     ServiceTreatmentService servicetreatmentService;
-    @GetMapping("list-service-treatment")
+    @GetMapping("service-treatment")
     @Operation(summary = "List service treatment")
     public ResponseEntity<List<ServiceTreatment>> getAllServiceTreatment() {
         return ResponseEntity.ok(servicetreatmentService.findAllServiceTreatment());
@@ -33,7 +33,7 @@ public class ServiceTreatmentController {
     public ResponseEntity<ServiceTreatment> getServiceTreatmentId( @PathVariable Integer Id) {
         return ResponseEntity.ok(servicetreatmentService.findByServiceTreatment(Id));
     }
-    @PostMapping("save-service-treatment")
+    @PostMapping("service-treatment")
     @Operation(summary = "Save service treatment")
     public ResponseEntity<ServiceTreatment> saveServiceTreatment(@Valid @RequestBody ServiceTreatmentRequest serviceTreatmentRequest){
         return ResponseEntity.ok(servicetreatmentService.saveServiceTreatment(serviceTreatmentRequest));
@@ -44,9 +44,15 @@ public class ServiceTreatmentController {
         return ResponseEntity.ok(servicetreatmentService.updateServiceTreatment(Id, serviceTreatmentRequest));
     }
 
-    @DeleteMapping("delete-service-treatment/{Id}")
+    @DeleteMapping("service-treatment/{Id}")
     @Operation(summary = "delete service treatment")
     public ResponseEntity<MessageResponse> deleteServiceTreatment(@PathVariable int Id){
         return ResponseEntity.ok(servicetreatmentService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-service-treatment/{Id}")
+    @Operation(summary = "delete sort service treatment")
+    public ResponseEntity<MessageResponse> sortDeleteServiceTreatment(@PathVariable int Id){
+        return ResponseEntity.ok(servicetreatmentService.sortDeleteServiceTreatment(Id));
     }
 }

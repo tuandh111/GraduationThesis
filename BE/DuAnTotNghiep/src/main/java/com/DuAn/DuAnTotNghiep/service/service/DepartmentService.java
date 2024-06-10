@@ -18,4 +18,6 @@ public interface DepartmentService {
     Department updateDepartment(int departmentId, DepartmentRequest departmentRequest);
 
     MessageResponse delete(int departmentId);
+
+    MessageResponse sortDeleteDepartment(int departmentId);
 }

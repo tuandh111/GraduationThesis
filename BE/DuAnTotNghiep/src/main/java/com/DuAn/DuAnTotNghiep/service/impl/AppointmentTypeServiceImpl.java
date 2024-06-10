@@ -58,4 +58,20 @@ public class AppointmentTypeServiceImpl implements AppointmentTypeService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse sortDeleteAppointmentType(int appointmentTypeId) {
+        try {
+            var appointmentType = AppointmentType
+                                          .builder()
+                                          .appointment_TypeId(appointmentTypeId)
+                                          .isDeleted(true)
+                                          .build();
+            appointmentTypeRepository.save(appointmentType);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }

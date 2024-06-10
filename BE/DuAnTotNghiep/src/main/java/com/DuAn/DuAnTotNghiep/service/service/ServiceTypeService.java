@@ -16,4 +16,6 @@ public interface ServiceTypeService {
     ServiceType updateServiceType(int serviceTypeId, ServiceTypeRequest serviceTypeRequest);
 
     MessageResponse delete(int serviceTypeId);
+
+    MessageResponse sortDeleteServiceType(int serviceTypeId);
 }

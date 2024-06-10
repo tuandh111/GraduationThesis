@@ -24,7 +24,7 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
-    @GetMapping("list-role")
+    @GetMapping("role")
     @Operation(summary = "List Role")
     public ResponseEntity<List<Role>> getAllRole() {
         return ResponseEntity.ok(roleService.findAll());
@@ -35,20 +35,26 @@ public class RoleController {
     public ResponseEntity<Role> getRoleId( @PathVariable Integer Id) {
         return ResponseEntity.ok(roleService.findByRoleId(Id));
     }
-    @PostMapping("save-role")
+    @PostMapping("role")
     @Operation(summary = "Save role")
     public ResponseEntity<Role> saveRole(@Valid  @RequestBody RoleRequest roleRequest){
         return ResponseEntity.ok(roleService.saveRole(roleRequest));
     }
-    @PutMapping("update-role/{Id}")
+    @PutMapping("role/{Id}")
     @Operation(summary = "update role")
     public ResponseEntity<Role> updateRole(@PathVariable int Id, @Valid @RequestBody RoleRequest roleRequest){
         return ResponseEntity.ok(roleService.updateRole(Id, roleRequest));
     }
 
-    @DeleteMapping("delete-role/{Id}")
+    @DeleteMapping("role/{Id}")
     @Operation(summary = "delete role")
     public ResponseEntity<MessageResponse> deleteRole(@PathVariable int Id){
         return ResponseEntity.ok(roleService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-role/{Id}")
+    @Operation(summary = "delete sort role")
+    public ResponseEntity<MessageResponse> sortDeleteRole(@PathVariable int Id){
+        return ResponseEntity.ok(roleService.sortDeleteRole(Id));
     }
 }

@@ -24,7 +24,7 @@ import java.util.List;
 public class SpecialtyController {
     @Autowired
     SpecialtyService specialtyService;
-    @GetMapping("list-specialty")
+    @GetMapping("specialty")
     @Operation(summary = "List specialty")
     public ResponseEntity<List<Specialty>> getAllSpecialty() {
         return ResponseEntity.ok(specialtyService.findAll());
@@ -35,20 +35,26 @@ public class SpecialtyController {
     public ResponseEntity<Specialty> getSpecialtyId( @PathVariable Integer Id) {
         return ResponseEntity.ok(specialtyService.findBySpecialtyId(Id));
     }
-    @PostMapping("save-specialty")
+    @PostMapping("specialty")
     @Operation(summary = "Save specialty")
     public ResponseEntity<Specialty> saveSpecialty(@Valid @RequestBody SpecialtyRequest specialtyRequest){
         return ResponseEntity.ok(specialtyService.saveSpecialty(specialtyRequest));
     }
-    @PutMapping("update-specialty/{Id}")
+    @PutMapping("specialty/{Id}")
     @Operation(summary = "update specialty")
     public ResponseEntity<Specialty> updateSpecialty(@PathVariable int Id, @Valid @RequestBody SpecialtyRequest specialtyRequest){
         return ResponseEntity.ok(specialtyService.updateSpecialty(Id, specialtyRequest));
     }
 
-    @DeleteMapping("delete-specialty/{Id}")
+    @DeleteMapping("specialty/{Id}")
     @Operation(summary = "delete specialty")
     public ResponseEntity<MessageResponse> deleteSpecialty(@PathVariable int Id){
         return ResponseEntity.ok(specialtyService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-specialty/{Id}")
+    @Operation(summary = "delete sort specialty")
+    public ResponseEntity<MessageResponse> sortDeleteSpecialty(@PathVariable int Id){
+        return ResponseEntity.ok(specialtyService.sortDeleteSpecialty(Id));
     }
 }

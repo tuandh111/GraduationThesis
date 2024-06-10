@@ -44,7 +44,8 @@ public class ShiftServiceImpl implements ShiftService {
                             .name(shiftRequest.getShiftName())
                             .description(shiftRequest.getDescription())
                             .build();
-        return shiftRepository.save(shift);
+        shiftRepository.save(shift);
+        return shift;
     }
 
     @Override
@@ -54,8 +55,24 @@ public class ShiftServiceImpl implements ShiftService {
             return new MessageResponse("successfully");
         }catch (Exception e){
             e.printStackTrace();
-
+            return new MessageResponse("fail");
         }
-        return new MessageResponse("fail");
+
+    }
+
+    @Override
+    public MessageResponse sortDeleteShift(int ShiftId) {
+        try {
+            var shift = Shift
+                                .builder()
+                                .shiftId(ShiftId)
+                                .isDeleted(true)
+                                .build();
+            shiftRepository.save(shift);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
     }
 }

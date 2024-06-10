@@ -50,10 +50,27 @@ public class DepartmentServerImpl implements DepartmentService {
     public MessageResponse delete(int departmentId) {
         try {
             departmentRepository.deleteById(departmentId);
+            return new MessageResponse("successfully");
         }catch (Exception e){
             e.printStackTrace();
             return new MessageResponse("fail");
         }
-        return null;
+
+    }
+
+    @Override
+    public MessageResponse sortDeleteDepartment(int departmentId) {
+        try {
+            var department = Department
+                                     .builder()
+                                     .departmentId(departmentId)
+                                     .isDeleted(true)
+                                     .build();
+            departmentRepository.save(department);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
     }
 }

@@ -42,6 +42,7 @@ public class AppointmentStatusServiceImpl implements AppointmentStatusService {
     public AppointmentStatus updateAppointmentStatus(int appointmentStatusId, AppointmentStatusRequest appointmentStatusRequest) {
         var appointmentStatus = AppointmentStatus
                                         .builder()
+                                        .appointment_StatusId(appointmentStatusId)
                                         .status(appointmentStatusRequest.getStatus())
                                         .description(appointmentStatusRequest.getDescription())
                                         .build();
@@ -54,6 +55,22 @@ public class AppointmentStatusServiceImpl implements AppointmentStatusService {
     public MessageResponse delete(int appointmentStatusId) {
         try {
             appointmentStatusRepository.deleteById(appointmentStatusId);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
+
+    @Override
+    public MessageResponse sortDeleteAppointmentStatus(int appointmentStatusId) {
+        try {
+            var appointmentStatus = AppointmentStatus
+                                            .builder()
+                                            .appointment_StatusId(appointmentStatusId)
+                                            .isDeleted(true)
+                                            .build();
+            appointmentStatusRepository.save(appointmentStatus);
             return new MessageResponse("successfully");
         }catch (Exception e){
             e.printStackTrace();

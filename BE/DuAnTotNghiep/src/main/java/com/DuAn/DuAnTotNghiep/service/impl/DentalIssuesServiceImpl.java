@@ -58,4 +58,20 @@ public class DentalIssuesServiceImpl implements DentalIssuesService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse sortDeleteDentalIssues(int dentalIssuesId) {
+        try {
+            var dentalIssues= DentalIssues
+                                      .builder()
+                                      .dentalIssuesId(dentalIssuesId)
+                                      .isDeleted(true)
+                                      .build();
+            dentalIssuesRepository.save(dentalIssues);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }

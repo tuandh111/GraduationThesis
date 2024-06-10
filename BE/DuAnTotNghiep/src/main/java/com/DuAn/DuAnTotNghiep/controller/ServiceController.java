@@ -23,7 +23,7 @@ public class ServiceController {
 
     @Autowired
     ServiceService serviceService;
-    @GetMapping("list-service")
+    @GetMapping("service")
     @Operation(summary = "List service")
     public ResponseEntity<List<Service>> getAllServiceType() {
         return ResponseEntity.ok(serviceService.findAllService());
@@ -34,7 +34,7 @@ public class ServiceController {
     public ResponseEntity<Service> getServiceId( @PathVariable Integer Id) {
         return ResponseEntity.ok(serviceService.findByServiceId(Id));
     }
-    @PostMapping("save-service")
+    @PostMapping("service")
     @Operation(summary = "Save service")
     public ResponseEntity<Service> saveService(@Valid @RequestBody ServiceRequest serviceRequest){
         return ResponseEntity.ok(serviceService.saveService(serviceRequest));
@@ -45,9 +45,15 @@ public class ServiceController {
         return ResponseEntity.ok(serviceService.updateService(Id, serviceRequest));
     }
 
-    @DeleteMapping("delete-service/{Id}")
+    @DeleteMapping("service/{Id}")
     @Operation(summary = "delete service ")
     public ResponseEntity<MessageResponse> deleteService(@PathVariable int Id){
         return ResponseEntity.ok(serviceService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-service/{Id}")
+    @Operation(summary = "delete sort service ")
+    public ResponseEntity<MessageResponse> sortDeleteService(@PathVariable int Id){
+        return ResponseEntity.ok(serviceService.sortDeleteService(Id));
     }
 }

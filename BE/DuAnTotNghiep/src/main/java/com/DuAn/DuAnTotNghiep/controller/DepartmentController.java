@@ -25,7 +25,7 @@ import java.util.List;
 public class DepartmentController {
     @Autowired
     DepartmentService departmentService;
-    @GetMapping("list-department")
+    @GetMapping("department")
     @Operation(summary = "List department")
     public ResponseEntity<List<Department>> getAllDepartment() {
         return ResponseEntity.ok(departmentService.findAll());
@@ -36,7 +36,7 @@ public class DepartmentController {
     public ResponseEntity<Department> getDepartmentId( @PathVariable Integer Id) {
         return ResponseEntity.ok(departmentService.findByDepartmentId(Id));
     }
-    @PostMapping("save-Department")
+    @PostMapping("department")
     @Operation(summary = "Save Department")
     public ResponseEntity<Department> saveDepartment(@Valid @RequestBody DepartmentRequest departmentRequest){
         return ResponseEntity.ok(departmentService.saveDepartment(departmentRequest));
@@ -47,9 +47,15 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentService.updateDepartment(Id, departmentRequest));
     }
 
-    @DeleteMapping("delete-department/{Id}")
+    @DeleteMapping("department/{Id}")
     @Operation(summary = "delete abnormality")
     public ResponseEntity<MessageResponse> deleteDepartment(@PathVariable int Id){
         return ResponseEntity.ok(departmentService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-department/{Id}")
+    @Operation(summary = "delete sort abnormality")
+    public ResponseEntity<MessageResponse> sortDeleteDepartment(@PathVariable int Id){
+        return ResponseEntity.ok(departmentService.sortDeleteDepartment(Id));
     }
 }

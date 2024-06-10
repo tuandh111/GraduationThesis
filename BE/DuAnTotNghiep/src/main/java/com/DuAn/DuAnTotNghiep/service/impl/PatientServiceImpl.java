@@ -69,4 +69,20 @@ public class PatientServiceImpl implements PatientService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse sortDeletePatient(int patientId) {
+        try {
+            var patient = Patient
+                                  .builder()
+                                  .patientId(patientId)
+                                  .isDeleted(true)
+                                  .build();
+            patientRepository.save(patient);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }

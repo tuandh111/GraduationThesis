@@ -31,7 +31,7 @@ public class ServiceServiceImpl implements ServiceService {
     public com.DuAn.DuAnTotNghiep.entities.Service saveService(ServiceRequest serviceRequest) {
         var service = com.DuAn.DuAnTotNghiep.entities.Service
                               .builder()
-                              .seviceName(serviceRequest.getServiceName())
+                              .serviceName(serviceRequest.getServiceName())
                               .price(serviceRequest.getPrice())
                               .timeEstimate(serviceRequest.getTimeEstimate())
                               .serviceType(serviceTypeRepository.findById(serviceRequest.getServiceTypeId()).orElseThrow(null))
@@ -46,7 +46,7 @@ public class ServiceServiceImpl implements ServiceService {
         var service = com.DuAn.DuAnTotNghiep.entities.Service
                               .builder()
                               .serviceId(serviceId)
-                              .seviceName(serviceRequest.getServiceName())
+                              .serviceName(serviceRequest.getServiceName())
                               .price(serviceRequest.getPrice())
                               .timeEstimate(serviceRequest.getTimeEstimate())
                               .serviceType(serviceTypeRepository.findById(serviceRequest.getServiceTypeId()).orElseThrow(null))
@@ -60,6 +60,21 @@ public class ServiceServiceImpl implements ServiceService {
     public MessageResponse delete(int serviceId) {
         try {
             serviceRepository.deleteById(serviceId);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            return new MessageResponse("fail");
+        }
+    }
+
+    @Override
+    public MessageResponse sortDeleteService(int serviceId) {
+        try {
+            var service = com.DuAn.DuAnTotNghiep.entities.Service
+                                  .builder()
+                                  .serviceId(serviceId)
+                                  .isDeleted(true)
+                                  .build();
+            serviceRepository.save(service);
             return new MessageResponse("successfully");
         }catch (Exception e){
             return new MessageResponse("fail");

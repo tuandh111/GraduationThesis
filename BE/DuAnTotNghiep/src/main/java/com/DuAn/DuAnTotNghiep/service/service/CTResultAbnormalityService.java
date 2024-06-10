@@ -18,4 +18,6 @@ public interface CTResultAbnormalityService {
     CTResultAbnormality updateCTResultAbnormality(int cTResultAbnormalityId, CTResultAbnormalityRequest ctResultAbnormalityRequest);
 
     MessageResponse delete(int cTResultAbnormalityId);
+
+    MessageResponse sortDeleteCTResultAbnormality(int cTResultAbnormalityId);
 }

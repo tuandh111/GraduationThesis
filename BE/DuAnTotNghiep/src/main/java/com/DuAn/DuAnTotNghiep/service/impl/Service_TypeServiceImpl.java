@@ -58,4 +58,20 @@ public class Service_TypeServiceImpl implements ServiceTypeService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse sortDeleteServiceType(int serviceTypeId) {
+        try {
+            var serviceType = ServiceType
+                                      .builder()
+                                      .service_TypeId(serviceTypeId)
+                                      .isDeleted(true)
+                                      .build();
+            serviceTypeRepository.save(serviceType);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }

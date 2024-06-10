@@ -18,4 +18,6 @@ public interface AppointmentService {
     Appointment updateAppointment(int appointmentId, AppointmentRequest appointmentRequest);
 
     MessageResponse delete(int appointmentId);
+
+    MessageResponse sortDeleteAppointment(int appointmentId);
 }

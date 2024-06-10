@@ -58,6 +58,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     public Appointment updateAppointment(int appointmentId, AppointmentRequest appointmentRequest) {
         var appointment = Appointment
                                   .builder()
+                                  .appointmentId(appointmentId)
                                   .doctor(doctorRepository.findById(appointmentRequest.getDoctorId()).orElseThrow(null))
                                   .appointmentType(appointmentTypeRepository.findById(appointmentRequest.getAppointmentType()).orElseThrow(null))
                                   .createAt(Appointment.builder().build().getCreateAt())
@@ -75,6 +76,22 @@ public class AppointmentServiceImpl implements AppointmentService {
     public MessageResponse delete(int appointmentId) {
         try {
             appointmentRepository.deleteById(appointmentId);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
+
+    @Override
+    public MessageResponse sortDeleteAppointment(int appointmentId) {
+        try {
+            var appointment = Appointment
+                                      .builder()
+                                      .appointmentId(appointmentId)
+                                      .isDeleted(true)
+                                      .build();
+            appointmentRepository.save(appointment);
             return new MessageResponse("successfully");
         }catch (Exception e){
             e.printStackTrace();

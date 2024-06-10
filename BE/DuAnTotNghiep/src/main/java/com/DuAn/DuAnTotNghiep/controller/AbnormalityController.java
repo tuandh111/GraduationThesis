@@ -24,7 +24,7 @@ import java.util.List;
 public class AbnormalityController {
     @Autowired
     AbnormalityService abnormalityService;
-    @GetMapping("list-abnormality")
+    @GetMapping("abnormality")
     @Operation(summary = "List abnormality")
     public ResponseEntity<List<Abnormality>> getAllAbnormality() {
         return ResponseEntity.ok(abnormalityService.findAll());
@@ -35,7 +35,7 @@ public class AbnormalityController {
     public ResponseEntity<Abnormality> getAbnormalityId( @PathVariable Integer Id) {
         return ResponseEntity.ok(abnormalityService.findByAbnormalityId(Id));
     }
-    @PostMapping("save-abnormality")
+    @PostMapping("abnormality")
     @Operation(summary = "Save abnormality")
     public ResponseEntity<Abnormality> saveAbnormality(@Valid @RequestBody AbnormalityRequest abnormalityRequest){
         return ResponseEntity.ok(abnormalityService.saveAbnormality(abnormalityRequest));
@@ -46,9 +46,15 @@ public class AbnormalityController {
         return ResponseEntity.ok(abnormalityService.updateAbnormality(Id, abnormalityRequest));
     }
 
-    @DeleteMapping("delete-abnormality/{Id}")
+    @DeleteMapping("abnormality/{Id}")
     @Operation(summary = "delete abnormality")
     public ResponseEntity<MessageResponse> deleteAbnormality(@PathVariable int Id){
         return ResponseEntity.ok(abnormalityService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-abnormality/{Id}")
+    @Operation(summary = "delete sort abnormality")
+    public ResponseEntity<MessageResponse> sortDeleteAbnormality(@PathVariable int Id){
+        return ResponseEntity.ok(abnormalityService.softDeleteAbnormality(Id));
     }
 }

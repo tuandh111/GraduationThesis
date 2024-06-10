@@ -57,4 +57,19 @@ public class TreatmentServiceImpl implements TreatmentService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse sortDeleteTreatment(int treatmentId) {
+        try {
+            var treatment = Treatment
+                                    .builder()
+                                    .treatmentId(treatmentId)
+                                    .isDeleted(true)
+                                    .build();
+            treatmentRepository.save(treatment);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            return new MessageResponse("fail");
+        }
+    }
 }

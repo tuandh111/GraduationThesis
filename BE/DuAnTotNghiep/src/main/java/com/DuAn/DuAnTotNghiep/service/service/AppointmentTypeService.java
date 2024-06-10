@@ -19,4 +19,6 @@ public interface AppointmentTypeService {
     AppointmentType updateAppointmentType(int appointmentTypeId, AppointmentTypeRequest appointmentTypeRequest);
 
     MessageResponse delete(int appointmentTypeId);
+
+    MessageResponse sortDeleteAppointmentType(int appointmentTypeId);
 }

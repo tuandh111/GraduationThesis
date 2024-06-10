@@ -58,8 +58,26 @@ public class RoleServiceImpl implements RoleService {
             return new MessageResponse("successfully");
         }catch (Exception e){
             e.printStackTrace();
+            return new MessageResponse("fail");
 
         }
-        return new MessageResponse("fail");
+
+    }
+
+    @Override
+    public MessageResponse sortDeleteRole(int roleId) {
+        try {
+            var role = Role
+                               .builder()
+                               .roleId(roleId)
+                               .isDeleted(true)
+                               .build();
+            roleRepositoty.save(role);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+
+        }
     }
 }

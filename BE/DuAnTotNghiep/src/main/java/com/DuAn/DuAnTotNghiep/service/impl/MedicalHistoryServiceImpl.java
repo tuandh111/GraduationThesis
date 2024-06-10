@@ -60,4 +60,20 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse sortDeleteMedicalHistory(int medicalHistoryId) {
+        try {
+            var medicalHistory = MedicalHistory
+                                         .builder()
+                                         .medicalHistoryId(medicalHistoryId)
+                                         .isDeleted(true)
+                                         .build();
+            medicalHistoryRepository.save(medicalHistory);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }

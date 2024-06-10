@@ -24,7 +24,7 @@ import java.util.List;
 public class AppointmentTypeController {
     @Autowired
     AppointmentTypeService appointmentTypeService;
-    @GetMapping("list-appointment-type")
+    @GetMapping("appointment-type")
     @Operation(summary = "List appointment type")
     public ResponseEntity<List<AppointmentType>> getAllAppointmentType() {
         return ResponseEntity.ok(appointmentTypeService.findAll());
@@ -35,7 +35,7 @@ public class AppointmentTypeController {
     public ResponseEntity<AppointmentType> getAppointmentTypeId( @PathVariable Integer Id) {
         return ResponseEntity.ok(appointmentTypeService.findByAppointmentTypeId(Id));
     }
-    @PostMapping("save-appointment-type")
+    @PostMapping("appointment-type")
     @Operation(summary = "Save appointment type")
     public ResponseEntity<AppointmentType> saveAppointmentType(@Valid @RequestBody AppointmentTypeRequest appointmentTypeRequest){
         return ResponseEntity.ok(appointmentTypeService.saveAppointmentType(appointmentTypeRequest));
@@ -46,9 +46,15 @@ public class AppointmentTypeController {
         return ResponseEntity.ok(appointmentTypeService.updateAppointmentType(Id, appointmentTypeRequest));
     }
 
-    @DeleteMapping("delete-appointment-type/{Id}")
+    @DeleteMapping("appointment-type/{Id}")
     @Operation(summary = "delete appointment type")
     public ResponseEntity<MessageResponse> deleteAppointmentType(@PathVariable int Id){
         return ResponseEntity.ok(appointmentTypeService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-appointment-type/{Id}")
+    @Operation(summary = "delete sort appointment type")
+    public ResponseEntity<MessageResponse> sortDeleteAppointmentType(@PathVariable int Id){
+        return ResponseEntity.ok(appointmentTypeService.sortDeleteAppointmentType(Id));
     }
 }

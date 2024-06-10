@@ -25,7 +25,7 @@ import java.util.List;
 public class DistributionSuppliesController {
     @Autowired
     DistributionSuppliesService distributionSuppliesService;
-    @GetMapping("list-distribution-supplies")
+    @GetMapping("distribution-supplies")
     @Operation(summary = "List distribution supplies")
     public ResponseEntity<List<DistributionSupplies>> getAllDistributionSupplies() {
         return ResponseEntity.ok(distributionSuppliesService.findAll());
@@ -36,20 +36,26 @@ public class DistributionSuppliesController {
     public ResponseEntity<DistributionSupplies> getDistributionSuppliesId( @PathVariable Integer Id) {
         return ResponseEntity.ok(distributionSuppliesService.findByDistributionSuppliesId(Id));
     }
-    @PostMapping("save-distribution-supplies")
+    @PostMapping("distribution-supplies")
     @Operation(summary = "Save distribution supplies")
     public ResponseEntity<DistributionSupplies> saveDistributionSupplies(@Valid @RequestBody DistributionSuppliesRequest distributionSuppliesRequest){
         return ResponseEntity.ok(distributionSuppliesService.saveDistributionSupplies(distributionSuppliesRequest));
     }
-    @PutMapping("update-distribution-supplies/{Id}")
+    @PutMapping("distribution-supplies/{Id}")
     @Operation(summary = "update doctor")
     public ResponseEntity<DistributionSupplies> updateDistributionSupplies(@PathVariable int Id, @Valid @RequestBody DistributionSuppliesRequest distributionSuppliesRequest){
         return ResponseEntity.ok(distributionSuppliesService.updateDistributionSupplies(Id, distributionSuppliesRequest));
     }
 
-    @DeleteMapping("delete-distribution-supplies/{Id}")
+    @DeleteMapping("distribution-supplies/{Id}")
     @Operation(summary = "delete distribution supplies")
     public ResponseEntity<MessageResponse> deleteDistributionSupplies(@PathVariable int Id){
         return ResponseEntity.ok(distributionSuppliesService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-distribution-supplies/{Id}")
+    @Operation(summary = "delete sort distribution supplies")
+    public ResponseEntity<MessageResponse> sortDeleteDistributionSupplies(@PathVariable int Id){
+        return ResponseEntity.ok(distributionSuppliesService.sortDeleteDistributionSupplies(Id));
     }
 }

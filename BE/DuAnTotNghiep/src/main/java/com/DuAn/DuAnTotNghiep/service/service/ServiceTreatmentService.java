@@ -16,4 +16,6 @@ public interface ServiceTreatmentService {
     ServiceTreatment updateServiceTreatment(int serviceTreatmentId, ServiceTreatmentRequest serviceTreatmentRequest);
 
     MessageResponse delete(int serviceTreatmentId);
+
+    MessageResponse sortDeleteServiceTreatment(int serviceTreatmentId);
 }

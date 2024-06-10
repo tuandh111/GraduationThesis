@@ -18,4 +18,6 @@ public interface SpecialtyService {
     Specialty updateSpecialty(int specialtyId, SpecialtyRequest specialtyRequest);
 
     MessageResponse delete(int specialtyId);
+
+    MessageResponse sortDeleteSpecialty(int specialtyId);
 }

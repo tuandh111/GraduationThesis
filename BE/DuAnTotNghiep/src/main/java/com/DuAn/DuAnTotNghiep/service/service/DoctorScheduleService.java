@@ -18,4 +18,6 @@ public interface DoctorScheduleService {
     DoctorSchedule updateDoctorSchedule(int DoctorScheduleId, DoctorScheduleRequest doctorScheduleRequest);
 
     MessageResponse delete(int doctorScheduleId);
+
+    MessageResponse sortDeleteDoctorSchedule(int doctorScheduleId);
 }

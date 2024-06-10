@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -22,7 +21,7 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer serviceId;
 
-    private String seviceName;
+    private String serviceName;
 
     private boolean isDeleted = false;
 

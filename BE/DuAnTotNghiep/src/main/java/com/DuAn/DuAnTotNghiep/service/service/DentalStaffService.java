@@ -18,4 +18,6 @@ public interface DentalStaffService {
     DentalStaff updateDentalStaff(int dentalStaffId, DentalStaffRequest dentalStaffRequest);
 
     MessageResponse delete(int dentalStaffId);
+
+    MessageResponse sortDeleteDentalStaff(int dentalStaffId);
 }

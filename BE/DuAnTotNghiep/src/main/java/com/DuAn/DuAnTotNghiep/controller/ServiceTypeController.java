@@ -22,7 +22,7 @@ import java.util.List;
 public class ServiceTypeController {
     @Autowired
     ServiceTypeService serviceTypeService;
-    @GetMapping("list-service-type")
+    @GetMapping("service-type")
     @Operation(summary = "List service type")
     public ResponseEntity<List<ServiceType>> getAllServiceType() {
         return ResponseEntity.ok(serviceTypeService.findAllServiceType());
@@ -33,7 +33,7 @@ public class ServiceTypeController {
     public ResponseEntity<ServiceType> getServiceTypeId( @PathVariable Integer Id) {
         return ResponseEntity.ok(serviceTypeService.findByServiceTypeId(Id));
     }
-    @PostMapping("save-service-type")
+    @PostMapping("service-type")
     @Operation(summary = "Save service type")
     public ResponseEntity<ServiceType> saveServiceType(@Valid @RequestBody ServiceTypeRequest serviceTypeRequest){
         return ResponseEntity.ok(serviceTypeService.saveServiceType(serviceTypeRequest));
@@ -44,9 +44,15 @@ public class ServiceTypeController {
         return ResponseEntity.ok(serviceTypeService.updateServiceType(Id, serviceTypeRequest));
     }
 
-    @DeleteMapping("delete-service-type/{Id}")
+    @DeleteMapping("service-type/{Id}")
     @Operation(summary = "delete service type")
     public ResponseEntity<MessageResponse> deleteServiceType(@PathVariable int Id){
         return ResponseEntity.ok(serviceTypeService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-service-type/{Id}")
+    @Operation(summary = "delete sort service type")
+    public ResponseEntity<MessageResponse> sortDeleteServiceType(@PathVariable int Id){
+        return ResponseEntity.ok(serviceTypeService.sortDeleteServiceType(Id));
     }
 }

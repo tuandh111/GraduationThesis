@@ -18,4 +18,6 @@ public interface AppointmentCTResultService {
     AppointmentCTResult updateAppointmentCTResult(int appointmentCTResultId, AppointmentCTResultRequest appointmentCTResultRequest);
 
     MessageResponse deleteById(int AppointmentCTResultId);
+
+    MessageResponse sortDeleteAppointmentCTResult(int AppointmentCTResultId);
 }

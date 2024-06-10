@@ -24,7 +24,7 @@ import java.util.List;
 public class AppointmentCTResultController {
     @Autowired
     AppointmentCTResultService appointmentCTResultService;
-    @GetMapping("list-appointment-ct-result")
+    @GetMapping("appointment-ct-result")
     @Operation(summary = "List appointment ct result")
     public ResponseEntity<List<AppointmentCTResult>> getAllAppointmentCTResult() {
         return ResponseEntity.ok(appointmentCTResultService.findAll());
@@ -35,7 +35,7 @@ public class AppointmentCTResultController {
     public ResponseEntity<AppointmentCTResult> getAppointmentCTResultId( @PathVariable Integer Id) {
         return ResponseEntity.ok(appointmentCTResultService.findByAppointmentCTResultId(Id));
     }
-    @PostMapping("save-appointment-ct-result")
+    @PostMapping("appointment-ct-result")
     @Operation(summary = "save appointment ct result")
     public ResponseEntity<AppointmentCTResult> saveAppointmentCTResult(@Valid @RequestBody AppointmentCTResultRequest appointmentCTResultRequest){
         return ResponseEntity.ok(appointmentCTResultService.saveAppointmentCTResult(appointmentCTResultRequest));
@@ -46,9 +46,15 @@ public class AppointmentCTResultController {
         return ResponseEntity.ok(appointmentCTResultService.updateAppointmentCTResult(Id, appointmentCTResultRequest));
     }
 
-    @DeleteMapping("delete-appointment-ct-result/{Id}")
+    @DeleteMapping("appointment-ct-result/{Id}")
     @Operation(summary = "delete abnormality")
     public ResponseEntity<MessageResponse> deleteAppointmentCTResult(@PathVariable int Id){
         return ResponseEntity.ok(appointmentCTResultService.deleteById(Id));
+    }
+
+    @DeleteMapping("sort-delete-appointment-ct-result/{Id}")
+    @Operation(summary = "delete sort abnormality")
+    public ResponseEntity<MessageResponse> sortDeleteAppointmentCTResult(@PathVariable int Id){
+        return ResponseEntity.ok(appointmentCTResultService.sortDeleteAppointmentCTResult(Id));
     }
 }

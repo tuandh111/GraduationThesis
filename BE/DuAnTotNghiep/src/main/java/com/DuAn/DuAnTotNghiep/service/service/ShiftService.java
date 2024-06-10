@@ -16,4 +16,6 @@ public interface ShiftService {
     Shift updateShift(int shiftId, ShiftRequest shiftRequest);
 
     MessageResponse delete(int ShiftId);
+
+    MessageResponse sortDeleteShift(int ShiftId);
 }

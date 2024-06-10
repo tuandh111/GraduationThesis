@@ -67,4 +67,20 @@ public class IssuesTreatmentAutomationServiceImpl implements IssuesTreatmentAuto
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse sortDeleteIssuesTreatmentAutomation(int issuesTreatmentAutomationId) {
+        try {
+            var issuesTreatmentAutomation =IssuesTreatmentAutomation
+                                                   .builder()
+                                                   .IssuesTreatmentAutomationId(issuesTreatmentAutomationId)
+                                                   .isDeleted(true)
+                                                   .build();
+            issuesTreatmentAutomationRepository.save(issuesTreatmentAutomation);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }

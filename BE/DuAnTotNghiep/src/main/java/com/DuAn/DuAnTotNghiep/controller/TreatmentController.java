@@ -24,7 +24,7 @@ import java.util.List;
 public class TreatmentController {
     @Autowired
     TreatmentService treatmentService;
-    @GetMapping("list-treatment")
+    @GetMapping("treatment")
     @Operation(summary = "List treatment")
     public ResponseEntity<List<Treatment>> getAllTreatment() {
         return ResponseEntity.ok(treatmentService.findAllTreatment());
@@ -35,7 +35,7 @@ public class TreatmentController {
     public ResponseEntity<Treatment> getTreatmentId( @PathVariable Integer Id) {
         return ResponseEntity.ok(treatmentService.findByTreatmentId(Id));
     }
-    @PostMapping("save-treatment")
+    @PostMapping("treatment")
     @Operation(summary = "Save treatment")
     public ResponseEntity<Treatment> saveTreatment(@Valid @RequestBody TreatmentRequest treatmentRequest){
         return ResponseEntity.ok(treatmentService.saveTreatment(treatmentRequest));
@@ -46,9 +46,15 @@ public class TreatmentController {
         return ResponseEntity.ok(treatmentService.updateTreatment(Id, treatmentRequest));
     }
 
-    @DeleteMapping("delete-treatment/{Id}")
+    @DeleteMapping("treatment/{Id}")
     @Operation(summary = "delete treatment")
     public ResponseEntity<MessageResponse> deleteTreatment(@PathVariable int Id){
         return ResponseEntity.ok(treatmentService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-treatment/{Id}")
+    @Operation(summary = "delete sort treatment")
+    public ResponseEntity<MessageResponse> sortDeleteTreatment(@PathVariable int Id){
+        return ResponseEntity.ok(treatmentService.sortDeleteTreatment(Id));
     }
 }

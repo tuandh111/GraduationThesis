@@ -18,4 +18,6 @@ public interface AppointmentStatusService {
     AppointmentStatus updateAppointmentStatus(int appointmentStatusId, AppointmentStatusRequest appointmentStatusRequest);
 
     MessageResponse delete(int appointmentStatusId);
+
+    MessageResponse sortDeleteAppointmentStatus(int appointmentStatusId);
 }

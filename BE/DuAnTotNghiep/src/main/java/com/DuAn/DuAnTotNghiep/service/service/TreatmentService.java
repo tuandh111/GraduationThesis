@@ -18,4 +18,6 @@ public interface TreatmentService {
     Treatment updateTreatment(int treatmentId, TreatmentRequest treatmentRequest);
 
     MessageResponse delete(int treatmentId);
+
+    MessageResponse sortDeleteTreatment(int treatmentId);
 }

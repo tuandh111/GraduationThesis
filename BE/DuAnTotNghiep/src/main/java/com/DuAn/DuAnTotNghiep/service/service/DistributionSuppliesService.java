@@ -19,4 +19,6 @@ public interface DistributionSuppliesService {
     DistributionSupplies updateDistributionSupplies(int distributionSuppliesId, DistributionSuppliesRequest distributionSuppliesRequest);
 
     MessageResponse delete(int distributionSuppliesId);
+
+    MessageResponse sortDeleteDistributionSupplies(int distributionSuppliesId);
 }

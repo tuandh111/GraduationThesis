@@ -24,7 +24,7 @@ import java.util.List;
 public class IssuesTreatmentAutomationController {
     @Autowired
     IssuesTreatmentAutomationService issuesTreatmentAutomationService;
-    @GetMapping("list-issues-treatment-automation")
+    @GetMapping("issues-treatment-automation")
     @Operation(summary = "List issues treatment automation")
     public ResponseEntity<List<IssuesTreatmentAutomation>> getAllIssuesTreatmentAutomation() {
         return ResponseEntity.ok(issuesTreatmentAutomationService.findAllIssuesTreatmentAutomation());
@@ -32,23 +32,29 @@ public class IssuesTreatmentAutomationController {
 
     @GetMapping("issues-treatment-automation-id/{Id}")
     @Operation(summary = "issues treatment automation")
-    public ResponseEntity<IssuesTreatmentAutomation> getIssuesTreatmentAutomation( @PathVariable Integer Id) {
+    public ResponseEntity<IssuesTreatmentAutomation> getIssuesTreatmentAutomationId( @PathVariable Integer Id) {
         return ResponseEntity.ok(issuesTreatmentAutomationService.findByIssuesTreatmentAutomationId(Id));
     }
-    @PostMapping("save-issues-treatment-automation")
+    @PostMapping("issues-treatment-automation")
     @Operation(summary = "issues treatment automation")
-    public ResponseEntity<IssuesTreatmentAutomation> saveAppointmentType(@Valid @RequestBody IssuesTreatmentAutomationRequest issuesTreatmentAutomationRequest){
+    public ResponseEntity<IssuesTreatmentAutomation> saveIssuesTreatmentAutomation(@Valid @RequestBody IssuesTreatmentAutomationRequest issuesTreatmentAutomationRequest){
         return ResponseEntity.ok(issuesTreatmentAutomationService.saveIssuesTreatmentAutomation(issuesTreatmentAutomationRequest));
     }
     @PutMapping("issues-treatment-automation/{Id}")
     @Operation(summary = "update issues treatment automation")
-    public ResponseEntity<IssuesTreatmentAutomation> updateAppointmentType(@PathVariable int Id, @Valid @RequestBody IssuesTreatmentAutomationRequest issuesTreatmentAutomationRequest){
+    public ResponseEntity<IssuesTreatmentAutomation> updateIssuesTreatmentAutomation(@PathVariable int Id, @Valid @RequestBody IssuesTreatmentAutomationRequest issuesTreatmentAutomationRequest){
         return ResponseEntity.ok(issuesTreatmentAutomationService.updateIssuesTreatmentAutomation(Id, issuesTreatmentAutomationRequest));
     }
 
-    @DeleteMapping("delete-issues-treatment-automation/{Id}")
+    @DeleteMapping("issues-treatment-automation/{Id}")
     @Operation(summary = "delete issues treatment automation")
-    public ResponseEntity<MessageResponse> deleteAppointmentType(@PathVariable int Id){
+    public ResponseEntity<MessageResponse> deleteIssuesTreatmentAutomation(@PathVariable int Id){
         return ResponseEntity.ok(issuesTreatmentAutomationService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-issues-treatment-automation/{Id}")
+    @Operation(summary = "delete sort issues treatment automation")
+    public ResponseEntity<MessageResponse> sortDeleteIssuesTreatmentAutomation(@PathVariable int Id){
+        return ResponseEntity.ok(issuesTreatmentAutomationService.sortDeleteIssuesTreatmentAutomation(Id));
     }
 }

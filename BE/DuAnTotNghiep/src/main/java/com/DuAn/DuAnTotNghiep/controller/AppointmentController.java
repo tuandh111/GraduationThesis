@@ -25,31 +25,39 @@ public class AppointmentController {
     @Autowired
     AppointmentService appointmentService;
 
-    @GetMapping("list-appointment")
+    @GetMapping("appointment")
     @Operation(summary = "List appointment")
-    public ResponseEntity<List<Appointment>> getAllAbnormality() {
+    public ResponseEntity<List<Appointment>> getAllAppointment() {
         return ResponseEntity.ok(appointmentService.findAllAppointment());
     }
 
     @GetMapping("appointment-id/{Id}")
     @Operation(summary = "dental appointment Id")
-    public ResponseEntity<Appointment> getAbnormalityId( @PathVariable Integer Id) {
+    public ResponseEntity<Appointment> getAppointmentId(@PathVariable Integer Id) {
         return ResponseEntity.ok(appointmentService.findByAppointmentId(Id));
     }
-    @PostMapping("save-appointment")
+
+    @PostMapping("appointment")
     @Operation(summary = "Save appointment")
-    public ResponseEntity<Appointment> saveAbnormality(@Valid @RequestBody AppointmentRequest appointmentRequest){
+    public ResponseEntity<Appointment> saveAppointment(@Valid @RequestBody AppointmentRequest appointmentRequest) {
         return ResponseEntity.ok(appointmentService.saveAppointment(appointmentRequest));
     }
+
     @PutMapping("appointment/{Id}")
     @Operation(summary = "update appointment")
-    public ResponseEntity<Appointment> updateAbnormality(@PathVariable int Id, @Valid @RequestBody AppointmentRequest appointmentRequest){
+    public ResponseEntity<Appointment> updateAppointment(@PathVariable int Id, @Valid @RequestBody AppointmentRequest appointmentRequest) {
         return ResponseEntity.ok(appointmentService.updateAppointment(Id, appointmentRequest));
     }
 
-    @DeleteMapping("delete-appointment/{Id}")
+    @DeleteMapping("appointment/{Id}")
     @Operation(summary = "delete appointment")
-    public ResponseEntity<MessageResponse> deleteAbnormality(@PathVariable int Id){
+    public ResponseEntity<MessageResponse> deleteAppointmentId(@PathVariable int Id) {
         return ResponseEntity.ok(appointmentService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-appointment/{Id}")
+    @Operation(summary = "delete sort appointment")
+    public ResponseEntity<MessageResponse> sortDeleteAppointmentId(@PathVariable int Id) {
+        return ResponseEntity.ok(appointmentService.sortDeleteAppointment(Id));
     }
 }

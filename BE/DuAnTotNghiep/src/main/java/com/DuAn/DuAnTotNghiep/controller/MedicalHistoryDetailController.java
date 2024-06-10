@@ -25,7 +25,7 @@ import java.util.List;
 public class MedicalHistoryDetailController {
     @Autowired
     MedicalHistoryDetailService medicalHistoryDetailService;
-    @GetMapping("list-medical-history-detail")
+    @GetMapping("medical-history-detail")
     @Operation(summary = "List medical history detail")
     public ResponseEntity<List<MedicalHistoryDetail>> getAllMedicalHistoryDetail() {
         return ResponseEntity.ok(medicalHistoryDetailService.findAll());
@@ -36,20 +36,26 @@ public class MedicalHistoryDetailController {
     public ResponseEntity<MedicalHistoryDetail> getMedicalHistoryDetail( @PathVariable Integer Id) {
         return ResponseEntity.ok(medicalHistoryDetailService.findByMedicalHistoryDetailId(Id));
     }
-    @PostMapping("save-medical-history-detail")
+    @PostMapping("medical-history-detail")
     @Operation(summary = "Save Medical History detail")
     public ResponseEntity<MedicalHistoryDetail> saveMedicalHistoryDetail(@Valid @RequestBody MedicalHistoryDetailRequest medicalHistoryDetailRequest){
         return ResponseEntity.ok(medicalHistoryDetailService.saveMedicalHistoryDetail(medicalHistoryDetailRequest));
     }
-    @PutMapping("update-medical-history-detail/{Id}")
+    @PutMapping("medical-history-detail/{Id}")
     @Operation(summary = "update medical history Detail")
     public ResponseEntity<MedicalHistoryDetail> updateMedicalHistoryDetail(@PathVariable int Id, @Valid @RequestBody MedicalHistoryDetailRequest medicalHistoryDetailRequest){
         return ResponseEntity.ok(medicalHistoryDetailService.updateMedicalHistoryDetail(Id, medicalHistoryDetailRequest));
     }
 
-    @DeleteMapping("delete-medical-history-detail/{Id}")
-    @Operation(summary = "delete medical history")
+    @DeleteMapping("medical-history-detail/{Id}")
+    @Operation(summary = "delete medical history detail")
     public ResponseEntity<MessageResponse> deleteMedicalHistoryDetail(@PathVariable int Id){
         return ResponseEntity.ok(medicalHistoryDetailService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-medical-history-detail/{Id}")
+    @Operation(summary = "delete sort medical history detail")
+    public ResponseEntity<MessageResponse> sortDeleteMedicalHistoryDetail(@PathVariable int Id){
+        return ResponseEntity.ok(medicalHistoryDetailService.sortDeleteMedicalHistoryDetail(Id));
     }
 }

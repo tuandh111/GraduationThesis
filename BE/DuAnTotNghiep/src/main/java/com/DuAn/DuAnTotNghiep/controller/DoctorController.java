@@ -24,7 +24,7 @@ import java.util.List;
 public class DoctorController {
     @Autowired
     DoctorService doctorService;
-    @GetMapping("list-doctor")
+    @GetMapping("doctor")
     @Operation(summary = "List doctor")
     public ResponseEntity<List<Doctor>> getAllDoctor() {
         return ResponseEntity.ok(doctorService.findAll());
@@ -35,20 +35,26 @@ public class DoctorController {
     public ResponseEntity<Doctor> getDoctorId( @PathVariable Integer Id) {
         return ResponseEntity.ok(doctorService.findByDoctorId(Id));
     }
-    @PostMapping("save-doctor")
+    @PostMapping("doctor")
     @Operation(summary = "Save doctor")
     public ResponseEntity<Doctor> saveDoctor(@Valid @RequestBody DoctorRequest doctorRequest){
         return ResponseEntity.ok(doctorService.saveDoctor(doctorRequest));
     }
-    @PutMapping("update-doctor/{Id}")
+    @PutMapping("doctor/{Id}")
     @Operation(summary = "update doctor")
     public ResponseEntity<Doctor> updateDoctor(@PathVariable int Id, @Valid @RequestBody DoctorRequest doctorRequest){
         return ResponseEntity.ok(doctorService.updateDoctor(Id, doctorRequest));
     }
 
-    @DeleteMapping("delete-doctor/{Id}")
+    @DeleteMapping("doctor/{Id}")
     @Operation(summary = "delete doctor")
     public ResponseEntity<MessageResponse> deleteDoctor(@PathVariable int Id){
         return ResponseEntity.ok(doctorService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-doctor/{Id}")
+    @Operation(summary = "delete sort doctor")
+    public ResponseEntity<MessageResponse> sortDeleteDoctor(@PathVariable int Id){
+        return ResponseEntity.ok(doctorService.sortDeleteDoctor(Id));
     }
 }

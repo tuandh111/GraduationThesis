@@ -19,4 +19,6 @@ public interface DentalIssuesService {
     DentalIssues updateDentalIssues(int dentalIssuesId, DentalIssuesRequest dentalIssuesRequest);
 
     MessageResponse delete(int dentalIssuesId);
+
+    MessageResponse sortDeleteDentalIssues(int dentalIssuesId);
 }

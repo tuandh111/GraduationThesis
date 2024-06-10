@@ -68,4 +68,21 @@ public class MedicalHistoryDetailServiceImpl implements MedicalHistoryDetailServ
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse sortDeleteMedicalHistoryDetail(int medicalHistoryDetailId) {
+        try {
+            var medicalHistoryDetail = MedicalHistoryDetail
+                                               .builder()
+                                               .medicalHistoryDetailId(medicalHistoryDetailId)
+                                               .isDeleted(true)
+                                               .build();
+
+            medicalHistoryDetailRepository.save(medicalHistoryDetail);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }

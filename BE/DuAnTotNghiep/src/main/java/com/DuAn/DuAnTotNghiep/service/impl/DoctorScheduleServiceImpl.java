@@ -57,7 +57,7 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
                                      .createAt(doctorScheduleRequest.getCreateAt())
                                      .updateAt(doctorScheduleRequest.getUpdateAt())
                                      .date(doctorScheduleRequest.getDate())
-                                     .shift(shiftRepository.findById(doctorScheduleRequest.getShiftId()).orElseThrow())
+                                     .shift(shiftRepository.findById(doctorScheduleRequest.getShiftId()).orElseThrow(null))
                                      .build();
         doctorScheduleRepository.save(doctorSchedule);
         return doctorSchedule;
@@ -70,8 +70,24 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
             return new MessageResponse("successfully");
         }catch (Exception e){
             e.printStackTrace();
-
+            return new MessageResponse("fail");
         }
-        return new MessageResponse("fail");
+
+    }
+
+    @Override
+    public MessageResponse sortDeleteDoctorSchedule(int doctorScheduleId) {
+        try {
+            var doctorSchedule = DoctorSchedule
+                                         .builder()
+                                         .doctorScheduleId(doctorScheduleId)
+                                         .isDeleted(true)
+                                         .build();
+            doctorScheduleRepository.save(doctorSchedule);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
     }
 }

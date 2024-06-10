@@ -22,7 +22,7 @@ import java.util.List;
 public class ShiftController {
     @Autowired
     ShiftService shiftService;
-    @GetMapping("list-shift")
+    @GetMapping("shift")
     @Operation(summary = "List shift")
     public ResponseEntity<List<Shift>> getAllShift() {
         return ResponseEntity.ok(shiftService.findAll());
@@ -33,20 +33,26 @@ public class ShiftController {
     public ResponseEntity<Shift> getShiftId( @PathVariable Integer Id) {
         return ResponseEntity.ok(shiftService.findByShiftId(Id));
     }
-    @PostMapping("save-shift")
+    @PostMapping("shift")
     @Operation(summary = "Save shift")
     public ResponseEntity<Shift> saveShift(@Valid @RequestBody ShiftRequest shiftRequest){
         return ResponseEntity.ok(shiftService.saveShift(shiftRequest));
     }
-    @PutMapping("update-shift/{Id}")
+    @PutMapping("shift/{Id}")
     @Operation(summary = "update shift")
     public ResponseEntity<Shift> updateShift(@PathVariable int Id, @Valid @RequestBody ShiftRequest shiftRequest){
         return ResponseEntity.ok(shiftService.updateShift(Id, shiftRequest));
     }
 
-    @DeleteMapping("delete-shift/{Id}")
+    @DeleteMapping("shift/{Id}")
     @Operation(summary = "delete shift")
-    public ResponseEntity<MessageResponse> deleteRole(@PathVariable int Id){
+    public ResponseEntity<MessageResponse> deleteShift(@PathVariable int Id){
         return ResponseEntity.ok(shiftService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-shift/{Id}")
+    @Operation(summary = "delete sort shift")
+    public ResponseEntity<MessageResponse> sortDeleteShift(@PathVariable int Id){
+        return ResponseEntity.ok(shiftService.sortDeleteShift(Id));
     }
 }

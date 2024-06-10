@@ -19,4 +19,6 @@ public interface AbnormalityService {
     Abnormality updateAbnormality(int abnormalityId, AbnormalityRequest abnormalityRequest);
 
     MessageResponse delete(int abnormalityId);
+
+    MessageResponse softDeleteAbnormality(int abnormalityId);
 }

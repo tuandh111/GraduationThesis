@@ -66,4 +66,20 @@ public class CTResultAbnormalityServiceImpl implements CTResultAbnormalityServic
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse sortDeleteCTResultAbnormality(int cTResultAbnormalityId) {
+        try {
+            var cTResultAbnormality = CTResultAbnormality
+                                              .builder()
+                                              .cTResultAbnormalityId(cTResultAbnormalityId)
+                                              .isDeleted(true)
+                                              .build();
+            ctResultAbnormalityRepository.save(cTResultAbnormality);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }

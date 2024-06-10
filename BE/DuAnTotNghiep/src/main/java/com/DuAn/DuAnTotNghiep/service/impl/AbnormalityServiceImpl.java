@@ -59,4 +59,20 @@ public class AbnormalityServiceImpl implements AbnormalityService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse softDeleteAbnormality(int abnormalityId) {
+        try {
+            var abnormality = Abnormality
+                                      .builder()
+                                      .abnormalityId(abnormalityId)
+                                      .isDeleted(true)
+                                      .build();
+            abnormalityRepository.save(abnormality);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }

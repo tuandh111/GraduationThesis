@@ -63,4 +63,20 @@ public class DentalSuppliesServiceImpl implements DentalSuppliesService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse sortDeleteDentalSupplies(int dentalSuppliesId) {
+        try {
+            var dentalSupplies = DentalSupplies
+                                         .builder()
+                                         .SuppliesId(dentalSuppliesId)
+                                         .isDeleted(true)
+                                         .build();
+            dentalSuppliesRepository.save(dentalSupplies);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }

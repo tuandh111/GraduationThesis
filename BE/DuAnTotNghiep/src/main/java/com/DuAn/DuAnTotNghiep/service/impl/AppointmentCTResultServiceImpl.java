@@ -59,4 +59,20 @@ public class AppointmentCTResultServiceImpl implements AppointmentCTResultServic
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse sortDeleteAppointmentCTResult(int appointmentCTResultId) {
+        try {
+            var appointmentCTResult = AppointmentCTResult
+                                              .builder()
+                                              .appointmentCTResultId(appointmentCTResultId)
+                                              .isDeleted(true)
+                                              .build();
+            appointmentCTResultRepository.save(appointmentCTResult);
+            return new MessageResponse("successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }

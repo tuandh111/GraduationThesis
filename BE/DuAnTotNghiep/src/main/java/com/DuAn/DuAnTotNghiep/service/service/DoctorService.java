@@ -18,4 +18,6 @@ public interface DoctorService {
     Doctor updateDoctor(int doctorId, DoctorRequest doctorRequest);
 
     MessageResponse delete(int doctorId);
+
+    MessageResponse sortDeleteDoctor(int doctorId);
 }

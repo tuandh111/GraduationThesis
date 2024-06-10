@@ -25,31 +25,37 @@ public class DentalSuppliesController {
     @Autowired
     DentalSuppliesService dentalSuppliesService;
 
-    @GetMapping("list-dental-supplies")
+    @GetMapping("dental-supplies")
     @Operation(summary = "List dentail supplies")
     public ResponseEntity<List<DentalSupplies>> getAllDentalSupplies() {
         return ResponseEntity.ok(dentalSuppliesService.findAll());
     }
 
-    @GetMapping("dentail-supplies-id/{Id}")
+    @GetMapping("dental-supplies-id/{Id}")
     @Operation(summary = "dental supplies Id")
     public ResponseEntity<DentalSupplies> getDentalSuppliesId( @PathVariable Integer Id) {
         return ResponseEntity.ok(dentalSuppliesService.findByDentalSuppliesId(Id));
     }
-    @PostMapping("save-dental-supplies")
+    @PostMapping("dental-supplies")
     @Operation(summary = "Save dental supplies")
     public ResponseEntity<DentalSupplies> saveDentalSupplies(@Valid @RequestBody DentalSuppliesRequest dentalSuppliesRequest){
         return ResponseEntity.ok(dentalSuppliesService.saveDentalSupplies(dentalSuppliesRequest));
     }
-    @PutMapping("update-dental-supplies/{Id}")
+    @PutMapping("dental-supplies/{Id}")
     @Operation(summary = "update dental supplies")
     public ResponseEntity<DentalSupplies> updateDentalSupplies(@PathVariable int Id, @Valid @RequestBody DentalSuppliesRequest dentalSuppliesRequest){
         return ResponseEntity.ok(dentalSuppliesService.updateDentalSupplies(Id, dentalSuppliesRequest));
     }
 
-    @DeleteMapping("delete-dental-supplies/{Id}")
+    @DeleteMapping("dental-supplies/{Id}")
     @Operation(summary = "delete dental supplies")
-    public ResponseEntity<MessageResponse> deleteDentailSupplies(@PathVariable int Id){
+    public ResponseEntity<MessageResponse> deleteDentalSupplies(@PathVariable int Id){
         return ResponseEntity.ok(dentalSuppliesService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-dental-supplies/{Id}")
+    @Operation(summary = "delete sort dental supplies")
+    public ResponseEntity<MessageResponse> sortDeleteDentalSupplies(@PathVariable int Id){
+        return ResponseEntity.ok(dentalSuppliesService.sortDeleteDentalSupplies(Id));
     }
 }

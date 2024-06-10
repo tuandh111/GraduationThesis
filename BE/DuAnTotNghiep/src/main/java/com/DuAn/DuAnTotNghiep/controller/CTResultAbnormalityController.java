@@ -24,7 +24,7 @@ import java.util.List;
 public class CTResultAbnormalityController {
     @Autowired
     CTResultAbnormalityService ctResultAbnormalityService;
-    @GetMapping("list-ct-result-abnormality")
+    @GetMapping("ct-result-abnormality")
     @Operation(summary = "List ct result abnormality")
     public ResponseEntity<List<CTResultAbnormality>> getAllCTResultAbnormality() {
         return ResponseEntity.ok(ctResultAbnormalityService.findAll());
@@ -35,7 +35,7 @@ public class CTResultAbnormalityController {
     public ResponseEntity<CTResultAbnormality> getCTResultAbnormalityId( @PathVariable Integer Id) {
         return ResponseEntity.ok(ctResultAbnormalityService.findByCTResultAbnormalityId(Id));
     }
-    @PostMapping("save-ct-result-abnormality")
+    @PostMapping("ct-result-abnormality")
     @Operation(summary = "Save ct result abnormality")
     public ResponseEntity<CTResultAbnormality> saveCTResultAbnormality(@Valid @RequestBody CTResultAbnormalityRequest ctResultAbnormalityRequest){
         return ResponseEntity.ok(ctResultAbnormalityService.saveCTResultAbnormality(ctResultAbnormalityRequest));
@@ -46,9 +46,15 @@ public class CTResultAbnormalityController {
         return ResponseEntity.ok(ctResultAbnormalityService.updateCTResultAbnormality(Id, ctResultAbnormalityRequest));
     }
 
-    @DeleteMapping("delete-ct-result-abnormality/{Id}")
+    @DeleteMapping("ct-result-abnormality/{Id}")
     @Operation(summary = "delete ct result abnormality")
     public ResponseEntity<MessageResponse> deleteCTResultAbnormality(@PathVariable int Id){
         return ResponseEntity.ok(ctResultAbnormalityService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-ct-result-abnormality/{Id}")
+    @Operation(summary = "delete sort ct result abnormality")
+    public ResponseEntity<MessageResponse> sortDeleteCTResultAbnormality(@PathVariable int Id){
+        return ResponseEntity.ok(ctResultAbnormalityService.sortDeleteCTResultAbnormality(Id));
     }
 }

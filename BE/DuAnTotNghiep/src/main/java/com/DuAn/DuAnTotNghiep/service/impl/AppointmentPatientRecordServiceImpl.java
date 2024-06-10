@@ -65,4 +65,20 @@ public class AppointmentPatientRecordServiceImpl implements AppointmentPatientRe
            return new MessageResponse("fail");
        }
     }
+
+    @Override
+    public MessageResponse sortDeleteAppointmentType(int appointmentPatientRecordId) {
+        try {
+            AppointmentPatientRecord appointmentPatientRecord = AppointmentPatientRecord
+                                                                        .builder()
+                                                                        .appointmentPatientRecordId(appointmentPatientRecordId)
+                                                                        .isDeleted(true)
+                                                                        .build();
+            appointmentPatientRecordRepository.save(appointmentPatientRecord);
+            return  new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }

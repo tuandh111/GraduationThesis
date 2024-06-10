@@ -24,7 +24,7 @@ import java.util.List;
 public class AppointmentPatientRecordController {
     @Autowired
     AppointmentPatientRecordService appointmentPatientRecordService;
-    @GetMapping("list-appointment-patient-record")
+    @GetMapping("appointment-patient-record")
     @Operation(summary = "List appointment patient record")
     public ResponseEntity<List<AppointmentPatientRecord>> getAllAppointmentType() {
         return ResponseEntity.ok(appointmentPatientRecordService.findAllAppointmentPatientRecord());
@@ -35,7 +35,7 @@ public class AppointmentPatientRecordController {
     public ResponseEntity<AppointmentPatientRecord> getAppointmentTypeId( @PathVariable Integer Id) {
         return ResponseEntity.ok(appointmentPatientRecordService.findByAppointmentPatientRecordId(Id));
     }
-    @PostMapping("save-appointment-patient-record")
+    @PostMapping("appointment-patient-record")
     @Operation(summary = "Save appointment patient record")
     public ResponseEntity<AppointmentPatientRecord> saveAppointmentType(@Valid @RequestBody AppointmentPatientRecordRequest appointmentPatientRecordRequest){
         return ResponseEntity.ok(appointmentPatientRecordService.saveAppointmentPatientRecord(appointmentPatientRecordRequest));
@@ -46,9 +46,15 @@ public class AppointmentPatientRecordController {
         return ResponseEntity.ok(appointmentPatientRecordService.updateAppointmentPatientRecord(Id, appointmentPatientRecordRequest));
     }
 
-    @DeleteMapping("delete-appointment-patient-record/{Id}")
+    @DeleteMapping("appointment-patient-record/{Id}")
     @Operation(summary = "delete appointment patient record")
     public ResponseEntity<MessageResponse> deleteAppointmentType(@PathVariable int Id){
         return ResponseEntity.ok(appointmentPatientRecordService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-appointment-patient-record/{Id}")
+    @Operation(summary = "delete sort appointment patient record")
+    public ResponseEntity<MessageResponse> sortDeleteAppointmentType(@PathVariable int Id){
+        return ResponseEntity.ok(appointmentPatientRecordService.sortDeleteAppointmentType(Id));
     }
 }

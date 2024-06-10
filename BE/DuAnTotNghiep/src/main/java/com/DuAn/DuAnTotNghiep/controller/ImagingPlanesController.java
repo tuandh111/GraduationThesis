@@ -24,29 +24,29 @@ import java.util.List;
 public class ImagingPlanesController {
     @Autowired
     ImagingPlanesService imagingPlanesService;
-    @GetMapping("list-imagingPlanes")
+    @GetMapping("imaging-planes")
     @Operation(summary = "List imagingPlanes")
     public ResponseEntity<List<ImagingPlanes>> getAllImagingPlanes() {
         return ResponseEntity.ok(imagingPlanesService.findAll());
     }
 
-    @GetMapping("imagingPlanes-id/{Id}")
+    @GetMapping("imaging-planes-id/{Id}")
     @Operation(summary = "dental imagingPlanes Id")
     public ResponseEntity<ImagingPlanes> getImagingPlanes( @PathVariable Integer Id) {
         return ResponseEntity.ok(imagingPlanesService.findByImagingPlanesId(Id));
     }
-    @PostMapping("save-imagingPlanes")
+    @PostMapping("imaging-planes")
     @Operation(summary = "Save imagingPlanes")
     public ResponseEntity<ImagingPlanes> saveImagingPlanes(@Valid @RequestBody ImagingPlanesRequest imagingPlanesRequest){
         return ResponseEntity.ok(imagingPlanesService.saveImagingPlanes(imagingPlanesRequest));
     }
-    @PutMapping("imagingPlanes/{Id}")
+    @PutMapping("imaging-planes/{Id}")
     @Operation(summary = "update imagingPlanes")
     public ResponseEntity<ImagingPlanes> updateImagingPlanes(@PathVariable int Id, @Valid @RequestBody ImagingPlanesRequest imagingPlanesRequest){
         return ResponseEntity.ok(imagingPlanesService.updateImagingPlanes(Id, imagingPlanesRequest));
     }
 
-    @DeleteMapping("delete-imagingPlanes/{Id}")
+    @DeleteMapping("imaging-planes/{Id}")
     @Operation(summary = "delete ImagingPlanes")
     public ResponseEntity<MessageResponse> deleteImagingPlanes(@PathVariable int Id){
         return ResponseEntity.ok(imagingPlanesService.delete(Id));

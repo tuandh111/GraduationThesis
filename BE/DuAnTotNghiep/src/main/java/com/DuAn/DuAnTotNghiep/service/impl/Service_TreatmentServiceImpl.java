@@ -65,4 +65,20 @@ public class Service_TreatmentServiceImpl implements ServiceTreatmentService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse sortDeleteServiceTreatment(int serviceTreatmentId) {
+        try {
+            var serviceTreatment = ServiceTreatment
+                                           .builder()
+                                           .service_TreatmentId(serviceTreatmentId)
+                                           .isDeleted(true)
+                                           .build();
+            serviceTreatmentRepository.save(serviceTreatment);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }

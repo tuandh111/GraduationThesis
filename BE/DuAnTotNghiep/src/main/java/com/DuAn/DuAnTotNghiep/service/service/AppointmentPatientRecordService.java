@@ -19,4 +19,6 @@ public interface AppointmentPatientRecordService {
     AppointmentPatientRecord updateAppointmentPatientRecord(int appointmentTypeId, AppointmentPatientRecordRequest AppointmentPatientRecordRequest);
 
     MessageResponse delete(int appointmentPatientRecordId);
+
+    MessageResponse sortDeleteAppointmentType(int appointmentPatientRecordId);
 }

@@ -66,4 +66,20 @@ public class DistributionSuppliesServiceImpl implements DistributionSuppliesServ
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public MessageResponse sortDeleteDistributionSupplies(int distributionSuppliesId) {
+        try {
+            var distributionSupplies= DistributionSupplies
+                                              .builder()
+                                              .distributionId(distributionSuppliesId)
+                                              .isDeleted(true)
+                                              .build();
+            distributionSuppliesRepository.save(distributionSupplies);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
 }
