@@ -60,6 +60,8 @@ public class Appointment {
     @JoinColumn(name = "dentalStaffId")
     private DentalStaff dentalStaff;
 
+    private boolean isDeleted = false;
+
     @ManyToOne
     @JoinColumn(name = "doctorId")
     private Doctor doctor;

@@ -24,10 +24,11 @@ public class Service {
 
     private String seviceName;
 
+    private boolean isDeleted = false;
+
     private double price;
 
-    @Temporal(TemporalType.DATE)
-    private Date timeEstimate;
+    private int timeEstimate;
 
     private String description;
 

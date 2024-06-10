@@ -21,6 +21,8 @@ public class DentalSupplies {
 
     private String SuppliesName;
 
+    private boolean isDeleted = false;
+
     private String description;
 
     @ManyToOne

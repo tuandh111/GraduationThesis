@@ -21,6 +21,8 @@ public class AppointmentType {
 
     private String typeName;
 
+    private boolean isDeleted = false;
+
     private String description;
 
     @OneToMany(mappedBy = "appointmentId")

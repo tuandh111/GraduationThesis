@@ -21,6 +21,8 @@ public class Treatment {
 
     private String description;
 
+    private boolean isDeleted = false;
+
     private String treatmentName;
 
     @OneToMany(mappedBy = "service_TreatmentId")

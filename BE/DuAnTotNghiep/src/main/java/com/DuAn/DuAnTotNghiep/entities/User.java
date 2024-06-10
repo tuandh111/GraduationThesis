@@ -28,6 +28,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private boolean isDeleted = false;
+
     @Nationalized
     @NotBlank(message = "Vui lòng nhập họ")
     @Pattern(regexp = "^[a-zA-ZÀ-ỹ\\s]*$", message = "Họ không hợp lệ")

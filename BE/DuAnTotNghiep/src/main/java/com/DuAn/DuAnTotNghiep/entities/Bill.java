@@ -19,6 +19,8 @@ public class Bill {
 
     private String status;
 
+    private boolean isDeleted = false;
+
     private double totalCost;
 
     private  String paymentMethod;

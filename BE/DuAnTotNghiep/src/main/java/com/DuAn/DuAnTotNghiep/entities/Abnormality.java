@@ -23,6 +23,8 @@ public class Abnormality {
     @Nationalized
     private String name;
 
+    private boolean isDeleted = false;
+
     @Nationalized
     @Column(columnDefinition = "TEXT")
     private String description;

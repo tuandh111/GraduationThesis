@@ -21,6 +21,8 @@ public class DistributionMedicines {
     
     private String distributionName;
 
+    private boolean isDeleted = false;
+
     private String  name;
 
     private String address;

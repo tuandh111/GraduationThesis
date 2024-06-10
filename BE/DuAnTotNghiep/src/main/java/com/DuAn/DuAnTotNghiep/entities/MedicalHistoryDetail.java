@@ -18,6 +18,8 @@ public class MedicalHistoryDetail {
 
     private String description;
 
+    private boolean isDeleted = false;
+
     @ManyToOne
     @JoinColumn(name = "patientId")
     private Patient patient;

@@ -18,6 +18,8 @@ public class ServiceTreatment {
 
     private  String Description;
 
+    private boolean isDeleted = false;
+
     @ManyToOne
     @JoinColumn(name = "serviceId")
     private Service service;

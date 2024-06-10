@@ -23,6 +23,8 @@ public class    DentalStaff {
 
     private String fullname;
 
+    private boolean isDeleted = false;
+
     private String phoneNumber;
 
     private String address;

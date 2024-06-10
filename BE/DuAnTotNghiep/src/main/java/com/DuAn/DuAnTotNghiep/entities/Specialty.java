@@ -18,6 +18,8 @@ public class Specialty {
 
     private String specialtyName;
 
+    private boolean isDeleted = false;
+
     private String description;
 
     @OneToMany(mappedBy = "doctorId")

@@ -22,6 +22,8 @@ public class Department {
 
     private String departmentName;
 
+    private boolean isDeleted = false;
+
     private String description;
 
     @OneToMany(mappedBy = "dentalStaffId")

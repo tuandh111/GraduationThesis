@@ -18,6 +18,8 @@ public class PrescriptionMedicines {
 
     private String prescriptionMedicines;
 
+    private boolean isDeleted = false;
+
     private String frequency;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prescriptionId")

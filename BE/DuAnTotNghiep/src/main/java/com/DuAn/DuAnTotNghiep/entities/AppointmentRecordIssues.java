@@ -19,6 +19,8 @@ public class AppointmentRecordIssues {
 
     private  String description;
 
+    private boolean isDeleted = false;
+
     @ManyToOne(fetch =  FetchType.LAZY)
     @JoinColumn(name = "dentalIssuesId")
     private DentalIssues dentalIssues;

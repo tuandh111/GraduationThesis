@@ -21,7 +21,9 @@ public class Medicines {
 
     private String medicineName;
 
-    private String beforeEating;
+    private boolean beforeEating;
+
+    private boolean isDeleted = false;
 
     @OneToMany(mappedBy = "prescriptionMedicinesId")
     @JsonIgnore

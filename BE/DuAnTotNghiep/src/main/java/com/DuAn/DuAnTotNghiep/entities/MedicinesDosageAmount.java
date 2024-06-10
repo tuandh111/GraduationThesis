@@ -19,7 +19,9 @@ public class MedicinesDosageAmount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer medicinesDosageAmountId;
 
-    private double price;
+    private int  amount;
+
+    private boolean isDeleted = false;
 
     private String description;
 

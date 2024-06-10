@@ -21,6 +21,8 @@ public class Frequency {
 
     private String timesOfDay;
 
+    private boolean isDeleted = false;
+
     private  String description;
 
     @OneToMany(mappedBy = "frequencyMedicinesId")

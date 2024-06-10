@@ -21,6 +21,8 @@ public class AppointmentStatus {
 
     private  String status;
 
+    private boolean isDeleted = false;
+
     private  String description;
 
 

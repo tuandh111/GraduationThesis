@@ -21,6 +21,8 @@ public class MedicineCategory {
 
     private String name;
 
+    private boolean isDeleted = false;
+
     private String description;
 
     @OneToMany(mappedBy = "medicinesId")

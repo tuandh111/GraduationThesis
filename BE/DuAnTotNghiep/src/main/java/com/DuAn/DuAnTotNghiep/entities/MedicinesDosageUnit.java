@@ -20,6 +20,8 @@ public class MedicinesDosageUnit {
     private Integer medicinesDosageUnitId;
 
     private String unit;
+
+    private boolean isDeleted = false;
     
     private  String description;
 

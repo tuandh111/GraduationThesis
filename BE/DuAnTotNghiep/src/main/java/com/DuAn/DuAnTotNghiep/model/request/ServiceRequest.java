@@ -12,7 +12,7 @@ public class ServiceRequest {
 
     private double price;
 
-    private Date timeEstimate;
+    private int timeEstimate;
 
     private int serviceTypeId;
 

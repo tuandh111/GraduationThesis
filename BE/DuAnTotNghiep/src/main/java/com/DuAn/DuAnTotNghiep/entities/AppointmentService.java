@@ -18,6 +18,8 @@ public class AppointmentService {
 
     private double price;
 
+    private boolean isDeleted = false;
+
     private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)

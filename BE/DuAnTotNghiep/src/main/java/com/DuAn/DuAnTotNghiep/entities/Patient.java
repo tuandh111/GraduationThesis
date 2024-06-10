@@ -24,6 +24,8 @@ public class Patient {
 
     private  String fullName;
 
+    private boolean isDeleted = false;
+
     private String  phoneNumber;
 
     private String Type;

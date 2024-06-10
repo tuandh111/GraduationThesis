@@ -18,6 +18,8 @@ public class DentalSuppliesAppointment {
 
     private Integer quantity;
 
+    private boolean isDeleted = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="appointmentId")
     private Appointment appointment;

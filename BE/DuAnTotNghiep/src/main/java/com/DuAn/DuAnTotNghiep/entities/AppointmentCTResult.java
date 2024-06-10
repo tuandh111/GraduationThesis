@@ -22,6 +22,8 @@ public class AppointmentCTResult {
 
     private  String imageURL;
 
+    private boolean isDeleted = false;
+
     @Temporal(TemporalType.DATE)
     private Date date;
 

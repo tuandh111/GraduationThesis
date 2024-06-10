@@ -21,6 +21,8 @@ public class Prescription {
 
     private String description;
 
+    private boolean isDeleted = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointmentPatientRecordId")
     private AppointmentPatientRecord appointmentPatientRecord;

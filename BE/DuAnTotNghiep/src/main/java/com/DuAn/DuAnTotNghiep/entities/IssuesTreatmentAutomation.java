@@ -19,6 +19,8 @@ public class IssuesTreatmentAutomation {
 
     private  String description;
 
+    private boolean isDeleted = false;
+
     @ManyToOne
     @JoinColumn(name = "treatmentId")
     private Treatment treatment;

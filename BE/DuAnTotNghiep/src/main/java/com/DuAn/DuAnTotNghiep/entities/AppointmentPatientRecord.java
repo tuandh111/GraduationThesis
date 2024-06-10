@@ -27,6 +27,8 @@ public class AppointmentPatientRecord {
 
     private String reExamination;
 
+    private boolean isDeleted = false;
+
     @OneToMany(mappedBy = "appointmentTreatmentId")
     @JsonIgnore
     private List<AppointmentTreatment> appointmentTreatments;

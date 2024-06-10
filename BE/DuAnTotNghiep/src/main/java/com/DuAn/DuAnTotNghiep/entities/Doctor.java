@@ -22,6 +22,8 @@ public class Doctor {
 
     private String degrees;
 
+    private boolean isDeleted = false;
+
     private String signature;
 
     private String fullName;

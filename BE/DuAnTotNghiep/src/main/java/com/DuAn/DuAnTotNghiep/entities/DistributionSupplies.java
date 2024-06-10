@@ -20,6 +20,8 @@ public class DistributionSupplies {
     private Integer  distributionId;
     private  String distribution;
     private String  name;
+
+    private boolean isDeleted = false;
     private String address;
     private String email;
     private  String contactPerson;

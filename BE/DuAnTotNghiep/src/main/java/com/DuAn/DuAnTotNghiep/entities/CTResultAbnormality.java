@@ -17,6 +17,9 @@ public class CTResultAbnormality {
     private Integer cTResultAbnormalityId;
 
     private String Description;
+
+    private boolean isDeleted = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointmentCTResultId")
     private AppointmentCTResult appointmentCTResult;

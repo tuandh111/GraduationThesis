@@ -22,6 +22,8 @@ public class TreatmentDuration {
 
     private Integer quantity;
 
+    private boolean isDeleted = false;
+
     private  String description;
     @OneToMany(mappedBy = "prescriptionId")
     @JsonIgnore

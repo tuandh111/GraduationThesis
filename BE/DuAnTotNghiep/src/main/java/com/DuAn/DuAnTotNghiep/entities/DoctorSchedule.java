@@ -21,6 +21,8 @@ public class DoctorSchedule {
 
     private Date createAt;
 
+    private boolean isDeleted = false;
+
     private  Date updateAt;
 
     private Date date;
