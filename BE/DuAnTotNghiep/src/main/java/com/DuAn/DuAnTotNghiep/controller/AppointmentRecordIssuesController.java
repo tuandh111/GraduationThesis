@@ -1,10 +1,20 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
+import com.DuAn.DuAnTotNghiep.entities.AppointmentRecordIssues;
+import com.DuAn.DuAnTotNghiep.entities.AppointmentStatus;
+import com.DuAn.DuAnTotNghiep.model.request.AppointmentRecordIssuesRequest;
+import com.DuAn.DuAnTotNghiep.model.request.AppointmentStatusRequest;
+import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import com.DuAn.DuAnTotNghiep.service.service.AppointmentRecordIssuesService;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -12,5 +22,39 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 @Validated
 public class AppointmentRecordIssuesController {
+    @Autowired
+    AppointmentRecordIssuesService appointmentRecordIssuesService;
+    @GetMapping("appointment-record-issues")
+    @Operation(summary = "List appointment record issues")
+    public ResponseEntity<List<AppointmentRecordIssues>> getAllAppointmentStatus() {
+        return ResponseEntity.ok(appointmentRecordIssuesService.findAllAppointmentRecordIssues());
+    }
 
+    @GetMapping("appointment-record-issues-id/{Id}")
+    @Operation(summary = "dental appointment record issues Id")
+    public ResponseEntity<AppointmentRecordIssues> getAppointmentRecordIssuesId( @PathVariable Integer Id) {
+        return ResponseEntity.ok(appointmentRecordIssuesService.findByAppointmentRecordIssuesId(Id));
+    }
+    @PostMapping("appointment-record-issues")
+    @Operation(summary = "save appointment record issues")
+    public ResponseEntity<AppointmentRecordIssues> saveAppointmentRecordIssues(@Valid @RequestBody AppointmentRecordIssuesRequest appointmentRecordIssuesRequest){
+        return ResponseEntity.ok(appointmentRecordIssuesService.saveAppointmentRecordIssues(appointmentRecordIssuesRequest));
+    }
+    @PutMapping("appointment-record-issues/{Id}")
+    @Operation(summary = "update appointment record issues")
+    public ResponseEntity<AppointmentRecordIssues> updateAppointmentRecordIssues(@PathVariable int Id, @Valid @RequestBody AppointmentRecordIssuesRequest appointmentRecordIssuesRequest){
+        return ResponseEntity.ok(appointmentRecordIssuesService.updateAppointmentRecordIssues(Id, appointmentRecordIssuesRequest));
+    }
+
+    @DeleteMapping("appointment-record-issues/{Id}")
+    @Operation(summary = "delete appointment record issues")
+    public ResponseEntity<MessageResponse> deleteAppointmentRecordIssues(@PathVariable int Id){
+        return ResponseEntity.ok(appointmentRecordIssuesService.delete(Id));
+    }
+
+    @DeleteMapping("sort-delete-appointment-record-issues/{Id}")
+    @Operation(summary = "delete sort appointment record issues")
+    public ResponseEntity<MessageResponse> sortDeleteAppointmentRecordIssues(@PathVariable int Id){
+        return ResponseEntity.ok(appointmentRecordIssuesService.sortDeleteAppointmentRecordIssues(Id));
+    }
 }

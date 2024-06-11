@@ -22,11 +22,11 @@ public class AppointmentService {
 
     private Integer quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "appointmentId")
-    private  Appointment appointment;
+    private Appointment appointment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "serviceId")
-    private  Service service;
+    private Service service;
 }

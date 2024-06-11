@@ -30,5 +30,6 @@ public class DentalIssues {
     private List<IssuesTreatmentAutomation> issuesTreatmentAutomations;
     
     @OneToMany(mappedBy = "appointmentRecordIssuesId")
+    @JsonIgnore
     private List<AppointmentRecordIssues> appointmentRecordIssues;
 }

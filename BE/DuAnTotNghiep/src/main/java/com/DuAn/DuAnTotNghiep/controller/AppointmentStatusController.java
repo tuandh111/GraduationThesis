@@ -25,7 +25,7 @@ public class AppointmentStatusController {
     @Autowired
     AppointmentStatusService appointmentStatusService;
     @GetMapping("appointment-status")
-    @Operation(summary = "List appointment")
+    @Operation(summary = "List appointment status")
     public ResponseEntity<List<AppointmentStatus>> getAllAppointmentStatus() {
         return ResponseEntity.ok(appointmentStatusService.findAll());
     }
@@ -37,7 +37,7 @@ public class AppointmentStatusController {
     }
     @PostMapping("appointment-status")
     @Operation(summary = "save appointment status")
-    public ResponseEntity<AppointmentStatus> saveAbnormality(@Valid @RequestBody AppointmentStatusRequest appointmentStatusRequest){
+    public ResponseEntity<AppointmentStatus> saveAppointmentStatus(@Valid @RequestBody AppointmentStatusRequest appointmentStatusRequest){
         return ResponseEntity.ok(appointmentStatusService.saveAppointmentStatus(appointmentStatusRequest));
     }
     @PutMapping("appointment-status/{Id}")
@@ -47,13 +47,13 @@ public class AppointmentStatusController {
     }
 
     @DeleteMapping("appointment-status/{Id}")
-    @Operation(summary = "delete abnormality")
+    @Operation(summary = "delete appointment status")
     public ResponseEntity<MessageResponse> deleteAppointmentStatus(@PathVariable int Id){
         return ResponseEntity.ok(appointmentStatusService.delete(Id));
     }
 
     @DeleteMapping("sort-delete-appointment-status/{Id}")
-    @Operation(summary = "delete sort abnormality")
+    @Operation(summary = "delete sort appointment status")
     public ResponseEntity<MessageResponse> sortDeleteAppointmentStatus(@PathVariable int Id){
         return ResponseEntity.ok(appointmentStatusService.sortDeleteAppointmentStatus(Id));
     }

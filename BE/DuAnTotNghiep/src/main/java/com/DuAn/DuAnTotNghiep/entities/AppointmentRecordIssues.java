@@ -17,15 +17,15 @@ public class AppointmentRecordIssues {
 
     private Integer appointmentRecordIssuesId;
 
-    private  String description;
+    private String description;
 
     private boolean isDeleted = false;
 
-    @ManyToOne(fetch =  FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "dentalIssuesId")
     private DentalIssues dentalIssues;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "appointmentPatientRecordId")
     private AppointmentPatientRecord appointmentPatientRecord;
 }
