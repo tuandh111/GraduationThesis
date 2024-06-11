@@ -1,0 +1,838 @@
+INSERT INTO medicine_category (description, name) VALUES
+('giảm đau và chống viêm', 'Giảm đau và chống viêm'),
+('gây tê', 'Gây tê'),
+('kháng sinh', 'Kháng sinh'),
+('chống nấm', 'Chống nấm'),
+('chống virus', 'Chống virus'),
+('chống loét miệng', 'Chống loét miệng'),
+('khô miệng', 'Khô miệng'),
+('bệnh nha chu', 'Bệnh nha chu'),
+('chống dị ứng', 'Chống dị ứng'),
+('chống lo âu và an thần', 'Chống lo âu và an thần'),
+('chống viêm', 'Chống viêm'),
+('khử trùng', 'Khử trùng'),
+('hỗ trợ tiêu hóa', 'Hỗ trợ tiêu hóa');
+
+
+INSERT into medicines_dosage_amount(amount) VALUES (1),(2),(3),(4),(5);
+
+INSERT INTO distribution_medicines (address, contact_person, distribution_name, email, name, note, tax_code) VALUES
+('123 Chiến Thắng', 'Nguyen Van A', 'Pharmacy Distribution Inc.', 'contact@pharmacydist.com', 'Pharmacy Distribution Inc.', 'Thuốc tốt', '1234567890'),
+('456 Thành Công', 'Tran Thi B', 'Health Supplies Ltd.', 'support@healthsupplies.com', 'Health Supplies Ltd.', 'Tốt thuốc', '0987654321'),
+('789 Phú Lê', 'Le Van C', 'MedEquip Co.', 'info@medequip.com', 'MedEquip Co.', 'Toa thuốc', '1122334455'),
+('321 Skyler', 'Pham Thi D', 'Wellness Pharmaceuticals', 'sales@wellnesspharma.com', 'Thuốc than', 'Best prices on pharmaceuticals', '5566778899'),
+('654 Khói', 'Hoang Van E', 'Dental Distributors', 'service@dentaldist.com', 'Dental Distributors', 'Đừng', '6677889900');
+
+insert into medicines_dosage_unit (unit) VALUES ('Viên'),('Gói'),('mg'),('ml');
+
+INSERT into frequency (times_of_day) VALUES ('Sáng'),('Chiều'),('Tối');
+
+DELIMITER //
+
+DROP PROCEDURE IF EXISTS InsertTreatmentDuration//
+
+CREATE PROCEDURE InsertTreatmentDuration()
+BEGIN
+    DECLARE counter INT DEFAULT 1;
+    WHILE counter <= 180 DO
+        INSERT INTO treatment_duration (Quantity) VALUES (counter);
+        SET counter = counter + 1;
+    END WHILE;
+END//
+
+DELIMITER ;
+
+CALL InsertTreatmentDuration();
+
+INSERT INTO medicines (before_eating, medicine_name, distribution_medicines_id, medicine_category_id, medicines_dosage_amount_id, medicines_dosage_unit_id) VALUES
+(True, 'Ibuprofen', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='giảm đau và chống viêm'), 1, 1),
+(True, 'Acetaminophen (Paracetamol)', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='giảm đau và chống viêm'), 2, 1),
+(True, 'Aspirin', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='giảm đau và chống viêm'), 3, 1),
+(True, 'Naproxen', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='giảm đau và chống viêm'), 4, 1),
+(True, 'Ketorolac', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='giảm đau và chống viêm'), 5, 1),
+(True, 'Lidocaine', 2, (SELECT medicine_category_id FROM medicine_category WHERE name='gây tê'), 1, 2),
+(True, 'Articaine', 2, (SELECT medicine_category_id FROM medicine_category WHERE name='gây tê'), 2, 2),
+(True, 'Mepivacaine', 2, (SELECT medicine_category_id FROM medicine_category WHERE name='gây tê'), 3, 2),
+(True, 'Bupivacaine', 2, (SELECT medicine_category_id FROM medicine_category WHERE name='gây tê'), 4, 2),
+(True, 'Prilocaine', 2, (SELECT medicine_category_id FROM medicine_category WHERE name='gây tê'), 5, 2),
+(True, 'Amoxicillin', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 1, 3),
+(True, 'Clindamycin', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 2, 3),
+(True, 'Metronidazole', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 3, 3),
+(True, 'Azithromycin', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 4, 3),
+(True, 'Doxycycline', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 5, 3),
+(True, 'Nystatin', 4, (SELECT medicine_category_id FROM medicine_category WHERE name='chống nấm'), 1, 4),
+(True, 'Clotrimazole', 4, (SELECT medicine_category_id FROM medicine_category WHERE name='chống nấm'), 2, 4),
+(True, 'Fluconazole', 4, (SELECT medicine_category_id FROM medicine_category WHERE name='chống nấm'), 3, 4),
+(True, 'Acyclovir', 5, (SELECT medicine_category_id FROM medicine_category WHERE name='chống virus'), 1, 1),
+(True, 'Valacyclovir', 5, (SELECT medicine_category_id FROM medicine_category WHERE name='chống virus'), 2, 1),
+(True, 'Triamcinolone Acetonide', 4, (SELECT medicine_category_id FROM medicine_category WHERE name='chống loét miệng'), 1, 1),
+(True, 'Orabase', 2, (SELECT medicine_category_id FROM medicine_category WHERE name='chống loét miệng'), 2, 1),
+(True, 'Pilocarpine', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='khô miệng'), 1, 1),
+(True, 'Cevimeline', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='khô miệng'), 2, 1),
+(True, 'Chlorhexidine Gluconate', 2, (SELECT medicine_category_id FROM medicine_category WHERE name='bệnh nha chu'), 1, 1),
+(True, 'Doxycycline Gel', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='bệnh nha chu'), 2, 1),
+(True, 'Diphenhydramine', 4, (SELECT medicine_category_id FROM medicine_category WHERE name='chống dị ứng'), 1, 1),
+(True, 'Diazepam', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='chống lo âu và an thần'), 1, 1),
+(True, 'Midazolam', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='chống lo âu và an thần'), 2, 1),
+(True, 'Nitrous Oxide', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='chống lo âu và an thần'), 3, 1),
+(True, 'Ropivacaine', 2, (SELECT medicine_category_id FROM medicine_category WHERE name='gây tê'), 5, 1),
+(True, 'Epinephrine', 2, (SELECT medicine_category_id FROM medicine_category WHERE name='gây tê'), 5, 1),
+(True, 'Tetracaine', 2, (SELECT medicine_category_id FROM medicine_category WHERE name='gây tê'), 5, 1),
+(True, 'Oxycodone', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='giảm đau và chống viêm'), 5, 1),
+(True, 'Hydrocodone', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='giảm đau và chống viêm'), 1, 1),
+(True, 'Codeine', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='giảm đau và chống viêm'), 1, 1),
+(True, 'Morphine', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='giảm đau và chống viêm'), 2, 1),
+(True, 'Prednisone', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='chống viêm'), 1, 1),
+(True, 'Methylprednisolone', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='chống viêm'), 2, 1),
+(True, 'Dexamethasone', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='chống viêm'), 3, 1),
+(True, 'Amoxicillin/Clavulanic Acid', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 4, 1),
+(True, 'Ciprofloxacin', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 5, 1),
+(True, 'Levofloxacin', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 5, 1),
+(True, 'Ceftriaxone', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 5, 1),
+(True, 'Cephalexin', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 5, 1),
+(True, 'Metronidazole Gel', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 5, 1),
+(True, 'Doxycycline Capsule', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 1, 1),
+(True, 'Clindamycin Gel', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 1, 1),
+(True, 'Mupirocin', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 2, 1),
+(True, 'Chlorhexidine Varnish', 2, (SELECT medicine_category_id FROM medicine_category WHERE name='bệnh nha chu'), 3, 1),
+(True, 'Minocycline', 3, (SELECT medicine_category_id FROM medicine_category WHERE name='kháng sinh'), 4, 1),
+(True, 'Clotrimazole Troche', 4, (SELECT medicine_category_id FROM medicine_category WHERE name='chống nấm'), 2, 1),
+(True, 'Nystatin Oral Suspension', 4, (SELECT medicine_category_id FROM medicine_category WHERE name='chống nấm'), 3, 1),
+(True, 'Fluconazole Tablet', 4, (SELECT medicine_category_id FROM medicine_category WHERE name='chống nấm'), 4, 1),
+(True, 'Povidone-Iodine', 2, (SELECT medicine_category_id FROM medicine_category WHERE name='khử trùng'), 1, 1),
+(True, 'Hydrogen Peroxide Mouthwash', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='khử trùng'), 2, 1),
+(True, 'Dexamethasone Mouthwash', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='chống viêm'), 4, 1),
+(True, 'Triamcinolone Oral Paste', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='chống viêm'), 5, 1),
+(True, 'Benzocaine Topical', 2, (SELECT medicine_category_id FROM medicine_category WHERE name='gây tê'), 5, 1),
+(True, 'Probiotics', 1, (SELECT medicine_category_id FROM medicine_category WHERE name='hỗ trợ tiêu hóa'), 1, 1);
+
+INSERT INTO dental_issues (name) VALUES
+('Đau răng'),
+('Viêm nướu'),
+('Chảy máu nướu'),
+('Sưng nướu'),
+('Hơi thở có mùi'),
+('Răng nhạy cảm'),
+('Răng bị sứt mẻ'),
+('Răng bị mòn'),
+('Răng lung lay'),
+('Nhiễm trùng răng'),
+('Áp xe răng'),
+('Mòn men răng'),
+('Răng mọc lệch'),
+('Răng khôn mọc lệch'),
+('Sâu răng'),
+('Loét miệng'),
+('Khô miệng'),
+('Viêm tủy răng'),
+('Răng ngả màu'),
+('Nhiệt miệng'),
+('Viêm quanh răng'),
+('Răng ê buốt'),
+('Lở loét nướu'),
+('Nướu thâm đen'),
+('Răng thưa'),
+('Răng lệch lạc'),
+('Răng cửa bị hư hại'),
+('Mất răng'),
+('Răng mọc thêm'),
+('Đau quai hàm'),
+('Nướu co rút'),
+('Răng hô'),
+('Răng móm'),
+('Hàm không cân xứng'),
+('Răng chèn ép'),
+('Sâu ngầm'),
+('Vôi răng'),
+('Viêm lợi do mảng bám'),
+('Mọc mụn nhọt trong miệng'),
+('Vết cắt trong miệng'),
+('Nhiễm trùng nướu'),
+('Lệch đường giữa'),
+('Đau răng khi cắn'),
+('Răng không đều màu'),
+('Sứt mẻ răng cửa'),
+('Hàm răng không khớp'),
+('Thẩm mỹ'),
+('Mất răng hàng loạt'),
+('Viêm lợi do thuốc'),
+('Nhiễm trùng chân răng'),
+('Răng mọc quá nhiều'),
+('Mất răng cửa'),
+('Thay đổi màu nướu'),
+('Tiêu xương hàm'),
+('Răng bị đen'),
+('Sưng nướu quanh răng khôn'),
+('Nướu bị lở loét'),
+('Vết thương trong miệng do dụng cụ chỉnh nha'),
+('Nứt nẻ môi do thời tiết'),
+('Nhiễm trùng chân răng sau phẫu thuật');
+
+INSERT INTO treatment (treatment_name) VALUES
+('Điều trị tủy'),
+('Trám răng'),
+('Nhổ răng'),
+('Súc miệng bằng nước muối'),
+('Vệ sinh răng miệng'),
+('Sử dụng thuốc kháng sinh'),
+('Đánh răng nhẹ nhàng'),
+('Dùng chỉ nha khoa đúng cách'),
+('Súc miệng bằng dung dịch kháng khuẩn'),
+('Sử dụng thuốc kháng viêm'),
+('Điều trị nha chu'),
+('Vệ sinh răng miệng kỹ lưỡng'),
+('Uống nhiều nước'),
+('Sử dụng nước súc miệng kháng khuẩn'),
+('Dùng kem đánh răng cho răng nhạy cảm'),
+('Tránh thực phẩm quá nóng hoặc lạnh'),
+('Bọc răng sứ'),
+('Sử dụng bảo vệ răng khi nghiến răng'),
+('Điều chỉnh chế độ ăn uống'),
+('Nẹp răng'),
+('Dẫn lưu mủ'),
+('Dùng kem đánh răng chứa fluoride'),
+('Niềng răng'),
+('Chỉnh nha'),
+('Nhổ răng khôn'),
+('Sử dụng thuốc bôi loét miệng'),
+('Sử dụng thuốc kích thích tiết nước bọt'),
+('Sử dụng thuốc giảm đau và kháng viêm'),
+('Tẩy trắng răng'),
+('Sử dụng miếng dán tẩy trắng răng'),
+('Sử dụng thuốc bôi giảm đau'),
+('Khám nha sĩ để xác định nguyên nhân và điều trị phù hợp'),
+('Làm cầu răng'),
+('Nhổ răng mọc thêm'),
+('Điều trị nha khoa phù hợp'),
+('Ghép nướu'),
+('Phẫu thuật chỉnh hình'),
+('Phẫu thuật chỉnh hình hàm'),
+('Lấy cao răng'),
+('Vệ sinh răng miệng định kỳ'),
+('Sử dụng chỉ nha khoa'),
+('Vệ sinh vùng miệng sạch sẽ'),
+('Rửa vết thương bằng nước muối'),
+('Vệ sinh răng miệng tốt'),
+('Sử dụng veneer'),
+('Tư vấn và điều trị thẩm mỹ nha khoa'),
+('Sử dụng răng giả'),
+('Cấy ghép răng'),
+('Thay đổi thuốc hoặc điều chỉnh liều lượng dưới sự giám sát của bác sĩ'),
+('Ghép xương'),
+('Sử dụng sáp bảo vệ'),
+('Sử dụng son dưỡng môi'),
+('Giữ ẩm cho môi');
+
+
+INSERT INTO service_type (type_name) VALUES
+('Tổng quát'),
+('Chụp phim'),
+('Phòng ngừa'),
+('Chữa tủy'),
+('trám răng'),
+('Nhổ răng'),
+('Tẩy trắng răng'),
+('Chốt, cùi giả'),
+('Phục hồi tháo lắp'),
+('Răng sứ'),
+('Implant'),
+('chỉnh nha'),
+('Thẩm mỹ'),
+('Tiểu phẫu'),
+('Phục hồi cố định'),
+('Chữa trị bệnh lý miệng');
+
+INSERT INTO service (service_name, price, time_estimate, service_type_id)
+VALUES
+('Khám tổng quát', 0, 25, 1),
+('X quang kỹ thuật số (1 phim)', 20000, 15, 2),
+('X quang toàn cảnh', 100000, 15, 2),
+('X quang sọ nghiêng', 100000, 15, 2),
+('X quang sọ thẳng', 100000, 15, 2),
+('X quang CT răng hàm mặt - 2 hàm', 600000, 15, 2),
+('X quang CT răng hàm mặt - 1 hàm', 500000, 15, 2),
+('Cạo vôi răng', 250000, 20, 3),
+('Trám bít hố rãnh', 200000, 20, 3),
+('Trám răng bằng Composite', 150000, 35, 4),
+('Trám răng thẩm mỹ bằng Composite', 400000, 35, 4),
+('Chữa tủy', 800000, 35, 4),
+('Nạo túi nha chu', 200000, 35, 4),
+('Nhổ răng sữa trẻ em', 50000, 15, 5),
+('Nhổ răng vĩnh viễn mọc thẳng', 400000, 20, 5),
+('Nhổ răng khôn hàm dưới', 1500000, 45, 5),
+('Nhổ răng khôn hàm trên', 800000, 45, 5),
+('Tẩy trắng răng tại phòng khám', 1500000, 40, 6),
+('Tẩy trắng răng tại nhà', 1000000, 40, 6),
+('Tẩy trắng răng kết hợp', 2200000, 40, 6),
+('Tẩy trắng nội nha', 500000, 40, 6),
+('Chốt, cùi giả', 1000000, 40, 7),
+('Răng sứ tháo lắp', 800000, 30, 8),
+('Răng sứ cao cấp tháo lắp', 1000000, 30, 8),
+('Răng tạm', 200000, 30, 8),
+('Hàm khung kim loại', 1000000, 30, 8),
+('Sứ Kim loại', 1500000, 30, 9),
+('Sứ Zirconia', 3000000, 30, 9),
+('Mặt dán sứ', 7000000, 30, 9),
+('Implant trọn gói', 25000000, 45, 10),
+('Ghép xương', 7000000, 45, 11),
+('Chỉnh nha', 20000000, 45, 11),
+('Đính đá', 400000, 35, 12),
+('Đính đá trên răng sứ', 600000, 35, 12),
+('Mặt phẳng nghiêng', 2000000, 45, 11),
+('Cắt chóp, nạo nang, tiểu phẫu', 2000000, 45, 13),
+('Cắt nướu làm dài thân răng', 500000, 45, 13),
+('Làm hàm giả tháo lắp', 5000000, 30, 8),
+('Làm hàm giả cố định trên Implant', 20000000, 45, 14),
+('Chăm sóc và bảo dưỡng răng Implant', 500000, 30, 14),
+('Phẫu thuật tạo hình xương ổ răng', 10000000, 45, 13),
+('Tư vấn và thiết kế nụ cười', 500000, 30, 15),
+('Điều trị lở loét miệng', 200000, 20, 16),
+('Điều trị khô miệng', 500000, 20, 16),
+('Điều trị răng nhiễm màu kháng sinh', 3000000, 30, 15),
+('Điều trị viêm lợi do mảng bám', 500000, 20, 16),
+('Điều trị viêm lợi do thuốc', 500000, 20, 16),
+('Phẫu thuật cắt lợi', 5000000, 45, 13),
+('Điều trị bệnh lý nướu', 1500000, 30, 16),
+('Tạo hình lợi thẩm mỹ', 5000000, 30, 15),
+('Implant ( ức) trọn gói (Implant + Abutment Zirconia + mão sứ Zirconia)', 33000000, 45, 10),
+('Nhịp răng sứ Titan trên Implant', 3500000, 45, 10),
+('Nhịp răng sứ Zirconia trên Implant', 5500000, 45, 10),
+('Ghép xương (xương USA) tùy trường hợp từ', 70000000, 45, 10),
+('Chỉnh nha, implant', 120000000, 45, 11);
+
+INSERT INTO distribution_supplies (address, contact_person, distribution, email, is_deleted, name, note, tax_code)
+VALUES
+('123 Thanh xuân', 'Lê Hoàn', 'ABC Dental Supplies', 'john@example.com', 0, 'Distribution Center A', 'Main distribution center', '1234567890'),
+('456 Vĩnh Thuận', 'Jane Smith', 'Dental Supply Co.', 'jane@example.com', 0, 'Distribution Center B', 'Secondary distribution center', '0987654321'),
+('789 Cây xon', 'Michael Johnson', 'Healthy Smiles Inc.', 'michael@example.com', 0, 'Distribution Center C', 'Additional distribution center', '1357924680');
+
+INSERT INTO dental_supplies (supplies_name, is_deleted, distribution_id)
+VALUES
+('Khâu', 0, 1),
+('Mắc cài', 0, 1),
+('Dây cung', 0, 1),
+('Chỉ nha khoa', 0, 1),
+('Gương nha khoa', 0, 1),
+('Kềm nhổ răng', 0, 1),
+('Bàn chải nha khoa', 0, 1),
+('Cạo vôi răng', 0, 1),
+('Cần chỉnh nha', 0, 1),
+('Đèn chiếu quang', 0, 1),
+('Máy xquang nha khoa', 0, 1),
+('Khí cụ mở miệng', 0, 1),
+('Dao phẫu thuật', 0, 1),
+('Dụng cụ nạo túi nha chu', 0, 1),
+('Bơm tiêm nha khoa', 0, 1),
+('Găng tay y tế', 0, 1),
+('Máy siêu âm', 0, 1),
+('Dụng cụ thử tủy', 0, 1),
+('Máy trám răng', 0, 1),
+('Đũa hút nước bọt', 0, 1),
+('Dụng cụ nén bông', 0, 1),
+('Mỏ neo răng', 0, 1),
+('Dụng cụ đo chĐiều sâu túi nha chu', 0, 1),
+('Chất hàn răng', 0, 1),
+('Máy mài răng', 0, 1),
+('Khay lấy dấu răng', 0, 1),
+('Chất lấy dấu răng', 0, 1),
+('Máy chiếu phim X-quang', 0, 1),
+('Nút nha khoa', 0, 1),
+('Kềm cắt dây', 0, 1),
+('Kềm kẹp máu', 0, 1),
+('Dụng cụ định hình tủy răng', 0, 1),
+('Găng tay cao su', 0, 1),
+('Kính bảo hộ', 0, 1),
+('Nha cụ phân tách', 0, 1),
+('Kềm kẹp gắp dụng cụ', 0, 1),
+('Khay dụng cụ', 0, 1),
+('Chất làm tê tại chỗ', 0, 1),
+('Đầu đèn LED', 0, 1),
+('Máy hút dịch nha khoa', 0, 1),
+('Dụng cụ đo lường răng', 0, 1),
+('Dụng cụ lấy tủy răng', 0, 1),
+('Chất làm đầy răng tạm thời', 0, 1),
+('Máy đo độ nhạy cảm răng', 0, 1),
+('Dụng cụ nạo sâu răng', 0, 1),
+('Dụng cụ kiểm tra khớp cắn', 0, 1),
+('Dụng cụ nén amalgam', 0, 1),
+('Kẹp nha khoa', 0, 1),
+('Mũi khoan nha khoa', 0, 1),
+('Băng vệ sinh miệng', 0, 1),
+('Máy đo độ pH miệng', 0, 1),
+('Kéo nha khoa', 0, 1),
+('Dụng cụ lấy cao răng siêu âm', 0, 1),
+('Dụng cụ lấy cao răng thủ công', 0, 1),
+('Chất bảo vệ men răng', 0, 1),
+('Đèn trám răng', 0, 1),
+('Dụng cụ chỉnh hình miệng', 0, 1),
+('Kẹp dây cung', 0, 1),
+('Bộ dụng cụ chỉnh hình', 0, 1),
+('Chất làm sạch ống tủy', 0, 1);
+
+
+INSERT INTO abnormality (name, is_deleted)
+VALUES
+('Viêm nướu', 0),
+('Viêm túi nha chu', 0),
+('Mất răng', 0),
+('Áp xe răng', 0),
+('Viêm tủy răng', 0),
+('Sứt mẻ', 0),
+('Gãy răng', 0),
+('Trám răng hỏng', 0),
+('Mất xương', 0),
+('Tiêu xương', 0),
+('Mòn men răng', 0),
+('Răng mọc lệch', 0),
+('Núm phụ', 0),
+('Răng nằm ngược', 0),
+('Cột đen trên răng', 0),
+('Tủy răng bị chết', 0),
+('Răng lõm hoặc lồi', 0),
+('Nang chân răng', 0),
+('Răng bị thâm đen', 0),
+('Vùng xâm nhập của mảng bám', 0);
+
+INSERT INTO imaging_planes (name, is_deleted)
+VALUES
+('Hướng', 0),
+('Trước', 0),
+('Sau', 0),
+('Trên', 0),
+('Dưới', 0),
+('Bên trái', 0),
+('Bên phải', 0);
+
+INSERT INTO medical_history (name) VALUES
+('Cảm lạnh'),
+('Đau đầu'),
+('Tiểu đường'),
+('Huyết áp cao'),
+('Đau dạ dày'),
+('Trào ngược dạ dày'),
+('Viêm phế quản'),
+('Viêm họng'),
+('Viêm amidan'),
+('Viêm phổi'),
+('Viêm gan'),
+('Viêm mật'),
+('Viêm thận'),
+('Viêm bàng quang'),
+('Viêm ruột thừa'),
+('Viêm ruột kết'),
+('Viêm ruột già'),
+('Viêm nhiễm đường tiểu'),
+('Viêm nhiễm đường ruột'),
+('Tiêu chảy'),
+('Táo bón'),
+('Chứng suyễn'),
+('Hen suyễn'),
+('Viêm khớp'),
+('Đau xương khớp'),
+('Viêm xương'),
+('Cứng cổ'),
+('Đau vai gáy'),
+('Đau lưng'),
+('Đau dây thần kinh tọa'),
+('Đau đốt sống'),
+('Cột sống trụy'),
+('Cao huyết áp'),
+('Thấp huyết áp'),
+('Thiếu máu não'),
+('Đau tim'),
+('Mất trí nhớ'),
+('Trầm cảm'),
+('Lo âu'),
+('Suy giảm trí tuệ'),
+('Mất ngủ'),
+('Rối loạn tiền đình'),
+('Đau mắt'),
+('Viêm mắt'),
+('Viêm tai giữa'),
+('Viêm tai ngoài'),
+('Đau răng'),
+('Viêm nướu'),
+('Viêm amidan'),
+('Viêm tai giữa'),
+('Viêm xoang'),
+('Viêm tinh hoàn'),
+('Viêm tuyến tiền liệt'),
+('Viêm tuyến vú'),
+('U xơ tử cung'),
+('U nang buồng trứng'),
+('U xơ vú'),
+('U gan'),
+('U gan ác tính'),
+('U dạ dày'),
+('U ruột'),
+('U thận'),
+('U tiền liệt tuyến'),
+('U não'),
+('U phổi'),
+('U vú'),
+('U hậu môn'),
+('U tiểu đường'),
+('U gan cấp tính'),
+('U phế quản'),
+('U tuyến nước bọt'),
+('U tiền liệt'),
+('U da'),
+('U mạch máu não'),
+('U trung liên'),
+('U thanh quản'),
+('U gan tái phát'),
+('U da non'),
+('U tiền liệt ác tính'),
+('U tuyến nước bọt ác tính'),
+('U đường tiêu hóa'),
+('U tuyến nước bọt cấp tính'),
+('U tụy'),
+('U dạ dày cấp tính'),
+('U hậu môn ác tính'),
+('U tuyến nước bọt cấp tính'),
+('U tử cung'),
+('U thần kinh ngoại biên'),
+('U da ác tính'),
+('U bàng quang'),
+('U phổi ác tính');
+
+insert into department (department_name) VALUES ('Lễ tân'),('Kỹ thuật viên chẩn đoán hình ảnh'),('Y tá');
+
+INSERT INTO Specialty (specialty_name) VALUES
+('Nha khoa tổng quát'),
+('Chỉnh nha'),
+('Chữa trị viêm nướu'),
+('Chăm sóc răng miệng trẻ em'),
+('Phục hình răng sứ'),
+('Thẩm mỹ nha khoa'),
+('Nha khoa phòng ngừa'),
+('Chỉnh nha trẻ em'),
+('Chữa trị nhiễm trùng răng miệng'),
+('Phục hình nha khoa');
+
+insert into Appointment_Type (type_name) VALUES ('Khám chữa bệnh'),('Tư vấn chỉnh nha'),('Tiểu phẫu');
+
+
+INSERT INTO issues_treatment_automation (dental_issues_id, treatment_id) VALUES
+-- Đau răng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Đau răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị tủy')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Đau răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Trám răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Đau răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Nhổ răng')),
+
+-- Viêm nướu
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Viêm nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Súc miệng bằng nước muối')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Viêm nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Viêm nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng sinh')),
+
+-- Chảy máu nướu
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Chảy máu nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Đánh răng nhẹ nhàng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Chảy máu nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Dùng chỉ nha khoa đúng cách')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Chảy máu nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Súc miệng bằng dung dịch kháng khuẩn')),
+
+-- Sưng nướu
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Sưng nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng viêm')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Sưng nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Sưng nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị nha chu')),
+
+-- Hơi thở có mùi
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Hơi thở có mùi'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng kỹ lưỡng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Hơi thở có mùi'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Uống nhiều nước')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Hơi thở có mùi'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng nước súc miệng kháng khuẩn')),
+
+-- Răng nhạy cảm
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng nhạy cảm'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Dùng kem đánh răng cho răng nhạy cảm')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng nhạy cảm'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Tránh thực phẩm quá nóng hoặc lạnh')),
+
+-- Răng bị sứt mẻ
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng bị sứt mẻ'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Trám răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng bị sứt mẻ'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Bọc răng sứ')),
+
+-- Răng bị mòn
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng bị mòn'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng bảo vệ răng khi nghiến răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng bị mòn'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều chỉnh chế độ ăn uống')),
+
+-- Răng lung lay
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng lung lay'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị nha chu')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng lung lay'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Nẹp răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng lung lay'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Nhổ răng')),
+
+-- Nhiễm trùng răng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nhiễm trùng răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng sinh')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nhiễm trùng răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị tủy')),
+
+-- Áp xe răng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Áp xe răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng sinh')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Áp xe răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Dẫn lưu mủ')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Áp xe răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị tủy')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Áp xe răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'nhổ răng')),
+-- Mòn men răng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Mòn men răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Dùng kem đánh răng chứa fluoride')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Mòn men răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều chỉnh chế độ ăn uống')),
+
+-- Răng mọc lệch
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng mọc lệch'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Niềng răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng mọc lệch'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Chỉnh nha')),
+
+-- Răng khôn mọc lệch
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng khôn mọc lệch'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Nhổ răng khôn')),
+
+-- Sâu răng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Sâu răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Trám răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Sâu răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị tủy')),
+
+-- Loét miệng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Loét miệng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Súc miệng bằng nước muối')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Loét miệng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc bôi loét miệng')),
+
+-- Khô miệng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Khô miệng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Uống nhiều nước')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Khô miệng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kích thích tiết nước bọt')),
+
+-- Viêm tủy răng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Viêm tủy răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị tủy')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Viêm tủy răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc giảm đau và kháng viêm')),
+
+-- Răng ngả màu
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng ngả màu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Tẩy trắng răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng ngả màu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng miếng dán tẩy trắng răng')),
+
+-- Nhiệt miệng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nhiệt miệng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Súc miệng bằng nước muối')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nhiệt miệng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc bôi giảm đau')),
+
+-- Viêm quanh răng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Viêm quanh răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Súc miệng bằng dung dịch kháng khuẩn')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Viêm quanh răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị nha chu')),
+
+-- Răng ê buốt
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng ê buốt'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Dùng kem đánh răng cho răng nhạy cảm')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng ê buốt'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Tránh thực phẩm quá nóng hoặc lạnh')),
+
+-- Lở loét nướu
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Lở loét nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng viêm')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Lở loét nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Súc miệng bằng nước muối')),
+
+-- Nướu thâm đen
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nướu thâm đen'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Khám nha sĩ để xác định nguyên nhân và điều trị phù hợp')),
+
+-- Răng thưa
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng thưa'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Chỉnh nha')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng thưa'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Niềng răng')),
+
+-- Răng lệch lạc
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng lệch lạc'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Chỉnh nha')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng lệch lạc'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Niềng răng')),
+
+-- Răng cửa bị hư hại
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng cửa bị hư hại'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Trám răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng cửa bị hư hại'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Bọc răng sứ')),
+
+-- Mất răng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Mất răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Cấy ghép răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Mất răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Làm cầu răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Mất răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng răng giả')),
+
+-- Răng mọc thêm
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng mọc thêm'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Nhổ răng mọc thêm')),
+
+-- Đau quai hàm
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Đau quai hàm'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng bảo vệ răng khi nghiến răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Đau quai hàm'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị nha khoa phù hợp')),
+
+-- Nướu co rút
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nướu co rút'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Ghép nướu')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nướu co rút'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng tốt')),
+
+-- Răng hô
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng hô'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Niềng răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng hô'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Phẫu thuật chỉnh hình')),
+
+-- Răng móm
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng móm'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Niềng răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng móm'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Phẫu thuật chỉnh hình')),
+
+-- Hàm không cân xứng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Hàm không cân xứng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Phẫu thuật chỉnh hình hàm')),
+
+-- Răng chèn ép
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng chèn ép'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Nhổ răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng chèn ép'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Chỉnh nha')),
+
+-- Sâu ngầm
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Sâu ngầm'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Trám răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Sâu ngầm'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị tủy')),
+
+-- Vôi răng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Vôi răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Lấy cao răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Vôi răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng định kỳ')),
+
+-- Viêm lợi do mảng bám
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Viêm lợi do mảng bám'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng chỉ nha khoa')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Viêm lợi do mảng bám'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng kỹ lưỡng')),
+
+-- Mọc mụn nhọt trong miệng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Mọc mụn nhọt trong miệng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng viêm')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Mọc mụn nhọt trong miệng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh vùng miệng sạch sẽ')),
+
+-- Vết cắt trong miệng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Vết cắt trong miệng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Rửa vết thương bằng nước muối')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Vết cắt trong miệng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng viêm')),
+
+-- Nhiễm trùng nướu
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nhiễm trùng nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng sinh')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nhiễm trùng nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng kỹ lưỡng')),
+
+-- Lệch đường giữa
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Lệch đường giữa'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Chỉnh nha')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Lệch đường giữa'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Niềng răng')),
+
+-- Đau răng khi cắn
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Đau răng khi cắn'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng bảo vệ răng khi nghiến răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Đau răng khi cắn'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị tủy')),
+
+-- Răng không đều màu
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng không đều màu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Tẩy trắng răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng không đều màu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng veneer')),
+
+-- Sứt mẻ răng cửa
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Sứt mẻ răng cửa'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Trám răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Sứt mẻ răng cửa'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Bọc răng sứ')),
+
+-- Hàm răng không khớp
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Hàm răng không khớp'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Chỉnh nha')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Hàm răng không khớp'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Niềng răng')),
+
+-- Thẩm mỹ
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Thẩm mỹ'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Tư vấn và điều trị thẩm mỹ nha khoa')),
+
+-- Mất răng hàng loạt
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Mất răng hàng loạt'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng răng giả')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Mất răng hàng loạt'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Cấy ghép răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Mất răng hàng loạt'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Làm cầu răng')),
+
+-- Viêm lợi do thuốc
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Viêm lợi do thuốc'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Thay đổi thuốc hoặc điều chỉnh liều lượng dưới sự giám sát của bác sĩ')),
+
+-- Nhiễm trùng chân răng
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nhiễm trùng chân răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị tủy')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nhiễm trùng chân răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng sinh')),
+
+-- Răng mọc quá nhiều
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng mọc quá nhiều'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Nhổ răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng mọc quá nhiều'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Chỉnh nha')),
+
+-- Mất răng cửa
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Mất răng cửa'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Trám răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Mất răng cửa'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Bọc răng sứ')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Mất răng cửa'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Cấy ghép răng')),
+
+-- Thay đổi màu nướu
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Thay đổi màu nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Khám nha sĩ để xác định nguyên nhân và điều trị phù hợp')),
+
+-- Tiêu xương hàm
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Tiêu xương hàm'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Ghép xương')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Tiêu xương hàm'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Cấy ghép răng')),
+
+-- Răng bị đen
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng bị đen'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Tẩy trắng răng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Răng bị đen'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị tủy răng')),
+
+-- Sưng nướu quanh răng khôn
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Sưng nướu quanh răng khôn'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Sưng nướu quanh răng khôn'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng viêm')),
+
+-- Nướu bị lở loét
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nướu bị lở loét'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Súc miệng bằng nước muối')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nướu bị lở loét'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc bôi giảm đau')),
+
+-- Vết thương trong miệng do dụng cụ chỉnh nha
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Vết thương trong miệng do dụng cụ chỉnh nha'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng kỹ lưỡng')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Vết thương trong miệng do dụng cụ chỉnh nha'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng sáp bảo vệ')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Vết thương trong miệng do dụng cụ chỉnh nha'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Khám nha sĩ để xác định nguyên nhân và điều trị phù hợp')),
+
+-- Nứt nẻ môi do thời tiết
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nứt nẻ môi do thời tiết'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng son dưỡng môi')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nứt nẻ môi do thời tiết'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Giữ ẩm cho môi')),
+
+-- Nhiễm trùng chân răng sau phẫu thuật
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nhiễm trùng chân răng sau phẫu thuật'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng sinh')),
+((SELECT dental_issues_id FROM dental_issues WHERE name = 'Nhiễm trùng chân răng sau phẫu thuật'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng'))
+;
+
+INSERT INTO service_treatment (is_deleted, service_id, treatment_id)
+VALUES
+-- Điều trị tủy, trám răng: Chữa tủy, Trám răng bằng Composite
+(0, (SELECT service_id FROM service WHERE service_name = 'Chữa tủy'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị tủy')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Trám răng bằng Composite'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Trám răng')),
+
+-- Súc miệng bằng nước muối, vệ sinh răng miệng, sử dụng thuốc kháng sinh: Cạo vôi răng, Nạo túi nha chu, Điều trị viêm lợi do thuốc
+(0, (SELECT service_id FROM service WHERE service_name = 'Cạo vôi răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Súc miệng bằng nước muối')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Nạo túi nha chu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Điều trị viêm lợi do thuốc'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng sinh')),
+
+-- Đánh răng nhẹ nhàng, dùng chỉ nha khoa đúng cách, súc miệng bằng dung dịch kháng khuẩn: Nạo túi nha chu, Điều trị bệnh lý nướu
+(0, (SELECT service_id FROM service WHERE service_name = 'Nạo túi nha chu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Đánh răng nhẹ nhàng')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Điều trị bệnh lý nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Dùng chỉ nha khoa đúng cách')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Điều trị bệnh lý nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Súc miệng bằng dung dịch kháng khuẩn')),
+
+-- Sử dụng thuốc kháng viêm, vệ sinh răng miệng, điều trị nha chu: Nạo túi nha chu, Điều trị bệnh lý nướu
+(0, (SELECT service_id FROM service WHERE service_name = 'Nạo túi nha chu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng viêm')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Điều trị bệnh lý nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Điều trị bệnh lý nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị nha chu')),
+
+-- Vệ sinh răng miệng kỹ lưỡng, uống nhiều nước, sử dụng nước súc miệng kháng khuẩn: Cạo vôi răng, Điều trị răng nhiễm màu kháng sinh
+(0, (SELECT service_id FROM service WHERE service_name = 'Cạo vôi răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng kỹ lưỡng')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Điều trị răng nhiễm màu kháng sinh'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Uống nhiều nước')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Điều trị răng nhiễm màu kháng sinh'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng nước súc miệng kháng khuẩn')),
+
+-- Dùng kem đánh răng cho răng nhạy cảm, tránh thực phẩm quá nóng hoặc lạnh: Trám răng bằng Composite, Trám răng thẩm mỹ bằng Composite
+(0, (SELECT service_id FROM service WHERE service_name = 'Trám răng bằng Composite'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Dùng kem đánh răng cho răng nhạy cảm')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Trám răng thẩm mỹ bằng Composite'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Tránh thực phẩm quá nóng hoặc lạnh')),
+
+-- Trám răng hoặc bọc răng: Trám bít hố rãnh, Trám răng bằng Composite
+(0, (SELECT service_id FROM service WHERE service_name = 'Trám bít hố rãnh'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Trám răng')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Trám răng bằng Composite'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Bọc răng sứ')),
+
+-- Sử dụng bảo vệ răng khi nghiến răng, điều chỉnh chế độ ăn uống: Sứ Zirconia, Trám răng bằng Composite
+(0, (SELECT service_id FROM service WHERE service_name = 'Sứ Zirconia'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng bảo vệ răng khi nghiến răng')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Trám răng bằng Composite'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều chỉnh chế độ ăn uống')),
+
+-- Điều trị nha chu, nẹp răng, nhổ răng nếu cần: Nhổ răng sữa trẻ em, Nhổ răng vĩnh viễn mọc thẳng, Nhổ răng khôn hàm dưới
+(0, (SELECT service_id FROM service WHERE service_name = 'Nhổ răng sữa trẻ em'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị nha chu')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Nhổ răng vĩnh viễn mọc thẳng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Nẹp răng')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Nhổ răng khôn hàm dưới'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Nhổ răng')),
+
+-- Sử dụng thuốc kháng sinh, điều trị tủy răng: Chữa tủy, Trám răng bằng Composite, Trám răng thẩm mỹ bằng Composite
+(0, (SELECT service_id FROM service WHERE service_name = 'Chữa tủy'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng sinh')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Trám răng bằng Composite'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị tủy')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Trám răng thẩm mỹ bằng Composite'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị tủy')),
+
+-- Sử dụng thuốc kháng sinh, dẫn lưu mủ, điều trị tủy hoặc nhổ răng: Chữa tủy, Nạo túi nha chu, Nhổ răng khôn
+(0, (SELECT service_id FROM service WHERE service_name = 'Chữa tủy'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Sử dụng thuốc kháng sinh')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Nạo túi nha chu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Dẫn lưu mủ')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Nhổ răng khôn hàm dưới'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều trị tủy')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Nhổ răng khôn hàm dưới'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Nhổ răng')),
+
+-- Sử dụng kem đánh răng chứa fluoride, điều chỉnh chế độ ăn uống: Cạo vôi răng, Điều trị bệnh lý nướu
+(0, (SELECT service_id FROM service WHERE service_name = 'Cạo vôi răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Dùng kem đánh răng chứa fluoride')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Điều trị bệnh lý nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Điều chỉnh chế độ ăn uống')),
+
+-- Niềng răng, chỉnh nha: Niềng răng, Chỉnh nha
+(0, (SELECT service_id FROM service WHERE service_name = 'Niềng răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Niềng răng')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Chỉnh nha'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Chỉnh nha')),
+
+-- Nhổ răng khôn: Nhổ răng khôn hàm dưới, Nhổ răng khôn hàm trên
+(0, (SELECT service_id FROM service WHERE service_name = 'Nhổ răng khôn hàm dưới'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Nhổ răng khôn')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Nhổ răng khôn hàm trên'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Nhổ răng khôn')),
+
+-- Trám răng, bọc răng: Trám răng bằng Composite, Trám răng thẩm mỹ bằng Composite, Bọc răng sứ
+(0, (SELECT service_id FROM service WHERE service_name = 'Trám răng bằng Composite'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Trám răng')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Trám răng thẩm mỹ bằng Composite'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Trám răng')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Bọc răng sứ'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Bọc răng sứ')),
+
+-- Vệ sinh răng miệng, súc miệng bằng nước muối: Cạo vôi răng, Điều trị bệnh lý nướu
+(0, (SELECT service_id FROM service WHERE service_name = 'Cạo vôi răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng')),
+(0, (SELECT service_id FROM service WHERE service_name = 'Điều trị bệnh lý nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Súc miệng bằng nước muối'));
+
+
+
