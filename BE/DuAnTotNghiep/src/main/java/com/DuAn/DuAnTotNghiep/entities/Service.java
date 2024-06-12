@@ -28,6 +28,8 @@ public class Service {
     private double price;
 
     private int timeEstimate;
+    
+    private String imageURL;
 
     private String description;
 

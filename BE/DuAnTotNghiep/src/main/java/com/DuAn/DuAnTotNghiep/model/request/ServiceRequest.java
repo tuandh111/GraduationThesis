@@ -16,6 +16,8 @@ public class ServiceRequest {
 
     private int serviceTypeId;
 
+    private String imageURL;
+
     private String description;
 
 }
