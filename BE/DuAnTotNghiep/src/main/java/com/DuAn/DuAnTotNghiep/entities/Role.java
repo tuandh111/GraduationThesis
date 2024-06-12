@@ -20,6 +20,8 @@ public class Role {
     @Column(name = "role_id")
     private int roleId;
 
+    private boolean isDeleted = false;
+
     @Column(columnDefinition = "NVARCHAR(255)")
     @NotNull
     private String roleName;

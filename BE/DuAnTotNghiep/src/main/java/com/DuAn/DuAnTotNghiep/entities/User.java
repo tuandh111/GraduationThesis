@@ -16,7 +16,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -28,6 +27,8 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    private boolean isDeleted = false;
 
     @Nationalized
     @NotBlank(message = "Vui lòng nhập họ")
@@ -58,6 +59,19 @@ public class User implements UserDetails {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "roleId")
     private Role role;
+
+    @OneToOne
+    @JoinColumn(name = "dentalStaffId")
+    private DentalStaff dentalStaff;
+
+    @OneToOne
+    @JoinColumn(name = "patientId")
+    private Patient patient;
+
+    @OneToOne
+    @JoinColumn(name = "doctorId")
+    @JsonIgnore
+    private Doctor doctor;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore

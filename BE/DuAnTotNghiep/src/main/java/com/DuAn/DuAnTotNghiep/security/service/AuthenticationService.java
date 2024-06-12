@@ -47,7 +47,7 @@ public class AuthenticationService {
         .email(request.getEmail())
         .birthDay(date)
         .password(passwordEncoder.encode(request.getPassword()))
-         .role(role)
+        .role(role)
         .build();
     var savedUser = userRepository.save(user);
     var jwtToken = jwtService.generateToken(user);
@@ -55,7 +55,7 @@ public class AuthenticationService {
     saveUserToken(savedUser, jwtToken);
     return AuthenticationResponse.builder()
         .accessToken(jwtToken)
-            .refreshToken(refreshToken)
+        .refreshToken(refreshToken)
         .build();
   }
 
