@@ -3,7 +3,7 @@ package com.DuAn.DuAnTotNghiep.controller;
 import com.DuAn.DuAnTotNghiep.entities.FrequencyMedicines;
 import com.DuAn.DuAnTotNghiep.model.request.FrequencyMedicineRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
-import com.DuAn.DuAnTotNghiep.service.service.utils.FrequencyMedicinesService;
+import com.DuAn.DuAnTotNghiep.service.service.FrequencyMedicinesService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

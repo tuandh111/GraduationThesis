@@ -3,7 +3,7 @@ package com.DuAn.DuAnTotNghiep.controller;
 import com.DuAn.DuAnTotNghiep.entities.PrescriptionMedicines;
 import com.DuAn.DuAnTotNghiep.model.request.PrescriptionMedicinesRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
-import com.DuAn.DuAnTotNghiep.service.service.utils.PrescriptionMedicinesService;
+import com.DuAn.DuAnTotNghiep.service.service.PrescriptionMedicinesService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

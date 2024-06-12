@@ -1,4 +1,4 @@
-package com.DuAn.DuAnTotNghiep.service.service.utils;
+package com.DuAn.DuAnTotNghiep.service.service;
 
 import com.DuAn.DuAnTotNghiep.entities.TreatmentDuration;
 import com.DuAn.DuAnTotNghiep.model.request.TreatmentDurationRequest;

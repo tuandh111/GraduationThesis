@@ -3,7 +3,7 @@ package com.DuAn.DuAnTotNghiep.controller;
 import com.DuAn.DuAnTotNghiep.entities.TreatmentDuration;
 import com.DuAn.DuAnTotNghiep.model.request.TreatmentDurationRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
-import com.DuAn.DuAnTotNghiep.service.service.utils.TreatmentDurationService;
+import com.DuAn.DuAnTotNghiep.service.service.TreatmentDurationService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
