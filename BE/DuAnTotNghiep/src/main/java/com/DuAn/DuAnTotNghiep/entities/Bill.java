@@ -28,7 +28,7 @@ public class Bill {
     @Temporal(TemporalType.DATE)
     private Date createAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "appointmentId")
     private Appointment appointment;
 }

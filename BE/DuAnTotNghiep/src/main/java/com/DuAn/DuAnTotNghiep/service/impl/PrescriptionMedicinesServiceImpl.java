@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-// còn lỗi get và get by id
 @Service
 public class PrescriptionMedicinesServiceImpl implements PrescriptionMedicinesService {
 
@@ -40,8 +39,8 @@ public class PrescriptionMedicinesServiceImpl implements PrescriptionMedicinesSe
         PrescriptionMedicines prescriptionMedicines = PrescriptionMedicines.builder()
                 .prescriptionMedicines(prescriptionMedicinesRequest.getPrescriptionMedicines())
                 .frequency(prescriptionMedicinesRequest.getFrequency())
-//                .prescription(prescriptionService.findByPrescriptionId(prescriptionMedicinesRequest.getPrescriptionId()))
-//                .medicines(medicineService.findByMedicineId(prescriptionMedicinesRequest.getMedicinesId()))
+//                .prescription(prescriptionService.findByPrescriptionId(prescriptionMedicinesRequest.getPrescriptionId() != null ? prescriptionMedicinesRequest.getPrescriptionId() : null))
+//                .medicines(medicineService.findByMedicineId(prescriptionMedicinesRequest.getMedicinesId() != null ? prescriptionMedicinesRequest.getMedicinesId() : null))
                 .build();
         prescriptionMedicinesRepository.save(prescriptionMedicines);
         return prescriptionMedicines;
@@ -53,8 +52,8 @@ public class PrescriptionMedicinesServiceImpl implements PrescriptionMedicinesSe
                 .prescriptionMedicinesId(prescriptionMedicinesId)
                 .prescriptionMedicines(prescriptionMedicinesRequest.getPrescriptionMedicines())
                 .frequency(prescriptionMedicinesRequest.getFrequency())
-//                .prescription(prescriptionService.findByPrescriptionId(prescriptionMedicinesRequest.getPrescriptionId()))
-//                .medicines(medicineService.findByMedicineId(prescriptionMedicinesRequest.getMedicinesId()))
+//                .prescription(prescriptionService.findByPrescriptionId(prescriptionMedicinesRequest.getPrescriptionId() != null ? prescriptionMedicinesRequest.getPrescriptionId() : null))
+//                .medicines(medicineService.findByMedicineId(prescriptionMedicinesRequest.getMedicinesId() != null ? prescriptionMedicinesRequest.getMedicinesId() : null))
                 .build() ;
         prescriptionMedicinesRepository.save(prescriptionMedicines) ;
         return prescriptionMedicines;

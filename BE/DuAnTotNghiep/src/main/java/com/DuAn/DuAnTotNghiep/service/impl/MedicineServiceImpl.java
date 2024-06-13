@@ -45,10 +45,10 @@ public class MedicineServiceImpl implements MedicineService {
         var medicine = Medicines.builder()
                 .medicineName(medicineRequest.getMedicineName())
                 .beforeEating(medicineRequest.isBeforeEating())
-//                .medicinesDosageUnit(medicinesDosageUnitService.findMedicinesDosageUnitById(medicineRequest.getMedicinesDosageUnitId()))
-//                .distributionMedicines(distributionMedicinesService.findByDistributionMedicinesId(medicineRequest.getDistributionMedicinesId()))
-//                .medicinesDosageAmount(medicinesDosageAmountService.findByMedicinesDosageAmountId(medicineRequest.getMedicinesDosageAmountId()))
-//                .medicineCategory(medicinesCategoryService.findByMedicineCategoryId(medicineRequest.getMedicineCategoryId()))
+                .medicinesDosageUnit(medicinesDosageUnitService.findMedicinesDosageUnitById(medicineRequest.getMedicinesDosageUnitId()))
+                .distributionMedicines(distributionMedicinesService.findByDistributionMedicinesId(medicineRequest.getDistributionMedicinesId()))
+                .medicinesDosageAmount(medicinesDosageAmountService.findByMedicinesDosageAmountId(medicineRequest.getMedicinesDosageAmountId()))
+                .medicineCategory(medicinesCategoryService.findByMedicineCategoryId(medicineRequest.getMedicineCategoryId()))
                 .build();
         medicineRepository.save(medicine);
         return medicine;
@@ -60,10 +60,10 @@ public class MedicineServiceImpl implements MedicineService {
                 .medicinesId(medicineId)
                 .medicineName(medicineRequest.getMedicineName())
                 .beforeEating(medicineRequest.isBeforeEating())
-//                .medicinesDosageUnit(medicinesDosageUnitService.findMedicinesDosageUnitById(medicineRequest.getMedicinesDosageUnitId()))
-//                .distributionMedicines(distributionMedicinesService.findByDistributionMedicinesId(medicineRequest.getDistributionMedicinesId()))
-//                .medicinesDosageAmount(medicinesDosageAmountService.findByMedicinesDosageAmountId(medicineRequest.getMedicinesDosageAmountId()))
-//                .medicineCategory(medicinesCategoryService.findByMedicineCategoryId(medicineRequest.getMedicineCategoryId()))
+                .medicinesDosageUnit(medicinesDosageUnitService.findMedicinesDosageUnitById(medicineRequest.getMedicinesDosageUnitId()))
+                .distributionMedicines(distributionMedicinesService.findByDistributionMedicinesId(medicineRequest.getDistributionMedicinesId()))
+                .medicinesDosageAmount(medicinesDosageAmountService.findByMedicinesDosageAmountId(medicineRequest.getMedicinesDosageAmountId()))
+                .medicineCategory(medicinesCategoryService.findByMedicineCategoryId(medicineRequest.getMedicineCategoryId()))
                 .build();
         medicineRepository.save(medicine);
         return medicine;

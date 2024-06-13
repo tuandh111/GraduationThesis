@@ -20,11 +20,11 @@ public class DentalSuppliesAppointment {
 
     private boolean isDeleted = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name ="appointmentId")
     private Appointment appointment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name ="dentalSuppliesId")
     private DentalSupplies dentalSupplies;
 }
