@@ -21,13 +21,12 @@ public class PrescriptionMedicines {
     private boolean isDeleted = false;
 
     private String frequency;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "prescriptionId")
-    private PrescriptionMedicines prescription;
+    private Prescription prescription;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "medicinesId")
-    private Medicine medicines;
+    private Medicines medicines;
 
 }

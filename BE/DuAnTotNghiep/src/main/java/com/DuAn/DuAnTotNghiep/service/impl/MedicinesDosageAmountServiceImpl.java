@@ -50,26 +50,24 @@ public class MedicinesDosageAmountServiceImpl implements MedicinesDosageAmountSe
     @Override
     public MessageResponse deleteMedicinesDosageAmount(int dosageAmountId) {
         try {
-            medicinesDosageAmountRepository.deleteById(dosageAmountId);
-            return new MessageResponse("Successfully");
+            medicinesDosageAmountRepository.deleteById(dosageAmountId) ;
+            return new MessageResponse("Successfully") ;
         } catch (Exception e) {
-            e.printStackTrace();
-            return new MessageResponse("Failed");
+            e.printStackTrace() ;
+            return new MessageResponse("Failed") ;
         }
     }
 
     @Override
     public MessageResponse softDeleteMedicinesDosageAmount(int dosageAmountId) {
         try {
-            MedicinesDosageAmount dosageAmount = MedicinesDosageAmount.builder()
-                    .medicinesDosageAmountId(dosageAmountId)
-                    .isDeleted(true)
-                    .build();
-            medicinesDosageAmountRepository.save(dosageAmount);
-            return new MessageResponse("Successfully");
+            MedicinesDosageAmount medicinesDosageAmount = medicinesDosageAmountRepository.findById(dosageAmountId).orElseThrow(null) ;
+            medicinesDosageAmount.setDeleted(true) ;
+            medicinesDosageAmountRepository.save(medicinesDosageAmount) ;
+            return new MessageResponse("Successfully") ;
         } catch (Exception e) {
-            e.printStackTrace();
-            return new MessageResponse("Failed");
+            e.printStackTrace() ;
+            return new MessageResponse("Failed") ;
         }
     }
 }

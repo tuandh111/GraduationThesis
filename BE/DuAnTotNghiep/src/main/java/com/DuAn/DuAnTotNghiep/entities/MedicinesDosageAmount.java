@@ -27,5 +27,5 @@ public class MedicinesDosageAmount {
 
     @OneToMany(mappedBy = "medicinesId")
     @JsonIgnore
-    private List<Medicine> medicines;
+    private List<Medicines> medicines;
 }

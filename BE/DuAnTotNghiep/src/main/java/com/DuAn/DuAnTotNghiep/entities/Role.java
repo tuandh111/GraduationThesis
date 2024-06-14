@@ -20,6 +20,8 @@ public class Role {
     @Column(name = "role_id")
     private int roleId;
 
+    private boolean isDeleted = false;
+
     @Column(columnDefinition = "NVARCHAR(255)")
     @NotNull
     private String roleName;
@@ -27,7 +29,7 @@ public class Role {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<User> users;
 

@@ -1,22 +1,23 @@
 package com.DuAn.DuAnTotNghiep.service.service;
 
-import com.DuAn.DuAnTotNghiep.entities.Medicine;
+import com.DuAn.DuAnTotNghiep.entities.Medicines;
 import com.DuAn.DuAnTotNghiep.model.request.MedicineRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 
 import java.util.List;
 
 public interface MedicineService {
-    Medicine findByMedicineId(int medicineId) ;
+    Medicines findByMedicineId(int medicineId) ;
 
-    List<Medicine> findAllMedicines() ;
+    List<Medicines> findAllMedicines() ;
 
-    Medicine saveMedicine(MedicineRequest medicineRequest) ;
+    Medicines saveMedicine(MedicineRequest medicineRequest) ;
 
-    Medicine updateMedicine(int medicineId, MedicineRequest medicineRequest) ;
+    Medicines updateMedicine(int medicineId, MedicineRequest medicineRequest) ;
 
     MessageResponse deleteMedicine(int medicineId) ;
 
     MessageResponse softDeleteMedicine(int medicineId) ;
+
 }
 

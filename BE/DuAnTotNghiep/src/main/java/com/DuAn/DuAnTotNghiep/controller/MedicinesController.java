@@ -1,6 +1,6 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
-import com.DuAn.DuAnTotNghiep.entities.Medicine;
+import com.DuAn.DuAnTotNghiep.entities.Medicines;
 import com.DuAn.DuAnTotNghiep.model.request.MedicineRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.service.service.MedicineService;
@@ -26,25 +26,33 @@ public class MedicinesController {
 
     @GetMapping("/medicines")
     @Operation(summary = "List medicines")
-    public ResponseEntity<List<Medicine>> getAllMedicines() {
-        return ResponseEntity.ok(medicineService.findAllMedicines()) ;
+    public ResponseEntity<List<Medicines>> getAllMedicines() {
+        List<Medicines> medicines = medicineService.findAllMedicines();
+        if (medicines.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(medicines);
     }
 
     @GetMapping("/medicines-id/{id}")
     @Operation(summary = "Get medicine by ID")
-    public ResponseEntity<Medicine> getMedicineById(@PathVariable Integer id) {
-        return ResponseEntity.ok(medicineService.findByMedicineId(id)) ;
+    public ResponseEntity<Medicines> getMedicineById(@PathVariable Integer id) {
+        Medicines medicine = medicineService.findByMedicineId(id);
+        if (medicine == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(medicine);
     }
 
     @PostMapping("/medicines")
     @Operation(summary = "Save medicine")
-    public ResponseEntity<Medicine> saveMedicine(@Valid @RequestBody MedicineRequest medicineRequest) {
+    public ResponseEntity<Medicines> saveMedicine(@Valid @RequestBody MedicineRequest medicineRequest) {
         return ResponseEntity.ok(medicineService.saveMedicine(medicineRequest)) ;
     }
 
     @PutMapping("/medicines/{id}")
     @Operation(summary = "Update medicine")
-    public ResponseEntity<Medicine> updateMedicine(@PathVariable Integer id, @Valid @RequestBody MedicineRequest medicineRequest) {
+    public ResponseEntity<Medicines> updateMedicine(@PathVariable Integer id, @Valid @RequestBody MedicineRequest medicineRequest) {
         return ResponseEntity.ok(medicineService.updateMedicine(id, medicineRequest)) ;
     }
 

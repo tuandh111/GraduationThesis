@@ -23,7 +23,7 @@ public class ImagingPlanes {
     private boolean isDeleted = false;
 
     private String description;
-
+    
     @OneToMany(mappedBy = "appointmentCTResultId")
     @JsonIgnore
     private List<AppointmentCTResult> appointmentCTResults;

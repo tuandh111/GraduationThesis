@@ -1,47 +1,69 @@
 package com.DuAn.DuAnTotNghiep.service.impl;
 
-import com.DuAn.DuAnTotNghiep.entities.Medicine;
+import com.DuAn.DuAnTotNghiep.entities.Medicines;
 import com.DuAn.DuAnTotNghiep.model.request.MedicineRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
-import com.DuAn.DuAnTotNghiep.repositories.MedicinesRepository;
-import com.DuAn.DuAnTotNghiep.service.service.MedicineService;
+import com.DuAn.DuAnTotNghiep.repositories.*;
+import com.DuAn.DuAnTotNghiep.service.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+// còn lỗi get và get by id
 @Service
 public class MedicineServiceImpl implements MedicineService {
 
     @Autowired
-    private MedicinesRepository medicineRepository;
+    private MedicinesRepository medicineRepository ;
+
+    @Autowired
+    private MedicinesDosageUnitRepository medicinesDosageUnitRepository ;
+
+    @Autowired
+    private DistributionMedicinesRepository distributionMedicinesRepository ;
+
+    @Autowired
+    private MedicinesDosageAmountRepository medicinesDosageAmountRepository ;
+
+    @Autowired
+    private MedicinesCategoryRepository medicinesCategoryRepository ;
 
     @Override
-    public Medicine findByMedicineId(int medicineId) {
-        return medicineRepository.findById(medicineId).orElse(null);
+    public Medicines findByMedicineId(int medicineId) {
+        return medicineRepository.findById(medicineId).orElse(null) ;
+
     }
 
     @Override
-    public List<Medicine> findAllMedicines() {
-        return medicineRepository.findAll();
+    public List<Medicines> findAllMedicines() {
+        return medicineRepository.findAll() ;
     }
 
     @Override
-    public Medicine saveMedicine(MedicineRequest medicineRequest) {
-        Medicine medicine = Medicine.builder()
+    public Medicines saveMedicine(MedicineRequest medicineRequest) {
+        var medicine = Medicines.builder()
                 .medicineName(medicineRequest.getMedicineName())
                 .beforeEating(medicineRequest.isBeforeEating())
+                .medicinesDosageUnit(medicinesDosageUnitRepository.findById(medicineRequest.getMedicinesDosageUnitId()).orElse(null))
+                .distributionMedicines(distributionMedicinesRepository.findById(medicineRequest.getDistributionMedicinesId()).orElse(null))
+                .medicinesDosageAmount(medicinesDosageAmountRepository.findById(medicineRequest.getMedicinesDosageAmountId()).orElse(null))
+                .medicineCategory(medicinesCategoryRepository.findById(medicineRequest.getMedicineCategoryId()).orElse(null))
                 .build();
         medicineRepository.save(medicine);
         return medicine;
     }
 
     @Override
-    public Medicine updateMedicine(int medicineId, MedicineRequest medicineRequest) {
-        Medicine medicine = Medicine.builder()
+    public Medicines updateMedicine(int medicineId, MedicineRequest medicineRequest) {
+        var medicine = Medicines.builder()
                 .medicinesId(medicineId)
                 .medicineName(medicineRequest.getMedicineName())
                 .beforeEating(medicineRequest.isBeforeEating())
+                .medicinesDosageUnit(medicinesDosageUnitRepository.findById(medicineRequest.getMedicinesDosageUnitId()).orElse(null))
+                .distributionMedicines(distributionMedicinesRepository.findById(medicineRequest.getDistributionMedicinesId()).orElse(null))
+                .medicinesDosageAmount(medicinesDosageAmountRepository.findById(medicineRequest.getMedicinesDosageAmountId()).orElse(null))
+                .medicineCategory(medicinesCategoryRepository.findById(medicineRequest.getMedicineCategoryId()).orElse(null))
                 .build();
         medicineRepository.save(medicine);
         return medicine;
@@ -50,26 +72,25 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public MessageResponse deleteMedicine(int medicineId) {
         try {
-            medicineRepository.deleteById(medicineId);
-            return new MessageResponse("Successfully");
+            medicineRepository.deleteById(medicineId) ;
+            return new MessageResponse("Successfully") ;
         } catch (Exception e) {
             e.printStackTrace();
-            return new MessageResponse("Failed");
+            return new MessageResponse("Failed") ;
         }
     }
 
     @Override
     public MessageResponse softDeleteMedicine(int medicineId) {
         try {
-            Medicine medicine = Medicine.builder()
-                    .medicinesId(medicineId)
-                    .isDeleted(true)
-                    .build();
-            medicineRepository.save(medicine);
-            return new MessageResponse("Successfully");
+            Medicines medicine = medicineRepository.findById(medicineId).orElseThrow(null) ;
+            medicine.setDeleted(true) ;
+            medicineRepository.save(medicine) ;
+            return new MessageResponse("Successfully") ;
         } catch (Exception e) {
             e.printStackTrace();
             return new MessageResponse("Failed");
         }
     }
+
 }

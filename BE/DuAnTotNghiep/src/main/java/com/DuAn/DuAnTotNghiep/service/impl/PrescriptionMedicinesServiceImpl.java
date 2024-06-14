@@ -3,8 +3,12 @@ package com.DuAn.DuAnTotNghiep.service.impl;
 import com.DuAn.DuAnTotNghiep.entities.PrescriptionMedicines;
 import com.DuAn.DuAnTotNghiep.model.request.PrescriptionMedicinesRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import com.DuAn.DuAnTotNghiep.repositories.MedicinesRepository;
 import com.DuAn.DuAnTotNghiep.repositories.PrescriptionMedicinesRepository;
+import com.DuAn.DuAnTotNghiep.repositories.PrescriptionRepository;
+import com.DuAn.DuAnTotNghiep.service.service.MedicineService;
 import com.DuAn.DuAnTotNghiep.service.service.PrescriptionMedicinesService;
+import com.DuAn.DuAnTotNghiep.service.service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +19,12 @@ public class PrescriptionMedicinesServiceImpl implements PrescriptionMedicinesSe
 
     @Autowired
     private PrescriptionMedicinesRepository prescriptionMedicinesRepository;
+
+    @Autowired
+    private PrescriptionRepository prescriptionRepository ;
+
+    @Autowired
+    private MedicinesRepository medicinesRepository ;
 
     @Override
     public PrescriptionMedicines findPrescriptionMedicinesById(int prescriptionMedicinesId) {
@@ -31,6 +41,8 @@ public class PrescriptionMedicinesServiceImpl implements PrescriptionMedicinesSe
         PrescriptionMedicines prescriptionMedicines = PrescriptionMedicines.builder()
                 .prescriptionMedicines(prescriptionMedicinesRequest.getPrescriptionMedicines())
                 .frequency(prescriptionMedicinesRequest.getFrequency())
+                .prescription(prescriptionRepository.findById(prescriptionMedicinesRequest.getPrescriptionId()).orElse(null))
+                .medicines(medicinesRepository.findById(prescriptionMedicinesRequest.getMedicinesId()).orElse(null))
                 .build();
         prescriptionMedicinesRepository.save(prescriptionMedicines);
         return prescriptionMedicines;
@@ -42,34 +54,34 @@ public class PrescriptionMedicinesServiceImpl implements PrescriptionMedicinesSe
                 .prescriptionMedicinesId(prescriptionMedicinesId)
                 .prescriptionMedicines(prescriptionMedicinesRequest.getPrescriptionMedicines())
                 .frequency(prescriptionMedicinesRequest.getFrequency())
-                .build();
-        prescriptionMedicinesRepository.save(prescriptionMedicines);
+                .prescription(prescriptionRepository.findById(prescriptionMedicinesRequest.getPrescriptionId()).orElse(null))
+                .medicines(medicinesRepository.findById(prescriptionMedicinesRequest.getMedicinesId()).orElse(null))
+                .build() ;
+        prescriptionMedicinesRepository.save(prescriptionMedicines) ;
         return prescriptionMedicines;
     }
 
     @Override
     public MessageResponse deletePrescriptionMedicines(int prescriptionMedicinesId) {
         try {
-            prescriptionMedicinesRepository.deleteById(prescriptionMedicinesId);
-            return new MessageResponse("Successfully");
+            prescriptionMedicinesRepository.deleteById(prescriptionMedicinesId) ;
+            return new MessageResponse("Successfully") ;
         } catch (Exception e) {
             e.printStackTrace();
-            return new MessageResponse("Failed");
+            return new MessageResponse("Failed") ;
         }
     }
 
     @Override
     public MessageResponse softDeletePrescriptionMedicines(int prescriptionMedicinesId) {
         try {
-            PrescriptionMedicines prescriptionMedicines = PrescriptionMedicines.builder()
-                    .prescriptionMedicinesId(prescriptionMedicinesId)
-                    .isDeleted(true)
-                    .build();
-            prescriptionMedicinesRepository.save(prescriptionMedicines);
-            return new MessageResponse("Successfully");
+            PrescriptionMedicines prescriptionMedicines = prescriptionMedicinesRepository.findById(prescriptionMedicinesId).orElseThrow(null) ;
+            prescriptionMedicines.setDeleted(true) ;
+            prescriptionMedicinesRepository.save(prescriptionMedicines) ;
+            return new MessageResponse("Successfully") ;
         } catch (Exception e) {
-            e.printStackTrace();
-            return new MessageResponse("Failed");
+            e.printStackTrace() ;
+            return new MessageResponse("Failed") ;
         }
     }
 }

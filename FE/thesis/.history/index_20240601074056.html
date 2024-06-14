@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="dentisHub">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TwoBee Shop - Home</title>
+  <link rel="icon" href="/assets/images/logo.jpg" type="image/png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Icon Font Css -->
+  <link rel="stylesheet" href="/assets/plugins/icofont/icofont.min.css">
+  <!-- Slick Slider  CSS -->
+  <link rel="stylesheet" href="/assets/plugins/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="/assets/plugins/slick-carousel/slick/slick-theme.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <!-- AngularJs -->
+  <script src="/assets/js/vendor/angular.min.js"></script>
+  <script src="/assets/js/vendor/angular-route.min.js"></script>
+
+</head>
+
+<body id="top">
+  <!--================ Start Header Menu Area =================-->
+  <header class="header_area" ng-include="'component/header.html'">
+  </header>
+  <!--================ End Header Menu Area =================-->
+
+  <main class="site-main">
+    <ng-view>
+    </ng-view>
+  </main>
+  <!--================ Start footer Area  =================-->
+  <footer class="footer section gray-bg" ng-include="'component/footer.html'">
+  </footer>
+  <!--================ End footer Area  =================-->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="/assets/js/vendor/jquery/jquery-3.2.1.min.js"></script>
+  <script src="/assets/js/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/vendor/skrollr.min.js"></script>
+  <script src="/assets/js/vendor/owl-carousel/owl.carousel.min.js"></script>
+  <script src="/assets/js/vendor/nice-select/jquery.nice-select.min.js"></script>
+  <script src="/assets/js/vendor/jquery.ajaxchimp.min.js"></script>
+  <script src="/assets/js/vendor/mail-script.js"></script>
+  <script src="/assets/admin/js/vendor/chart.js/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

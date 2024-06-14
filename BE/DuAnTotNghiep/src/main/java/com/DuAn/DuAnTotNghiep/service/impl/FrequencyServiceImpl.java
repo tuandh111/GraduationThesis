@@ -50,26 +50,24 @@ public class FrequencyServiceImpl implements FrequencyService {
     @Override
     public MessageResponse deleteFrequency(int frequencyId) {
         try {
-            frequencyRepository.deleteById(frequencyId);
-            return new MessageResponse("Successfully");
+            frequencyRepository.deleteById(frequencyId) ;
+            return new MessageResponse("Successfully") ;
         } catch (Exception e) {
             e.printStackTrace();
-            return new MessageResponse("Failed");
+            return new MessageResponse("Failed") ;
         }
     }
 
     @Override
     public MessageResponse softDeleteFrequency(int frequencyId) {
         try {
-            Frequency frequency = Frequency.builder()
-                    .frequencyId(frequencyId)
-                    .isDeleted(true)
-                    .build();
-            frequencyRepository.save(frequency);
-            return new MessageResponse("Successfully");
+            Frequency frequency = frequencyRepository.findById(frequencyId).orElseThrow(null) ;
+            frequency.setDeleted(true) ;
+            frequencyRepository.save(frequency) ;
+            return new MessageResponse("Successfully") ;
         } catch (Exception e) {
             e.printStackTrace();
-            return new MessageResponse("Failed");
+            return new MessageResponse("Failed") ;
         }
     }
 }

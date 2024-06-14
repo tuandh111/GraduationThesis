@@ -20,11 +20,11 @@ public class CTResultAbnormality {
 
     private boolean isDeleted = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "appointmentCTResultId")
     private AppointmentCTResult appointmentCTResult;
 
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne ()
     @JoinColumn(name = "abnormalityId")
     private Abnormality abnormality;
 

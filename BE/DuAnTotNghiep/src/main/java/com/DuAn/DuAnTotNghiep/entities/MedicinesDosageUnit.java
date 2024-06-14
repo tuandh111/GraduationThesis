@@ -22,10 +22,10 @@ public class MedicinesDosageUnit {
     private String unit;
 
     private boolean isDeleted = false;
-
+    
     private  String description;
 
     @OneToMany(mappedBy = "medicinesId")
     @JsonIgnore
-    private List<Medicine> medicines;
+    private List<Medicines> medicines;
 }

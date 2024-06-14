@@ -28,48 +28,46 @@ public class TreatmentDurationServiceImpl implements TreatmentDurationService {
 
     @Override
     public TreatmentDuration saveTreatmentDuration(TreatmentDurationRequest durationRequest) {
-        TreatmentDuration duration = TreatmentDuration.builder()
+        TreatmentDuration treatmentDuration = TreatmentDuration.builder()
                 .quantity(durationRequest.getQuantity())
                 .description(durationRequest.getDescription())
                 .build();
-        treatmentDurationRepository.save(duration);
-        return duration;
+        treatmentDurationRepository.save(treatmentDuration) ;
+        return treatmentDuration;
     }
 
     @Override
     public TreatmentDuration updateTreatmentDuration(int durationId, TreatmentDurationRequest durationRequest) {
-        TreatmentDuration duration = TreatmentDuration.builder()
+        TreatmentDuration treatmentDuration = TreatmentDuration.builder()
                 .treatmentDurationId(durationId)
                 .quantity(durationRequest.getQuantity())
                 .description(durationRequest.getDescription())
-                .build();
-        treatmentDurationRepository.save(duration);
-        return duration;
+                .build() ;
+        treatmentDurationRepository.save(treatmentDuration) ;
+        return treatmentDuration ;
     }
 
     @Override
     public MessageResponse deleteTreatmentDuration(int durationId) {
         try {
-            treatmentDurationRepository.deleteById(durationId);
-            return new MessageResponse("Successfully");
+            treatmentDurationRepository.deleteById(durationId) ;
+            return new MessageResponse("Successfully") ;
         } catch (Exception e) {
-            e.printStackTrace();
-            return new MessageResponse("Failed");
+            e.printStackTrace() ;
+            return new MessageResponse("Failed") ;
         }
     }
 
     @Override
     public MessageResponse softDeleteTreatmentDuration(int durationId) {
         try {
-            TreatmentDuration duration = TreatmentDuration.builder()
-                    .treatmentDurationId(durationId)
-                    .isDeleted(true)
-                    .build();
-            treatmentDurationRepository.save(duration);
-            return new MessageResponse("Successfully");
+            TreatmentDuration treatmentDuration = treatmentDurationRepository.findById(durationId).orElseThrow(null) ;
+            treatmentDuration.setDeleted(true) ;
+            treatmentDurationRepository.save(treatmentDuration) ;
+            return new MessageResponse("Successfully") ;
         } catch (Exception e) {
             e.printStackTrace();
-            return new MessageResponse("Failed");
+            return new MessageResponse("Failed") ;
         }
     }
 }

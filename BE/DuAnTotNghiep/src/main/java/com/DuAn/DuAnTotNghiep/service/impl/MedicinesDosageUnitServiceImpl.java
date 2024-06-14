@@ -50,26 +50,24 @@ public class MedicinesDosageUnitServiceImpl implements MedicinesDosageUnitServic
     @Override
     public MessageResponse deleteMedicinesDosageUnit(int dosageUnitId) {
         try {
-            medicinesDosageUnitRepository.deleteById(dosageUnitId);
-            return new MessageResponse("Successfully");
+            medicinesDosageUnitRepository.deleteById(dosageUnitId) ;
+            return new MessageResponse("Successfully") ;
         } catch (Exception e) {
             e.printStackTrace();
-            return new MessageResponse("Failed");
+            return new MessageResponse("Failed") ;
         }
     }
 
     @Override
     public MessageResponse softDeleteMedicinesDosageUnit(int dosageUnitId) {
         try {
-            MedicinesDosageUnit dosageUnit = MedicinesDosageUnit.builder()
-                    .medicinesDosageUnitId(dosageUnitId)
-                    .isDeleted(true)
-                    .build();
-            medicinesDosageUnitRepository.save(dosageUnit);
-            return new MessageResponse("Successfully");
+            MedicinesDosageUnit medicinesDosageUnit = medicinesDosageUnitRepository.findById(dosageUnitId).orElseThrow(null) ;
+            medicinesDosageUnit.setDeleted(true) ;
+            medicinesDosageUnitRepository.save(medicinesDosageUnit) ;
+            return new MessageResponse("Successfully") ;
         } catch (Exception e) {
             e.printStackTrace();
-            return new MessageResponse("Failed");
+            return new MessageResponse("Failed") ;
         }
     }
 }

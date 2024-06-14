@@ -7,15 +7,15 @@ import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import java.util.List;
 
 public interface DistributionMedicinesService {
-    DistributionMedicines findByDistributionMedicineId(int distributionMedicineId);
+    DistributionMedicines findByDistributionMedicinesId(int distributionMedicineId) ;
 
-    List<DistributionMedicines> findAllDistributionMedicines();
+    List<DistributionMedicines> findAllDistributionMedicines() ;
 
-    DistributionMedicines saveDistributionMedicine(DistributionMedicinesRequest distributionMedicineRequest);
+    DistributionMedicines saveDistributionMedicines(DistributionMedicinesRequest distributionMedicineRequest) ;
 
-    DistributionMedicines updateDistributionMedicine(int distributionMedicineId, DistributionMedicinesRequest distributionMedicineRequest);
+    DistributionMedicines updateDistributionMedicines(int distributionMedicineId, DistributionMedicinesRequest distributionMedicineRequest) ;
 
-    MessageResponse deleteDistributionMedicine(int distributionMedicineId);
+    MessageResponse deleteDistributionMedicines(int distributionMedicineId) ;
 
-    MessageResponse softDeleteDistributionMedicine(int distributionMedicineId);
+    MessageResponse softDeleteDistributionMedicines(int distributionMedicineId) ;
 }

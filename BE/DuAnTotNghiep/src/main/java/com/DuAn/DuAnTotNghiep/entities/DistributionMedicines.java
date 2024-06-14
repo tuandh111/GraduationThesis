@@ -18,7 +18,7 @@ public class DistributionMedicines {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer distributionMedicinesId;
-
+    
     private String distributionName;
 
     private boolean isDeleted = false;
@@ -37,6 +37,6 @@ public class DistributionMedicines {
 
     @OneToMany(mappedBy = "medicinesId")
     @JsonIgnore
-    private List<Medicine> medicines;
+    private List<Medicines> medicines;
 
 }
