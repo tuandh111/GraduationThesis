@@ -3,7 +3,9 @@ package com.DuAn.DuAnTotNghiep.service.impl;
 import com.DuAn.DuAnTotNghiep.entities.PrescriptionMedicines;
 import com.DuAn.DuAnTotNghiep.model.request.PrescriptionMedicinesRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import com.DuAn.DuAnTotNghiep.repositories.MedicinesRepository;
 import com.DuAn.DuAnTotNghiep.repositories.PrescriptionMedicinesRepository;
+import com.DuAn.DuAnTotNghiep.repositories.PrescriptionRepository;
 import com.DuAn.DuAnTotNghiep.service.service.MedicineService;
 import com.DuAn.DuAnTotNghiep.service.service.PrescriptionMedicinesService;
 import com.DuAn.DuAnTotNghiep.service.service.PrescriptionService;
@@ -19,10 +21,10 @@ public class PrescriptionMedicinesServiceImpl implements PrescriptionMedicinesSe
     private PrescriptionMedicinesRepository prescriptionMedicinesRepository;
 
     @Autowired
-    private PrescriptionService prescriptionService ;
+    private PrescriptionRepository prescriptionRepository ;
 
     @Autowired
-    private MedicineService medicineService ;
+    private MedicinesRepository medicinesRepository ;
 
     @Override
     public PrescriptionMedicines findPrescriptionMedicinesById(int prescriptionMedicinesId) {
@@ -39,8 +41,8 @@ public class PrescriptionMedicinesServiceImpl implements PrescriptionMedicinesSe
         PrescriptionMedicines prescriptionMedicines = PrescriptionMedicines.builder()
                 .prescriptionMedicines(prescriptionMedicinesRequest.getPrescriptionMedicines())
                 .frequency(prescriptionMedicinesRequest.getFrequency())
-//                .prescription(prescriptionService.findByPrescriptionId(prescriptionMedicinesRequest.getPrescriptionId() != null ? prescriptionMedicinesRequest.getPrescriptionId() : null))
-//                .medicines(medicineService.findByMedicineId(prescriptionMedicinesRequest.getMedicinesId() != null ? prescriptionMedicinesRequest.getMedicinesId() : null))
+                .prescription(prescriptionRepository.findById(prescriptionMedicinesRequest.getPrescriptionId()).orElse(null))
+                .medicines(medicinesRepository.findById(prescriptionMedicinesRequest.getMedicinesId()).orElse(null))
                 .build();
         prescriptionMedicinesRepository.save(prescriptionMedicines);
         return prescriptionMedicines;
@@ -52,8 +54,8 @@ public class PrescriptionMedicinesServiceImpl implements PrescriptionMedicinesSe
                 .prescriptionMedicinesId(prescriptionMedicinesId)
                 .prescriptionMedicines(prescriptionMedicinesRequest.getPrescriptionMedicines())
                 .frequency(prescriptionMedicinesRequest.getFrequency())
-//                .prescription(prescriptionService.findByPrescriptionId(prescriptionMedicinesRequest.getPrescriptionId() != null ? prescriptionMedicinesRequest.getPrescriptionId() : null))
-//                .medicines(medicineService.findByMedicineId(prescriptionMedicinesRequest.getMedicinesId() != null ? prescriptionMedicinesRequest.getMedicinesId() : null))
+                .prescription(prescriptionRepository.findById(prescriptionMedicinesRequest.getPrescriptionId()).orElse(null))
+                .medicines(medicinesRepository.findById(prescriptionMedicinesRequest.getMedicinesId()).orElse(null))
                 .build() ;
         prescriptionMedicinesRepository.save(prescriptionMedicines) ;
         return prescriptionMedicines;

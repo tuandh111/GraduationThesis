@@ -3,7 +3,9 @@ package com.DuAn.DuAnTotNghiep.service.impl;
 import com.DuAn.DuAnTotNghiep.entities.Prescription;
 import com.DuAn.DuAnTotNghiep.model.request.PrescriptionRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import com.DuAn.DuAnTotNghiep.repositories.AppointmentPatientRecordRepository;
 import com.DuAn.DuAnTotNghiep.repositories.PrescriptionRepository;
+import com.DuAn.DuAnTotNghiep.repositories.TreatmentDurationRepository;
 import com.DuAn.DuAnTotNghiep.service.service.AppointmentPatientRecordService;
 import com.DuAn.DuAnTotNghiep.service.service.PrescriptionService;
 import com.DuAn.DuAnTotNghiep.service.service.TreatmentDurationService;
@@ -20,10 +22,10 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     private PrescriptionRepository prescriptionRepository ;
 
     @Autowired
-    private AppointmentPatientRecordService appointmentPatientRecordService ;
+    private AppointmentPatientRecordRepository appointmentPatientRecordRepository ;
 
     @Autowired
-    private TreatmentDurationService treatmentDurationService ;
+    private TreatmentDurationRepository treatmentDurationRepository ;
     @Override
     public Prescription findByPrescriptionId(int prescriptionId) {
         return prescriptionRepository.findById(prescriptionId).orElse(null);
@@ -38,8 +40,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public Prescription savePrescription(PrescriptionRequest prescriptionRequest) {
         Prescription prescription = Prescription.builder()
                 .description(prescriptionRequest.getDescription())
-//                .appointmentPatientRecord(appointmentPatientRecordService.findByAppointmentPatientRecordId(prescriptionRequest.getAppointmentPatientRecordId()))
-//                .treatmentDuration(treatmentDurationService.findByTreatmentDurationId(prescriptionRequest.getTreatmentDurationId()))
+                .appointmentPatientRecord(appointmentPatientRecordRepository.findById(prescriptionRequest.getAppointmentPatientRecordId()).orElse(null))
+                .treatmentDuration(treatmentDurationRepository.findById(prescriptionRequest.getTreatmentDurationId()).orElse(null))
                 .build();
         prescriptionRepository.save(prescription);
         return prescription;
@@ -50,8 +52,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         Prescription prescription = Prescription.builder()
                 .prescriptionId(prescriptionId)
                 .description(prescriptionRequest.getDescription())
-//                .appointmentPatientRecord(appointmentPatientRecordService.findByAppointmentPatientRecordId(prescriptionRequest.getAppointmentPatientRecordId()))
-//                .treatmentDuration(treatmentDurationService.findByTreatmentDurationId(prescriptionRequest.getTreatmentDurationId()))
+                .appointmentPatientRecord(appointmentPatientRecordRepository.findById(prescriptionRequest.getAppointmentPatientRecordId()).orElse(null))
+                .treatmentDuration(treatmentDurationRepository.findById(prescriptionRequest.getTreatmentDurationId()).orElse(null))
                 .build();
         prescriptionRepository.save(prescription);
         return prescription;

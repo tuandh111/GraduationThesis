@@ -4,15 +4,14 @@ import com.DuAn.DuAnTotNghiep.entities.FrequencyMedicines;
 import com.DuAn.DuAnTotNghiep.model.request.FrequencyMedicineRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.repositories.FrequencyMedicineRepository;
+import com.DuAn.DuAnTotNghiep.repositories.FrequencyRepository;
+import com.DuAn.DuAnTotNghiep.repositories.MedicinesRepository;
 import com.DuAn.DuAnTotNghiep.service.service.FrequencyMedicinesService;
-import com.DuAn.DuAnTotNghiep.service.service.FrequencyService;
-import com.DuAn.DuAnTotNghiep.service.service.MedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-// còn lỗi get và get by id
 @Service
 public class FrequencyMedicinesServiceImpl implements FrequencyMedicinesService {
 
@@ -20,10 +19,10 @@ public class FrequencyMedicinesServiceImpl implements FrequencyMedicinesService 
     private FrequencyMedicineRepository frequencyMedicinesRepository;
 
     @Autowired
-    private MedicineService medicineService ;
+    private MedicinesRepository medicinesRepository ;
 
     @Autowired
-    private FrequencyService frequencyService ;
+    private FrequencyRepository frequencyRepository ;
 
     @Override
     public FrequencyMedicines findByFrequencyMedicineId(int frequencyMedicineId) {
@@ -39,8 +38,8 @@ public class FrequencyMedicinesServiceImpl implements FrequencyMedicinesService 
     public FrequencyMedicines saveFrequencyMedicine(FrequencyMedicineRequest frequencyMedicineRequest) {
         FrequencyMedicines frequencyMedicines = FrequencyMedicines.builder()
                 .description(frequencyMedicineRequest.getDescription())
-//                .medicines(medicineService.findByMedicineId(frequencyMedicineRequest.getMedicinesId()))
-//                .frequency(frequencyService.findByFrequencyId(frequencyMedicineRequest.getFrequencyId()))
+                .medicines(medicinesRepository.findById(frequencyMedicineRequest.getMedicinesId()).orElse(null))
+                .frequency(frequencyRepository.findById(frequencyMedicineRequest.getFrequencyId()).orElse(null))
                 .build();
         frequencyMedicinesRepository.save(frequencyMedicines);
         return frequencyMedicines;
@@ -51,8 +50,8 @@ public class FrequencyMedicinesServiceImpl implements FrequencyMedicinesService 
         FrequencyMedicines frequencyMedicines = FrequencyMedicines.builder()
                 .frequencyMedicinesId(frequencyMedicineId)
                 .description(frequencyMedicineRequest.getDescription())
-//                .medicines(medicineService.findByMedicineId(frequencyMedicineRequest.getMedicinesId()))
-//                .frequency(frequencyService.findByFrequencyId(frequencyMedicineRequest.getFrequencyId()))
+                .medicines(medicinesRepository.findById(frequencyMedicineRequest.getMedicinesId()).orElse(null))
+                .frequency(frequencyRepository.findById(frequencyMedicineRequest.getFrequencyId()).orElse(null))
                 .build();
         frequencyMedicinesRepository.save(frequencyMedicines);
         return frequencyMedicines;

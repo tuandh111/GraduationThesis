@@ -18,16 +18,16 @@ public class MedicineServiceImpl implements MedicineService {
     private MedicinesRepository medicineRepository ;
 
     @Autowired
-    private MedicinesDosageUnitService medicinesDosageUnitService ;
+    private MedicinesDosageUnitRepository medicinesDosageUnitRepository ;
 
     @Autowired
-    private DistributionMedicinesService distributionMedicinesService ;
+    private DistributionMedicinesRepository distributionMedicinesRepository ;
 
     @Autowired
-    private MedicinesDosageAmountService medicinesDosageAmountService ;
+    private MedicinesDosageAmountRepository medicinesDosageAmountRepository ;
 
     @Autowired
-    private MedicinesCategoryService medicinesCategoryService ;
+    private MedicinesCategoryRepository medicinesCategoryRepository ;
 
     @Override
     public Medicines findByMedicineId(int medicineId) {
@@ -45,10 +45,10 @@ public class MedicineServiceImpl implements MedicineService {
         var medicine = Medicines.builder()
                 .medicineName(medicineRequest.getMedicineName())
                 .beforeEating(medicineRequest.isBeforeEating())
-                .medicinesDosageUnit(medicinesDosageUnitService.findMedicinesDosageUnitById(medicineRequest.getMedicinesDosageUnitId()))
-                .distributionMedicines(distributionMedicinesService.findByDistributionMedicinesId(medicineRequest.getDistributionMedicinesId()))
-                .medicinesDosageAmount(medicinesDosageAmountService.findByMedicinesDosageAmountId(medicineRequest.getMedicinesDosageAmountId()))
-                .medicineCategory(medicinesCategoryService.findByMedicineCategoryId(medicineRequest.getMedicineCategoryId()))
+                .medicinesDosageUnit(medicinesDosageUnitRepository.findById(medicineRequest.getMedicinesDosageUnitId()).orElse(null))
+                .distributionMedicines(distributionMedicinesRepository.findById(medicineRequest.getDistributionMedicinesId()).orElse(null))
+                .medicinesDosageAmount(medicinesDosageAmountRepository.findById(medicineRequest.getMedicinesDosageAmountId()).orElse(null))
+                .medicineCategory(medicinesCategoryRepository.findById(medicineRequest.getMedicineCategoryId()).orElse(null))
                 .build();
         medicineRepository.save(medicine);
         return medicine;
@@ -60,10 +60,10 @@ public class MedicineServiceImpl implements MedicineService {
                 .medicinesId(medicineId)
                 .medicineName(medicineRequest.getMedicineName())
                 .beforeEating(medicineRequest.isBeforeEating())
-                .medicinesDosageUnit(medicinesDosageUnitService.findMedicinesDosageUnitById(medicineRequest.getMedicinesDosageUnitId()))
-                .distributionMedicines(distributionMedicinesService.findByDistributionMedicinesId(medicineRequest.getDistributionMedicinesId()))
-                .medicinesDosageAmount(medicinesDosageAmountService.findByMedicinesDosageAmountId(medicineRequest.getMedicinesDosageAmountId()))
-                .medicineCategory(medicinesCategoryService.findByMedicineCategoryId(medicineRequest.getMedicineCategoryId()))
+                .medicinesDosageUnit(medicinesDosageUnitRepository.findById(medicineRequest.getMedicinesDosageUnitId()).orElse(null))
+                .distributionMedicines(distributionMedicinesRepository.findById(medicineRequest.getDistributionMedicinesId()).orElse(null))
+                .medicinesDosageAmount(medicinesDosageAmountRepository.findById(medicineRequest.getMedicinesDosageAmountId()).orElse(null))
+                .medicineCategory(medicinesCategoryRepository.findById(medicineRequest.getMedicineCategoryId()).orElse(null))
                 .build();
         medicineRepository.save(medicine);
         return medicine;
