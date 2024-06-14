@@ -29,15 +29,15 @@ public class Medicines {
     @JsonIgnore
     private List<PrescriptionMedicines> prescriptionMedicines;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "medicinesDosageUnitId")
     private MedicinesDosageUnit medicinesDosageUnit;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "distributionMedicinesId")
     private DistributionMedicines  distributionMedicines;
 
-    @ManyToOne(fetch =  FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "medicinesDosageAmountId")
     private MedicinesDosageAmount medicinesDosageAmount;
 
@@ -45,7 +45,7 @@ public class Medicines {
     @JsonIgnore
     private List<FrequencyMedicines> frequencyMedicines;
 
-    @ManyToOne(fetch =  FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "medicineCategoryId")
     private MedicineCategory medicineCategory;
 }

@@ -37,7 +37,13 @@ public class AppointmentCTResultServiceImpl implements AppointmentCTResultServic
 
     @Override
     public AppointmentCTResult saveAppointmentCTResult(AppointmentCTResultRequest appointmentCTResultRequest) {
-        var appointmentCTResult = AppointmentCTResult.builder().imageURL(appointmentCTResultRequest.getImage()).dentalStaff(dentalStaffRepository.findById(appointmentCTResultRequest.getDentalStaffId()).orElseThrow(null)).appointment(appointmentRepository.findById(appointmentCTResultRequest.getAppointmentId()).orElseThrow(null)).imagingPlanes(imagingPlanesRepository.findById(appointmentCTResultRequest.getImagingPlanesId()).orElseThrow(null)).date(appointmentCTResultRequest.getDate()).build();
+        var appointmentCTResult = AppointmentCTResult.builder()
+                .imageURL(appointmentCTResultRequest.getImage())
+                .dentalStaff(dentalStaffRepository.findById(appointmentCTResultRequest.getDentalStaffId()).orElseThrow(null))
+                .appointment(appointmentRepository.findById(appointmentCTResultRequest.getAppointmentId()).orElseThrow(null))
+                .imagingPlanes(imagingPlanesRepository.findById(appointmentCTResultRequest.getImagingPlanesId()).orElseThrow(null))
+                .date(appointmentCTResultRequest.getDate())
+                .build();
         appointmentCTResultRepository.save(appointmentCTResult);
         return appointmentCTResult;
     }

@@ -27,11 +27,11 @@ public class AppointmentCTResult {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "appointmentId")
     private Appointment appointment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "imagingPlanesId")
     private ImagingPlanes imagingPlanes;
 
@@ -39,7 +39,7 @@ public class AppointmentCTResult {
     @JsonIgnore
     private List<CTResultAbnormality> ctResultAbnormalities;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "dentalStaffId")
     private  DentalStaff dentalStaff;
 }
