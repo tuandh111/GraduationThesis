@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 public class ImagingPlanesRequest {
-    @NotNull
+
     private String name;
-    @NotNull
+
     private String description;
 }

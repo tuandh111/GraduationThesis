@@ -6,8 +6,7 @@ import lombok.Data;
 
 @Data
 public class RoleRequest {
-    @NotNull
     private String roleName;
-    @NotNull
+
     private String description;
 }

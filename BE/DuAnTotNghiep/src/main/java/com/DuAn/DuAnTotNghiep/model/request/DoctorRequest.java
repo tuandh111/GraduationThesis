@@ -9,22 +9,22 @@ import lombok.Data;
 
 @Data
 public class DoctorRequest {
-    @NotNull
+
     private String degrees;
-    @NotNull
+
     private String signature;
-    @NotNull
+
     private String fullName;
-    @NotNull
+
     private String phoneNumber;
-    @NotNull
+
     private String address;
-    @NotNull
+
     private String birthday;
-    @NotNull
+
     private String image;
-    @NotNull
+
     private String gender;
-    @NotNull
+
     private int specialtyId;
 }

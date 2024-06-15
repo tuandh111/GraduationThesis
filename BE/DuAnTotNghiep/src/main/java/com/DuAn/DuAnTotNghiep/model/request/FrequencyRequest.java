@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class FrequencyRequest {
-    @NotNull
+
     private String timesOfDay;
 
     private String description;

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class CTResultAbnormalityRequest {
-    @NotNull
+
     private String description;
 
     private int abnormalityId;

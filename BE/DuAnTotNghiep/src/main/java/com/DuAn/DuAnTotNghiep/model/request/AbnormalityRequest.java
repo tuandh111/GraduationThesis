@@ -5,7 +5,8 @@ import lombok.Data;
 
 @Data
 public class AbnormalityRequest {
-    @NotNull
+
     private String name;
+
     private String description;
 }

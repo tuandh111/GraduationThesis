@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Data
 public class DentalSuppliesRequest {
-    @NotNull
+
     private String suppliesName;
-    @NotNull
+
     private String description;
-    @NotNull
+
     private int DistributionSuppliesId;
 }

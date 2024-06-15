@@ -7,10 +7,10 @@ import java.util.Date;
 
 @Data
 public class AppointmentPatientRecordRequest {
-    @NotNull
+
     private int patientId;
     private Date createAt;
     private String currentCondition;
-    @NotNull
+
     private String reExamination;
 }
