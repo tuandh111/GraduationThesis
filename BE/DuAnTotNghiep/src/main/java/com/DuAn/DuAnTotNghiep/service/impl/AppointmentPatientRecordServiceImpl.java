@@ -1,5 +1,6 @@
 package com.DuAn.DuAnTotNghiep.service.impl;
 
+import com.DuAn.DuAnTotNghiep.entities.AppointmentCTResult;
 import com.DuAn.DuAnTotNghiep.entities.AppointmentPatientRecord;
 import com.DuAn.DuAnTotNghiep.model.request.AppointmentPatientRecordRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentPatientRecordServiceImpl implements AppointmentPatientRecordService {
@@ -25,7 +27,10 @@ public class AppointmentPatientRecordServiceImpl implements AppointmentPatientRe
 
     @Override
     public List<AppointmentPatientRecord> findAllAppointmentPatientRecord() {
-        return appointmentPatientRecordRepository.findAll();
+        return appointmentPatientRecordRepository.findAll()
+                       .stream()
+                       .filter(appointmentPatientRecord -> !appointmentPatientRecord.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

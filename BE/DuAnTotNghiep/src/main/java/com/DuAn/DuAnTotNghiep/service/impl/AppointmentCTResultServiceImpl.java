@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentCTResultServiceImpl implements AppointmentCTResultService {
@@ -32,7 +33,10 @@ public class AppointmentCTResultServiceImpl implements AppointmentCTResultServic
 
     @Override
     public List<AppointmentCTResult> findAll() {
-        return appointmentCTResultRepository.findAll();
+        return  appointmentCTResultRepository.findAll()
+                        .stream()
+                        .filter(appointmentCTResult -> !appointmentCTResult.isDeleted())
+                        .collect(Collectors.toList());
     }
 
     @Override

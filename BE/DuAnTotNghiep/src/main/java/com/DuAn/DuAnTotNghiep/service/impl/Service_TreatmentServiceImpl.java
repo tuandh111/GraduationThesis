@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class Service_TreatmentServiceImpl implements ServiceTreatmentService {
@@ -27,7 +28,9 @@ public class Service_TreatmentServiceImpl implements ServiceTreatmentService {
 
     @Override
     public List<ServiceTreatment> findAllServiceTreatment() {
-        return serviceTreatmentRepository.findAll();
+        return serviceTreatmentRepository.findAll().stream()
+                       .filter(serviceTreatment -> !serviceTreatment.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

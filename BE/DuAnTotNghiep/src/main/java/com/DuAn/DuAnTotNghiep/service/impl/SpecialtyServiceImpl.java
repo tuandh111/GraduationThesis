@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SpecialtyServiceImpl implements SpecialtyService {
@@ -22,7 +23,9 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 
     @Override
     public List<Specialty> findAll() {
-        return specialtyRepository.findAll();
+        return specialtyRepository.findAll().stream()
+                       .filter(specialty -> !specialty.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

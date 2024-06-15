@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DoctorScheduleServiceImpl implements DoctorScheduleService {
@@ -31,7 +32,9 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
 
     @Override
     public List<DoctorSchedule> findAll() {
-        return doctorScheduleRepository.findAll();
+        return doctorScheduleRepository.findAll().stream()
+                       .filter(doctorSchedule -> !doctorSchedule.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

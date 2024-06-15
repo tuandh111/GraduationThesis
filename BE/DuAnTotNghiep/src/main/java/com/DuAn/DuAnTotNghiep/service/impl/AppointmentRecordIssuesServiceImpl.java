@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentRecordIssuesServiceImpl implements AppointmentRecordIssuesService {
@@ -29,7 +30,10 @@ public class AppointmentRecordIssuesServiceImpl implements AppointmentRecordIssu
 
     @Override
     public List<AppointmentRecordIssues> findAllAppointmentRecordIssues() {
-        return appointmentRecordIssuesRepository.findAll();
+        return appointmentRecordIssuesRepository.findAll()
+                       .stream()
+                       .filter(appointmentRecordIssues -> !appointmentRecordIssues.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

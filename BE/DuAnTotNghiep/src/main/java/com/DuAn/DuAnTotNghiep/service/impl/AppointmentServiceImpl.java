@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
@@ -34,7 +35,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<Appointment> findAllAppointment() {
-        return appointmentRepository.findAll();
+        return appointmentRepository.findAll().stream()
+                       .filter(appointment -> !appointment.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

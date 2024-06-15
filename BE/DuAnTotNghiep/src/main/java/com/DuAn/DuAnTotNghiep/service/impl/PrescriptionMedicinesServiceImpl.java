@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PrescriptionMedicinesServiceImpl implements PrescriptionMedicinesService {
@@ -33,7 +34,9 @@ public class PrescriptionMedicinesServiceImpl implements PrescriptionMedicinesSe
 
     @Override
     public List<PrescriptionMedicines> findAllPrescriptionMedicines() {
-        return prescriptionMedicinesRepository.findAll();
+        return prescriptionMedicinesRepository.findAll().stream()
+                       .filter(prescriptionMedicines -> !prescriptionMedicines.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

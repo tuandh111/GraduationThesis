@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DentalStaffServiceImpl implements DentalStaffService {
@@ -28,7 +29,9 @@ public class DentalStaffServiceImpl implements DentalStaffService {
 
     @Override
     public List<DentalStaff> findAll() {
-        return dentalStaffRepository.findAll();
+        return dentalStaffRepository.findAll().stream()
+                       .filter(dentalStaff -> !dentalStaff.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

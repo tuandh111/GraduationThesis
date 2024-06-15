@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CTResultAbnormalityServiceImpl implements CTResultAbnormalityService {
@@ -28,7 +29,9 @@ public class CTResultAbnormalityServiceImpl implements CTResultAbnormalityServic
 
     @Override
     public List<CTResultAbnormality> findAll() {
-        return ctResultAbnormalityRepository.findAll();
+        return ctResultAbnormalityRepository.findAll().stream()
+                       .filter(cTResultAbnormality -> !cTResultAbnormality.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

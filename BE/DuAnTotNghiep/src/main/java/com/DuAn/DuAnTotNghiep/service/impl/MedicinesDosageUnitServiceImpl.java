@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MedicinesDosageUnitServiceImpl implements MedicinesDosageUnitService {
@@ -23,7 +24,9 @@ public class MedicinesDosageUnitServiceImpl implements MedicinesDosageUnitServic
 
     @Override
     public List<MedicinesDosageUnit> findAllMedicinesDosageUnits() {
-        return medicinesDosageUnitRepository.findAll();
+        return medicinesDosageUnitRepository.findAll().stream()
+                       .filter(medicinesDosageUnit -> !medicinesDosageUnit.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

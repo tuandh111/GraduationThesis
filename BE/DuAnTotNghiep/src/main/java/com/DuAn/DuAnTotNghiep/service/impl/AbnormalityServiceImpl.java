@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AbnormalityServiceImpl implements AbnormalityService {
@@ -23,7 +24,9 @@ public class AbnormalityServiceImpl implements AbnormalityService {
 
     @Override
     public List<Abnormality> findAll() {
-        return abnormalityRepository.findAll();
+        return abnormalityRepository.findAll().stream()
+                       .filter(abnormality -> !abnormality.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

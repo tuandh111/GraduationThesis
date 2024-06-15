@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ShiftServiceImpl implements ShiftService {
@@ -23,7 +24,9 @@ public class ShiftServiceImpl implements ShiftService {
 
     @Override
     public List<Shift> findAll() {
-        return shiftRepository.findAll();
+        return shiftRepository.findAll().stream()
+                       .filter(shift -> !shift.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override
