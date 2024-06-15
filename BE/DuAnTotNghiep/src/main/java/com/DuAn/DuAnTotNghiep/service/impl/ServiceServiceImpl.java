@@ -38,7 +38,7 @@ public class ServiceServiceImpl implements ServiceService {
                               .price(serviceRequest.getPrice())
                               .imageURL(serviceRequest.getImageURL())
                               .timeEstimate(serviceRequest.getTimeEstimate())
-                              .serviceType(serviceTypeRepository.findById(serviceRequest.getServiceTypeId()).orElseThrow(null))
+                              .serviceType(serviceTypeRepository.findById(serviceRequest.getServiceTypeId()).orElse(null))
                               .description(serviceRequest.getDescription())
                               .build();
         serviceRepository.save(service);
@@ -54,7 +54,7 @@ public class ServiceServiceImpl implements ServiceService {
                               .imageURL(serviceRequest.getImageURL())
                               .price(serviceRequest.getPrice())
                               .timeEstimate(serviceRequest.getTimeEstimate())
-                              .serviceType(serviceTypeRepository.findById(serviceRequest.getServiceTypeId()).orElseThrow(null))
+                              .serviceType(serviceTypeRepository.findById(serviceRequest.getServiceTypeId()).orElse(null))
                               .description(serviceRequest.getDescription())
                               .build();
         serviceRepository.save(service);

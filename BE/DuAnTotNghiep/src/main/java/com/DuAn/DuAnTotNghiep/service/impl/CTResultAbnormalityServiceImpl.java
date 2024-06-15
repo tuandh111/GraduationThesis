@@ -39,8 +39,8 @@ public class CTResultAbnormalityServiceImpl implements CTResultAbnormalityServic
         var cTResultAbnormality = CTResultAbnormality
                                           .builder()
                                           .Description(ctResultAbnormalityRequest.getDescription())
-                                          .abnormality(abnormalityRepository.findById(ctResultAbnormalityRequest.getAbnormalityId()).orElseThrow(null))
-                                          .appointmentCTResult(appointmentCTResultRepository.findById(ctResultAbnormalityRequest.getAppointmentCTResult()).orElseThrow(null))
+                                          .abnormality(abnormalityRepository.findById(ctResultAbnormalityRequest.getAbnormalityId()).orElse(null))
+                                          .appointmentCTResult(appointmentCTResultRepository.findById(ctResultAbnormalityRequest.getAppointmentCTResult()).orElse(null))
                                           .build();
         ctResultAbnormalityRepository.save(cTResultAbnormality);
         return cTResultAbnormality;
@@ -52,8 +52,8 @@ public class CTResultAbnormalityServiceImpl implements CTResultAbnormalityServic
                                           .builder()
                                           .cTResultAbnormalityId(cTResultAbnormalityId)
                                           .Description(ctResultAbnormalityRequest.getDescription())
-                                          .abnormality(abnormalityRepository.findById(ctResultAbnormalityRequest.getAbnormalityId()).orElseThrow(null))
-                                          .appointmentCTResult(appointmentCTResultRepository.findById(ctResultAbnormalityRequest.getAppointmentCTResult()).orElseThrow(null))
+                                          .abnormality(abnormalityRepository.findById(ctResultAbnormalityRequest.getAbnormalityId()).orElse(null))
+                                          .appointmentCTResult(appointmentCTResultRepository.findById(ctResultAbnormalityRequest.getAppointmentCTResult()).orElse(null))
                                           .build();
         ctResultAbnormalityRepository.save(cTResultAbnormality);
         return cTResultAbnormality;

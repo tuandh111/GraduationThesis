@@ -37,7 +37,7 @@ public class AppointmentPatientRecordServiceImpl implements AppointmentPatientRe
     public AppointmentPatientRecord saveAppointmentPatientRecord(AppointmentPatientRecordRequest appointmentPatientRecordRequest) {
         AppointmentPatientRecord appointmentPatientRecord = AppointmentPatientRecord
                                                                     .builder()
-                                                                    .patient(patientRepository.findById(appointmentPatientRecordRequest.getPatientId()).orElseThrow(null))
+                                                                    .patient(patientRepository.findById(appointmentPatientRecordRequest.getPatientId()).orElse(null))
                                                                     .createAt(appointmentPatientRecordRequest.getCreateAt())
                                                                     .currentCodition(appointmentPatientRecordRequest.getCurrentCondition())
                                                                     .reExamination(appointmentPatientRecordRequest.getReExamination())
@@ -51,7 +51,7 @@ public class AppointmentPatientRecordServiceImpl implements AppointmentPatientRe
         AppointmentPatientRecord appointmentPatientRecord = AppointmentPatientRecord
                                                                     .builder()
                                                                     .appointmentPatientRecordId(appointmentPatientRecordId)
-                                                                    .patient(patientRepository.findById(appointmentPatientRecordRequest.getPatientId()).orElseThrow(null))
+                                                                    .patient(patientRepository.findById(appointmentPatientRecordRequest.getPatientId()).orElse(null))
                                                                     .createAt(appointmentPatientRecordRequest.getCreateAt())
                                                                     .currentCodition(appointmentPatientRecordRequest.getCurrentCondition())
                                                                     .reExamination(appointmentPatientRecordRequest.getReExamination())

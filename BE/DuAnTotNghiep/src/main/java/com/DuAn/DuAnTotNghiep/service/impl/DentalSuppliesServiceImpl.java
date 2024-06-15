@@ -37,7 +37,7 @@ public class DentalSuppliesServiceImpl implements DentalSuppliesService {
                                      .builder()
                                      .description(dentalSuppliesRequest.getDescription())
                                      .SuppliesName(dentalSuppliesRequest.getSuppliesName())
-                                     .distributionSupplies(distributionSuppliesRepository.findById(dentalSuppliesRequest.getDistributionSuppliesId()).orElseThrow(null))
+                                     .distributionSupplies(distributionSuppliesRepository.findById(dentalSuppliesRequest.getDistributionSuppliesId()).orElse(null))
                                      .build();
         dentalSuppliesRepository.save(dentalSupplies);
         return dentalSupplies;
@@ -50,7 +50,7 @@ public class DentalSuppliesServiceImpl implements DentalSuppliesService {
                                      .SuppliesId(dentalSuppliesId)
                                      .description(dentalSuppliesRequest.getDescription())
                                      .SuppliesName(dentalSuppliesRequest.getSuppliesName())
-                                     .distributionSupplies(distributionSuppliesRepository.findById(dentalSuppliesRequest.getDistributionSuppliesId()).orElseThrow(null))
+                                     .distributionSupplies(distributionSuppliesRepository.findById(dentalSuppliesRequest.getDistributionSuppliesId()).orElse(null))
                                      .build();
         dentalSuppliesRepository.save(dentalSupplies);
         return dentalSupplies;

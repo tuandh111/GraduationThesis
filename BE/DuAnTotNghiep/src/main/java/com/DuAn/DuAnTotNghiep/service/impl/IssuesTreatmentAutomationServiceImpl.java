@@ -39,8 +39,8 @@ public class IssuesTreatmentAutomationServiceImpl implements IssuesTreatmentAuto
     public IssuesTreatmentAutomation saveIssuesTreatmentAutomation(IssuesTreatmentAutomationRequest issuesTreatmentAutomationRequest) {
         var issuesTreatmentAutomation =IssuesTreatmentAutomation
                                                .builder()
-                                               .dentalIssues(dentalIssuesRepository.findById(issuesTreatmentAutomationRequest.getIssuesId()).orElseThrow(null))
-                                               .treatment(treatmentRepository.findById(issuesTreatmentAutomationRequest.getTreatmentId()).orElseThrow(null))
+                                               .dentalIssues(dentalIssuesRepository.findById(issuesTreatmentAutomationRequest.getIssuesId()).orElse(null))
+                                               .treatment(treatmentRepository.findById(issuesTreatmentAutomationRequest.getTreatmentId()).orElse(null))
                                                .description(issuesTreatmentAutomationRequest.getDescription())
                                                .build();
         issuesTreatmentAutomationRepository.save(issuesTreatmentAutomation);
@@ -52,8 +52,8 @@ public class IssuesTreatmentAutomationServiceImpl implements IssuesTreatmentAuto
         var issuesTreatmentAutomation =IssuesTreatmentAutomation
                                                .builder()
                                                .IssuesTreatmentAutomationId(issuesTreatmentAutomationId)
-                                               .dentalIssues(dentalIssuesRepository.findById(issuesTreatmentAutomationRequest.getIssuesId()).orElseThrow(null))
-                                               .treatment(treatmentRepository.findById(issuesTreatmentAutomationRequest.getTreatmentId()).orElseThrow(null))
+                                               .dentalIssues(dentalIssuesRepository.findById(issuesTreatmentAutomationRequest.getIssuesId()).orElse(null))
+                                               .treatment(treatmentRepository.findById(issuesTreatmentAutomationRequest.getTreatmentId()).orElse(null))
                                                .description(issuesTreatmentAutomationRequest.getDescription())
                                                .build();
         issuesTreatmentAutomationRepository.save(issuesTreatmentAutomation);

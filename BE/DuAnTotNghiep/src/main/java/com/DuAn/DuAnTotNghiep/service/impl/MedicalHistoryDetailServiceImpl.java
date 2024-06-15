@@ -39,8 +39,8 @@ public class MedicalHistoryDetailServiceImpl implements MedicalHistoryDetailServ
         var medicalHistoryDetail = MedicalHistoryDetail
                                            .builder()
                                            .description(medicalHistoryDetailRequest.getDescription())
-                                           .medicalHistory(medicalHistoryRepository.findById(medicalHistoryDetailRequest.getMedicalHistoryId()).orElseThrow(null))
-                                           .patient(patientRepository.findById(medicalHistoryDetailRequest.getPatientId()).orElseThrow(null))
+                                           .medicalHistory(medicalHistoryRepository.findById(medicalHistoryDetailRequest.getMedicalHistoryId()).orElse(null))
+                                           .patient(patientRepository.findById(medicalHistoryDetailRequest.getPatientId()).orElse(null))
                                            .build();
 
         medicalHistoryDetailRepository.save(medicalHistoryDetail);
@@ -53,8 +53,8 @@ public class MedicalHistoryDetailServiceImpl implements MedicalHistoryDetailServ
                                            .builder()
                                            .medicalHistoryDetailId(medicalHistoryDetailId)
                                            .description(medicalHistoryDetailRequest.getDescription())
-                                           .medicalHistory(medicalHistoryRepository.findById(medicalHistoryDetailRequest.getMedicalHistoryId()).orElseThrow(null))
-                                           .patient(patientRepository.findById(medicalHistoryDetailRequest.getPatientId()).orElseThrow(null))
+                                           .medicalHistory(medicalHistoryRepository.findById(medicalHistoryDetailRequest.getMedicalHistoryId()).orElse(null))
+                                           .patient(patientRepository.findById(medicalHistoryDetailRequest.getPatientId()).orElse(null))
                                            .build();
 
         medicalHistoryDetailRepository.save(medicalHistoryDetail);

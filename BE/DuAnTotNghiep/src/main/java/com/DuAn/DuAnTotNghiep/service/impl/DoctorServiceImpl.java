@@ -39,7 +39,7 @@ public class DoctorServiceImpl implements DoctorService {
     public Doctor saveDoctor(DoctorRequest doctorRequest) {
         var doctor = Doctor
                              .builder()
-                             .specialty(specialtyRepository.findById(doctorRequest.getSpecialtyId()).orElseThrow(null))
+                             .specialty(specialtyRepository.findById(doctorRequest.getSpecialtyId()).orElse(null))
                              .degrees(doctorRequest.getDegrees())
                              .signature(doctorRequest.getSignature())
                              .fullName(doctorRequest.getFullName())
@@ -58,7 +58,7 @@ public class DoctorServiceImpl implements DoctorService {
         var doctor = Doctor
                              .builder()
                              .doctorId(doctorId)
-                             .specialty(specialtyRepository.findById(doctorRequest.getSpecialtyId()).orElseThrow(null))
+                             .specialty(specialtyRepository.findById(doctorRequest.getSpecialtyId()).orElse(null))
                              .degrees(doctorRequest.getDegrees())
                              .signature(doctorRequest.getSignature())
                              .fullName(doctorRequest.getFullName())

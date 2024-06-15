@@ -41,11 +41,11 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     public DoctorSchedule saveDoctorSchedule(DoctorScheduleRequest doctorScheduleRequest) {
         var doctorSchedule = DoctorSchedule
                                      .builder()
-                                     .doctor(doctorRepository.findById(doctorScheduleRequest.getDoctorId()).orElseThrow(null))
+                                     .doctor(doctorRepository.findById(doctorScheduleRequest.getDoctorId()).orElse(null))
                                      .createAt(doctorScheduleRequest.getCreateAt())
                                      .updateAt(doctorScheduleRequest.getUpdateAt())
                                      .date(doctorScheduleRequest.getDate())
-                                     .shift(shiftRepository.findById(doctorScheduleRequest.getShiftId()).orElseThrow(null))
+                                     .shift(shiftRepository.findById(doctorScheduleRequest.getShiftId()).orElse(null))
                                      .build();
         doctorScheduleRepository.save(doctorSchedule);
         return doctorSchedule;

@@ -38,8 +38,8 @@ public class AppointmentServiceServiceImpl implements AppointmentServiceService 
     public AppointmentService saveAppointmentService(AppointmentServiceRequest appointmentServiceRequest) {
         AppointmentService appointmentService = AppointmentService
                                                         .builder()
-                                                        .appointment(appointmentRepository.findById(appointmentServiceRequest.getAppointmentId()).orElseThrow(null))
-                                                        .service(serviceRepository.findById(appointmentServiceRequest.getServiceId()).orElseThrow(null))
+                                                        .appointment(appointmentRepository.findById(appointmentServiceRequest.getAppointmentId()).orElse(null))
+                                                        .service(serviceRepository.findById(appointmentServiceRequest.getServiceId()).orElse(null))
                                                         .quantity(appointmentServiceRequest.getQuantity())
                                                         .price(appointmentServiceRequest.getPrice())
                                                         .build();
@@ -52,8 +52,8 @@ public class AppointmentServiceServiceImpl implements AppointmentServiceService 
         AppointmentService appointmentService = AppointmentService
                                                         .builder()
                                                         .appointment_ServiceId(appointmentServiceId)
-                                                        .appointment(appointmentRepository.findById(appointmentServiceRequest.getAppointmentId()).orElseThrow(null))
-                                                        .service(serviceRepository.findById(appointmentServiceRequest.getServiceId()).orElseThrow(null))
+                                                        .appointment(appointmentRepository.findById(appointmentServiceRequest.getAppointmentId()).orElse(null))
+                                                        .service(serviceRepository.findById(appointmentServiceRequest.getServiceId()).orElse(null))
                                                         .quantity(appointmentServiceRequest.getQuantity())
                                                         .price(appointmentServiceRequest.getPrice())
                                                         .build();

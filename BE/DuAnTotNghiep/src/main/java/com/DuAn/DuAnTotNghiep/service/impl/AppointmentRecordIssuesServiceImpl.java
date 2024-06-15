@@ -40,8 +40,8 @@ public class AppointmentRecordIssuesServiceImpl implements AppointmentRecordIssu
     public AppointmentRecordIssues saveAppointmentRecordIssues(AppointmentRecordIssuesRequest appointmentRecordIssuesRequest) {
         AppointmentRecordIssues appointmentRecordIssues = AppointmentRecordIssues
                                                                   .builder()
-                                                                  .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRecordIssuesRequest.getAppointmentPatientRecordId()).orElseThrow(null))
-                                                                  .dentalIssues(dentalIssuesRepository.findById(appointmentRecordIssuesRequest.getDentalIssuesId()).orElseThrow(null))
+                                                                  .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRecordIssuesRequest.getAppointmentPatientRecordId()).orElse(null))
+                                                                  .dentalIssues(dentalIssuesRepository.findById(appointmentRecordIssuesRequest.getDentalIssuesId()).orElse(null))
                                                                   .description(appointmentRecordIssuesRequest.getDescription())
                                                                   .build();
         appointmentRecordIssuesRepository.save(appointmentRecordIssues);
@@ -53,8 +53,8 @@ public class AppointmentRecordIssuesServiceImpl implements AppointmentRecordIssu
         AppointmentRecordIssues appointmentRecordIssues = AppointmentRecordIssues
                                                                   .builder()
                                                                   .appointmentRecordIssuesId(appointmentRecordIssuesId)
-                                                                  .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRecordIssuesRequest.getAppointmentPatientRecordId()).orElseThrow(null))
-                                                                  .dentalIssues(dentalIssuesRepository.findById(appointmentRecordIssuesRequest.getDentalIssuesId()).orElseThrow(null))
+                                                                  .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRecordIssuesRequest.getAppointmentPatientRecordId()).orElse(null))
+                                                                  .dentalIssues(dentalIssuesRepository.findById(appointmentRecordIssuesRequest.getDentalIssuesId()).orElse(null))
                                                                   .description(appointmentRecordIssuesRequest.getDescription())
                                                                   .build();
         appointmentRecordIssuesRepository.save(appointmentRecordIssues);

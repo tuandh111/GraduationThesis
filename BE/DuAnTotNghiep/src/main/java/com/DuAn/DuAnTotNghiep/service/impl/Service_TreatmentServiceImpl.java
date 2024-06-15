@@ -37,8 +37,8 @@ public class Service_TreatmentServiceImpl implements ServiceTreatmentService {
     public ServiceTreatment saveServiceTreatment(ServiceTreatmentRequest serviceTreatmentRequest) {
         var serviceTreatment = ServiceTreatment
                                        .builder()
-                                       .service(serviceRepository.findById(serviceTreatmentRequest.getServiceId()).orElseThrow(null))
-                                       .treatment(treatmentRepository.findById(serviceTreatmentRequest.getTreatment()).orElseThrow(null))
+                                       .service(serviceRepository.findById(serviceTreatmentRequest.getServiceId()).orElse(null))
+                                       .treatment(treatmentRepository.findById(serviceTreatmentRequest.getTreatment()).orElse(null))
                                        .Description(serviceTreatmentRequest.getDescription())
                                        .build();
         serviceTreatmentRepository.save(serviceTreatment);
@@ -50,8 +50,8 @@ public class Service_TreatmentServiceImpl implements ServiceTreatmentService {
         var serviceTreatment = ServiceTreatment
                                        .builder()
                                        .service_TreatmentId(serviceTreatmentId)
-                                       .service(serviceRepository.findById(serviceTreatmentRequest.getServiceId()).orElseThrow(null))
-                                       .treatment(treatmentRepository.findById(serviceTreatmentRequest.getTreatment()).orElseThrow(null))
+                                       .service(serviceRepository.findById(serviceTreatmentRequest.getServiceId()).orElse(null))
+                                       .treatment(treatmentRepository.findById(serviceTreatmentRequest.getTreatment()).orElse(null))
                                        .Description(serviceTreatmentRequest.getDescription())
                                        .build();
         serviceTreatmentRepository.save(serviceTreatment);

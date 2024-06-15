@@ -39,8 +39,8 @@ public class AppointmentTreatmentServiceImpl implements AppointmentTreatmentServ
     public AppointmentTreatment saveAppointmentTreatment(AppointmentTreatmentRequest appointmentTreatmentRequest) {
         AppointmentTreatment appointmentTreatment = AppointmentTreatment
                                                             .builder()
-                                                            .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentTreatmentRequest.getAppointPatientRecordId()).orElseThrow(null))
-                                                            .treatment(treatmentRepository.findById(appointmentTreatmentRequest.getTreatmentId()).orElseThrow(null))
+                                                            .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentTreatmentRequest.getAppointPatientRecordId()).orElse(null))
+                                                            .treatment(treatmentRepository.findById(appointmentTreatmentRequest.getTreatmentId()).orElse(null))
                                                             .description(appointmentTreatmentRequest.getDescription())
                                                             .build();
         appointmentTreatmentRepository.save(appointmentTreatment);
