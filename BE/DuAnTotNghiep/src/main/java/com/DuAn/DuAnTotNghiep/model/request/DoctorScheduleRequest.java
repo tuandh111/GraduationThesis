@@ -12,8 +12,9 @@ public class DoctorScheduleRequest {
 
     private Date updateAt;
 
-
     private Date date;
+
+    private Boolean isAvailable;
 
     private Integer shiftId;
 

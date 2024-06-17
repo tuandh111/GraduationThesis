@@ -25,7 +25,7 @@ public class Shift {
 
     private String description;
 
-    @OneToMany(mappedBy = "doctorScheduleId")
+    @OneToMany(mappedBy = "shift")
     @JsonIgnore
-    private List<DoctorSchedule> doctorSchedules;
+    private List<TimeOfShift> timeOfShifts;
 }
