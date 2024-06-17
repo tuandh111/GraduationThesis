@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -27,7 +28,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> findAll() {
-        return roleRepositoty.findAll();
+        return roleRepositoty.findAll().stream()
+                       .filter(role -> !role.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

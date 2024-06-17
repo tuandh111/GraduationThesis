@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 public class ShiftRequest {
-    @NotNull
+
     private String shiftName;
-    @NotNull
+
     private String description;
 }

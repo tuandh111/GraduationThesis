@@ -9,18 +9,20 @@ import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.repositories.DoctorRepository;
 import com.DuAn.DuAnTotNghiep.repositories.DoctorScheduleRepository;
 import com.DuAn.DuAnTotNghiep.repositories.ShiftRepository;
+import com.DuAn.DuAnTotNghiep.repositories.TimeOfShiftRepository;
 import com.DuAn.DuAnTotNghiep.service.service.DoctorScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     @Autowired
     DoctorScheduleRepository doctorScheduleRepository;
     @Autowired
-    ShiftRepository shiftRepository;
+    TimeOfShiftRepository timeOfShiftRepository;
     @Autowired
     DoctorRepository doctorRepository;
 
@@ -31,18 +33,20 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
 
     @Override
     public List<DoctorSchedule> findAll() {
-        return doctorScheduleRepository.findAll();
+        return doctorScheduleRepository.findAll().stream()
+                       .filter(doctorSchedule -> !doctorSchedule.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override
     public DoctorSchedule saveDoctorSchedule(DoctorScheduleRequest doctorScheduleRequest) {
         var doctorSchedule = DoctorSchedule
                                      .builder()
-                                     .doctor(doctorRepository.findById(doctorScheduleRequest.getDoctorId()).orElseThrow(null))
+                                     .doctor(doctorRepository.findById(doctorScheduleRequest.getDoctorId()).orElse(null))
                                      .createAt(doctorScheduleRequest.getCreateAt())
                                      .updateAt(doctorScheduleRequest.getUpdateAt())
                                      .date(doctorScheduleRequest.getDate())
-                                     .shift(shiftRepository.findById(doctorScheduleRequest.getShiftId()).orElseThrow(null))
+                                     .timeOfShift(timeOfShiftRepository.findById(doctorScheduleRequest.getTimeOfShiftId()).orElse(null))
                                      .build();
         doctorScheduleRepository.save(doctorSchedule);
         return doctorSchedule;
@@ -57,7 +61,7 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
                                      .createAt(doctorScheduleRequest.getCreateAt())
                                      .updateAt(doctorScheduleRequest.getUpdateAt())
                                      .date(doctorScheduleRequest.getDate())
-                                     .shift(shiftRepository.findById(doctorScheduleRequest.getShiftId()).orElseThrow(null))
+                                     .timeOfShift(timeOfShiftRepository.findById(doctorScheduleRequest.getTimeOfShiftId()).orElse(null))
                                      .build();
         doctorScheduleRepository.save(doctorSchedule);
         return doctorSchedule;

@@ -5,10 +5,9 @@ import lombok.Data;
 
 @Data
 public class SpecialtyRequest {
-    @NotNull
+
 
     private String specialtyName;
 
-    @NotNull
     private String description;
 }

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class DepartmentServerImpl implements DepartmentService {
     @Autowired
@@ -20,7 +22,9 @@ public class DepartmentServerImpl implements DepartmentService {
 
     @Override
     public List<Department> findAll() {
-        return departmentRepository.findAll();
+        return departmentRepository.findAll().stream()
+                       .filter(department -> !department.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

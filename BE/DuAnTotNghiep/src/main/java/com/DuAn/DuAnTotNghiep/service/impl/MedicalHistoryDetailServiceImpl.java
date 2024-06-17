@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MedicalHistoryDetailServiceImpl implements MedicalHistoryDetailService {
@@ -28,7 +29,9 @@ public class MedicalHistoryDetailServiceImpl implements MedicalHistoryDetailServ
 
     @Override
     public List<MedicalHistoryDetail> findAll() {
-        return medicalHistoryDetailRepository.findAll();
+        return medicalHistoryDetailRepository.findAll().stream()
+                       .filter(medicalHistoryDetail -> !medicalHistoryDetail.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override
@@ -36,8 +39,8 @@ public class MedicalHistoryDetailServiceImpl implements MedicalHistoryDetailServ
         var medicalHistoryDetail = MedicalHistoryDetail
                                            .builder()
                                            .description(medicalHistoryDetailRequest.getDescription())
-                                           .medicalHistory(medicalHistoryRepository.findById(medicalHistoryDetailRequest.getMedicalHistoryId()).orElseThrow(null))
-                                           .patient(patientRepository.findById(medicalHistoryDetailRequest.getPatientId()).orElseThrow(null))
+                                           .medicalHistory(medicalHistoryRepository.findById(medicalHistoryDetailRequest.getMedicalHistoryId()).orElse(null))
+                                           .patient(patientRepository.findById(medicalHistoryDetailRequest.getPatientId()).orElse(null))
                                            .build();
 
         medicalHistoryDetailRepository.save(medicalHistoryDetail);
@@ -50,8 +53,8 @@ public class MedicalHistoryDetailServiceImpl implements MedicalHistoryDetailServ
                                            .builder()
                                            .medicalHistoryDetailId(medicalHistoryDetailId)
                                            .description(medicalHistoryDetailRequest.getDescription())
-                                           .medicalHistory(medicalHistoryRepository.findById(medicalHistoryDetailRequest.getMedicalHistoryId()).orElseThrow(null))
-                                           .patient(patientRepository.findById(medicalHistoryDetailRequest.getPatientId()).orElseThrow(null))
+                                           .medicalHistory(medicalHistoryRepository.findById(medicalHistoryDetailRequest.getMedicalHistoryId()).orElse(null))
+                                           .patient(patientRepository.findById(medicalHistoryDetailRequest.getPatientId()).orElse(null))
                                            .build();
 
         medicalHistoryDetailRepository.save(medicalHistoryDetail);

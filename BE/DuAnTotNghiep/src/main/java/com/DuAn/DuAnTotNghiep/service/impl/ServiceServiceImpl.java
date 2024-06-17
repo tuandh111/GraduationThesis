@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ServiceServiceImpl implements ServiceService {
@@ -24,7 +25,9 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public List<com.DuAn.DuAnTotNghiep.entities.Service> findAllService() {
-        return serviceRepository.findAll();
+        return serviceRepository.findAll().stream()
+                       .filter(service -> !service.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override
@@ -35,7 +38,7 @@ public class ServiceServiceImpl implements ServiceService {
                               .price(serviceRequest.getPrice())
                               .imageURL(serviceRequest.getImageURL())
                               .timeEstimate(serviceRequest.getTimeEstimate())
-                              .serviceType(serviceTypeRepository.findById(serviceRequest.getServiceTypeId()).orElseThrow(null))
+                              .serviceType(serviceTypeRepository.findById(serviceRequest.getServiceTypeId()).orElse(null))
                               .description(serviceRequest.getDescription())
                               .build();
         serviceRepository.save(service);
@@ -51,7 +54,7 @@ public class ServiceServiceImpl implements ServiceService {
                               .imageURL(serviceRequest.getImageURL())
                               .price(serviceRequest.getPrice())
                               .timeEstimate(serviceRequest.getTimeEstimate())
-                              .serviceType(serviceTypeRepository.findById(serviceRequest.getServiceTypeId()).orElseThrow(null))
+                              .serviceType(serviceTypeRepository.findById(serviceRequest.getServiceTypeId()).orElse(null))
                               .description(serviceRequest.getDescription())
                               .build();
         serviceRepository.save(service);

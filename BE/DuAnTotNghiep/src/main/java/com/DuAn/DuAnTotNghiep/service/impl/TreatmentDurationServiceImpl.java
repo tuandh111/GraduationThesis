@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TreatmentDurationServiceImpl implements TreatmentDurationService {
@@ -23,7 +24,9 @@ public class TreatmentDurationServiceImpl implements TreatmentDurationService {
 
     @Override
     public List<TreatmentDuration> findAllTreatmentDurations() {
-        return treatmentDurationRepository.findAll();
+        return treatmentDurationRepository.findAll().stream()
+                       .filter(treatmentDuration -> !treatmentDuration.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

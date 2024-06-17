@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentRecordIssuesServiceImpl implements AppointmentRecordIssuesService {
@@ -29,15 +30,18 @@ public class AppointmentRecordIssuesServiceImpl implements AppointmentRecordIssu
 
     @Override
     public List<AppointmentRecordIssues> findAllAppointmentRecordIssues() {
-        return appointmentRecordIssuesRepository.findAll();
+        return appointmentRecordIssuesRepository.findAll()
+                       .stream()
+                       .filter(appointmentRecordIssues -> !appointmentRecordIssues.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override
     public AppointmentRecordIssues saveAppointmentRecordIssues(AppointmentRecordIssuesRequest appointmentRecordIssuesRequest) {
         AppointmentRecordIssues appointmentRecordIssues = AppointmentRecordIssues
                                                                   .builder()
-                                                                  .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRecordIssuesRequest.getAppointmentPatientRecordId()).orElseThrow(null))
-                                                                  .dentalIssues(dentalIssuesRepository.findById(appointmentRecordIssuesRequest.getDentalIssuesId()).orElseThrow(null))
+                                                                  .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRecordIssuesRequest.getAppointmentPatientRecordId()).orElse(null))
+                                                                  .dentalIssues(dentalIssuesRepository.findById(appointmentRecordIssuesRequest.getDentalIssuesId()).orElse(null))
                                                                   .description(appointmentRecordIssuesRequest.getDescription())
                                                                   .build();
         appointmentRecordIssuesRepository.save(appointmentRecordIssues);
@@ -49,8 +53,8 @@ public class AppointmentRecordIssuesServiceImpl implements AppointmentRecordIssu
         AppointmentRecordIssues appointmentRecordIssues = AppointmentRecordIssues
                                                                   .builder()
                                                                   .appointmentRecordIssuesId(appointmentRecordIssuesId)
-                                                                  .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRecordIssuesRequest.getAppointmentPatientRecordId()).orElseThrow(null))
-                                                                  .dentalIssues(dentalIssuesRepository.findById(appointmentRecordIssuesRequest.getDentalIssuesId()).orElseThrow(null))
+                                                                  .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRecordIssuesRequest.getAppointmentPatientRecordId()).orElse(null))
+                                                                  .dentalIssues(dentalIssuesRepository.findById(appointmentRecordIssuesRequest.getDentalIssuesId()).orElse(null))
                                                                   .description(appointmentRecordIssuesRequest.getDescription())
                                                                   .build();
         appointmentRecordIssuesRepository.save(appointmentRecordIssues);

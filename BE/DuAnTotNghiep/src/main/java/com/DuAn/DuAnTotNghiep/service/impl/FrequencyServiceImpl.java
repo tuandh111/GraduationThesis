@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FrequencyServiceImpl implements FrequencyService {
@@ -23,7 +24,9 @@ public class FrequencyServiceImpl implements FrequencyService {
 
     @Override
     public List<Frequency> findAllFrequency() {
-        return frequencyRepository.findAll();
+        return frequencyRepository.findAll().stream()
+                       .filter(frequency -> !frequency.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

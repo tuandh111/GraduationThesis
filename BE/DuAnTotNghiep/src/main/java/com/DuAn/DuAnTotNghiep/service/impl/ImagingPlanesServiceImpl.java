@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ImagingPlanesServiceImpl implements ImagingPlanesService {
@@ -23,7 +24,9 @@ public class ImagingPlanesServiceImpl implements ImagingPlanesService {
 
     @Override
     public List<ImagingPlanes> findAll() {
-        return imagingPlanesRepository.findAll();
+        return imagingPlanesRepository.findAll().stream()
+                       .filter(imagingPlanes -> !imagingPlanes.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

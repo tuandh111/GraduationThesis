@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 // còn lỗi get và get by id
 @Service
@@ -33,7 +34,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     @Override
     public List<Prescription> findAllPrescriptions() {
-        return prescriptionRepository.findAll();
+        return prescriptionRepository.findAll().stream()
+                       .filter(prescription -> !prescription.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

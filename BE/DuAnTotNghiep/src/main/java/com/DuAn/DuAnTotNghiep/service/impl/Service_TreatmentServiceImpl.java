@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class Service_TreatmentServiceImpl implements ServiceTreatmentService {
@@ -27,15 +28,17 @@ public class Service_TreatmentServiceImpl implements ServiceTreatmentService {
 
     @Override
     public List<ServiceTreatment> findAllServiceTreatment() {
-        return serviceTreatmentRepository.findAll();
+        return serviceTreatmentRepository.findAll().stream()
+                       .filter(serviceTreatment -> !serviceTreatment.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override
     public ServiceTreatment saveServiceTreatment(ServiceTreatmentRequest serviceTreatmentRequest) {
         var serviceTreatment = ServiceTreatment
                                        .builder()
-                                       .service(serviceRepository.findById(serviceTreatmentRequest.getServiceId()).orElseThrow(null))
-                                       .treatment(treatmentRepository.findById(serviceTreatmentRequest.getTreatment()).orElseThrow(null))
+                                       .service(serviceRepository.findById(serviceTreatmentRequest.getServiceId()).orElse(null))
+                                       .treatment(treatmentRepository.findById(serviceTreatmentRequest.getTreatment()).orElse(null))
                                        .Description(serviceTreatmentRequest.getDescription())
                                        .build();
         serviceTreatmentRepository.save(serviceTreatment);
@@ -47,8 +50,8 @@ public class Service_TreatmentServiceImpl implements ServiceTreatmentService {
         var serviceTreatment = ServiceTreatment
                                        .builder()
                                        .service_TreatmentId(serviceTreatmentId)
-                                       .service(serviceRepository.findById(serviceTreatmentRequest.getServiceId()).orElseThrow(null))
-                                       .treatment(treatmentRepository.findById(serviceTreatmentRequest.getTreatment()).orElseThrow(null))
+                                       .service(serviceRepository.findById(serviceTreatmentRequest.getServiceId()).orElse(null))
+                                       .treatment(treatmentRepository.findById(serviceTreatmentRequest.getTreatment()).orElse(null))
                                        .Description(serviceTreatmentRequest.getDescription())
                                        .build();
         serviceTreatmentRepository.save(serviceTreatment);

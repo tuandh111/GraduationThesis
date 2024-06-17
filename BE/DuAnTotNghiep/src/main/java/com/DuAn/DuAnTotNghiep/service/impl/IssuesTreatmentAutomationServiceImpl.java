@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class IssuesTreatmentAutomationServiceImpl implements IssuesTreatmentAutomationService {
@@ -29,15 +30,17 @@ public class IssuesTreatmentAutomationServiceImpl implements IssuesTreatmentAuto
 
     @Override
     public List<IssuesTreatmentAutomation> findAllIssuesTreatmentAutomation() {
-        return issuesTreatmentAutomationRepository.findAll();
+        return issuesTreatmentAutomationRepository.findAll().stream()
+                       .filter(issuesTreatmentAutomation -> !issuesTreatmentAutomation.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override
     public IssuesTreatmentAutomation saveIssuesTreatmentAutomation(IssuesTreatmentAutomationRequest issuesTreatmentAutomationRequest) {
         var issuesTreatmentAutomation =IssuesTreatmentAutomation
                                                .builder()
-                                               .dentalIssues(dentalIssuesRepository.findById(issuesTreatmentAutomationRequest.getIssuesId()).orElseThrow(null))
-                                               .treatment(treatmentRepository.findById(issuesTreatmentAutomationRequest.getTreatmentId()).orElseThrow(null))
+                                               .dentalIssues(dentalIssuesRepository.findById(issuesTreatmentAutomationRequest.getIssuesId()).orElse(null))
+                                               .treatment(treatmentRepository.findById(issuesTreatmentAutomationRequest.getTreatmentId()).orElse(null))
                                                .description(issuesTreatmentAutomationRequest.getDescription())
                                                .build();
         issuesTreatmentAutomationRepository.save(issuesTreatmentAutomation);
@@ -49,8 +52,8 @@ public class IssuesTreatmentAutomationServiceImpl implements IssuesTreatmentAuto
         var issuesTreatmentAutomation =IssuesTreatmentAutomation
                                                .builder()
                                                .IssuesTreatmentAutomationId(issuesTreatmentAutomationId)
-                                               .dentalIssues(dentalIssuesRepository.findById(issuesTreatmentAutomationRequest.getIssuesId()).orElseThrow(null))
-                                               .treatment(treatmentRepository.findById(issuesTreatmentAutomationRequest.getTreatmentId()).orElseThrow(null))
+                                               .dentalIssues(dentalIssuesRepository.findById(issuesTreatmentAutomationRequest.getIssuesId()).orElse(null))
+                                               .treatment(treatmentRepository.findById(issuesTreatmentAutomationRequest.getTreatmentId()).orElse(null))
                                                .description(issuesTreatmentAutomationRequest.getDescription())
                                                .build();
         issuesTreatmentAutomationRepository.save(issuesTreatmentAutomation);

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MedicalHistoryServiceImpl implements MedicalHistoryService {
@@ -23,7 +24,9 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
 
     @Override
     public List<MedicalHistory> findAll() {
-        return medicalHistoryRepository.findAll();
+        return medicalHistoryRepository.findAll().stream()
+                       .filter(medicalHistory -> !medicalHistory.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

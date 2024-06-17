@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 // còn lỗi get và get by id
 @Service
@@ -37,7 +38,9 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Override
     public List<Medicines> findAllMedicines() {
-        return medicineRepository.findAll() ;
+        return medicineRepository.findAll().stream()
+                       .filter(medicines -> !medicines.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

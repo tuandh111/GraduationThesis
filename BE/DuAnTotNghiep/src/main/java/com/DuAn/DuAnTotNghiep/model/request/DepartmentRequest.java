@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 public class DepartmentRequest {
-    @NotNull
+
     private String departmentName;
-    @NotNull
+
     private String description;
 }

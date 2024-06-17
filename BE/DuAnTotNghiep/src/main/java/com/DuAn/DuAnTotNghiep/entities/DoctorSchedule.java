@@ -23,15 +23,17 @@ public class DoctorSchedule {
 
     private boolean isDeleted = false;
 
-    private  Date updateAt;
+    private Date updateAt;
 
     private Date date;
+
+    private boolean isAvailable = true;
 
     @ManyToOne
     @JoinColumn(name = "doctorId")
     private Doctor doctor;
 
     @ManyToOne
-    @JoinColumn(name = "shiftId")
-    private Shift shift;
+    @JoinColumn(name = "timeOfShiftId")
+    private TimeOfShift timeOfShift;
 }

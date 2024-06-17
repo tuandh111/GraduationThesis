@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Data
 public class ServiceTreatmentRequest {
-    @NotNull
+
     private int serviceId;
 
     private int treatment;
-    @NotNull
+
     private String description;
 }

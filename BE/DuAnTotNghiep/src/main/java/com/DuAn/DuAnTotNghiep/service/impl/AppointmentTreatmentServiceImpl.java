@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentTreatmentServiceImpl implements AppointmentTreatmentService {
@@ -29,15 +30,17 @@ public class AppointmentTreatmentServiceImpl implements AppointmentTreatmentServ
 
     @Override
     public List<AppointmentTreatment> findAllAppointmentTreatment() {
-        return appointmentTreatmentRepository.findAll();
+        return appointmentTreatmentRepository.findAll().stream()
+                       .filter(appointmentTreatment -> !appointmentTreatment.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override
     public AppointmentTreatment saveAppointmentTreatment(AppointmentTreatmentRequest appointmentTreatmentRequest) {
         AppointmentTreatment appointmentTreatment = AppointmentTreatment
                                                             .builder()
-                                                            .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentTreatmentRequest.getAppointPatientRecordId()).orElseThrow(null))
-                                                            .treatment(treatmentRepository.findById(appointmentTreatmentRequest.getTreatmentId()).orElseThrow(null))
+                                                            .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentTreatmentRequest.getAppointPatientRecordId()).orElse(null))
+                                                            .treatment(treatmentRepository.findById(appointmentTreatmentRequest.getTreatmentId()).orElse(null))
                                                             .description(appointmentTreatmentRequest.getDescription())
                                                             .build();
         appointmentTreatmentRepository.save(appointmentTreatment);

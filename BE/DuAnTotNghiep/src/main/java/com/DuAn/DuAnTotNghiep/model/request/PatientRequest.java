@@ -10,18 +10,18 @@ import java.util.Date;
 
 @Data
 public class PatientRequest {
-    @NotNull
+
     private  String fullName;
-    @NotNull
+
     private String  phoneNumber;
-    @NotNull
+
     private String Type;
-    @NotNull
+
     private String CitizenIdentificationNumber;
-    @NotNull
+
     private Date birthday;
-    @NotNull
+
     private String imageURL;
-    @NotNull
+
     private String gender;
 }

@@ -5,18 +5,18 @@ import lombok.Data;
 
 @Data
 public class DistributionSuppliesRequest {
-    @NotNull
+
     private  String distribution;
-    @NotNull
+
     private String  name;
-    @NotNull
+
     private String address;
-    @NotNull
+
     private  String contactPerson;
-    @NotNull
+
     private String email;
-    @NotNull
+
     private String  note;
-    @NotNull
+
     private String taxCode;
 }

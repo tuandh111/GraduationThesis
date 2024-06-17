@@ -7,17 +7,16 @@ import java.util.Date;
 
 @Data
 public class DoctorScheduleRequest {
-    @NotNull
+
     private Date createAt;
-    @NotNull
+
     private Date updateAt;
 
-    @NotNull
     private Date date;
 
-    @NotNull
-    private Integer shiftId;
+    private Boolean isAvailable;
 
-    @NotNull
+    private Integer timeOfShiftId;
+
     private Integer doctorId;
 }

@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 public class AppointmentStatusRequest {
-    @NotNull
+
     private String status;
-    @NotNull
+
     private String description;
 }

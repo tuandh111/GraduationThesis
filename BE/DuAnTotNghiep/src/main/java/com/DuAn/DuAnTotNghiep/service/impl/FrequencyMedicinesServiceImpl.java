@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FrequencyMedicinesServiceImpl implements FrequencyMedicinesService {
@@ -31,7 +32,9 @@ public class FrequencyMedicinesServiceImpl implements FrequencyMedicinesService 
 
     @Override
     public List<FrequencyMedicines> findAllFrequencyMedicines() {
-        return frequencyMedicinesRepository.findAll();
+        return frequencyMedicinesRepository.findAll().stream()
+                       .filter(frequencyMedicines -> !frequencyMedicines.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override

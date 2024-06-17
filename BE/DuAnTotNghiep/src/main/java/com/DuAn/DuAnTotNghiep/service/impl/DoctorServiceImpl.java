@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DoctorServiceImpl implements DoctorService {
@@ -29,14 +30,16 @@ public class DoctorServiceImpl implements DoctorService {
     public List<Doctor> findAll() {
         System.out.println(doctorRepository.findAll());
 
-        return doctorRepository.findAll();
+        return doctorRepository.findAll().stream()
+                       .filter(doctor -> !doctor.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override
     public Doctor saveDoctor(DoctorRequest doctorRequest) {
         var doctor = Doctor
                              .builder()
-                             .specialty(specialtyRepository.findById(doctorRequest.getSpecialtyId()).orElseThrow(null))
+                             .specialty(specialtyRepository.findById(doctorRequest.getSpecialtyId()).orElse(null))
                              .degrees(doctorRequest.getDegrees())
                              .signature(doctorRequest.getSignature())
                              .fullName(doctorRequest.getFullName())
@@ -55,7 +58,7 @@ public class DoctorServiceImpl implements DoctorService {
         var doctor = Doctor
                              .builder()
                              .doctorId(doctorId)
-                             .specialty(specialtyRepository.findById(doctorRequest.getSpecialtyId()).orElseThrow(null))
+                             .specialty(specialtyRepository.findById(doctorRequest.getSpecialtyId()).orElse(null))
                              .degrees(doctorRequest.getDegrees())
                              .signature(doctorRequest.getSignature())
                              .fullName(doctorRequest.getFullName())
@@ -72,6 +75,18 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public MessageResponse delete(int doctorId) {
         try {
+            doctorRepository.deleteById(doctorId);
+            return new MessageResponse("successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+
+    }
+
+    @Override
+    public MessageResponse sortDeleteDoctor(int doctorId) {
+        try {
             var doctor = Doctor
                                  .builder()
                                  .doctorId(doctorId)
@@ -84,16 +99,5 @@ public class DoctorServiceImpl implements DoctorService {
             return new MessageResponse("fail");
         }
 
-    }
-
-    @Override
-    public MessageResponse sortDeleteDoctor(int doctorId) {
-        try {
-            doctorRepository.deleteById(doctorId);
-            return new MessageResponse("successfully");
-        }catch (Exception e){
-            e.printStackTrace();
-            return new MessageResponse("fail");
-        }
     }
 }

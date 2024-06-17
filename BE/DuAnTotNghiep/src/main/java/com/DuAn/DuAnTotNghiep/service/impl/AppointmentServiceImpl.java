@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
@@ -34,7 +35,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<Appointment> findAllAppointment() {
-        return appointmentRepository.findAll();
+        return appointmentRepository.findAll().stream()
+                       .filter(appointment -> !appointment.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override
@@ -59,13 +62,13 @@ public class AppointmentServiceImpl implements AppointmentService {
         var appointment = Appointment
                                   .builder()
                                   .appointmentId(appointmentId)
-                                  .doctor(doctorRepository.findById(appointmentRequest.getDoctorId()).orElseThrow(null))
-                                  .appointmentType(appointmentTypeRepository.findById(appointmentRequest.getAppointmentType()).orElseThrow(null))
+                                  .doctor(doctorRepository.findById(appointmentRequest.getDoctorId()).orElse(null))
+                                  .appointmentType(appointmentTypeRepository.findById(appointmentRequest.getAppointmentType()).orElse(null))
                                   .createAt(Appointment.builder().build().getCreateAt())
-                                  .appointmentStatus(appointmentStatusRepository.findById(appointmentRequest.getAppointmentStatus()).orElseThrow(null))
-                                  .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRequest.getAppointmentPatientRecord()).orElseThrow(null))
+                                  .appointmentStatus(appointmentStatusRepository.findById(appointmentRequest.getAppointmentStatus()).orElse(null))
+                                  .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRequest.getAppointmentPatientRecord()).orElse(null))
                                   .AppointmentDate(Appointment.builder().build().getAppointmentDate())
-                                  .dentalStaff(dentalStaffRepository.findById(appointmentRequest.getDentalStaffId()).orElseThrow(null))
+                                  .dentalStaff(dentalStaffRepository.findById(appointmentRequest.getDentalStaffId()).orElse(null))
                                   .note(appointmentRequest.getNote())
                                   .build();
         appointmentRepository.save(appointment);

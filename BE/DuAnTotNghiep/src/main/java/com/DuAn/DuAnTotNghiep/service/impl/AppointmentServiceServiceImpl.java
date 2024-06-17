@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentServiceServiceImpl implements AppointmentServiceService {
@@ -28,15 +29,17 @@ public class AppointmentServiceServiceImpl implements AppointmentServiceService 
 
     @Override
     public List<AppointmentService> findAllAppointmentService() {
-        return appointmentServiceRepository.findAll();
+        return appointmentServiceRepository.findAll().stream()
+                       .filter(appointmentService -> !appointmentService.isDeleted())
+                       .collect(Collectors.toList());
     }
 
     @Override
     public AppointmentService saveAppointmentService(AppointmentServiceRequest appointmentServiceRequest) {
         AppointmentService appointmentService = AppointmentService
                                                         .builder()
-                                                        .appointment(appointmentRepository.findById(appointmentServiceRequest.getAppointmentId()).orElseThrow(null))
-                                                        .service(serviceRepository.findById(appointmentServiceRequest.getServiceId()).orElseThrow(null))
+                                                        .appointment(appointmentRepository.findById(appointmentServiceRequest.getAppointmentId()).orElse(null))
+                                                        .service(serviceRepository.findById(appointmentServiceRequest.getServiceId()).orElse(null))
                                                         .quantity(appointmentServiceRequest.getQuantity())
                                                         .price(appointmentServiceRequest.getPrice())
                                                         .build();
@@ -49,8 +52,8 @@ public class AppointmentServiceServiceImpl implements AppointmentServiceService 
         AppointmentService appointmentService = AppointmentService
                                                         .builder()
                                                         .appointment_ServiceId(appointmentServiceId)
-                                                        .appointment(appointmentRepository.findById(appointmentServiceRequest.getAppointmentId()).orElseThrow(null))
-                                                        .service(serviceRepository.findById(appointmentServiceRequest.getServiceId()).orElseThrow(null))
+                                                        .appointment(appointmentRepository.findById(appointmentServiceRequest.getAppointmentId()).orElse(null))
+                                                        .service(serviceRepository.findById(appointmentServiceRequest.getServiceId()).orElse(null))
                                                         .quantity(appointmentServiceRequest.getQuantity())
                                                         .price(appointmentServiceRequest.getPrice())
                                                         .build();
