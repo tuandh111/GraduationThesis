@@ -1,5 +1,6 @@
 package com.DuAn.DuAnTotNghiep.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +29,7 @@ public class TimeOfShift {
     @JoinColumn(name = "shiftId")
     private Shift shift;
 
-    @OneToMany(mappedBy = "timeOfShift")
+    @OneToMany(mappedBy = "doctorScheduleId")
+    @JsonIgnore
     private List<DoctorSchedule> doctorSchedules;
 }

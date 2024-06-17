@@ -7,7 +7,6 @@ import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import java.util.List;
 
 public interface TimeOfShiftService {
-    TimeOfShift findByTimeOfShiftID(int timeOfShiftID);
 
     TimeOfShift findByTimeOfShiftId(int timeOfShift);
 

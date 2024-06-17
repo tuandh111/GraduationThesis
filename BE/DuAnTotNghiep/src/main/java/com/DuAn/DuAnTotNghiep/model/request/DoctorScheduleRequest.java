@@ -16,7 +16,7 @@ public class DoctorScheduleRequest {
 
     private Boolean isAvailable;
 
-    private Integer shiftId;
+    private Integer timeOfShiftId;
 
     private Integer doctorId;
 }

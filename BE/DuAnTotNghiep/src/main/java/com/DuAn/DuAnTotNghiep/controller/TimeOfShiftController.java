@@ -1,7 +1,9 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
 import com.DuAn.DuAnTotNghiep.entities.Shift;
+import com.DuAn.DuAnTotNghiep.entities.TimeOfShift;
 import com.DuAn.DuAnTotNghiep.model.request.ShiftRequest;
+import com.DuAn.DuAnTotNghiep.model.request.TimeOfShiftRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.service.service.TimeOfShiftService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,37 +24,37 @@ import java.util.List;
 public class TimeOfShiftController {
     @Autowired
     TimeOfShiftService timeOfShiftService;
-    @GetMapping("shift")
+    @GetMapping("time-of-shift")
     @Operation(summary = "List  timeOfShift")
-    public ResponseEntity<List<Shift>> getAllTimeOfShift() {
+    public ResponseEntity<List<TimeOfShift>> findAllTimeOfShift() {
         return ResponseEntity.ok(timeOfShiftService.findAll());
     }
 
-    @GetMapping("shift-id/{Id}")
-    @Operation(summary = "ShiftId")
-    public ResponseEntity<Shift> getShiftId( @PathVariable Integer Id) {
-        return ResponseEntity.ok(timeOfShiftService.findByShiftId(Id));
+    @GetMapping("time-of-shift/{Id}")
+    @Operation(summary = "time-of-shift Id")
+    public ResponseEntity<TimeOfShift> getTimeOfShiftId( @PathVariable Integer Id) {
+        return ResponseEntity.ok(timeOfShiftService.findByTimeOfShiftId(Id));
     }
-    @PostMapping("shift")
-    @Operation(summary = "Save shift")
-    public ResponseEntity<Shift> saveShift(@Valid @RequestBody ShiftRequest shiftRequest){
-        return ResponseEntity.ok(timeOfShiftService.saveShift(shiftRequest));
+    @PostMapping("time-of-shift")
+    @Operation(summary = "Save time-of-shift")
+    public ResponseEntity<TimeOfShift> saveTimeOfShift(@Valid @RequestBody TimeOfShiftRequest timeOfShiftRequest){
+        return ResponseEntity.ok(timeOfShiftService.saveTimeOfShift(timeOfShiftRequest));
     }
-    @PutMapping("shift/{Id}")
-    @Operation(summary = "update shift")
-    public ResponseEntity<Shift> updateShift(@PathVariable int Id, @Valid @RequestBody ShiftRequest shiftRequest){
-        return ResponseEntity.ok(timeOfShiftService.updateShift(Id, shiftRequest));
+    @PutMapping("time-of-shift/{Id}")
+    @Operation(summary = "update time-of-shift")
+    public ResponseEntity<TimeOfShift> updateTimeOfShift(@PathVariable int Id, @Valid @RequestBody TimeOfShiftRequest timeOfShiftRequest){
+        return ResponseEntity.ok(timeOfShiftService.updateTimeOfShift(Id, timeOfShiftRequest));
     }
 
-    @DeleteMapping("shift/{Id}")
-    @Operation(summary = "delete shift")
-    public ResponseEntity<MessageResponse> deleteShift(@PathVariable int Id){
+    @DeleteMapping("time-of-shift/{Id}")
+    @Operation(summary = "delete time-of-shift")
+    public ResponseEntity<MessageResponse> deleteTimeOfShift(@PathVariable int Id){
         return ResponseEntity.ok(timeOfShiftService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-shift/{Id}")
-    @Operation(summary = "delete sort shift")
-    public ResponseEntity<MessageResponse> sortDeleteShift(@PathVariable int Id){
-        return ResponseEntity.ok(timeOfShiftService.sortDeleteShift(Id));
+    @DeleteMapping("sort-delete-time-of-shift/{Id}")
+    @Operation(summary = "delete sort time-of-shift")
+    public ResponseEntity<MessageResponse> sortDeleteTimeOfShift(@PathVariable int Id){
+        return ResponseEntity.ok(timeOfShiftService.sortDeleteTimeOfShift(Id));
     }
 }
