@@ -29,6 +29,12 @@ public class FrequencyController {
         return ResponseEntity.ok(frequencyService.findAllFrequency()) ;
     }
 
+    @GetMapping("frequency-except-deleted")
+    @Operation(summary = "List frequencies except deleted")
+    public ResponseEntity<List<Frequency>> getAllFrequenciesExceptDeleted() {
+        return ResponseEntity.ok(frequencyService.findAllFrequencyExceptDeleted()) ;
+    }
+
     @GetMapping("frequency-id/{Id}")
     @Operation(summary = "Detal frequency Id")
     public ResponseEntity<Frequency> getFrequencyById(@PathVariable Integer Id) {

@@ -21,10 +21,15 @@ public class DepartmentServerImpl implements DepartmentService {
     }
 
     @Override
-    public List<Department> findAll() {
+    public List<Department> findAllDepartment() {
+        return departmentRepository.findAll() ;
+    }
+
+    @Override
+    public List<Department> findAllDepartmentExceptDeleted() {
         return departmentRepository.findAll().stream()
-                       .filter(department -> !department.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(department -> !department.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -22,10 +22,15 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     }
 
     @Override
-    public List<Specialty> findAll() {
+    public List<Specialty> findAllSpecialty() {
+        return specialtyRepository.findAll() ;
+    }
+
+    @Override
+    public List<Specialty> findAllSpecialtyExceptDeleted() {
         return specialtyRepository.findAll().stream()
-                       .filter(specialty -> !specialty.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(specialty -> !specialty.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

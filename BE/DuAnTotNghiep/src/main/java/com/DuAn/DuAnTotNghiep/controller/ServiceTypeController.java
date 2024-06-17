@@ -28,6 +28,12 @@ public class ServiceTypeController {
         return ResponseEntity.ok(serviceTypeService.findAllServiceType());
     }
 
+    @GetMapping("service-type-except-deleted")
+    @Operation(summary = "List service type except deleted")
+    public ResponseEntity<List<ServiceType>> getAllServiceTypeExceptDeleted() {
+        return ResponseEntity.ok(serviceTypeService.findAllServiceTypeExceptDeleted());
+    }
+
     @GetMapping("service-type-id/{Id}")
     @Operation(summary = "service type")
     public ResponseEntity<ServiceType> getServiceTypeId( @PathVariable Integer Id) {

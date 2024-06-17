@@ -30,6 +30,12 @@ public class AppointmentTreatmentController {
         return ResponseEntity.ok(appointmentTreatmentService.findAllAppointmentTreatment());
     }
 
+    @GetMapping("appointment-treatment-except-deleted")
+    @Operation(summary = "List appointment treatment except deleted")
+    public ResponseEntity<List<AppointmentTreatment>> getAllAppointmentTreatmentExceptDeleted() {
+        return ResponseEntity.ok(appointmentTreatmentService.findAllAppointmentTreatmentExceptDeleted());
+    }
+
     @GetMapping("appointment-treatment-id/{Id}")
     @Operation(summary = "dental appointment treatment Id")
     public ResponseEntity<AppointmentTreatment> getAppointmentTreatmentId( @PathVariable Integer Id) {

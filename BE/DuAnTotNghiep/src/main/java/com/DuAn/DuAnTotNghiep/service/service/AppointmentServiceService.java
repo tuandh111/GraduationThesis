@@ -13,6 +13,8 @@ public interface AppointmentServiceService {
 
     List<AppointmentService> findAllAppointmentService();
 
+    List<AppointmentService> findAllAppointmentServiceExceptDeleted();
+
     AppointmentService saveAppointmentService(AppointmentServiceRequest appointmentServiceRequest);
 
     AppointmentService updateAppointmentService(int appointmentServiceId, AppointmentServiceRequest appointmentServiceRequest);

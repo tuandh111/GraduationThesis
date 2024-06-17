@@ -29,6 +29,12 @@ public class MedicinesDosageUnitController {
         return ResponseEntity.ok(medicinesDosageUnitService.findAllMedicinesDosageUnits()) ;
     }
 
+    @GetMapping("/medicines-dosage-units-except-deleted")
+    @Operation(summary = "List medicines dosage units except deleted")
+    public ResponseEntity<List<MedicinesDosageUnit>> getAllMedicinesDosageUnitsExceptDeleted() {
+        return ResponseEntity.ok(medicinesDosageUnitService.findAllMedicinesDosageUnitsExceptDeleted()) ;
+    }
+
     @GetMapping("/medicines-dosage-units-id/{id}")
     @Operation(summary = "Get medicine dosage unit by ID")
     public ResponseEntity<MedicinesDosageUnit> getMedicineDosageUnitById(@PathVariable Integer id) {

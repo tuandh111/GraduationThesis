@@ -14,6 +14,8 @@ public interface BillService {
 
     List<Bill> findAllBill();
 
+    List<Bill> findAllBillExceptDeleted();
+
     Bill saveBill(BillRequest billRequest);
 
     Bill updateBill(int billId, BillRequest billRequest);

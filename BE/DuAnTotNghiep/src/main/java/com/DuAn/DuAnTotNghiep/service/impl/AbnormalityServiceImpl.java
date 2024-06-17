@@ -24,10 +24,16 @@ public class AbnormalityServiceImpl implements AbnormalityService {
 
     @Override
     public List<Abnormality> findAll() {
-        return abnormalityRepository.findAll().stream()
-                       .filter(abnormality -> !abnormality.isDeleted())
-                       .collect(Collectors.toList());
+        return abnormalityRepository.findAll() ;
     }
+
+    @Override
+    public List<Abnormality> findAllExceptDeleted() {
+        return abnormalityRepository.findAll().stream()
+                .filter(abnormality -> !abnormality.isDeleted())
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public Abnormality saveAbnormality(AbnormalityRequest abnormalityRequest) {

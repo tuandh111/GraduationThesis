@@ -11,7 +11,9 @@ import java.util.List;
 public interface PatientService {
     Patient findByPatientId(int PatientId);
 
-    List<Patient> findAll();
+    List<Patient> findAllPatient();
+
+    List<Patient> findAllPatientExceptDeleted();
 
     Patient savePatient(PatientRequest patientRequest);
 

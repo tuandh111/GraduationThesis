@@ -27,7 +27,13 @@ public class CTResultAbnormalityController {
     @GetMapping("ct-result-abnormality")
     @Operation(summary = "List ct result abnormality")
     public ResponseEntity<List<CTResultAbnormality>> getAllCTResultAbnormality() {
-        return ResponseEntity.ok(ctResultAbnormalityService.findAll());
+        return ResponseEntity.ok(ctResultAbnormalityService.findAllCTResultAbnormality());
+    }
+
+    @GetMapping("ct-result-abnormality-except-deleted")
+    @Operation(summary = "List ct result abnormality except deleted")
+    public ResponseEntity<List<CTResultAbnormality>> getAllCTResultAbnormalityExceptDeleted() {
+        return ResponseEntity.ok(ctResultAbnormalityService.findAllCTResultAbnormalityExceptDeleted());
     }
 
     @GetMapping("ct-result-abnormality-id/{Id}")

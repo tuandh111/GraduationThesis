@@ -30,6 +30,12 @@ public class IssuesTreatmentAutomationController {
         return ResponseEntity.ok(issuesTreatmentAutomationService.findAllIssuesTreatmentAutomation());
     }
 
+    @GetMapping("issues-treatment-automation-except-deleted")
+    @Operation(summary = "List issues treatment automation except deleted")
+    public ResponseEntity<List<IssuesTreatmentAutomation>> getAllIssuesTreatmentAutomationExceptDeleted() {
+        return ResponseEntity.ok(issuesTreatmentAutomationService.findAllIssuesTreatmentAutomationExceptDeleted());
+    }
+
     @GetMapping("issues-treatment-automation-id/{Id}")
     @Operation(summary = "issues treatment automation")
     public ResponseEntity<IssuesTreatmentAutomation> getIssuesTreatmentAutomationId( @PathVariable Integer Id) {

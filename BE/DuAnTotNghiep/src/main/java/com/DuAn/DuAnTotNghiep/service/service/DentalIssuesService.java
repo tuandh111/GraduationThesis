@@ -14,6 +14,8 @@ public interface DentalIssuesService {
 
     List<DentalIssues> findAllDentalIssues();
 
+    List<DentalIssues> findAllDentalIssuesExceptDeleted();
+
     DentalIssues saveDentalIssues(DentalIssuesRequest dentalIssuesRequest);
 
     DentalIssues updateDentalIssues(int dentalIssuesId, DentalIssuesRequest dentalIssuesRequest);

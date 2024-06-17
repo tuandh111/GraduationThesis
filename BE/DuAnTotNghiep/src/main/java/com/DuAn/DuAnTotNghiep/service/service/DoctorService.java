@@ -11,7 +11,9 @@ import java.util.List;
 public interface DoctorService {
     Doctor findByDoctorId(int DoctorId);
 
-    List<Doctor> findAll();
+    List<Doctor> findAllDoctor();
+
+    List<Doctor> findAllDoctorExceptDeleted();
 
     Doctor saveDoctor(DoctorRequest doctorRequest);
 

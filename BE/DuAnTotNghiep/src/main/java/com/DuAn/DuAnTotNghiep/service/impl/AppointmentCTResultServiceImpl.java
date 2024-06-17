@@ -33,10 +33,15 @@ public class AppointmentCTResultServiceImpl implements AppointmentCTResultServic
 
     @Override
     public List<AppointmentCTResult> findAll() {
+        return  appointmentCTResultRepository.findAll();
+    }
+
+    @Override
+    public List<AppointmentCTResult> findAllExceptDeleted() {
         return  appointmentCTResultRepository.findAll()
-                        .stream()
-                        .filter(appointmentCTResult -> !appointmentCTResult.isDeleted())
-                        .collect(Collectors.toList());
+                .stream()
+                .filter(appointmentCTResult -> !appointmentCTResult.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -27,7 +27,13 @@ public class SpecialtyController {
     @GetMapping("specialty")
     @Operation(summary = "List specialty")
     public ResponseEntity<List<Specialty>> getAllSpecialty() {
-        return ResponseEntity.ok(specialtyService.findAll());
+        return ResponseEntity.ok(specialtyService.findAllSpecialty());
+    }
+
+    @GetMapping("specialty-except-deleted")
+    @Operation(summary = "List specialty except deleted")
+    public ResponseEntity<List<Specialty>> getAllSpecialtyExceptDeleted() {
+        return ResponseEntity.ok(specialtyService.findAllSpecialtyExceptDeleted());
     }
 
     @GetMapping("specialty-id/{Id}")

@@ -27,9 +27,13 @@ public class TimeOfShiftServiceImpl implements TimeOfShiftService {
         return timeOfShiftRepository.findById(timeOfShiftID).orElseThrow(null);
     }
 
+    @Override
+    public List<TimeOfShift> findAllTimeOfShift() {
+        return timeOfShiftRepository.findAll() ;
+    }
 
     @Override
-    public List<TimeOfShift> findAll() {
+    public List<TimeOfShift> findAllTimeOfShiftExceptDeleted() {
         return timeOfShiftRepository.findAll().stream()
                 .filter(timeOfShift -> !timeOfShift.isDeleted())
                 .collect(Collectors.toList());

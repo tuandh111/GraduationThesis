@@ -11,7 +11,9 @@ import java.util.List;
 public interface CTResultAbnormalityService {
     CTResultAbnormality findByCTResultAbnormalityId(int cTResultAbnormalityId);
 
-    List<CTResultAbnormality> findAll();
+    List<CTResultAbnormality> findAllCTResultAbnormality();
+
+    List<CTResultAbnormality> findAllCTResultAbnormalityExceptDeleted();
 
     CTResultAbnormality saveCTResultAbnormality(CTResultAbnormalityRequest ctResultAbnormalityRequest);
 

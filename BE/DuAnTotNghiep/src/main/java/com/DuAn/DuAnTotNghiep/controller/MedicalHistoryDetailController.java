@@ -28,7 +28,13 @@ public class MedicalHistoryDetailController {
     @GetMapping("medical-history-detail")
     @Operation(summary = "List medical history detail")
     public ResponseEntity<List<MedicalHistoryDetail>> getAllMedicalHistoryDetail() {
-        return ResponseEntity.ok(medicalHistoryDetailService.findAll());
+        return ResponseEntity.ok(medicalHistoryDetailService.findAllMedicalHistoryDetail());
+    }
+
+    @GetMapping("medical-history-detail-except-deleted")
+    @Operation(summary = "List medical history detail except deleted")
+    public ResponseEntity<List<MedicalHistoryDetail>> getAllMedicalHistoryDetailExceptDeleted() {
+        return ResponseEntity.ok(medicalHistoryDetailService.findAllMedicalHistoryDetailExceptDeleted());
     }
 
     @GetMapping("medical-history-detail-id/{Id}")

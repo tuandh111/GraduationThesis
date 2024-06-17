@@ -12,7 +12,9 @@ import java.util.List;
 public interface DistributionSuppliesService {
     DistributionSupplies findByDistributionSuppliesId(int distributionSuppliesId);
 
-    List<DistributionSupplies> findAll();
+    List<DistributionSupplies> findAllDistributionSupplies();
+
+    List<DistributionSupplies> findAllDistributionSuppliesExceptDeleted();
 
     DistributionSupplies saveDistributionSupplies(DistributionSuppliesRequest distributionSuppliesRequest);
 

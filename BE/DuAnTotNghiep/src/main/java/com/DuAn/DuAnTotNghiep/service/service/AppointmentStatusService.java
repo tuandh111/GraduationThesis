@@ -11,7 +11,9 @@ public interface AppointmentStatusService {
 
     AppointmentStatus findByAppointmentStatusId(int appointmentStatusId);
 
-    List<AppointmentStatus> findAll();
+    List<AppointmentStatus> findAllAppointmentStatus();
+
+    List<AppointmentStatus> findAllAppointmentStatusExceptDeleted();
 
     AppointmentStatus saveAppointmentStatus(AppointmentStatusRequest appointmentStatusRequest);
 

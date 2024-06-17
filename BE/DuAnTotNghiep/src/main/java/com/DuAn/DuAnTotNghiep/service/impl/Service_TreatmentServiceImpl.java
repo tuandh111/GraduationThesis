@@ -28,9 +28,14 @@ public class Service_TreatmentServiceImpl implements ServiceTreatmentService {
 
     @Override
     public List<ServiceTreatment> findAllServiceTreatment() {
+        return serviceTreatmentRepository.findAll() ;
+    }
+
+    @Override
+    public List<ServiceTreatment> findAllServiceTreatmentExceptDeleted() {
         return serviceTreatmentRepository.findAll().stream()
-                       .filter(serviceTreatment -> !serviceTreatment.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(serviceTreatment -> !serviceTreatment.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

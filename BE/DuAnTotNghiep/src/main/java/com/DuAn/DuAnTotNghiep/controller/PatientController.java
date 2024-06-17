@@ -27,7 +27,13 @@ public class PatientController {
     @GetMapping("patient")
     @Operation(summary = "List patient")
     public ResponseEntity<List<Patient>> getAllPatient() {
-        return ResponseEntity.ok(patientService.findAll());
+        return ResponseEntity.ok(patientService.findAllPatient());
+    }
+
+    @GetMapping("patient-except-deleted")
+    @Operation(summary = "List patient except deleted")
+    public ResponseEntity<List<Patient>> getAllPatientExceptDeleted() {
+        return ResponseEntity.ok(patientService.findAllPatientExceptDeleted());
     }
 
     @GetMapping("patient-id/{Id}")

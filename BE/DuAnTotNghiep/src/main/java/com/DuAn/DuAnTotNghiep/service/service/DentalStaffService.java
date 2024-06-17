@@ -11,7 +11,9 @@ import java.util.List;
 public interface DentalStaffService {
     DentalStaff findByDentalStaffId(int dentalStaffId);
 
-    List<DentalStaff> findAll();
+    List<DentalStaff> findAllDentalStaff();
+
+    List<DentalStaff> findAllDentalStaffExceptDeleted();
 
     DentalStaff saveDentalStaff(DentalStaffRequest dentalStaffRequest);
 

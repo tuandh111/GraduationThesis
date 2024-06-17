@@ -34,9 +34,14 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     @Override
     public List<Prescription> findAllPrescriptions() {
+        return prescriptionRepository.findAll() ;
+    }
+
+    @Override
+    public List<Prescription> findAllPrescriptionsExceptDeleted() {
         return prescriptionRepository.findAll().stream()
-                       .filter(prescription -> !prescription.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(prescription -> !prescription.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -29,6 +29,12 @@ public class TreatmentDurationController {
         return ResponseEntity.ok(treatmentDurationService.findAllTreatmentDurations());
     }
 
+    @GetMapping("/treatment-durations-except-deleted")
+    @Operation(summary = "List treatment durations except deleted")
+    public ResponseEntity<List<TreatmentDuration>> getAllTreatmentDurationsExceptDeleted() {
+        return ResponseEntity.ok(treatmentDurationService.findAllTreatmentDurationsExceptDeleted());
+    }
+
     @GetMapping("/treatment-durations/{id}")
     @Operation(summary = "Get treatment duration by ID")
     public ResponseEntity<TreatmentDuration> getTreatmentDurationById(@PathVariable Integer id) {

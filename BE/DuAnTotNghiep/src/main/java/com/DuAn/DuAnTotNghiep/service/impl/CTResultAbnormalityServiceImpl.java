@@ -28,10 +28,15 @@ public class CTResultAbnormalityServiceImpl implements CTResultAbnormalityServic
     }
 
     @Override
-    public List<CTResultAbnormality> findAll() {
+    public List<CTResultAbnormality> findAllCTResultAbnormality() {
+        return ctResultAbnormalityRepository.findAll() ;
+    }
+
+    @Override
+    public List<CTResultAbnormality> findAllCTResultAbnormalityExceptDeleted() {
         return ctResultAbnormalityRepository.findAll().stream()
-                       .filter(cTResultAbnormality -> !cTResultAbnormality.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(cTResultAbnormality -> !cTResultAbnormality.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

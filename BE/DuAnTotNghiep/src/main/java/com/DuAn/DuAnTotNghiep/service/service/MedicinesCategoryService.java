@@ -11,6 +11,8 @@ public interface MedicinesCategoryService {
 
     List<MedicineCategory> findAllMedicineCategories() ;
 
+    List<MedicineCategory> findAllMedicineCategoriesExceptDeleted() ;
+
     MedicineCategory saveMedicineCategory(MedicineCategoryRequest categoryRequest) ;
 
     MedicineCategory updateMedicineCategory(int categoryId, MedicineCategoryRequest categoryRequest) ;

@@ -38,9 +38,14 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Override
     public List<Medicines> findAllMedicines() {
+        return medicineRepository.findAll() ;
+    }
+
+    @Override
+    public List<Medicines> findAllMedicinesExceptDeleted() {
         return medicineRepository.findAll().stream()
-                       .filter(medicines -> !medicines.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(medicines -> !medicines.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

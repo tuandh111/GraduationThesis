@@ -23,10 +23,15 @@ public class ShiftServiceImpl implements ShiftService {
     }
 
     @Override
-    public List<Shift> findAll() {
+    public List<Shift> findAllShift() {
+        return shiftRepository.findAll() ;
+    }
+
+    @Override
+    public List<Shift> findAllShiftExceptDeleted() {
         return shiftRepository.findAll().stream()
-                       .filter(shift -> !shift.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(shift -> !shift.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

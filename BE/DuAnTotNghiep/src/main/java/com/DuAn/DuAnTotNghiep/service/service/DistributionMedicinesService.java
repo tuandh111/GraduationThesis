@@ -11,6 +11,8 @@ public interface DistributionMedicinesService {
 
     List<DistributionMedicines> findAllDistributionMedicines() ;
 
+    List<DistributionMedicines> findAllDistributionMedicinesExceptDeleted() ;
+
     DistributionMedicines saveDistributionMedicines(DistributionMedicinesRequest distributionMedicineRequest) ;
 
     DistributionMedicines updateDistributionMedicines(int distributionMedicineId, DistributionMedicinesRequest distributionMedicineRequest) ;

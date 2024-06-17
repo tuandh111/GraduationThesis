@@ -28,7 +28,13 @@ public class DentalSuppliesController {
     @GetMapping("dental-supplies")
     @Operation(summary = "List dentail supplies")
     public ResponseEntity<List<DentalSupplies>> getAllDentalSupplies() {
-        return ResponseEntity.ok(dentalSuppliesService.findAll());
+        return ResponseEntity.ok(dentalSuppliesService.findAllDentalSupplies());
+    }
+
+    @GetMapping("dental-supplies-except-deleted")
+    @Operation(summary = "List dentail supplies except deleted")
+    public ResponseEntity<List<DentalSupplies>> getAllDentalSuppliesExceptDeleted() {
+        return ResponseEntity.ok(dentalSuppliesService.findAllDentalSuppliesExceptDeleted());
     }
 
     @GetMapping("dental-supplies-id/{Id}")

@@ -24,9 +24,14 @@ public class TreatmentDurationServiceImpl implements TreatmentDurationService {
 
     @Override
     public List<TreatmentDuration> findAllTreatmentDurations() {
+        return treatmentDurationRepository.findAll() ;
+    }
+
+    @Override
+    public List<TreatmentDuration> findAllTreatmentDurationsExceptDeleted() {
         return treatmentDurationRepository.findAll().stream()
-                       .filter(treatmentDuration -> !treatmentDuration.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(treatmentDuration -> !treatmentDuration.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

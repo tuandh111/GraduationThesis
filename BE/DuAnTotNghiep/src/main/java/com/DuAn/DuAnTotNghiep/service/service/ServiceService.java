@@ -11,6 +11,8 @@ public interface ServiceService {
 
     List<Service> findAllService();
 
+    List<Service> findAllServiceExceptDeleted();
+
     Service saveService(ServiceRequest serviceRequest);
 
     Service updateService(int serviceId, ServiceRequest serviceRequest);

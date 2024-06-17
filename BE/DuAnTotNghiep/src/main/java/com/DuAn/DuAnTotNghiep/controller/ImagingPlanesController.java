@@ -27,7 +27,13 @@ public class ImagingPlanesController {
     @GetMapping("imaging-planes")
     @Operation(summary = "List imagingPlanes")
     public ResponseEntity<List<ImagingPlanes>> getAllImagingPlanes() {
-        return ResponseEntity.ok(imagingPlanesService.findAll());
+        return ResponseEntity.ok(imagingPlanesService.findAllImagingPlanes());
+    }
+
+    @GetMapping("imaging-planes-except-deleted")
+    @Operation(summary = "List imagingPlanes except deleted")
+    public ResponseEntity<List<ImagingPlanes>> getAllImagingPlanesExceptDeleted() {
+        return ResponseEntity.ok(imagingPlanesService.findAllImagingPlanesExceptDeleted());
     }
 
     @GetMapping("imaging-planes-id/{Id}")

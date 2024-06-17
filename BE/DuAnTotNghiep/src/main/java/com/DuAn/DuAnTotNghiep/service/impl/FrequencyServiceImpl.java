@@ -24,9 +24,14 @@ public class FrequencyServiceImpl implements FrequencyService {
 
     @Override
     public List<Frequency> findAllFrequency() {
+        return frequencyRepository.findAll() ;
+    }
+
+    @Override
+    public List<Frequency> findAllFrequencyExceptDeleted() {
         return frequencyRepository.findAll().stream()
-                       .filter(frequency -> !frequency.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(frequency -> !frequency.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

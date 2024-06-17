@@ -23,10 +23,15 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
     }
 
     @Override
-    public List<MedicalHistory> findAll() {
+    public List<MedicalHistory> findAllMedicalHistory() {
+        return medicalHistoryRepository.findAll() ;
+    }
+
+    @Override
+    public List<MedicalHistory> findAllMedicalHistoryExceptDeleted() {
         return medicalHistoryRepository.findAll().stream()
-                       .filter(medicalHistory -> !medicalHistory.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(medicalHistory -> !medicalHistory.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

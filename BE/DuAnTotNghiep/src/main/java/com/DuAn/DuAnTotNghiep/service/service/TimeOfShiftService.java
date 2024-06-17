@@ -10,7 +10,9 @@ public interface TimeOfShiftService {
 
     TimeOfShift findByTimeOfShiftId(int timeOfShift);
 
-    List<TimeOfShift> findAll();
+    List<TimeOfShift> findAllTimeOfShift();
+
+    List<TimeOfShift> findAllTimeOfShiftExceptDeleted();
 
     TimeOfShift saveTimeOfShift(TimeOfShiftRequest timeOfShiftRequest);
 

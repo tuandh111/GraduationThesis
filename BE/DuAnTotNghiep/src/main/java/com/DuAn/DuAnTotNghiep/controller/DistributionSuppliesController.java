@@ -28,7 +28,13 @@ public class DistributionSuppliesController {
     @GetMapping("distribution-supplies")
     @Operation(summary = "List distribution supplies")
     public ResponseEntity<List<DistributionSupplies>> getAllDistributionSupplies() {
-        return ResponseEntity.ok(distributionSuppliesService.findAll());
+        return ResponseEntity.ok(distributionSuppliesService.findAllDistributionSupplies());
+    }
+
+    @GetMapping("distribution-supplies-except-deleted")
+    @Operation(summary = "List distribution supplies except deleted")
+    public ResponseEntity<List<DistributionSupplies>> getAllDistributionSuppliesExceptDeleted() {
+        return ResponseEntity.ok(distributionSuppliesService.findAllDistributionSuppliesExceptDeleted());
     }
 
     @GetMapping("distribution-supplies-id/{Id}")

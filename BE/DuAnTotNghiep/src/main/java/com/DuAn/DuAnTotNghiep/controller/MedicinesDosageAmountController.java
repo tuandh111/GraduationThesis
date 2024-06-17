@@ -30,6 +30,12 @@ public class MedicinesDosageAmountController {
         return ResponseEntity.ok(medicinesDosageAmountService.findAllMedicinesDosageAmounts()) ;
     }
 
+    @GetMapping("/medicines-dosage-amounts-except-deleted")
+    @Operation(summary = "List medicines dosage amounts except deleted")
+    public ResponseEntity<List<MedicinesDosageAmount>> getAllMedicinesDosageAmountsExceptDeleted() {
+        return ResponseEntity.ok(medicinesDosageAmountService.findAllMedicinesDosageAmountsExceptDeleted()) ;
+    }
+
     @GetMapping("/medicines-dosage-amounts-id/{id}")
     @Operation(summary = "Get medicine dosage amount by ID")
     public ResponseEntity<MedicinesDosageAmount> getMedicineDosageAmountById(@PathVariable Integer id) {

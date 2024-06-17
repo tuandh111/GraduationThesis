@@ -13,6 +13,9 @@ public interface AppointmentTreatmentService {
 
     List<AppointmentTreatment> findAllAppointmentTreatment();
 
+    List<AppointmentTreatment> findAllAppointmentTreatmentExceptDeleted();
+
+
     AppointmentTreatment saveAppointmentTreatment(AppointmentTreatmentRequest appointmentTreatmentRequest);
 
     AppointmentTreatment updateAppointmentTreatment(int appointmentTreatmentId, AppointmentTreatmentRequest appointmentTreatmentRequest);

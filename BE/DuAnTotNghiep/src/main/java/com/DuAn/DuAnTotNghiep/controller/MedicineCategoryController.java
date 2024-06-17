@@ -29,6 +29,12 @@ public class MedicineCategoryController {
         return ResponseEntity.ok(medicineCategoryService.findAllMedicineCategories()) ;
     }
 
+    @GetMapping("/medicine-categories-except-deleted")
+    @Operation(summary = "List medicine categories except deleted")
+    public ResponseEntity<List<MedicineCategory>> getAllMedicineCategoriesExceptDeleted() {
+        return ResponseEntity.ok(medicineCategoryService.findAllMedicineCategoriesExceptDeleted()) ;
+    }
+
     @GetMapping("/medicine-categories/{id}")
     @Operation(summary = "Get medicine category by ID")
     public ResponseEntity<MedicineCategory> getMedicineCategoryById(@PathVariable Integer id) {

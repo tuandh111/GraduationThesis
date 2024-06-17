@@ -11,7 +11,9 @@ import java.util.List;
 public interface MedicalHistoryDetailService {
     MedicalHistoryDetail findByMedicalHistoryDetailId(int medicalHistoryDetailId);
 
-    List<MedicalHistoryDetail> findAll();
+    List<MedicalHistoryDetail> findAllMedicalHistoryDetail();
+
+    List<MedicalHistoryDetail> findAllMedicalHistoryDetailExceptDeleted();
 
     MedicalHistoryDetail saveMedicalHistoryDetail(MedicalHistoryDetailRequest medicalhistoryDetailRequest);
 

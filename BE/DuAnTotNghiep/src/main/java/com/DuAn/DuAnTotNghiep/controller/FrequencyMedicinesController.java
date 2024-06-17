@@ -29,6 +29,12 @@ public class FrequencyMedicinesController {
         return ResponseEntity.ok(frequencyMedicinesService.findAllFrequencyMedicines()) ;
     }
 
+    @GetMapping("frequency-medicines-except-deleted")
+    @Operation(summary = "List frequency medicines except deleted")
+    public ResponseEntity<List<FrequencyMedicines>> getAllFrequencyMedicinesExceptDeleted() {
+        return ResponseEntity.ok(frequencyMedicinesService.findAllFrequencyMedicinesExceptDeleted()) ;
+    }
+
     @GetMapping("frequency-medicines-id/{id}")
     @Operation(summary = "Get frequency medicine by id")
     public ResponseEntity<FrequencyMedicines> getFrequencyMedicineById(@PathVariable int id) {

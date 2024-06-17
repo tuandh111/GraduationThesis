@@ -27,7 +27,13 @@ public class BillController {
     @GetMapping("bill")
     @Operation(summary = "List bill")
     public ResponseEntity<List<Bill>> getAllBill() {
-        return ResponseEntity.ok(billService.findAllBill());
+        return ResponseEntity.ok(billService.findAllBill()) ;
+    }
+
+    @GetMapping("bill-except-deleted")
+    @Operation(summary = "List bill except deleted")
+    public ResponseEntity<List<Bill>> getAllBillExceptDeleted() {
+        return ResponseEntity.ok(billService.findAllBillExceptDeleted()) ;
     }
 
     @GetMapping("bill-id/{Id}")

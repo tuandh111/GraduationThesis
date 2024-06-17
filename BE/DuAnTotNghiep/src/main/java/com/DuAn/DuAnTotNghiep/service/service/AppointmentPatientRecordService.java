@@ -14,6 +14,8 @@ public interface AppointmentPatientRecordService {
 
     List<AppointmentPatientRecord> findAllAppointmentPatientRecord();
 
+    List<AppointmentPatientRecord> findAllAppointmentPatientRecordExceptDeleted();
+
     AppointmentPatientRecord saveAppointmentPatientRecord(AppointmentPatientRecordRequest AppointmentPatientRecordRequest);
 
     AppointmentPatientRecord updateAppointmentPatientRecord(int appointmentTypeId, AppointmentPatientRecordRequest AppointmentPatientRecordRequest);

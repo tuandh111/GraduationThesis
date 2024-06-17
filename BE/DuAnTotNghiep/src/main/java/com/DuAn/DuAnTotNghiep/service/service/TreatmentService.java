@@ -13,6 +13,8 @@ public interface TreatmentService {
 
     List<Treatment> findAllTreatment();
 
+    List<Treatment> findAllTreatmentExceptDeleted();
+
     Treatment saveTreatment(TreatmentRequest treatmentRequest);
 
     Treatment updateTreatment(int treatmentId, TreatmentRequest treatmentRequest);

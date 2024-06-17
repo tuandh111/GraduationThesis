@@ -11,6 +11,8 @@ public interface MedicinesDosageAmountService {
 
     List<MedicinesDosageAmount> findAllMedicinesDosageAmounts() ;
 
+    List<MedicinesDosageAmount> findAllMedicinesDosageAmountsExceptDeleted() ;
+
     MedicinesDosageAmount saveMedicinesDosageAmount(MedicinesDosageAmountRequest dosageAmountRequest) ;
 
     MedicinesDosageAmount updateMedicinesDosageAmount(int dosageAmountId, MedicinesDosageAmountRequest dosageAmountRequest) ;

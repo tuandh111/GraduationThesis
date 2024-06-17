@@ -11,7 +11,9 @@ import java.util.List;
 public interface DepartmentService {
     Department findByDepartmentId(int departmentId);
 
-    List<Department> findAll();
+    List<Department> findAllDepartment();
+
+    List<Department> findAllDepartmentExceptDeleted();
 
     Department saveDepartment(DepartmentRequest departmentRequest);
 

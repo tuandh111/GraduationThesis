@@ -24,9 +24,14 @@ public class MedicinesDosageAmountServiceImpl implements MedicinesDosageAmountSe
 
     @Override
     public List<MedicinesDosageAmount> findAllMedicinesDosageAmounts() {
+        return medicinesDosageAmountRepository.findAll() ;
+    }
+
+    @Override
+    public List<MedicinesDosageAmount> findAllMedicinesDosageAmountsExceptDeleted() {
         return medicinesDosageAmountRepository.findAll().stream()
-                       .filter(medicinesDosageAmount -> !medicinesDosageAmount.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(medicinesDosageAmount -> !medicinesDosageAmount.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -10,7 +10,9 @@ public interface RoleService {
     Role findByRoleName(String name);
     Role findByRoleId(int roleId);
 
-    List<Role> findAll();
+    List<Role> findAllRole();
+
+    List<Role> findAllRoleExceptDeleted();
 
     Role saveRole(RoleRequest roleRequest);
 

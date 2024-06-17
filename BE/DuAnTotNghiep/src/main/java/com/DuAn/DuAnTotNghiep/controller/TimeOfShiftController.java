@@ -27,7 +27,13 @@ public class TimeOfShiftController {
     @GetMapping("time-of-shift")
     @Operation(summary = "List  timeOfShift")
     public ResponseEntity<List<TimeOfShift>> findAllTimeOfShift() {
-        return ResponseEntity.ok(timeOfShiftService.findAll());
+        return ResponseEntity.ok(timeOfShiftService.findAllTimeOfShift());
+    }
+
+    @GetMapping("time-of-shift-except-deleted")
+    @Operation(summary = "List  timeOfShift except deleted")
+    public ResponseEntity<List<TimeOfShift>> findAllTimeOfShiftExceptDeleted() {
+        return ResponseEntity.ok(timeOfShiftService.findAllTimeOfShiftExceptDeleted());
     }
 
     @GetMapping("time-of-shift/{Id}")

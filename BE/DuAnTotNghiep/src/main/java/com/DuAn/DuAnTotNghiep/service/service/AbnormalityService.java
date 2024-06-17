@@ -14,6 +14,8 @@ public interface AbnormalityService {
 
     List<Abnormality> findAll();
 
+    List<Abnormality> findAllExceptDeleted();
+
     Abnormality saveAbnormality(AbnormalityRequest abnormalityRequest);
 
     Abnormality updateAbnormality(int abnormalityId, AbnormalityRequest abnormalityRequest);

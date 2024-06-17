@@ -11,6 +11,8 @@ public interface TreatmentDurationService {
 
     List<TreatmentDuration> findAllTreatmentDurations() ;
 
+    List<TreatmentDuration> findAllTreatmentDurationsExceptDeleted() ;
+
     TreatmentDuration saveTreatmentDuration(TreatmentDurationRequest durationRequest) ;
 
     TreatmentDuration updateTreatmentDuration(int durationId, TreatmentDurationRequest durationRequest) ;

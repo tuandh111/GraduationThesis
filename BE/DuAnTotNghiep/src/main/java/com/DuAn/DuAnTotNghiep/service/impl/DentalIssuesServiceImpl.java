@@ -23,9 +23,14 @@ public class DentalIssuesServiceImpl implements DentalIssuesService {
 
     @Override
     public List<DentalIssues> findAllDentalIssues() {
+        return dentalIssuesRepository.findAll() ;
+    }
+
+    @Override
+    public List<DentalIssues> findAllDentalIssuesExceptDeleted() {
         return dentalIssuesRepository.findAll().stream()
-                       .filter(dentalIssues -> !dentalIssues.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(dentalIssues -> !dentalIssues.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

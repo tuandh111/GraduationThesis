@@ -25,9 +25,14 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public List<com.DuAn.DuAnTotNghiep.entities.Service> findAllService() {
+        return serviceRepository.findAll() ;
+    }
+
+    @Override
+    public List<com.DuAn.DuAnTotNghiep.entities.Service> findAllServiceExceptDeleted() {
         return serviceRepository.findAll().stream()
-                       .filter(service -> !service.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(service -> !service.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

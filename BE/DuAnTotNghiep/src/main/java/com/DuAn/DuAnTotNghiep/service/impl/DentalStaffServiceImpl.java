@@ -28,10 +28,15 @@ public class DentalStaffServiceImpl implements DentalStaffService {
     }
 
     @Override
-    public List<DentalStaff> findAll() {
+    public List<DentalStaff> findAllDentalStaff() {
+        return dentalStaffRepository.findAll() ;
+    }
+
+    @Override
+    public List<DentalStaff> findAllDentalStaffExceptDeleted() {
         return dentalStaffRepository.findAll().stream()
-                       .filter(dentalStaff -> !dentalStaff.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(dentalStaff -> !dentalStaff.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

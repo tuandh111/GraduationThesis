@@ -12,6 +12,8 @@ public interface IssuesTreatmentAutomationService {
 
     List<IssuesTreatmentAutomation> findAllIssuesTreatmentAutomation();
 
+    List<IssuesTreatmentAutomation> findAllIssuesTreatmentAutomationExceptDeleted();
+
     IssuesTreatmentAutomation saveIssuesTreatmentAutomation(IssuesTreatmentAutomationRequest issuesTreatmentAutomationRequest);
 
     IssuesTreatmentAutomation updateIssuesTreatmentAutomation(int issuesTreatmentAutomationId, IssuesTreatmentAutomationRequest issuesTreatmentAutomationRequest);

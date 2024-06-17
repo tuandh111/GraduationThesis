@@ -11,7 +11,9 @@ import java.util.List;
 public interface ImagingPlanesService {
     ImagingPlanes findByImagingPlanesId(int imagingPlanesId);
 
-    List<ImagingPlanes> findAll();
+    List<ImagingPlanes> findAllImagingPlanes();
+
+    List<ImagingPlanes> findAllImagingPlanesExceptDeleted();
 
     ImagingPlanes saveImagingPlanes(ImagingPlanesRequest imagingPlanesRequest);
 

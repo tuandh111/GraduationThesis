@@ -32,9 +32,14 @@ public class FrequencyMedicinesServiceImpl implements FrequencyMedicinesService 
 
     @Override
     public List<FrequencyMedicines> findAllFrequencyMedicines() {
+        return frequencyMedicinesRepository.findAll() ;
+    }
+
+    @Override
+    public List<FrequencyMedicines> findAllFrequencyMedicinesExceptDeleted() {
         return frequencyMedicinesRepository.findAll().stream()
-                       .filter(frequencyMedicines -> !frequencyMedicines.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(frequencyMedicines -> !frequencyMedicines.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

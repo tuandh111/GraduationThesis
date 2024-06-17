@@ -23,9 +23,14 @@ public class TreatmentServiceImpl implements TreatmentService {
 
     @Override
     public List<Treatment> findAllTreatment() {
+        return treatmentRepository.findAll() ;
+    }
+
+    @Override
+    public List<Treatment> findAllTreatmentExceptDeleted() {
         return treatmentRepository.findAll().stream()
-                       .filter(treatment -> !treatment.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(treatment -> !treatment.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

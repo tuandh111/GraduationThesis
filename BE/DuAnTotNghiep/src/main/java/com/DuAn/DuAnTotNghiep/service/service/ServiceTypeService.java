@@ -11,6 +11,8 @@ public interface ServiceTypeService {
 
     List<ServiceType> findAllServiceType();
 
+    List<ServiceType> findAllServiceTypeExceptDeleted();
+
     ServiceType saveServiceType(ServiceTypeRequest serviceTypeRequest);
 
     ServiceType updateServiceType(int serviceTypeId, ServiceTypeRequest serviceTypeRequest);

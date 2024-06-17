@@ -28,7 +28,13 @@ public class DepartmentController {
     @GetMapping("department")
     @Operation(summary = "List department")
     public ResponseEntity<List<Department>> getAllDepartment() {
-        return ResponseEntity.ok(departmentService.findAll());
+        return ResponseEntity.ok(departmentService.findAllDepartment());
+    }
+
+    @GetMapping("department-except-deleted")
+    @Operation(summary = "List department except deleted")
+    public ResponseEntity<List<Department>> getAllDepartmentExceptDeleted() {
+        return ResponseEntity.ok(departmentService.findAllDepartmentExceptDeleted());
     }
 
     @GetMapping("department-id/{Id}")

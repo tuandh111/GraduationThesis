@@ -28,7 +28,13 @@ public class DoctorScheduleController {
     @GetMapping("doctor-schedule")
     @Operation(summary = "List doctor schedule")
     public ResponseEntity<List<DoctorSchedule>> getAllDoctorSchedule() {
-        return ResponseEntity.ok(doctorScheduleService.findAll());
+        return ResponseEntity.ok(doctorScheduleService.findAllDoctorSchedule());
+    }
+
+    @GetMapping("doctor-schedule-except-deleted")
+    @Operation(summary = "List doctor schedule except deleted")
+    public ResponseEntity<List<DoctorSchedule>> getAllDoctorScheduleExceptDeleted() {
+        return ResponseEntity.ok(doctorScheduleService.findAllDoctorScheduleExceptDeleted());
     }
 
     @GetMapping("doctor-schedule-id/{Id}")

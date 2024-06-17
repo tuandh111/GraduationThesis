@@ -11,6 +11,8 @@ public interface ServiceTreatmentService {
 
     List<ServiceTreatment> findAllServiceTreatment();
 
+    List<ServiceTreatment> findAllServiceTreatmentExceptDeleted();
+
     ServiceTreatment saveServiceTreatment(ServiceTreatmentRequest serviceTreatmentRequest);
 
     ServiceTreatment updateServiceTreatment(int serviceTreatmentId, ServiceTreatmentRequest serviceTreatmentRequest);

@@ -21,10 +21,15 @@ public class DistributionSuppliesServiceImpl implements DistributionSuppliesServ
     }
 
     @Override
-    public List<DistributionSupplies> findAll() {
+    public List<DistributionSupplies> findAllDistributionSupplies() {
+        return distributionSuppliesRepository.findAll() ;
+    }
+
+    @Override
+    public List<DistributionSupplies> findAllDistributionSuppliesExceptDeleted() {
         return distributionSuppliesRepository.findAll().stream()
-                       .filter(distributionSupplies -> !distributionSupplies.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(distributionSupplies -> !distributionSupplies.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -23,10 +23,15 @@ public class ImagingPlanesServiceImpl implements ImagingPlanesService {
     }
 
     @Override
-    public List<ImagingPlanes> findAll() {
+    public List<ImagingPlanes> findAllImagingPlanes() {
+        return imagingPlanesRepository.findAll() ;
+    }
+
+    @Override
+    public List<ImagingPlanes> findAllImagingPlanesExceptDeleted() {
         return imagingPlanesRepository.findAll().stream()
-                       .filter(imagingPlanes -> !imagingPlanes.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(imagingPlanes -> !imagingPlanes.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

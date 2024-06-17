@@ -23,9 +23,14 @@ public class Service_TypeServiceImpl implements ServiceTypeService {
 
     @Override
     public List<ServiceType> findAllServiceType() {
+        return serviceTypeRepository.findAll() ;
+    }
+
+    @Override
+    public List<ServiceType> findAllServiceTypeExceptDeleted() {
         return serviceTypeRepository.findAll().stream()
-                       .filter(serviceType -> !serviceType.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(serviceType -> !serviceType.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

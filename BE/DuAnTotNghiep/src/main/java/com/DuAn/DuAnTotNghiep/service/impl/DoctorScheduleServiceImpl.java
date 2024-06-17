@@ -32,10 +32,15 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     }
 
     @Override
-    public List<DoctorSchedule> findAll() {
+    public List<DoctorSchedule> findAllDoctorSchedule() {
+        return doctorScheduleRepository.findAll() ;
+    }
+
+    @Override
+    public List<DoctorSchedule> findAllDoctorScheduleExceptDeleted() {
         return doctorScheduleRepository.findAll().stream()
-                       .filter(doctorSchedule -> !doctorSchedule.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(doctorSchedule -> !doctorSchedule.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

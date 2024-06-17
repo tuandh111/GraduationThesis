@@ -27,12 +27,15 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public List<Doctor> findAll() {
-        System.out.println(doctorRepository.findAll());
+    public List<Doctor> findAllDoctor() {
+        return doctorRepository.findAll() ;
+    }
 
+    @Override
+    public List<Doctor> findAllDoctorExceptDeleted() {
         return doctorRepository.findAll().stream()
-                       .filter(doctor -> !doctor.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(doctor -> !doctor.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

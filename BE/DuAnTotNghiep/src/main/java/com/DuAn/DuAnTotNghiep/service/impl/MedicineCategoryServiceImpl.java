@@ -24,9 +24,14 @@ public class MedicineCategoryServiceImpl implements MedicinesCategoryService {
 
     @Override
     public List<MedicineCategory> findAllMedicineCategories() {
+        return medicineCategoryRepository.findAll() ;
+    }
+
+    @Override
+    public List<MedicineCategory> findAllMedicineCategoriesExceptDeleted() {
         return medicineCategoryRepository.findAll().stream()
-                       .filter(medicineCategory -> !medicineCategory.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(medicineCategory -> !medicineCategory.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

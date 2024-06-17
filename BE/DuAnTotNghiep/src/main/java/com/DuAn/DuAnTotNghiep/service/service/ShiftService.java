@@ -9,7 +9,9 @@ import java.util.List;
 public interface ShiftService {
     Shift findByShiftId(int shift);
 
-    List<Shift> findAll();
+    List<Shift> findAllShift();
+
+    List<Shift> findAllShiftExceptDeleted();
 
     Shift saveShift(ShiftRequest shiftRequest);
 

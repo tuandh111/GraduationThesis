@@ -11,6 +11,8 @@ public interface FrequencyMedicinesService {
 
     List<FrequencyMedicines> findAllFrequencyMedicines() ;
 
+    List<FrequencyMedicines> findAllFrequencyMedicinesExceptDeleted() ;
+
     FrequencyMedicines saveFrequencyMedicine(FrequencyMedicineRequest frequencyMedicineRequest) ;
 
     FrequencyMedicines updateFrequencyMedicine(int frequencyMedicineId, FrequencyMedicineRequest frequencyMedicineRequest) ;

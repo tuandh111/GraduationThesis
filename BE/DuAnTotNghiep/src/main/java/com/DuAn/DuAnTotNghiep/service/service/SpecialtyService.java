@@ -11,7 +11,9 @@ import java.util.List;
 public interface SpecialtyService {
     Specialty findBySpecialtyId(int SpecialtyId);
 
-    List<Specialty> findAll();
+    List<Specialty> findAllSpecialty();
+
+    List<Specialty> findAllSpecialtyExceptDeleted();
 
     Specialty saveSpecialty(SpecialtyRequest specialtyRequest);
 

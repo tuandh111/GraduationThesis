@@ -28,6 +28,12 @@ public class ServiceTreatmentController {
         return ResponseEntity.ok(servicetreatmentService.findAllServiceTreatment());
     }
 
+    @GetMapping("service-treatment-except-deleted")
+    @Operation(summary = "List service treatment except deleted")
+    public ResponseEntity<List<ServiceTreatment>> getAllServiceTreatmentExceptDeleted() {
+        return ResponseEntity.ok(servicetreatmentService.findAllServiceTreatmentExceptDeleted());
+    }
+
     @GetMapping("service-treatment-id/{Id}")
     @Operation(summary = "service treatment")
     public ResponseEntity<ServiceTreatment> getServiceTreatmentId( @PathVariable Integer Id) {

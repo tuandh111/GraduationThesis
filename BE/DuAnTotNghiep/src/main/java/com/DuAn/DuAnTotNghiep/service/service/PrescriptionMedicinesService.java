@@ -11,6 +11,8 @@ public interface PrescriptionMedicinesService {
 
     List<PrescriptionMedicines> findAllPrescriptionMedicines() ;
 
+    List<PrescriptionMedicines> findAllPrescriptionMedicinesExceptDeleted() ;
+
     PrescriptionMedicines savePrescriptionMedicines(PrescriptionMedicinesRequest prescriptionMedicinesRequest) ;
 
     PrescriptionMedicines updatePrescriptionMedicines(int prescriptionMedicinesId, PrescriptionMedicinesRequest prescriptionMedicinesRequest) ;

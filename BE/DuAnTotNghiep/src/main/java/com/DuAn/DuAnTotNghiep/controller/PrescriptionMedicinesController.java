@@ -29,6 +29,12 @@ public class PrescriptionMedicinesController {
         return ResponseEntity.ok(prescriptionMedicinesService.findAllPrescriptionMedicines()) ;
     }
 
+    @GetMapping("/prescription-medicines-except-deleted")
+    @Operation(summary = "List prescription medicines except deleted")
+    public ResponseEntity<List<PrescriptionMedicines>> getAllPrescriptionMedicinesExceptDeleted() {
+        return ResponseEntity.ok(prescriptionMedicinesService.findAllPrescriptionMedicinesExceptDeleted()) ;
+    }
+
     @GetMapping("/prescription-medicines-id/{id}")
     @Operation(summary = "Get prescription medicine by ID")
     public ResponseEntity<PrescriptionMedicines> getPrescriptionMedicinesById(@PathVariable Integer id) {

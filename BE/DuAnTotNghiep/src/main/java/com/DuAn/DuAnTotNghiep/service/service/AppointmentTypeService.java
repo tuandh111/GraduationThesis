@@ -12,7 +12,9 @@ import java.util.List;
 public interface AppointmentTypeService {
     AppointmentType findByAppointmentTypeId(int appointmentTypeId);
 
-    List<AppointmentType> findAll();
+    List<AppointmentType> findAllAppointmentType();
+
+    List<AppointmentType> findAllAppointmentTypeExceptDeleted();
 
     AppointmentType saveAppointmentType(AppointmentTypeRequest appointmentTypeRequest);
 

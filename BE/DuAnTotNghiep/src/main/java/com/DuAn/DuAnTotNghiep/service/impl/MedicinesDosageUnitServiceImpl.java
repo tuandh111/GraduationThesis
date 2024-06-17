@@ -24,9 +24,14 @@ public class MedicinesDosageUnitServiceImpl implements MedicinesDosageUnitServic
 
     @Override
     public List<MedicinesDosageUnit> findAllMedicinesDosageUnits() {
+        return medicinesDosageUnitRepository.findAll() ;
+    }
+
+    @Override
+    public List<MedicinesDosageUnit> findAllMedicinesDosageUnitsExceptDeleted() {
         return medicinesDosageUnitRepository.findAll().stream()
-                       .filter(medicinesDosageUnit -> !medicinesDosageUnit.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(medicinesDosageUnit -> !medicinesDosageUnit.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

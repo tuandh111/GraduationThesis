@@ -27,10 +27,15 @@ public class AppointmentPatientRecordServiceImpl implements AppointmentPatientRe
 
     @Override
     public List<AppointmentPatientRecord> findAllAppointmentPatientRecord() {
+        return appointmentPatientRecordRepository.findAll() ;
+    }
+
+    @Override
+    public List<AppointmentPatientRecord> findAllAppointmentPatientRecordExceptDeleted() {
         return appointmentPatientRecordRepository.findAll()
-                       .stream()
-                       .filter(appointmentPatientRecord -> !appointmentPatientRecord.isDeleted())
-                       .collect(Collectors.toList());
+                .stream()
+                .filter(appointmentPatientRecord -> !appointmentPatientRecord.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

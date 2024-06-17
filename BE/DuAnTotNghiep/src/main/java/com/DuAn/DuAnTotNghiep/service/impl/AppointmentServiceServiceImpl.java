@@ -29,9 +29,14 @@ public class AppointmentServiceServiceImpl implements AppointmentServiceService 
 
     @Override
     public List<AppointmentService> findAllAppointmentService() {
+        return appointmentServiceRepository.findAll();
+    }
+
+    @Override
+    public List<AppointmentService> findAllAppointmentServiceExceptDeleted() {
         return appointmentServiceRepository.findAll().stream()
-                       .filter(appointmentService -> !appointmentService.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(appointmentService -> !appointmentService.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -31,6 +31,12 @@ public class DentalIssuesController {
         return ResponseEntity.ok(dentalIssuesService.findAllDentalIssues());
     }
 
+    @GetMapping("dental-issues-except-deleted")
+    @Operation(summary = "List dental issues except deleted")
+    public ResponseEntity<List<DentalIssues>> getAllDentalIssuesExceptDeleted() {
+        return ResponseEntity.ok(dentalIssuesService.findAllDentalIssuesExceptDeleted());
+    }
+
     @GetMapping("dental-issues-id/{Id}")
     @Operation(summary = "dental issues Id")
     public ResponseEntity<DentalIssues> getDentalIssuesId( @PathVariable Integer Id) {

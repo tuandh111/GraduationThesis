@@ -27,8 +27,15 @@ public class RoleController {
     @GetMapping("role")
     @Operation(summary = "List Role")
     public ResponseEntity<List<Role>> getAllRole() {
-        return ResponseEntity.ok(roleService.findAll());
+        return ResponseEntity.ok(roleService.findAllRole());
     }
+
+    @GetMapping("role-except-deleted")
+    @Operation(summary = "List Role except deleted")
+    public ResponseEntity<List<Role>> getAllRoleExceptDeleted() {
+        return ResponseEntity.ok(roleService.findAllRoleExceptDeleted());
+    }
+
 
     @GetMapping("role-id/{Id}")
     @Operation(summary = "RoleId")

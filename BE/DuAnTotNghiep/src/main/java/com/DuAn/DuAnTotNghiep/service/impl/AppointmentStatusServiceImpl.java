@@ -24,11 +24,17 @@ public class AppointmentStatusServiceImpl implements AppointmentStatusService {
     }
 
     @Override
-    public List<AppointmentStatus> findAll() {
-        return appointmentStatusRepository.findAll().stream()
-                       .filter(appointmentStatus -> !appointmentStatus.isDeleted())
-                       .collect(Collectors.toList());
+    public List<AppointmentStatus> findAllAppointmentStatus() {
+        return appointmentStatusRepository.findAll();
     }
+
+    @Override
+    public List<AppointmentStatus> findAllAppointmentStatusExceptDeleted() {
+        return appointmentStatusRepository.findAll().stream()
+                .filter(appointmentStatus -> !appointmentStatus.isDeleted())
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public AppointmentStatus saveAppointmentStatus(AppointmentStatusRequest appointmentStatusRequest) {

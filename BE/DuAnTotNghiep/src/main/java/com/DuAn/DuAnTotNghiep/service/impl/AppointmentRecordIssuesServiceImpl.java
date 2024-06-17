@@ -30,10 +30,15 @@ public class AppointmentRecordIssuesServiceImpl implements AppointmentRecordIssu
 
     @Override
     public List<AppointmentRecordIssues> findAllAppointmentRecordIssues() {
+        return appointmentRecordIssuesRepository.findAll();
+    }
+
+    @Override
+    public List<AppointmentRecordIssues> findAllAppointmentRecordIssuesExceptDeleted() {
         return appointmentRecordIssuesRepository.findAll()
-                       .stream()
-                       .filter(appointmentRecordIssues -> !appointmentRecordIssues.isDeleted())
-                       .collect(Collectors.toList());
+                .stream()
+                .filter(appointmentRecordIssues -> !appointmentRecordIssues.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

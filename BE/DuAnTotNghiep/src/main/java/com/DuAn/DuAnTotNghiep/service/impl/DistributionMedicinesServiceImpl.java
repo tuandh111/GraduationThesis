@@ -24,9 +24,14 @@ public class DistributionMedicinesServiceImpl implements DistributionMedicinesSe
 
     @Override
     public List<DistributionMedicines> findAllDistributionMedicines() {
+        return distributionMedicinesRepository.findAll() ;
+    }
+
+    @Override
+    public List<DistributionMedicines> findAllDistributionMedicinesExceptDeleted() {
         return distributionMedicinesRepository.findAll().stream()
-                       .filter(distributionMedicines -> !distributionMedicines.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(distributionMedicines -> !distributionMedicines.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

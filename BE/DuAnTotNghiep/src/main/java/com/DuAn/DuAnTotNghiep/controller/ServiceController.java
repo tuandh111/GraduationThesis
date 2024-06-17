@@ -25,8 +25,14 @@ public class ServiceController {
     ServiceService serviceService;
     @GetMapping("service")
     @Operation(summary = "List service")
-    public ResponseEntity<List<Service>> getAllServiceType() {
+    public ResponseEntity<List<Service>> getAllService() {
         return ResponseEntity.ok(serviceService.findAllService());
+    }
+
+    @GetMapping("service-except-deleted")
+    @Operation(summary = "List service except deleted")
+    public ResponseEntity<List<Service>> getAllServiceExceptDeleted() {
+        return ResponseEntity.ok(serviceService.findAllServiceExceptDeleted());
     }
 
     @GetMapping("service-id/{Id}")

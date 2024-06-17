@@ -11,6 +11,8 @@ public interface MedicinesDosageUnitService {
 
     List<MedicinesDosageUnit> findAllMedicinesDosageUnits() ;
 
+    List<MedicinesDosageUnit> findAllMedicinesDosageUnitsExceptDeleted() ;
+
     MedicinesDosageUnit saveMedicinesDosageUnit(MedicinesDosageUnitRequest dosageUnitRequest) ;
 
     MedicinesDosageUnit updateMedicinesDosageUnit(int dosageUnitId, MedicinesDosageUnitRequest dosageUnitRequest) ;

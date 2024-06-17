@@ -27,9 +27,14 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public List<Bill> findAllBill() {
+        return billRepository.findAll();
+    }
+
+    @Override
+    public List<Bill> findAllBillExceptDeleted() {
         return billRepository.findAll().stream()
-                       .filter(bill -> !bill.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(bill -> !bill.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -27,7 +27,13 @@ public class AppointmentStatusController {
     @GetMapping("appointment-status")
     @Operation(summary = "List appointment status")
     public ResponseEntity<List<AppointmentStatus>> getAllAppointmentStatus() {
-        return ResponseEntity.ok(appointmentStatusService.findAll());
+        return ResponseEntity.ok(appointmentStatusService.findAllAppointmentStatus());
+    }
+
+    @GetMapping("appointment-status-except-deleted")
+    @Operation(summary = "List appointment status except deleted")
+    public ResponseEntity<List<AppointmentStatus>> getAllAppointmentStatusExceptDeleted() {
+        return ResponseEntity.ok(appointmentStatusService.findAllAppointmentStatusExceptDeleted());
     }
 
     @GetMapping("appointment-status-id/{Id}")

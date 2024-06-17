@@ -25,7 +25,13 @@ public class ShiftController {
     @GetMapping("shift")
     @Operation(summary = "List shift")
     public ResponseEntity<List<Shift>> getAllShift() {
-        return ResponseEntity.ok(shiftService.findAll());
+        return ResponseEntity.ok(shiftService.findAllShift());
+    }
+
+    @GetMapping("shift-except-deleted")
+    @Operation(summary = "List shift except deleted")
+    public ResponseEntity<List<Shift>> getAllShiftExceptDeleted() {
+        return ResponseEntity.ok(shiftService.findAllShiftExceptDeleted());
     }
 
     @GetMapping("shift-id/{Id}")

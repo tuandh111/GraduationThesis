@@ -13,6 +13,8 @@ public interface AppointmentCTResultService {
 
     List<AppointmentCTResult> findAll();
 
+    List<AppointmentCTResult> findAllExceptDeleted();
+
     AppointmentCTResult saveAppointmentCTResult(AppointmentCTResultRequest appointmentCTResultRequest);
 
     AppointmentCTResult updateAppointmentCTResult(int appointmentCTResultId, AppointmentCTResultRequest appointmentCTResultRequest);

@@ -27,10 +27,15 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Role> findAll() {
+    public List<Role> findAllRole() {
+        return roleRepositoty.findAll() ;
+    }
+
+    @Override
+    public List<Role> findAllRoleExceptDeleted() {
         return roleRepositoty.findAll().stream()
-                       .filter(role -> !role.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(role -> !role.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

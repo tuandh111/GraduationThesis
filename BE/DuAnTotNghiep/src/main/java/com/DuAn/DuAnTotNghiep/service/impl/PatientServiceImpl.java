@@ -23,10 +23,15 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public List<Patient> findAll() {
+    public List<Patient> findAllPatient() {
+        return patientRepository.findAll() ;
+    }
+
+    @Override
+    public List<Patient> findAllPatientExceptDeleted() {
         return patientRepository.findAll().stream()
-                       .filter(patient -> !patient.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(patient -> !patient.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -30,9 +30,14 @@ public class IssuesTreatmentAutomationServiceImpl implements IssuesTreatmentAuto
 
     @Override
     public List<IssuesTreatmentAutomation> findAllIssuesTreatmentAutomation() {
+        return issuesTreatmentAutomationRepository.findAll() ;
+    }
+
+    @Override
+    public List<IssuesTreatmentAutomation> findAllIssuesTreatmentAutomationExceptDeleted() {
         return issuesTreatmentAutomationRepository.findAll().stream()
-                       .filter(issuesTreatmentAutomation -> !issuesTreatmentAutomation.isDeleted())
-                       .collect(Collectors.toList());
+                .filter(issuesTreatmentAutomation -> !issuesTreatmentAutomation.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override

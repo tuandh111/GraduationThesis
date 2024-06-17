@@ -11,6 +11,8 @@ public interface FrequencyService {
 
     List<Frequency> findAllFrequency() ;
 
+    List<Frequency> findAllFrequencyExceptDeleted() ;
+
     Frequency saveFrequency(FrequencyRequest frequencyRequest) ;
 
     Frequency updateFrequency(int frequendyId, FrequencyRequest frequencyRequest) ;

@@ -32,6 +32,13 @@ public class DistributionMedicinesController {
         return ResponseEntity.ok(distributionMedicinesService.findAllDistributionMedicines());
     }
 
+    @GetMapping("/distribution-medicines-except-deleted")
+    @Operation(summary = "List distribution medicines except deleted")
+    public ResponseEntity<List<DistributionMedicines>> getAllDistributionMedicinesExceptDeleted() {
+        return ResponseEntity.ok(distributionMedicinesService.findAllDistributionMedicinesExceptDeleted());
+    }
+
+
     @GetMapping("/distribution-medicines-id/{id}")
     @Operation(summary = "Get distribution medicine by ID")
     public ResponseEntity<DistributionMedicines> getDistributionMedicinesById(@PathVariable Integer id) {

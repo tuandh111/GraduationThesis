@@ -30,6 +30,12 @@ public class AppointmentRecordIssuesController {
         return ResponseEntity.ok(appointmentRecordIssuesService.findAllAppointmentRecordIssues());
     }
 
+    @GetMapping("appointment-record-issues-except-deleted")
+    @Operation(summary = "List appointment record issues except deleted")
+    public ResponseEntity<List<AppointmentRecordIssues>> getAllAppointmentStatusExceptDeleted() {
+        return ResponseEntity.ok(appointmentRecordIssuesService.findAllAppointmentRecordIssuesExceptDeleted());
+    }
+
     @GetMapping("appointment-record-issues-id/{Id}")
     @Operation(summary = "dental appointment record issues Id")
     public ResponseEntity<AppointmentRecordIssues> getAppointmentRecordIssuesId( @PathVariable Integer Id) {

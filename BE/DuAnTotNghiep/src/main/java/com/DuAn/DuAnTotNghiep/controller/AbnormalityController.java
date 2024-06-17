@@ -30,6 +30,12 @@ public class AbnormalityController {
         return ResponseEntity.ok(abnormalityService.findAll());
     }
 
+    @GetMapping("abnormality-except-deleted")
+    @Operation(summary = "List abnormality except deleted")
+    public ResponseEntity<List<Abnormality>> getAllAbnormalityExceptDeleted() {
+        return ResponseEntity.ok(abnormalityService.findAllExceptDeleted());
+    }
+
     @GetMapping("abnormality-id/{Id}")
     @Operation(summary = "dental abnormality Id")
     public ResponseEntity<Abnormality> getAbnormalityId( @PathVariable Integer Id) {
