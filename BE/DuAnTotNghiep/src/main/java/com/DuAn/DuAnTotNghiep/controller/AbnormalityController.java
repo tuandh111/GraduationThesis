@@ -2,6 +2,7 @@ package com.DuAn.DuAnTotNghiep.controller;
 
 import com.DuAn.DuAnTotNghiep.entities.Abnormality;
 import com.DuAn.DuAnTotNghiep.entities.DentalSupplies;
+import com.DuAn.DuAnTotNghiep.exception.NotFoundException;
 import com.DuAn.DuAnTotNghiep.model.request.AbnormalityRequest;
 import com.DuAn.DuAnTotNghiep.model.request.DentalSuppliesRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;

@@ -1,6 +1,7 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
 import com.DuAn.DuAnTotNghiep.entities.Medicines;
+import com.DuAn.DuAnTotNghiep.exception.NotFoundException;
 import com.DuAn.DuAnTotNghiep.model.request.MedicineRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.service.service.MedicineService;
@@ -29,7 +30,7 @@ public class MedicinesController {
     public ResponseEntity<List<Medicines>> getAllMedicines() {
         List<Medicines> medicines = medicineService.findAllMedicines();
         if (medicines.isEmpty()) {
-            return ResponseEntity.noContent().build();
+            throw new NotFoundException("Not found Medicines") ;
         }
         return ResponseEntity.ok(medicines);
     }
@@ -39,7 +40,7 @@ public class MedicinesController {
     public ResponseEntity<List<Medicines>> getAllMedicinesExceptDeleted() {
         List<Medicines> medicines = medicineService.findAllMedicinesExceptDeleted();
         if (medicines.isEmpty()) {
-            return ResponseEntity.noContent().build();
+            throw new NotFoundException("Not found Medicines") ;
         }
         return ResponseEntity.ok(medicines);
     }
@@ -49,7 +50,7 @@ public class MedicinesController {
     public ResponseEntity<Medicines> getMedicineById(@PathVariable Integer id) {
         Medicines medicine = medicineService.findByMedicineId(id);
         if (medicine == null) {
-            return ResponseEntity.notFound().build();
+            throw new NotFoundException("Not found Medicine with this id") ;
         }
         return ResponseEntity.ok(medicine);
     }
