@@ -22,7 +22,7 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     @Autowired
     DoctorScheduleRepository doctorScheduleRepository;
     @Autowired
-    TimeOfShiftRepository timeOfShiftRepository;
+    ShiftRepository shiftRepository;
     @Autowired
     DoctorRepository doctorRepository;
 
@@ -51,7 +51,7 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
                                      .createAt(doctorScheduleRequest.getCreateAt())
                                      .updateAt(doctorScheduleRequest.getUpdateAt())
                                      .date(doctorScheduleRequest.getDate())
-                                     .timeOfShift(timeOfShiftRepository.findById(doctorScheduleRequest.getTimeOfShiftId()).orElse(null))
+                                     .shift(shiftRepository.findById(doctorScheduleRequest.getShiftId()).orElse(null))
                                      .build();
         doctorScheduleRepository.save(doctorSchedule);
         return doctorSchedule;
@@ -66,7 +66,7 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
                                      .createAt(doctorScheduleRequest.getCreateAt())
                                      .updateAt(doctorScheduleRequest.getUpdateAt())
                                      .date(doctorScheduleRequest.getDate())
-                                     .timeOfShift(timeOfShiftRepository.findById(doctorScheduleRequest.getTimeOfShiftId()).orElse(null))
+                                     .shift(shiftRepository.findById(doctorScheduleRequest.getShiftId()).orElse(null))
                                      .build();
         doctorScheduleRepository.save(doctorSchedule);
         return doctorSchedule;

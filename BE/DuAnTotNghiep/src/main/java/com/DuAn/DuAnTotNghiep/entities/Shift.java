@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Data
@@ -25,7 +26,15 @@ public class Shift {
 
     private String description;
 
+    private LocalTime beginTime;
+
+    private LocalTime endTime;
+
     @OneToMany(mappedBy = "timeOfShiftId")
     @JsonIgnore
     private List<TimeOfShift> timeOfShifts;
+
+    @OneToMany(mappedBy = "doctorScheduleId")
+    @JsonIgnore
+    private List<DoctorSchedule> doctorSchedules;
 }

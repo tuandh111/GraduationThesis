@@ -40,6 +40,8 @@ public class ShiftServiceImpl implements ShiftService {
                             .builder()
                             .name(shiftRequest.getShiftName())
                             .description(shiftRequest.getDescription())
+                            .beginTime(shiftRequest.getBeginTime())
+                            .endTime(shiftRequest.getEndTime())
                             .build();
         return shiftRepository.save(shift);
     }
@@ -51,6 +53,8 @@ public class ShiftServiceImpl implements ShiftService {
                             .shiftId(shiftId)
                             .name(shiftRequest.getShiftName())
                             .description(shiftRequest.getDescription())
+                            .beginTime(shiftRequest.getBeginTime())
+                            .endTime(shiftRequest.getEndTime())
                             .build();
         shiftRepository.save(shift);
         return shift;
