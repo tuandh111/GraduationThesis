@@ -34,6 +34,6 @@ public class DoctorSchedule {
     private Doctor doctor;
 
     @ManyToOne
-    @JoinColumn(name = "timeOfShiftId")
-    private TimeOfShift timeOfShift;
+    @JoinColumn(name = "shiftId")
+    private Shift shift;
 }

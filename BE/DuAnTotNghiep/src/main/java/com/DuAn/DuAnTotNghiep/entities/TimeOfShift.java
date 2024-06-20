@@ -29,7 +29,7 @@ public class TimeOfShift {
     @JoinColumn(name = "shiftId")
     private Shift shift;
 
-    @OneToMany(mappedBy = "doctorScheduleId")
+    @OneToMany(mappedBy = "doctorUnavailabilityId")
     @JsonIgnore
-    private List<DoctorSchedule> doctorSchedules;
+    private List<DoctorUnavailability> doctorUnavailabilities;
 }

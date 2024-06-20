@@ -54,4 +54,8 @@ public class Doctor {
     @OneToOne(mappedBy = "doctor")
     @JsonIgnore
     private User user;
+
+    @OneToMany(mappedBy = "doctorUnavailabilityId")
+    @JsonIgnore
+    private List<DoctorUnavailability> doctorUnavailabilities;
 }
