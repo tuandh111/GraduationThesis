@@ -69,7 +69,8 @@ public class TreatmentDurationServiceImpl implements TreatmentDurationService {
     @Override
     public MessageResponse softDeleteTreatmentDuration(int durationId) {
         try {
-            TreatmentDuration treatmentDuration = treatmentDurationRepository.findById(durationId).orElseThrow(null) ;
+            TreatmentDuration treatmentDuration = treatmentDurationRepository.findById(durationId)
+                                                          .orElseThrow(() -> new RuntimeException("treatment Duration not found"));
             treatmentDuration.setDeleted(true) ;
             treatmentDurationRepository.save(treatmentDuration) ;
             return new MessageResponse("Successfully") ;

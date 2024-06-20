@@ -69,7 +69,8 @@ public class FrequencyServiceImpl implements FrequencyService {
     @Override
     public MessageResponse softDeleteFrequency(int frequencyId) {
         try {
-            Frequency frequency = frequencyRepository.findById(frequencyId).orElseThrow(null) ;
+            Frequency frequency = frequencyRepository.findById(frequencyId)
+                                          .orElseThrow(() -> new RuntimeException("frequency not found")) ;
             frequency.setDeleted(true) ;
             frequencyRepository.save(frequency) ;
             return new MessageResponse("Successfully") ;

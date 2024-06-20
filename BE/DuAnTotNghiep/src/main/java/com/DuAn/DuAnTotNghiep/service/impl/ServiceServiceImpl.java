@@ -79,11 +79,9 @@ public class ServiceServiceImpl implements ServiceService {
     @Override
     public MessageResponse sortDeleteService(int serviceId) {
         try {
-            var service = com.DuAn.DuAnTotNghiep.entities.Service
-                                  .builder()
-                                  .serviceId(serviceId)
-                                  .isDeleted(true)
-                                  .build();
+            var service = serviceRepository.findById(serviceId)
+                                  .orElseThrow(() -> new RuntimeException("service not found"));
+            service.setDeleted(true) ;
             serviceRepository.save(service);
             return new MessageResponse("successfully");
         }catch (Exception e){

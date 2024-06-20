@@ -80,11 +80,9 @@ public class BillServiceImpl implements BillService {
     @Override
     public MessageResponse sortDeleteBillId(int billId) {
         try {
-            var bill =Bill.
-                                  builder()
-                              .billId(billId)
-                              .isDeleted(true)
-                              .build();
+            var bill = billRepository.findById(billId)
+                               .orElseThrow(() -> new RuntimeException("bill not found"));
+            bill.setDeleted(true);
             billRepository.save(bill);
             return new MessageResponse("successfully");
         }catch (Exception e){

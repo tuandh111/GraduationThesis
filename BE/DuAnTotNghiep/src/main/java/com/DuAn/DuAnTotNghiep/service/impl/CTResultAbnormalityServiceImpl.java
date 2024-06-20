@@ -78,11 +78,9 @@ public class CTResultAbnormalityServiceImpl implements CTResultAbnormalityServic
     @Override
     public MessageResponse sortDeleteCTResultAbnormality(int cTResultAbnormalityId) {
         try {
-            var cTResultAbnormality = CTResultAbnormality
-                                              .builder()
-                                              .cTResultAbnormalityId(cTResultAbnormalityId)
-                                              .isDeleted(true)
-                                              .build();
+            var cTResultAbnormality = ctResultAbnormalityRepository.findById(cTResultAbnormalityId)
+                                              .orElseThrow(() -> new RuntimeException("cT Result Abnormality not found"));
+            cTResultAbnormality.setDeleted(true);
             ctResultAbnormalityRepository.save(cTResultAbnormality);
             return new MessageResponse("successfully");
         }catch (Exception e){

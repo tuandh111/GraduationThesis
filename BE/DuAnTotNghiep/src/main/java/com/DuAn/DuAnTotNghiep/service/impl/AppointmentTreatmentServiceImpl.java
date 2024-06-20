@@ -79,11 +79,9 @@ public class AppointmentTreatmentServiceImpl implements AppointmentTreatmentServ
     @Override
     public MessageResponse sortDeleteAppointmentTreatment(int appointmentTreatmentId) {
         try {
-            AppointmentTreatment appointmentTreatment = AppointmentTreatment
-                                                                .builder()
-                                                                .appointmentTreatmentId(appointmentTreatmentId)
-                                                                .isDeleted(true)
-                                                                .build();
+            AppointmentTreatment appointmentTreatment =appointmentTreatmentRepository.findById(appointmentTreatmentId)
+                                                               .orElseThrow(() -> new RuntimeException("Appointment treatment not found"));
+            appointmentTreatment.setDeleted(true);
             appointmentTreatmentRepository.save(appointmentTreatment);
             return new MessageResponse("successfully");
         }catch (Exception e){

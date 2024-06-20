@@ -81,7 +81,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public MessageResponse softDeletePrescription(int prescriptionId) {
         try {
-            Prescription prescription = prescriptionRepository.findById(prescriptionId).orElseThrow(null) ;
+            Prescription prescription = prescriptionRepository.findById(prescriptionId).orElseThrow(() -> new RuntimeException("role not found")) ;
             prescription.setDeleted(true) ;
             prescriptionRepository.save(prescription) ;
             return new MessageResponse("Successfully") ;

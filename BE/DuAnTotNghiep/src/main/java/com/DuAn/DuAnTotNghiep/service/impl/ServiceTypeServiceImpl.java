@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class Service_TypeServiceImpl implements ServiceTypeService {
+public class ServiceTypeServiceImpl implements ServiceTypeService {
     @Autowired
     ServiceTypeRepository serviceTypeRepository;
 
@@ -70,11 +70,9 @@ public class Service_TypeServiceImpl implements ServiceTypeService {
     @Override
     public MessageResponse sortDeleteServiceType(int serviceTypeId) {
         try {
-            var serviceType = ServiceType
-                                      .builder()
-                                      .service_TypeId(serviceTypeId)
-                                      .isDeleted(true)
-                                      .build();
+            var serviceType =  serviceTypeRepository.findById(serviceTypeId)
+                                       .orElseThrow(() -> new RuntimeException("service Type not found"));
+            serviceType.setDeleted(true) ;
             serviceTypeRepository.save(serviceType);
             return new MessageResponse("successfully");
         }catch (Exception e){

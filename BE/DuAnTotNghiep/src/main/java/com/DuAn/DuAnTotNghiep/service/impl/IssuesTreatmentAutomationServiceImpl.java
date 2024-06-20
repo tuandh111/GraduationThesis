@@ -79,11 +79,9 @@ public class IssuesTreatmentAutomationServiceImpl implements IssuesTreatmentAuto
     @Override
     public MessageResponse sortDeleteIssuesTreatmentAutomation(int issuesTreatmentAutomationId) {
         try {
-            var issuesTreatmentAutomation =IssuesTreatmentAutomation
-                                                   .builder()
-                                                   .IssuesTreatmentAutomationId(issuesTreatmentAutomationId)
-                                                   .isDeleted(true)
-                                                   .build();
+            var issuesTreatmentAutomation =issuesTreatmentAutomationRepository.findById(issuesTreatmentAutomationId)
+                                                   .orElseThrow(() -> new RuntimeException("issues Treatment Automation not found"));
+            issuesTreatmentAutomation.setDeleted(true) ;
             issuesTreatmentAutomationRepository.save(issuesTreatmentAutomation);
             return new MessageResponse("successfully");
         }catch (Exception e){

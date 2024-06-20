@@ -69,11 +69,9 @@ public class TreatmentServiceImpl implements TreatmentService {
     @Override
     public MessageResponse sortDeleteTreatment(int treatmentId) {
         try {
-            var treatment = Treatment
-                                    .builder()
-                                    .treatmentId(treatmentId)
-                                    .isDeleted(true)
-                                    .build();
+            var treatment =  treatmentRepository.findById(treatmentId)
+                                     .orElseThrow(() -> new RuntimeException("treatment not found"));
+            treatment.setDeleted(true) ;
             treatmentRepository.save(treatment);
             return new MessageResponse("successfully");
         }catch (Exception e){

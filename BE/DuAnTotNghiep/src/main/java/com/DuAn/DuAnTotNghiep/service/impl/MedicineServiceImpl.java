@@ -91,7 +91,7 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public MessageResponse softDeleteMedicine(int medicineId) {
         try {
-            Medicines medicine = medicineRepository.findById(medicineId).orElseThrow(null) ;
+            Medicines medicine = medicineRepository.findById(medicineId).orElseThrow(() -> new RuntimeException("medicine not found")) ;
             medicine.setDeleted(true) ;
             medicineRepository.save(medicine) ;
             return new MessageResponse("Successfully") ;

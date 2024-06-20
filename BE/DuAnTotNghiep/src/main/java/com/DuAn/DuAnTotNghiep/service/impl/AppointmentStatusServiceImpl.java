@@ -74,11 +74,9 @@ public class AppointmentStatusServiceImpl implements AppointmentStatusService {
     @Override
     public MessageResponse sortDeleteAppointmentStatus(int appointmentStatusId) {
         try {
-            var appointmentStatus = AppointmentStatus
-                                            .builder()
-                                            .appointment_StatusId(appointmentStatusId)
-                                            .isDeleted(true)
-                                            .build();
+            var appointmentStatus = appointmentStatusRepository.findById(appointmentStatusId)
+                                            .orElseThrow(() -> new RuntimeException("appointment status not found"));
+            appointmentStatus.setDeleted(true);
             appointmentStatusRepository.save(appointmentStatus);
             return new MessageResponse("successfully");
         }catch (Exception e){

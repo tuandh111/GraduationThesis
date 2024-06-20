@@ -69,7 +69,8 @@ public class MedicineCategoryServiceImpl implements MedicinesCategoryService {
     @Override
     public MessageResponse softDeleteMedicineCategory(int categoryId) {
         try {
-            MedicineCategory medicineCategory = medicineCategoryRepository.findById(categoryId).orElseThrow(null) ;
+            MedicineCategory medicineCategory = medicineCategoryRepository.findById(categoryId)
+                                                        .orElseThrow(() -> new RuntimeException("medicine category not found")) ;
             medicineCategory.setDeleted(true) ;
             medicineCategoryRepository.save(medicineCategory) ;
             return new MessageResponse("Successfully");

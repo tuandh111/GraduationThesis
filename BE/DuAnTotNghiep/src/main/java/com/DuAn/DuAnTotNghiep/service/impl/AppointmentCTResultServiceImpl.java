@@ -78,11 +78,9 @@ public class AppointmentCTResultServiceImpl implements AppointmentCTResultServic
     @Override
     public MessageResponse sortDeleteAppointmentCTResult(int appointmentCTResultId) {
         try {
-            var appointmentCTResult = AppointmentCTResult
-                                              .builder()
-                                              .appointmentCTResultId(appointmentCTResultId)
-                                              .isDeleted(true)
-                                              .build();
+            var appointmentCTResult = appointmentCTResultRepository.findById(appointmentCTResultId)
+                                              .orElseThrow(() -> new RuntimeException("Abnormality not found"));
+            appointmentCTResult.setDeleted(true);
             appointmentCTResultRepository.save(appointmentCTResult);
             return new MessageResponse("successfully");
         } catch (Exception e) {

@@ -79,7 +79,8 @@ public class FrequencyMedicinesServiceImpl implements FrequencyMedicinesService 
     @Override
     public MessageResponse softDeleteFrequencyMedicine(int frequencyMedicineId) {
         try {
-            FrequencyMedicines frequencyMedicines = frequencyMedicinesRepository.findById(frequencyMedicineId).orElseThrow(null) ;
+            FrequencyMedicines frequencyMedicines = frequencyMedicinesRepository.findById(frequencyMedicineId)
+                     .orElseThrow(() -> new RuntimeException("frequency medicines not found")) ;
             frequencyMedicines.setDeleted(true) ;
             frequencyMedicinesRepository.save(frequencyMedicines) ;
             return new MessageResponse("Successfully") ;

@@ -90,11 +90,9 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public MessageResponse sortDeleteDoctor(int doctorId) {
         try {
-            var doctor = Doctor
-                                 .builder()
-                                 .doctorId(doctorId)
-                                 .isDeleted(true)
-                                 .build();
+            Doctor doctor = doctorRepository.findById(doctorId)
+                                    .orElseThrow(() -> new RuntimeException("Doctor not found"));
+            doctor.setDeleted(true);
             doctorRepository.save(doctor);
             return new MessageResponse("successfully");
         }catch (Exception e){

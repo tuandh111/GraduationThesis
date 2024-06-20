@@ -70,11 +70,9 @@ public class AppointmentTypeServiceImpl implements AppointmentTypeService {
     @Override
     public MessageResponse sortDeleteAppointmentType(int appointmentTypeId) {
         try {
-            var appointmentType = AppointmentType
-                                          .builder()
-                                          .appointment_TypeId(appointmentTypeId)
-                                          .isDeleted(true)
-                                          .build();
+            var appointmentType = appointmentTypeRepository.findById(appointmentTypeId)
+                                          .orElseThrow(() -> new RuntimeException("appointment Type not found"));
+            appointmentType.setDeleted(true);
             appointmentTypeRepository.save(appointmentType);
             return new MessageResponse("successfully");
         }catch (Exception e){

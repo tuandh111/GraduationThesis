@@ -87,11 +87,9 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     @Override
     public MessageResponse sortDeleteDoctorSchedule(int doctorScheduleId) {
         try {
-            var doctorSchedule = DoctorSchedule
-                                         .builder()
-                                         .doctorScheduleId(doctorScheduleId)
-                                         .isDeleted(true)
-                                         .build();
+            var doctorSchedule = doctorScheduleRepository.findById(doctorScheduleId)
+                                         .orElseThrow(() -> new RuntimeException("doctor Schedule not found"));
+            doctorSchedule.setDeleted(true);
             doctorScheduleRepository.save(doctorSchedule);
             return new MessageResponse("successfully");
         }catch (Exception e){

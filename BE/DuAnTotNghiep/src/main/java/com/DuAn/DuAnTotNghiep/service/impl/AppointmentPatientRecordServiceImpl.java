@@ -79,11 +79,9 @@ public class AppointmentPatientRecordServiceImpl implements AppointmentPatientRe
     @Override
     public MessageResponse sortDeleteAppointmentType(int appointmentPatientRecordId) {
         try {
-            AppointmentPatientRecord appointmentPatientRecord = AppointmentPatientRecord
-                                                                        .builder()
-                                                                        .appointmentPatientRecordId(appointmentPatientRecordId)
-                                                                        .isDeleted(true)
-                                                                        .build();
+            AppointmentPatientRecord appointmentPatientRecord =  appointmentPatientRecordRepository.findById(appointmentPatientRecordId)
+                                                                         .orElseThrow(() -> new RuntimeException("appointment Patient Record not found"));
+            appointmentPatientRecord.setDeleted(true);
             appointmentPatientRecordRepository.save(appointmentPatientRecord);
             return  new MessageResponse("successfully");
         }catch (Exception e){

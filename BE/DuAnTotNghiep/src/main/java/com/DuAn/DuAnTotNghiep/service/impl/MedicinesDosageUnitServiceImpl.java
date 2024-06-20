@@ -69,7 +69,8 @@ public class MedicinesDosageUnitServiceImpl implements MedicinesDosageUnitServic
     @Override
     public MessageResponse softDeleteMedicinesDosageUnit(int dosageUnitId) {
         try {
-            MedicinesDosageUnit medicinesDosageUnit = medicinesDosageUnitRepository.findById(dosageUnitId).orElseThrow(null) ;
+            MedicinesDosageUnit medicinesDosageUnit = medicinesDosageUnitRepository.findById(dosageUnitId)
+                                                              .orElseThrow(() -> new RuntimeException("medicines Dosage Unit not found")) ;
             medicinesDosageUnit.setDeleted(true) ;
             medicinesDosageUnitRepository.save(medicinesDosageUnit) ;
             return new MessageResponse("Successfully") ;

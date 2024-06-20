@@ -80,11 +80,9 @@ public class AppointmentRecordIssuesServiceImpl implements AppointmentRecordIssu
     @Override
     public MessageResponse sortDeleteAppointmentRecordIssues(int appointmentRecordIssuesId) {
         try {
-            AppointmentRecordIssues appointmentRecordIssues = AppointmentRecordIssues
-                                                                      .builder()
-                                                                      .appointmentRecordIssuesId(appointmentRecordIssuesId)
-                                                                      .isDeleted(true)
-                                                                      .build();
+            AppointmentRecordIssues appointmentRecordIssues = appointmentRecordIssuesRepository.findById(appointmentRecordIssuesId)
+                                                                      .orElseThrow(() -> new RuntimeException("Appointment Record Issues not found"));
+            appointmentRecordIssues.setDeleted(true);
             appointmentRecordIssuesRepository.save(appointmentRecordIssues);
             return new MessageResponse("successfully");
         }catch (Exception e){

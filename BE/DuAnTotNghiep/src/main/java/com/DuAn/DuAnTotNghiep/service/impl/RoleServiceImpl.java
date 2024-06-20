@@ -75,11 +75,9 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public MessageResponse sortDeleteRole(int roleId) {
         try {
-            var role = Role
-                               .builder()
-                               .roleId(roleId)
-                               .isDeleted(true)
-                               .build();
+            var role = roleRepositoty.findById(roleId)
+                               .orElseThrow(() -> new RuntimeException("role not found"));
+            role.setDeleted(true) ;
             roleRepositoty.save(role);
             return new MessageResponse("successfully");
         }catch (Exception e){

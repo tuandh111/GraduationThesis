@@ -79,11 +79,9 @@ public class DistributionSuppliesServiceImpl implements DistributionSuppliesServ
     @Override
     public MessageResponse sortDeleteDistributionSupplies(int distributionSuppliesId) {
         try {
-            var distributionSupplies= DistributionSupplies
-                                              .builder()
-                                              .distributionId(distributionSuppliesId)
-                                              .isDeleted(true)
-                                              .build();
+            var distributionSupplies= distributionSuppliesRepository.findById(distributionSuppliesId)
+                                              .orElseThrow(() -> new RuntimeException("distribution supplies not found"));
+            distributionSupplies.setDeleted(true);
             distributionSuppliesRepository.save(distributionSupplies);
             return new MessageResponse("successfully");
         }catch (Exception e){

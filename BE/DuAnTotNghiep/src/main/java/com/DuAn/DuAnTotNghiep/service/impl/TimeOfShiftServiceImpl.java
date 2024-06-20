@@ -75,7 +75,8 @@ public class TimeOfShiftServiceImpl implements TimeOfShiftService {
     @Override
     public MessageResponse sortDeleteTimeOfShift(int timeOfShiftId) {
         try {
-            TimeOfShift timeOfShift = timeOfShiftRepository.findById(timeOfShiftId).orElse(null) ;
+            TimeOfShift timeOfShift = timeOfShiftRepository.findById(timeOfShiftId)
+                                              .orElseThrow(() -> new RuntimeException("timeOfShift not found"));
             timeOfShift.setDeleted(true) ;
             timeOfShiftRepository.save(timeOfShift) ;
             return new MessageResponse("Successfully") ;

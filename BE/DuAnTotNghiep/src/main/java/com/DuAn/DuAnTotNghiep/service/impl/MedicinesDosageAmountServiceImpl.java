@@ -69,7 +69,8 @@ public class MedicinesDosageAmountServiceImpl implements MedicinesDosageAmountSe
     @Override
     public MessageResponse softDeleteMedicinesDosageAmount(int dosageAmountId) {
         try {
-            MedicinesDosageAmount medicinesDosageAmount = medicinesDosageAmountRepository.findById(dosageAmountId).orElseThrow(null) ;
+            MedicinesDosageAmount medicinesDosageAmount = medicinesDosageAmountRepository.findById(dosageAmountId)
+                                                                  .orElseThrow(() -> new RuntimeException("medicines Dosage Amount not found")) ;
             medicinesDosageAmount.setDeleted(true) ;
             medicinesDosageAmountRepository.save(medicinesDosageAmount) ;
             return new MessageResponse("Successfully") ;

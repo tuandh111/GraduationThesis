@@ -81,11 +81,9 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public MessageResponse sortDeletePatient(int patientId) {
         try {
-            var patient = Patient
-                                  .builder()
-                                  .patientId(patientId)
-                                  .isDeleted(true)
-                                  .build();
+            var patient = patientRepository.findById(patientId)
+                                  .orElseThrow(() -> new RuntimeException("patient not found"));
+            patient.setDeleted(true) ;
             patientRepository.save(patient);
             return new MessageResponse("successfully");
         }catch (Exception e){

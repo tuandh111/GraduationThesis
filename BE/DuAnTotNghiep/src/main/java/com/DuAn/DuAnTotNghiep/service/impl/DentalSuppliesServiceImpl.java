@@ -75,11 +75,9 @@ public class DentalSuppliesServiceImpl implements DentalSuppliesService {
     @Override
     public MessageResponse sortDeleteDentalSupplies(int dentalSuppliesId) {
         try {
-            var dentalSupplies = DentalSupplies
-                                         .builder()
-                                         .SuppliesId(dentalSuppliesId)
-                                         .isDeleted(true)
-                                         .build();
+            var dentalSupplies =  dentalSuppliesRepository.findById(dentalSuppliesId)
+                                          .orElseThrow(() -> new RuntimeException("dental Supplies not found"));
+            dentalSupplies.setDeleted(true);
             dentalSuppliesRepository.save(dentalSupplies);
             return new MessageResponse("successfully");
         }catch (Exception e){

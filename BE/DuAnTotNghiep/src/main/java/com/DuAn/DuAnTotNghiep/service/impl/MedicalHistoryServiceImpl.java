@@ -72,11 +72,9 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
     @Override
     public MessageResponse sortDeleteMedicalHistory(int medicalHistoryId) {
         try {
-            var medicalHistory = MedicalHistory
-                                         .builder()
-                                         .medicalHistoryId(medicalHistoryId)
-                                         .isDeleted(true)
-                                         .build();
+            var medicalHistory = medicalHistoryRepository.findById(medicalHistoryId)
+                                         .orElseThrow(() -> new RuntimeException("medical History Automation not found"));
+            medicalHistory.setDeleted(true) ;
             medicalHistoryRepository.save(medicalHistory);
             return new MessageResponse("successfully");
         }catch (Exception e){

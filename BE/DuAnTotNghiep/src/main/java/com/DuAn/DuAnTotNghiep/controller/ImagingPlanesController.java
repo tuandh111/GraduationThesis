@@ -57,4 +57,10 @@ public class ImagingPlanesController {
     public ResponseEntity<MessageResponse> deleteImagingPlanes(@PathVariable int Id){
         return ResponseEntity.ok(imagingPlanesService.delete(Id));
     }
+
+    @DeleteMapping("sort-delete-imaging-planes/{Id}")
+    @Operation(summary = "delete ImagingPlanes")
+    public ResponseEntity<MessageResponse> sortDeleteImagingPlanes(@PathVariable int Id){
+        return ResponseEntity.ok(imagingPlanesService.sortDeletePlanesService(Id));
+    }
 }

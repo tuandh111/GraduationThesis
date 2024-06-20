@@ -70,11 +70,9 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     @Override
     public MessageResponse sortDeleteSpecialty(int specialtyId) {
         try {
-            var specialty= Specialty
-                                   .builder()
-                                   .specialtyId(specialtyId)
-                                   .isDeleted(true)
-                                   .build();
+            var specialty=  specialtyRepository.findById(specialtyId)
+                                    .orElseThrow(() -> new RuntimeException("specialty not found"));
+            specialty.setDeleted(true) ;
             specialtyRepository.save(specialty);
             return new MessageResponse("successfully");
         }catch (Exception e) {

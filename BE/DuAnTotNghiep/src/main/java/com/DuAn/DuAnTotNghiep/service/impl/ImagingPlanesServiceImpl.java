@@ -1,6 +1,7 @@
 package com.DuAn.DuAnTotNghiep.service.impl;
 
 import com.DuAn.DuAnTotNghiep.entities.Abnormality;
+import com.DuAn.DuAnTotNghiep.entities.Frequency;
 import com.DuAn.DuAnTotNghiep.entities.ImagingPlanes;
 import com.DuAn.DuAnTotNghiep.model.request.ImagingPlanesRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
@@ -64,6 +65,20 @@ public class ImagingPlanesServiceImpl implements ImagingPlanesService {
             return new MessageResponse("successfully");
         }catch (Exception e){
             return new MessageResponse("fail");
+        }
+    }
+
+    @Override
+    public MessageResponse sortDeletePlanesService(int imagingPlanesId) {
+        try {
+            ImagingPlanes imagingPlanes = imagingPlanesRepository.findById(imagingPlanesId)
+                                                  .orElseThrow(() -> new RuntimeException("imaging Planes not found"));
+            imagingPlanes.setDeleted(true) ;
+            imagingPlanesRepository.save(imagingPlanes) ;
+            return new MessageResponse("Successfully") ;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new MessageResponse("Failed") ;
         }
     }
 }

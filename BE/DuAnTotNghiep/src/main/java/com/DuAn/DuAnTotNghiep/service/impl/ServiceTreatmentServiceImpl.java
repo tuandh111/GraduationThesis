@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class Service_TreatmentServiceImpl implements ServiceTreatmentService {
+public class ServiceTreatmentServiceImpl implements ServiceTreatmentService {
     @Autowired
     ServiceTreatmentRepository serviceTreatmentRepository;
     @Autowired
@@ -77,11 +77,9 @@ public class Service_TreatmentServiceImpl implements ServiceTreatmentService {
     @Override
     public MessageResponse sortDeleteServiceTreatment(int serviceTreatmentId) {
         try {
-            var serviceTreatment = ServiceTreatment
-                                           .builder()
-                                           .service_TreatmentId(serviceTreatmentId)
-                                           .isDeleted(true)
-                                           .build();
+            var serviceTreatment = serviceTreatmentRepository.findById(serviceTreatmentId)
+                                           .orElseThrow(() -> new RuntimeException("service Treatment not found"));
+            serviceTreatment.setDeleted(true) ;
             serviceTreatmentRepository.save(serviceTreatment);
             return new MessageResponse("successfully");
         }catch (Exception e){

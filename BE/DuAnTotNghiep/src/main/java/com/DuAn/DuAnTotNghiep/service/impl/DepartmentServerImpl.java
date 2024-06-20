@@ -70,11 +70,9 @@ public class DepartmentServerImpl implements DepartmentService {
     @Override
     public MessageResponse sortDeleteDepartment(int departmentId) {
         try {
-            var department = Department
-                                     .builder()
-                                     .departmentId(departmentId)
-                                     .isDeleted(true)
-                                     .build();
+            var department = departmentRepository.findById(departmentId)
+                                     .orElseThrow(() -> new RuntimeException("department not found"));
+            department.setDeleted(true);
             departmentRepository.save(department);
             return new MessageResponse("successfully");
         }catch (Exception e){

@@ -79,7 +79,8 @@ public class DistributionMedicinesServiceImpl implements DistributionMedicinesSe
     @Override
     public MessageResponse softDeleteDistributionMedicines(int distributionMedicineId) {
         try {
-            DistributionMedicines distributionMedicines = distributionMedicinesRepository.findById(distributionMedicineId).orElseThrow(null) ;
+            DistributionMedicines distributionMedicines = distributionMedicinesRepository.findById(distributionMedicineId)
+                                                                  .orElseThrow(() -> new RuntimeException("distribution medicines not found")) ;
             distributionMedicines.setDeleted(true) ;
             distributionMedicinesRepository.save(distributionMedicines) ;
             return new MessageResponse("Successfully") ;

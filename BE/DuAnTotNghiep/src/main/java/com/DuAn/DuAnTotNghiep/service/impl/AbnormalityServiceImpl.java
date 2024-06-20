@@ -72,11 +72,9 @@ public class AbnormalityServiceImpl implements AbnormalityService {
     @Override
     public MessageResponse softDeleteAbnormality(int abnormalityId) {
         try {
-            var abnormality = Abnormality
-                                      .builder()
-                                      .abnormalityId(abnormalityId)
-                                      .isDeleted(true)
-                                      .build();
+            Abnormality abnormality = abnormalityRepository.findById(abnormalityId)
+                                              .orElseThrow(() -> new RuntimeException("Abnormality not found"));
+            abnormality.setDeleted(true);
             abnormalityRepository.save(abnormality);
             return new MessageResponse("successfully");
         }catch (Exception e){

@@ -69,13 +69,11 @@ public class ShiftServiceImpl implements ShiftService {
     }
 
     @Override
-    public MessageResponse sortDeleteShift(int ShiftId) {
+    public MessageResponse sortDeleteShift(int shiftId) {
         try {
-            var shift = Shift
-                                .builder()
-                                .shiftId(ShiftId)
-                                .isDeleted(true)
-                                .build();
+            var shift =  shiftRepository.findById(shiftId)
+                                 .orElseThrow(() -> new RuntimeException("shift not found"));
+            shift.setDeleted(true) ;
             shiftRepository.save(shift);
             return new MessageResponse("successfully");
         }catch (Exception e){

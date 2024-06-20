@@ -87,11 +87,9 @@ public class DentalStaffServiceImpl implements DentalStaffService {
     @Override
     public MessageResponse sortDeleteDentalStaff(int dentalStaffId) {
         try {
-            var dentalStaff = DentalStaff
-                                      .builder()
-                                      .dentalStaffId(dentalStaffId)
-                                      .isDeleted(true)
-                                      .build();
+            var dentalStaff = dentalStaffRepository.findById(dentalStaffId)
+                                      .orElseThrow(() -> new RuntimeException("dental Staff not found"));
+            dentalStaff.setDeleted(true);
             dentalStaffRepository.save(dentalStaff);
             return new MessageResponse("successfully");
         }catch (Exception e)

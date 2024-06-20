@@ -80,11 +80,9 @@ public class MedicalHistoryDetailServiceImpl implements MedicalHistoryDetailServ
     @Override
     public MessageResponse sortDeleteMedicalHistoryDetail(int medicalHistoryDetailId) {
         try {
-            var medicalHistoryDetail = MedicalHistoryDetail
-                                               .builder()
-                                               .medicalHistoryDetailId(medicalHistoryDetailId)
-                                               .isDeleted(true)
-                                               .build();
+            var medicalHistoryDetail = medicalHistoryDetailRepository.findById(medicalHistoryDetailId)
+                                               .orElseThrow(() -> new RuntimeException("medical History Detail Automation not found"));
+            medicalHistoryDetail.setDeleted(true) ;
 
             medicalHistoryDetailRepository.save(medicalHistoryDetail);
             return new MessageResponse("successfully");
