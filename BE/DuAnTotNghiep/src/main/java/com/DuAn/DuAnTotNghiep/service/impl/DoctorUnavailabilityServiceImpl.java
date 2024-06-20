@@ -79,11 +79,9 @@ public class DoctorUnavailabilityServiceImpl implements DoctorUnavailabilityServ
     @Override
     public MessageResponse softDeleteDoctorUnavailability(int doctorUnavailabilityId) {
         try {
-            var doctorUnavailability = DoctorUnavailability
-                    .builder()
-                    .doctorUnavailabilityId(doctorUnavailabilityId)
-                    .isDeleted(true)
-                    .build();
+            var doctorUnavailability =doctorUnavailabilityRepository.findById(doctorUnavailabilityId)
+                                              .orElseThrow(() -> new RuntimeException("doctor Unavailability not found"));
+            doctorUnavailability.setDeleted(true);
             doctorUnavailabilityRepository.save(doctorUnavailability);
             return new MessageResponse("Successfully");
         }catch (Exception e){
