@@ -12,6 +12,7 @@ public interface TimeOfShiftService {
 
     List<TimeOfShift> findAllTimeOfShift();
 
+    List<TimeOfShift> findAllTimeOfShiftByShift(int ShiftId);
     List<TimeOfShift> findAllTimeOfShiftExceptDeleted();
 
     TimeOfShift saveTimeOfShift(TimeOfShiftRequest timeOfShiftRequest);
