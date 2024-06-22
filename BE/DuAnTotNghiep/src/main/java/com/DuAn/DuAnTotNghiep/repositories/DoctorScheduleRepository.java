@@ -15,7 +15,10 @@ public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule,I
     @Query("SELECT ds from  DoctorSchedule ds where ds.doctor.doctorId=:id")
     List<DoctorSchedule> getDoctorScheduleByDoctor(@Param("id") Integer id);
 
-    @Query("SELECT ds from  DoctorSchedule ds where ds.date=:d")
+    @Query("SELECT ds FROM DoctorSchedule ds WHERE " +
+            "YEAR(ds.date) = YEAR(:d) AND " +
+            "MONTH(ds.date) = MONTH(:d) AND " +
+            "DAY(ds.date) = DAY(:d)")
     List<DoctorSchedule> getDoctorScheduleByDate(@Param("d") Date d);
 
 }

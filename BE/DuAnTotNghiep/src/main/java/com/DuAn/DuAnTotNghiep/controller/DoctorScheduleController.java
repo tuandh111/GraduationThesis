@@ -54,7 +54,8 @@ public class DoctorScheduleController {
     @GetMapping("doctor-schedule-by-date")
     @Operation(summary = "doctor schedule by date")
     public ResponseEntity<List<DoctorSchedule>> getDoctorScheduleByDate(
-            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
+            @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        System.out.println(date);
         return ResponseEntity.ok(doctorScheduleService.findAllDoctorScheduleByDate(date));
     }
 
