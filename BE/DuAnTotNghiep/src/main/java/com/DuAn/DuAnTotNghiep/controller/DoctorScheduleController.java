@@ -42,6 +42,11 @@ public class DoctorScheduleController {
     public ResponseEntity<DoctorSchedule> getDoctorScheduleId( @PathVariable Integer Id) {
         return ResponseEntity.ok(doctorScheduleService.findByDoctorScheduleId(Id));
     }
+    @GetMapping("doctor-schedule-by-doctor-id/{Id}")
+    @Operation(summary = "doctor schedule Id")
+    public ResponseEntity<List<DoctorSchedule>> getDoctorScheduleByDoctor( @PathVariable Integer Id) {
+        return ResponseEntity.ok(doctorScheduleService.findAllDoctorScheduleByDoctor(Id));
+    }
     @PostMapping("doctor-schedule")
     @Operation(summary = "Save doctor schedule")
     public ResponseEntity<DoctorSchedule> saveDoctorSchedule(@Valid @RequestBody DoctorScheduleRequest doctorScheduleRequest){
