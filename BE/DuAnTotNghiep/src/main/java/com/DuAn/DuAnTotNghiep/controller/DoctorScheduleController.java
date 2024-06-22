@@ -2,6 +2,7 @@ package com.DuAn.DuAnTotNghiep.controller;
 
 import com.DuAn.DuAnTotNghiep.entities.DoctorSchedule;
 import com.DuAn.DuAnTotNghiep.entities.Role;
+import com.DuAn.DuAnTotNghiep.model.request.DateRequest;
 import com.DuAn.DuAnTotNghiep.model.request.DoctorScheduleRequest;
 import com.DuAn.DuAnTotNghiep.model.request.RoleRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
@@ -15,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -41,6 +44,16 @@ public class DoctorScheduleController {
     @Operation(summary = "doctor schedule Id")
     public ResponseEntity<DoctorSchedule> getDoctorScheduleId( @PathVariable Integer Id) {
         return ResponseEntity.ok(doctorScheduleService.findByDoctorScheduleId(Id));
+    }
+    @GetMapping("doctor-schedule-by-doctor-id/{Id}")
+    @Operation(summary = "doctor schedule Id")
+    public ResponseEntity<List<DoctorSchedule>> getDoctorScheduleByDoctor( @PathVariable Integer Id) {
+        return ResponseEntity.ok(doctorScheduleService.findAllDoctorScheduleByDoctor(Id));
+    }
+    @GetMapping("doctor-schedule-by-date")
+    @Operation(summary = "doctor schedule by date")
+    public ResponseEntity<List<DoctorSchedule>> getDoctorScheduleByDate(@RequestBody DateRequest dateRequest) {
+        return ResponseEntity.ok(doctorScheduleService.findAllDoctorScheduleByDate(dateRequest.getDate()));
     }
     @PostMapping("doctor-schedule")
     @Operation(summary = "Save doctor schedule")

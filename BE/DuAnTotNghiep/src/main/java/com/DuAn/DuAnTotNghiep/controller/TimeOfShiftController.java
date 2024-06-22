@@ -41,6 +41,11 @@ public class TimeOfShiftController {
     public ResponseEntity<TimeOfShift> getTimeOfShiftId( @PathVariable Integer Id) {
         return ResponseEntity.ok(timeOfShiftService.findByTimeOfShiftId(Id));
     }
+    @GetMapping("time-of-shift-by-shift-id/{Id}")
+    @Operation(summary = "time-of-shift Id")
+    public ResponseEntity<List<TimeOfShift>> getTimeOfShiftByShiftId( @PathVariable Integer Id) {
+        return ResponseEntity.ok(timeOfShiftService.findAllTimeOfShiftByShift(Id));
+    }
     @PostMapping("time-of-shift")
     @Operation(summary = "Save time-of-shift")
     public ResponseEntity<TimeOfShift> saveTimeOfShift(@Valid @RequestBody TimeOfShiftRequest timeOfShiftRequest){

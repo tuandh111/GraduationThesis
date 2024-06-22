@@ -14,6 +14,8 @@ import com.DuAn.DuAnTotNghiep.service.service.DoctorScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +31,16 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     @Override
     public DoctorSchedule findByDoctorScheduleId(int doctorScheduleId) {
         return doctorScheduleRepository.findById(doctorScheduleId).orElseThrow(null) ;
+    }
+
+    @Override
+    public List<DoctorSchedule> findAllDoctorScheduleByDoctor(int doctorId) {
+        return doctorScheduleRepository.getDoctorScheduleByDoctor(doctorId);
+    }
+
+    @Override
+    public List<DoctorSchedule> findAllDoctorScheduleByDate(Date date) {
+        return doctorScheduleRepository.getDoctorScheduleByDate(date);
     }
 
     @Override
