@@ -11,6 +11,7 @@ import java.util.List;
 public interface DoctorScheduleService {
     DoctorSchedule findByDoctorScheduleId(int doctorScheduleId);
 
+    List<DoctorSchedule> findAllDoctorScheduleByDoctor(int doctorId);
     List<DoctorSchedule> findAllDoctorSchedule();
 
     List<DoctorSchedule> findAllDoctorScheduleExceptDeleted();
