@@ -2,6 +2,7 @@ package com.DuAn.DuAnTotNghiep.service.impl;
 
 import com.DuAn.DuAnTotNghiep.entities.Appointment;
 import com.DuAn.DuAnTotNghiep.entities.DentalStaff;
+import com.DuAn.DuAnTotNghiep.entities.Patient;
 import com.DuAn.DuAnTotNghiep.model.request.AppointmentRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.repositories.*;
@@ -19,6 +20,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     AppointmentRepository appointmentRepository;
     @Autowired
     DentalStaffRepository dentalStaffRepository;
+    @Autowired
+    PatientRepository patientRepository;
     @Autowired
     AppointmentStatusRepository appointmentStatusRepository;
     @Autowired
@@ -55,6 +58,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                                   .appointmentStatus(null)
                                   .appointmentPatientRecord(null)
                                   .AppointmentDate(new Date())
+                                  .patient(null)
                                   .dentalStaff(null)
                                   .note(null)
                                   .build();
@@ -73,6 +77,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                                   .appointmentStatus(appointmentStatusRepository.findById(appointmentRequest.getAppointmentStatus()).orElse(null))
                                   .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRequest.getAppointmentPatientRecord()).orElse(null))
                                   .AppointmentDate(Appointment.builder().build().getAppointmentDate())
+                                  .patient(patientRepository.findById(appointmentRequest.getPatientId()).orElse(null))
                                   .dentalStaff(dentalStaffRepository.findById(appointmentRequest.getDentalStaffId()).orElse(null))
                                   .note(appointmentRequest.getNote())
                                   .build();
