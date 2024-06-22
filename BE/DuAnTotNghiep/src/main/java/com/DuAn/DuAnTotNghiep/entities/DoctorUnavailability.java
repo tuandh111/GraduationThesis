@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,9 +22,12 @@ public class DoctorUnavailability {
 
     private boolean isDeleted = false;
 
+    private Date date;
+
     @ManyToOne
     @JoinColumn(name = "timeOfShiftId")
     private TimeOfShift timeOfShift;
+
 
     @ManyToOne
     @JoinColumn(name = "doctorId")

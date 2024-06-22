@@ -47,6 +47,7 @@ public class DoctorUnavailabilityServiceImpl implements DoctorUnavailabilityServ
         var doctorUnavailability = DoctorUnavailability.builder()
                 .description(doctorUnavailabilityRequest.getDescription())
                 .timeOfShift(timeOfShiftRepository.findById(doctorUnavailabilityRequest.getTimeOfShiftId()).orElse(null))
+                .date(doctorUnavailabilityRequest.getDate())
                 .doctor(doctorRepository.findById(doctorUnavailabilityRequest.getDoctorId()).orElse(null))
                 .build() ;
         doctorUnavailabilityRepository.save(doctorUnavailability) ;
@@ -58,6 +59,7 @@ public class DoctorUnavailabilityServiceImpl implements DoctorUnavailabilityServ
         var doctorUnavailability = DoctorUnavailability.builder()
                 .doctorUnavailabilityId(doctorUnavailabilityId)
                 .description(doctorUnavailabilityRequest.getDescription())
+                .date(doctorUnavailabilityRequest.getDate())
                 .timeOfShift(timeOfShiftRepository.findById(doctorUnavailabilityRequest.getTimeOfShiftId()).orElse(null))
                 .doctor(doctorRepository.findById(doctorUnavailabilityRequest.getDoctorId()).orElse(null))
                 .build() ;
