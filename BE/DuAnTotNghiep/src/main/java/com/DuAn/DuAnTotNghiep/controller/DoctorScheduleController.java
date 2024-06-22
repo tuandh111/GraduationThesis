@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -52,9 +53,11 @@ public class DoctorScheduleController {
     }
     @GetMapping("doctor-schedule-by-date")
     @Operation(summary = "doctor schedule by date")
-    public ResponseEntity<List<DoctorSchedule>> getDoctorScheduleByDate(@RequestBody DateRequest dateRequest) {
-        return ResponseEntity.ok(doctorScheduleService.findAllDoctorScheduleByDate(dateRequest.getDate()));
+    public ResponseEntity<List<DoctorSchedule>> getDoctorScheduleByDate(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
+        return ResponseEntity.ok(doctorScheduleService.findAllDoctorScheduleByDate(date));
     }
+
     @PostMapping("doctor-schedule")
     @Operation(summary = "Save doctor schedule")
     public ResponseEntity<DoctorSchedule> saveDoctorSchedule(@Valid @RequestBody DoctorScheduleRequest doctorScheduleRequest){
