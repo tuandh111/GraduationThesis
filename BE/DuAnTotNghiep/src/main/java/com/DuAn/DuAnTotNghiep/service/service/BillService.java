@@ -22,5 +22,5 @@ public interface BillService {
 
     MessageResponse deleteBillId(int billId);
 
-    MessageResponse sortDeleteBillId(int billId);
+    MessageResponse softDeleteBillId(int billId);
 }

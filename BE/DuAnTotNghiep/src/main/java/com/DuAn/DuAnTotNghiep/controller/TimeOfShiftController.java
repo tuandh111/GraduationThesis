@@ -63,9 +63,9 @@ public class TimeOfShiftController {
         return ResponseEntity.ok(timeOfShiftService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-time-of-shift/{Id}")
-    @Operation(summary = "delete sort time-of-shift")
-    public ResponseEntity<MessageResponse> sortDeleteTimeOfShift(@PathVariable int Id){
-        return ResponseEntity.ok(timeOfShiftService.sortDeleteTimeOfShift(Id));
+    @DeleteMapping("soft-delete-time-of-shift/{Id}")
+    @Operation(summary = "delete soft time-of-shift")
+    public ResponseEntity<MessageResponse> softDeleteTimeOfShift(@PathVariable int Id){
+        return ResponseEntity.ok(timeOfShiftService.softDeleteTimeOfShift(Id));
     }
 }

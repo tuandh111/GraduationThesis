@@ -77,7 +77,7 @@ public class AppointmentPatientRecordServiceImpl implements AppointmentPatientRe
     }
 
     @Override
-    public MessageResponse sortDeleteAppointmentType(int appointmentPatientRecordId) {
+    public MessageResponse softDeleteAppointmentType(int appointmentPatientRecordId) {
         try {
             AppointmentPatientRecord appointmentPatientRecord =  appointmentPatientRecordRepository.findById(appointmentPatientRecordId)
                                                                          .orElseThrow(() -> new RuntimeException("appointment Patient Record not found"));

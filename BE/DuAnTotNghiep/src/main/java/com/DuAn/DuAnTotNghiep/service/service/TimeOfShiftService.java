@@ -21,5 +21,5 @@ public interface TimeOfShiftService {
 
     MessageResponse delete(int timeOfShiftId);
 
-    MessageResponse sortDeleteTimeOfShift(int timeOfShiftId);
+    MessageResponse softDeleteTimeOfShift(int timeOfShiftId);
 }

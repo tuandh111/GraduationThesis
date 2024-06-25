@@ -85,7 +85,7 @@ public class DentalStaffServiceImpl implements DentalStaffService {
     }
 
     @Override
-    public MessageResponse sortDeleteDentalStaff(int dentalStaffId) {
+    public MessageResponse softDeleteDentalStaff(int dentalStaffId) {
         try {
             var dentalStaff = dentalStaffRepository.findById(dentalStaffId)
                                       .orElseThrow(() -> new RuntimeException("dental Staff not found"));

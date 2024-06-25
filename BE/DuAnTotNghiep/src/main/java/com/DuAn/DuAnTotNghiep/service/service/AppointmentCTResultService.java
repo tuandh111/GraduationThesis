@@ -21,5 +21,5 @@ public interface AppointmentCTResultService {
 
     MessageResponse deleteById(int AppointmentCTResultId);
 
-    MessageResponse sortDeleteAppointmentCTResult(int AppointmentCTResultId);
+    MessageResponse softDeleteAppointmentCTResult(int AppointmentCTResultId);
 }

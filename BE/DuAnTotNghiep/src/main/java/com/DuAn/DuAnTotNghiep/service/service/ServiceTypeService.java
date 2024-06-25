@@ -19,5 +19,5 @@ public interface ServiceTypeService {
 
     MessageResponse delete(int serviceTypeId);
 
-    MessageResponse sortDeleteServiceType(int serviceTypeId);
+    MessageResponse softDeleteServiceType(int serviceTypeId);
 }

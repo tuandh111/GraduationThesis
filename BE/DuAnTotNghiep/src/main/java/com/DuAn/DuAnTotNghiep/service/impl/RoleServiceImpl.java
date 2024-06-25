@@ -73,7 +73,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public MessageResponse sortDeleteRole(int roleId) {
+    public MessageResponse softDeleteRole(int roleId) {
         try {
             var role = roleRepositoty.findById(roleId)
                                .orElseThrow(() -> new RuntimeException("role not found"));

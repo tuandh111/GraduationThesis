@@ -21,5 +21,5 @@ public interface DentalSuppliesService {
 
     MessageResponse delete(int dentalSuppliesId);
 
-    MessageResponse sortDeleteDentalSupplies(int dentalSuppliesId);
+    MessageResponse softDeleteDentalSupplies(int dentalSuppliesId);
 }

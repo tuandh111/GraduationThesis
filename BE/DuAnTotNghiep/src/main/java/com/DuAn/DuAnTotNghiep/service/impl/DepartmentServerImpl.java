@@ -68,7 +68,7 @@ public class DepartmentServerImpl implements DepartmentService {
     }
 
     @Override
-    public MessageResponse sortDeleteDepartment(int departmentId) {
+    public MessageResponse softDeleteDepartment(int departmentId) {
         try {
             var department = departmentRepository.findById(departmentId)
                                      .orElseThrow(() -> new RuntimeException("department not found"));

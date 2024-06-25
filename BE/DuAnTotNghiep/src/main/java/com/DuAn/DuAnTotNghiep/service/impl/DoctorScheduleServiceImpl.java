@@ -97,7 +97,7 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     }
 
     @Override
-    public MessageResponse sortDeleteDoctorSchedule(int doctorScheduleId) {
+    public MessageResponse softDeleteDoctorSchedule(int doctorScheduleId) {
         try {
             var doctorSchedule = doctorScheduleRepository.findById(doctorScheduleId)
                                          .orElseThrow(() -> new RuntimeException("doctor Schedule not found"));

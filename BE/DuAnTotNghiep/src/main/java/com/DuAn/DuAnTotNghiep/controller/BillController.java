@@ -58,9 +58,9 @@ public class BillController {
         return ResponseEntity.ok(billService.deleteBillId(Id));
     }
 
-    @DeleteMapping("sort-delete-bill/{Id}")
-    @Operation(summary = "delete sort bill")
-    public ResponseEntity<MessageResponse> sortDeleteBill(@PathVariable int Id){
-        return ResponseEntity.ok(billService.sortDeleteBillId(Id));
+    @DeleteMapping("soft-delete-bill/{Id}")
+    @Operation(summary = "delete soft bill")
+    public ResponseEntity<MessageResponse> softDeleteBill(@PathVariable int Id){
+        return ResponseEntity.ok(billService.softDeleteBillId(Id));
     }
 }

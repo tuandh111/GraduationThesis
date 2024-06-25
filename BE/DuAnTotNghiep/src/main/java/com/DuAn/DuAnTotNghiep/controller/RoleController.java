@@ -59,9 +59,9 @@ public class RoleController {
         return ResponseEntity.ok(roleService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-role/{Id}")
-    @Operation(summary = "delete sort role")
-    public ResponseEntity<MessageResponse> sortDeleteRole(@PathVariable int Id){
-        return ResponseEntity.ok(roleService.sortDeleteRole(Id));
+    @DeleteMapping("soft-delete-role/{Id}")
+    @Operation(summary = "delete soft role")
+    public ResponseEntity<MessageResponse> softDeleteRole(@PathVariable int Id){
+        return ResponseEntity.ok(roleService.softDeleteRole(Id));
     }
 }

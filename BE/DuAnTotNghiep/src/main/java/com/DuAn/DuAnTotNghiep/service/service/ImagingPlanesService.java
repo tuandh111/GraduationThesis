@@ -20,5 +20,5 @@ public interface ImagingPlanesService {
     ImagingPlanes updateImagingPlanes(int imagingPlanesId, ImagingPlanesRequest imagingPlanesRequest);
 
     MessageResponse delete(int imagingPlanesId);
-    MessageResponse sortDeletePlanesService(int imagingPlanesId);
+    MessageResponse softDeletePlanesService(int imagingPlanesId);
 }

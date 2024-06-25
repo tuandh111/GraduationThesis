@@ -76,7 +76,7 @@ public class AppointmentCTResultServiceImpl implements AppointmentCTResultServic
     }
 
     @Override
-    public MessageResponse sortDeleteAppointmentCTResult(int appointmentCTResultId) {
+    public MessageResponse softDeleteAppointmentCTResult(int appointmentCTResultId) {
         try {
             var appointmentCTResult = appointmentCTResultRepository.findById(appointmentCTResultId)
                                               .orElseThrow(() -> new RuntimeException("Abnormality not found"));

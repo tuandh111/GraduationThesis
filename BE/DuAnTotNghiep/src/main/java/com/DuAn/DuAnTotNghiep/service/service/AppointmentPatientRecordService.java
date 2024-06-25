@@ -22,5 +22,5 @@ public interface AppointmentPatientRecordService {
 
     MessageResponse delete(int appointmentPatientRecordId);
 
-    MessageResponse sortDeleteAppointmentType(int appointmentPatientRecordId);
+    MessageResponse softDeleteAppointmentType(int appointmentPatientRecordId);
 }

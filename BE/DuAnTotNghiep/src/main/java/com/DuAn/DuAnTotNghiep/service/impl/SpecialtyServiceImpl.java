@@ -68,7 +68,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     }
 
     @Override
-    public MessageResponse sortDeleteSpecialty(int specialtyId) {
+    public MessageResponse softDeleteSpecialty(int specialtyId) {
         try {
             var specialty=  specialtyRepository.findById(specialtyId)
                                     .orElseThrow(() -> new RuntimeException("specialty not found"));

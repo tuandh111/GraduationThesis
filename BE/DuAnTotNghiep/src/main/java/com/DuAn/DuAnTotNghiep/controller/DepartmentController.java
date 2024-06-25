@@ -59,9 +59,9 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-department/{Id}")
-    @Operation(summary = "delete sort abnormality")
-    public ResponseEntity<MessageResponse> sortDeleteDepartment(@PathVariable int Id){
-        return ResponseEntity.ok(departmentService.sortDeleteDepartment(Id));
+    @DeleteMapping("soft-delete-department/{Id}")
+    @Operation(summary = "delete soft abnormality")
+    public ResponseEntity<MessageResponse> softDeleteDepartment(@PathVariable int Id){
+        return ResponseEntity.ok(departmentService.softDeleteDepartment(Id));
     }
 }

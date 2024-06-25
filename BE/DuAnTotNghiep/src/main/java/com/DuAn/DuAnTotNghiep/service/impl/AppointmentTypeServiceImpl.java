@@ -68,7 +68,7 @@ public class AppointmentTypeServiceImpl implements AppointmentTypeService {
     }
 
     @Override
-    public MessageResponse sortDeleteAppointmentType(int appointmentTypeId) {
+    public MessageResponse softDeleteAppointmentType(int appointmentTypeId) {
         try {
             var appointmentType = appointmentTypeRepository.findById(appointmentTypeId)
                                           .orElseThrow(() -> new RuntimeException("appointment Type not found"));

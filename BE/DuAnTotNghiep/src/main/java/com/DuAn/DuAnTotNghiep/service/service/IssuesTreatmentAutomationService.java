@@ -20,5 +20,5 @@ public interface IssuesTreatmentAutomationService {
 
     MessageResponse delete(int issuesTreatmentAutomationId);
 
-    MessageResponse sortDeleteIssuesTreatmentAutomation(int issuesTreatmentAutomationId);
+    MessageResponse softDeleteIssuesTreatmentAutomation(int issuesTreatmentAutomationId);
 }

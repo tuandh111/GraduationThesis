@@ -88,7 +88,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public MessageResponse sortDeleteDoctor(int doctorId) {
+    public MessageResponse softDeleteDoctor(int doctorId) {
         try {
             Doctor doctor = doctorRepository.findById(doctorId)
                                     .orElseThrow(() -> new RuntimeException("Doctor not found"));

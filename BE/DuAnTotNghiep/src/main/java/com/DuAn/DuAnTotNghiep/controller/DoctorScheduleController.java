@@ -76,9 +76,9 @@ public class DoctorScheduleController {
         return ResponseEntity.ok(doctorScheduleService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-doctor-schedule/{Id}")
-    @Operation(summary = "delete sort doctor schedule")
-    public ResponseEntity<MessageResponse> sortDeleteDoctorSchedule(@PathVariable int Id){
-        return ResponseEntity.ok(doctorScheduleService.sortDeleteDoctorSchedule(Id));
+    @DeleteMapping("soft-delete-doctor-schedule/{Id}")
+    @Operation(summary = "delete soft doctor schedule")
+    public ResponseEntity<MessageResponse> softDeleteDoctorSchedule(@PathVariable int Id){
+        return ResponseEntity.ok(doctorScheduleService.softDeleteDoctorSchedule(Id));
     }
 }

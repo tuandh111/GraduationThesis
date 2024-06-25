@@ -58,9 +58,9 @@ public class CTResultAbnormalityController {
         return ResponseEntity.ok(ctResultAbnormalityService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-ct-result-abnormality/{Id}")
-    @Operation(summary = "delete sort ct result abnormality")
-    public ResponseEntity<MessageResponse> sortDeleteCTResultAbnormality(@PathVariable int Id){
-        return ResponseEntity.ok(ctResultAbnormalityService.sortDeleteCTResultAbnormality(Id));
+    @DeleteMapping("soft-delete-ct-result-abnormality/{Id}")
+    @Operation(summary = "delete soft ct result abnormality")
+    public ResponseEntity<MessageResponse> softDeleteCTResultAbnormality(@PathVariable int Id){
+        return ResponseEntity.ok(ctResultAbnormalityService.softDeleteCTResultAbnormality(Id));
     }
 }

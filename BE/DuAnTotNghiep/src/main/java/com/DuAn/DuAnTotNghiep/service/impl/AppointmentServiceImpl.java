@@ -52,15 +52,15 @@ public class AppointmentServiceImpl implements AppointmentService {
     public Appointment saveAppointment(AppointmentRequest appointmentRequest) {
         var appointment = Appointment
                                   .builder()
-                                  .doctor(null)
-                                  .appointmentType(null)
+                                  .doctor(doctorRepository.findById(appointmentRequest.getDoctorId()).orElse(null))
+                                  .appointmentType(appointmentTypeRepository.findById(appointmentRequest.getAppointmentType()).orElse(null))
                                   .createAt(new Date())
-                                  .appointmentStatus(null)
-                                  .appointmentPatientRecord(null)
+                                  .appointmentStatus(appointmentStatusRepository.findById(appointmentRequest.getAppointmentStatus()).orElse(null))
+                                  .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRequest.getAppointmentPatientRecord()).orElse(null))
                                   .AppointmentDate(new Date())
-                                  .patient(null)
-                                  .dentalStaff(null)
-                                  .note(null)
+                                  .patient(patientRepository.findById(appointmentRequest.getPatientId()).orElse(null))
+                                  .dentalStaff(dentalStaffRepository.findById(appointmentRequest.getDentalStaffId()).orElse(null))
+                                  .note(appointmentRequest.getNote())
                                   .build();
         appointmentRepository.save(appointment);
         return appointment;
@@ -97,7 +97,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public MessageResponse sortDeleteAppointment(int appointmentId) {
+    public MessageResponse softDeleteAppointment(int appointmentId) {
         try {
             var appointment = appointmentRepository.findById(appointmentId)
                                       .orElseThrow(() -> new RuntimeException("appointment not found"));

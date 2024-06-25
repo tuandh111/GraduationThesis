@@ -24,5 +24,5 @@ public interface DoctorScheduleService {
 
     MessageResponse delete(int doctorScheduleId);
 
-    MessageResponse sortDeleteDoctorSchedule(int doctorScheduleId);
+    MessageResponse softDeleteDoctorSchedule(int doctorScheduleId);
 }

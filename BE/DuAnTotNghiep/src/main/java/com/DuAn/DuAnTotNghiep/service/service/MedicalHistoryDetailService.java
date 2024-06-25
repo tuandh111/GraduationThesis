@@ -21,5 +21,5 @@ public interface MedicalHistoryDetailService {
 
     MessageResponse delete(int medicalHistoryDetailId);
 
-    MessageResponse sortDeleteMedicalHistoryDetail(int medicalHistoryDetailId);
+    MessageResponse softDeleteMedicalHistoryDetail(int medicalHistoryDetailId);
 }

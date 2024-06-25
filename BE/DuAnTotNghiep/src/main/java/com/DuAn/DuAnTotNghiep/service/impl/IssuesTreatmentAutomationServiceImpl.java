@@ -77,7 +77,7 @@ public class IssuesTreatmentAutomationServiceImpl implements IssuesTreatmentAuto
     }
 
     @Override
-    public MessageResponse sortDeleteIssuesTreatmentAutomation(int issuesTreatmentAutomationId) {
+    public MessageResponse softDeleteIssuesTreatmentAutomation(int issuesTreatmentAutomationId) {
         try {
             var issuesTreatmentAutomation =issuesTreatmentAutomationRepository.findById(issuesTreatmentAutomationId)
                                                    .orElseThrow(() -> new RuntimeException("issues Treatment Automation not found"));

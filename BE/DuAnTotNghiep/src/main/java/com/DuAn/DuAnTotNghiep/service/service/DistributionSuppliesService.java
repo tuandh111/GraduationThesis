@@ -22,5 +22,5 @@ public interface DistributionSuppliesService {
 
     MessageResponse delete(int distributionSuppliesId);
 
-    MessageResponse sortDeleteDistributionSupplies(int distributionSuppliesId);
+    MessageResponse softDeleteDistributionSupplies(int distributionSuppliesId);
 }

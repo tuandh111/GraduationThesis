@@ -59,9 +59,9 @@ public class AbnormalityController {
         return ResponseEntity.ok(abnormalityService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-abnormality/{Id}")
-    @Operation(summary = "delete sort abnormality")
-    public ResponseEntity<MessageResponse> sortDeleteAbnormality(@PathVariable int Id){
+    @DeleteMapping("sorf-delete-abnormality/{Id}")
+    @Operation(summary = "delete soft abnormality")
+    public ResponseEntity<MessageResponse> softDeleteAbnormality(@PathVariable int Id){
         return ResponseEntity.ok(abnormalityService.softDeleteAbnormality(Id));
     }
 }

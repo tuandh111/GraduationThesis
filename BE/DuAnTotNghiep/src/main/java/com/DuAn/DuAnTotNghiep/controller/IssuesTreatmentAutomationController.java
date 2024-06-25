@@ -58,9 +58,9 @@ public class IssuesTreatmentAutomationController {
         return ResponseEntity.ok(issuesTreatmentAutomationService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-issues-treatment-automation/{Id}")
-    @Operation(summary = "delete sort issues treatment automation")
-    public ResponseEntity<MessageResponse> sortDeleteIssuesTreatmentAutomation(@PathVariable int Id){
-        return ResponseEntity.ok(issuesTreatmentAutomationService.sortDeleteIssuesTreatmentAutomation(Id));
+    @DeleteMapping("soft-delete-issues-treatment-automation/{Id}")
+    @Operation(summary = "delete soft issues treatment automation")
+    public ResponseEntity<MessageResponse> softDeleteIssuesTreatmentAutomation(@PathVariable int Id){
+        return ResponseEntity.ok(issuesTreatmentAutomationService.softDeleteIssuesTreatmentAutomation(Id));
     }
 }

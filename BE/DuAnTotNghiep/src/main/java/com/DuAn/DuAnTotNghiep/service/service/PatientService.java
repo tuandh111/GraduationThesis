@@ -21,5 +21,5 @@ public interface PatientService {
 
     MessageResponse delete(int patientId);
 
-    MessageResponse sortDeletePatient(int patientId);
+    MessageResponse softDeletePatient(int patientId);
 }

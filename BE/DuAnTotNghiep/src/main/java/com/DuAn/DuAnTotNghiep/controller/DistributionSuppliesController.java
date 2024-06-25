@@ -59,9 +59,9 @@ public class DistributionSuppliesController {
         return ResponseEntity.ok(distributionSuppliesService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-distribution-supplies/{Id}")
-    @Operation(summary = "delete sort distribution supplies")
-    public ResponseEntity<MessageResponse> sortDeleteDistributionSupplies(@PathVariable int Id){
-        return ResponseEntity.ok(distributionSuppliesService.sortDeleteDistributionSupplies(Id));
+    @DeleteMapping("soft-delete-distribution-supplies/{Id}")
+    @Operation(summary = "delete soft distribution supplies")
+    public ResponseEntity<MessageResponse> softDeleteDistributionSupplies(@PathVariable int Id){
+        return ResponseEntity.ok(distributionSuppliesService.softDeleteDistributionSupplies(Id));
     }
 }

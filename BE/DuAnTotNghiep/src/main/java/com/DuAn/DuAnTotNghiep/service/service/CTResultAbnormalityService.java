@@ -21,5 +21,5 @@ public interface CTResultAbnormalityService {
 
     MessageResponse delete(int cTResultAbnormalityId);
 
-    MessageResponse sortDeleteCTResultAbnormality(int cTResultAbnormalityId);
+    MessageResponse softDeleteCTResultAbnormality(int cTResultAbnormalityId);
 }

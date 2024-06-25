@@ -21,5 +21,5 @@ public interface SpecialtyService {
 
     MessageResponse delete(int specialtyId);
 
-    MessageResponse sortDeleteSpecialty(int specialtyId);
+    MessageResponse softDeleteSpecialty(int specialtyId);
 }

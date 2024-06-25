@@ -59,9 +59,9 @@ public class MedicalHistoryDetailController {
         return ResponseEntity.ok(medicalHistoryDetailService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-medical-history-detail/{Id}")
-    @Operation(summary = "delete sort medical history detail")
-    public ResponseEntity<MessageResponse> sortDeleteMedicalHistoryDetail(@PathVariable int Id){
-        return ResponseEntity.ok(medicalHistoryDetailService.sortDeleteMedicalHistoryDetail(Id));
+    @DeleteMapping("soft-delete-medical-history-detail/{Id}")
+    @Operation(summary = "delete soft medical history detail")
+    public ResponseEntity<MessageResponse> softDeleteMedicalHistoryDetail(@PathVariable int Id){
+        return ResponseEntity.ok(medicalHistoryDetailService.softDeleteMedicalHistoryDetail(Id));
     }
 }
