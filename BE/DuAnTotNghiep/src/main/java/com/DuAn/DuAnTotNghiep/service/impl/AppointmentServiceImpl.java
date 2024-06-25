@@ -57,7 +57,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                                   .createAt(new Date())
                                   .appointmentStatus(appointmentStatusRepository.findById(appointmentRequest.getAppointmentStatus()).orElse(null))
                                   .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRequest.getAppointmentPatientRecord()).orElse(null))
-                                  .AppointmentDate(new Date())
+                                  .AppointmentDate(appointmentRequest.getAppointmentDate())
                                   .patient(patientRepository.findById(appointmentRequest.getPatientId()).orElse(null))
                                   .dentalStaff(dentalStaffRepository.findById(appointmentRequest.getDentalStaffId()).orElse(null))
                                   .note(appointmentRequest.getNote())
