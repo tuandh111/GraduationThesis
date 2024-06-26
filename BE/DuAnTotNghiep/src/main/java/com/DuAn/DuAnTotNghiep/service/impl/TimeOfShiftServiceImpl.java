@@ -10,6 +10,7 @@ import com.DuAn.DuAnTotNghiep.service.service.TimeOfShiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,11 @@ public class TimeOfShiftServiceImpl implements TimeOfShiftService {
     @Override
     public List<TimeOfShift> findAllTimeOfShiftByShift(int ShiftId) {
         return timeOfShiftRepository.getTimeOfShiftByShift(ShiftId);
+    }
+
+    @Override
+    public List<Object> findAllTimeOfShiftAvailable(int shiftId, Date date, int doctorId) {
+        return timeOfShiftRepository.getTimeOfShiftAvailable(doctorId,date,shiftId);
     }
 
     @Override

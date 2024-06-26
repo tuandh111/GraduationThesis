@@ -1,5 +1,6 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
+import com.DuAn.DuAnTotNghiep.entities.DoctorSchedule;
 import com.DuAn.DuAnTotNghiep.entities.Shift;
 import com.DuAn.DuAnTotNghiep.entities.TimeOfShift;
 import com.DuAn.DuAnTotNghiep.model.request.ShiftRequest;
@@ -10,10 +11,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -45,6 +48,16 @@ public class TimeOfShiftController {
     @Operation(summary = "time-of-shift Id")
     public ResponseEntity<List<TimeOfShift>> getTimeOfShiftByShiftId( @PathVariable Integer Id) {
         return ResponseEntity.ok(timeOfShiftService.findAllTimeOfShiftByShift(Id));
+    }
+
+    @GetMapping("time-of-shift-available")
+    @Operation(summary = "time of shift available")
+    public ResponseEntity<List<Object>> getTimeOfShiftAvailable(@RequestParam("shiftId") Integer shiftId,
+            @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,@RequestParam("doctorId") Integer doctorId) {
+        System.out.println(date);
+        System.out.println(shiftId);
+        System.out.println(doctorId);
+        return ResponseEntity.ok(timeOfShiftService.findAllTimeOfShiftAvailable(shiftId,date,doctorId));
     }
     @PostMapping("time-of-shift")
     @Operation(summary = "Save time-of-shift")
