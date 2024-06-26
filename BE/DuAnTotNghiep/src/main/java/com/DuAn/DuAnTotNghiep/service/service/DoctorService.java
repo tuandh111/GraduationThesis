@@ -22,4 +22,6 @@ public interface DoctorService {
     MessageResponse delete(int doctorId);
 
     MessageResponse softDeleteDoctor(int doctorId);
+
+    List<Doctor> findDoctorBySpecialty(int specialtyId);
 }

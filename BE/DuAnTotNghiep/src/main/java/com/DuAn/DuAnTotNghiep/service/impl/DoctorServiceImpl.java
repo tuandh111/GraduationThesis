@@ -101,4 +101,9 @@ public class DoctorServiceImpl implements DoctorService {
         }
 
     }
+
+    @Override
+    public List<Doctor> findDoctorBySpecialty(int specialtyId) {
+        return doctorRepository.findBySpecialtySpecialtyId(specialtyId);
+    }
 }
