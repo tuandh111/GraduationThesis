@@ -68,7 +68,7 @@ public class ServiceTypeServiceImpl implements ServiceTypeService {
     }
 
     @Override
-    public MessageResponse sortDeleteServiceType(int serviceTypeId) {
+    public MessageResponse softDeleteServiceType(int serviceTypeId) {
         try {
             var serviceType =  serviceTypeRepository.findById(serviceTypeId)
                                        .orElseThrow(() -> new RuntimeException("service Type not found"));

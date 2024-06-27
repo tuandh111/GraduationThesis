@@ -70,7 +70,7 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
     }
 
     @Override
-    public MessageResponse sortDeleteMedicalHistory(int medicalHistoryId) {
+    public MessageResponse softDeleteMedicalHistory(int medicalHistoryId) {
         try {
             var medicalHistory = medicalHistoryRepository.findById(medicalHistoryId)
                                          .orElseThrow(() -> new RuntimeException("medical History Automation not found"));

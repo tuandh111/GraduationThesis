@@ -73,7 +73,7 @@ public class DentalSuppliesServiceImpl implements DentalSuppliesService {
     }
 
     @Override
-    public MessageResponse sortDeleteDentalSupplies(int dentalSuppliesId) {
+    public MessageResponse softDeleteDentalSupplies(int dentalSuppliesId) {
         try {
             var dentalSupplies =  dentalSuppliesRepository.findById(dentalSuppliesId)
                                           .orElseThrow(() -> new RuntimeException("dental Supplies not found"));

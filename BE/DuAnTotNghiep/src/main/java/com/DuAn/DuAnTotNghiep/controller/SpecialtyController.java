@@ -58,9 +58,9 @@ public class SpecialtyController {
         return ResponseEntity.ok(specialtyService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-specialty/{Id}")
-    @Operation(summary = "delete sort specialty")
-    public ResponseEntity<MessageResponse> sortDeleteSpecialty(@PathVariable int Id){
-        return ResponseEntity.ok(specialtyService.sortDeleteSpecialty(Id));
+    @DeleteMapping("soft-delete-specialty/{Id}")
+    @Operation(summary = "delete soft specialty")
+    public ResponseEntity<MessageResponse> softDeleteSpecialty(@PathVariable int Id){
+        return ResponseEntity.ok(specialtyService.softDeleteSpecialty(Id));
     }
 }

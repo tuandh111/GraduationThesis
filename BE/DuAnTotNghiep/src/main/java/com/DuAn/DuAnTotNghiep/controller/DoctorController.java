@@ -30,6 +30,12 @@ public class DoctorController {
         return ResponseEntity.ok(doctorService.findAllDoctor());
     }
 
+    @GetMapping("doctor-specialty/{specialtyId}")
+    @Operation(summary = "List doctors by specialty")
+    public ResponseEntity<List<Doctor>> getDoctorsBySpecialty(@PathVariable int specialtyId) {
+        return ResponseEntity.ok(doctorService.findDoctorBySpecialty(specialtyId));
+    }
+
     @GetMapping("doctor-except-deleted")
     @Operation(summary = "List doctor except deleted")
     public ResponseEntity<List<Doctor>> getAllDoctorExceptDeleted() {
@@ -58,9 +64,9 @@ public class DoctorController {
         return ResponseEntity.ok(doctorService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-doctor/{Id}")
-    @Operation(summary = "delete sort doctor")
-    public ResponseEntity<MessageResponse> sortDeleteDoctor(@PathVariable int Id){
-        return ResponseEntity.ok(doctorService.sortDeleteDoctor(Id));
+    @DeleteMapping("soft-delete-doctor/{Id}")
+    @Operation(summary = "delete soft doctor")
+    public ResponseEntity<MessageResponse> softDeleteDoctor(@PathVariable int Id){
+        return ResponseEntity.ok(doctorService.softDeleteDoctor(Id));
     }
 }

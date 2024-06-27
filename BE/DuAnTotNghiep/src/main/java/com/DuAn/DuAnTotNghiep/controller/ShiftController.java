@@ -56,9 +56,9 @@ public class ShiftController {
         return ResponseEntity.ok(shiftService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-shift/{Id}")
-    @Operation(summary = "delete sort shift")
-    public ResponseEntity<MessageResponse> sortDeleteShift(@PathVariable int Id){
-        return ResponseEntity.ok(shiftService.sortDeleteShift(Id));
+    @DeleteMapping("soft-delete-shift/{Id}")
+    @Operation(summary = "delete soft shift")
+    public ResponseEntity<MessageResponse> softDeleteShift(@PathVariable int Id){
+        return ResponseEntity.ok(shiftService.softDeleteShift(Id));
     }
 }

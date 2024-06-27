@@ -20,6 +20,6 @@ public interface RoleService {
 
     MessageResponse delete(int roleId);
 
-    MessageResponse sortDeleteRole(int roleId);
+    MessageResponse softDeleteRole(int roleId);
 
 }

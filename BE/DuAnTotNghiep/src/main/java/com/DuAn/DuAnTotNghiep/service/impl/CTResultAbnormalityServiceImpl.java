@@ -76,7 +76,7 @@ public class CTResultAbnormalityServiceImpl implements CTResultAbnormalityServic
     }
 
     @Override
-    public MessageResponse sortDeleteCTResultAbnormality(int cTResultAbnormalityId) {
+    public MessageResponse softDeleteCTResultAbnormality(int cTResultAbnormalityId) {
         try {
             var cTResultAbnormality = ctResultAbnormalityRepository.findById(cTResultAbnormalityId)
                                               .orElseThrow(() -> new RuntimeException("cT Result Abnormality not found"));

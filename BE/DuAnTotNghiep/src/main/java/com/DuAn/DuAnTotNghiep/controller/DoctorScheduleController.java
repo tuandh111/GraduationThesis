@@ -2,6 +2,7 @@ package com.DuAn.DuAnTotNghiep.controller;
 
 import com.DuAn.DuAnTotNghiep.entities.DoctorSchedule;
 import com.DuAn.DuAnTotNghiep.entities.Role;
+import com.DuAn.DuAnTotNghiep.model.request.DateRequest;
 import com.DuAn.DuAnTotNghiep.model.request.DoctorScheduleRequest;
 import com.DuAn.DuAnTotNghiep.model.request.RoleRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
@@ -11,10 +12,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -42,6 +46,19 @@ public class DoctorScheduleController {
     public ResponseEntity<DoctorSchedule> getDoctorScheduleId( @PathVariable Integer Id) {
         return ResponseEntity.ok(doctorScheduleService.findByDoctorScheduleId(Id));
     }
+    @GetMapping("doctor-schedule-by-doctor-id/{Id}")
+    @Operation(summary = "doctor schedule Id")
+    public ResponseEntity<List<DoctorSchedule>> getDoctorScheduleByDoctor( @PathVariable Integer Id) {
+        return ResponseEntity.ok(doctorScheduleService.findAllDoctorScheduleByDoctor(Id));
+    }
+    @GetMapping("doctor-schedule-by-date")
+    @Operation(summary = "doctor schedule by date")
+    public ResponseEntity<List<DoctorSchedule>> getDoctorScheduleByDate(
+            @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        System.out.println(date);
+        return ResponseEntity.ok(doctorScheduleService.findAllDoctorScheduleByDate(date));
+    }
+
     @PostMapping("doctor-schedule")
     @Operation(summary = "Save doctor schedule")
     public ResponseEntity<DoctorSchedule> saveDoctorSchedule(@Valid @RequestBody DoctorScheduleRequest doctorScheduleRequest){
@@ -59,9 +76,9 @@ public class DoctorScheduleController {
         return ResponseEntity.ok(doctorScheduleService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-doctor-schedule/{Id}")
-    @Operation(summary = "delete sort doctor schedule")
-    public ResponseEntity<MessageResponse> sortDeleteDoctorSchedule(@PathVariable int Id){
-        return ResponseEntity.ok(doctorScheduleService.sortDeleteDoctorSchedule(Id));
+    @DeleteMapping("soft-delete-doctor-schedule/{Id}")
+    @Operation(summary = "delete soft doctor schedule")
+    public ResponseEntity<MessageResponse> softDeleteDoctorSchedule(@PathVariable int Id){
+        return ResponseEntity.ok(doctorScheduleService.softDeleteDoctorSchedule(Id));
     }
 }

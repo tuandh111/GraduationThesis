@@ -4,6 +4,7 @@ import com.DuAn.DuAnTotNghiep.entities.TimeOfShift;
 import com.DuAn.DuAnTotNghiep.model.request.TimeOfShiftRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 
+import java.util.Date;
 import java.util.List;
 
 public interface TimeOfShiftService {
@@ -11,6 +12,10 @@ public interface TimeOfShiftService {
     TimeOfShift findByTimeOfShiftId(int timeOfShift);
 
     List<TimeOfShift> findAllTimeOfShift();
+
+    List<TimeOfShift> findAllTimeOfShiftByShift(int ShiftId);
+
+    List<Object> findAllTimeOfShiftAvailable(int shiftId, Date date, int doctorId);
 
     List<TimeOfShift> findAllTimeOfShiftExceptDeleted();
 
@@ -20,5 +25,5 @@ public interface TimeOfShiftService {
 
     MessageResponse delete(int timeOfShiftId);
 
-    MessageResponse sortDeleteTimeOfShift(int timeOfShiftId);
+    MessageResponse softDeleteTimeOfShift(int timeOfShiftId);
 }

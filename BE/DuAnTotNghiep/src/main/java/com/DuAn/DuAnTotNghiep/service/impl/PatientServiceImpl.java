@@ -79,7 +79,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public MessageResponse sortDeletePatient(int patientId) {
+    public MessageResponse softDeletePatient(int patientId) {
         try {
             var patient = patientRepository.findById(patientId)
                                   .orElseThrow(() -> new RuntimeException("patient not found"));

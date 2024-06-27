@@ -19,5 +19,5 @@ public interface ShiftService {
 
     MessageResponse delete(int ShiftId);
 
-    MessageResponse sortDeleteShift(int ShiftId);
+    MessageResponse softDeleteShift(int ShiftId);
 }

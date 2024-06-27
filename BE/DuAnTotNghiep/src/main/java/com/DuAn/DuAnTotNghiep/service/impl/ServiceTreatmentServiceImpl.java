@@ -75,7 +75,7 @@ public class ServiceTreatmentServiceImpl implements ServiceTreatmentService {
     }
 
     @Override
-    public MessageResponse sortDeleteServiceTreatment(int serviceTreatmentId) {
+    public MessageResponse softDeleteServiceTreatment(int serviceTreatmentId) {
         try {
             var serviceTreatment = serviceTreatmentRepository.findById(serviceTreatmentId)
                                            .orElseThrow(() -> new RuntimeException("service Treatment not found"));

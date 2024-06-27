@@ -58,9 +58,9 @@ public class PatientController {
         return ResponseEntity.ok(patientService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-patient/{Id}")
-    @Operation(summary = "delete sort patient")
+    @DeleteMapping("soft-delete-patient/{Id}")
+    @Operation(summary = "delete soft patient")
     public ResponseEntity<MessageResponse> sortDeletePatient(@PathVariable int Id){
-        return ResponseEntity.ok(patientService.sortDeletePatient(Id));
+        return ResponseEntity.ok(patientService.softDeletePatient(Id));
     }
 }

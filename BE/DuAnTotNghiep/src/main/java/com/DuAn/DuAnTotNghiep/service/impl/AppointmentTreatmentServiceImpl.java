@@ -77,7 +77,7 @@ public class AppointmentTreatmentServiceImpl implements AppointmentTreatmentServ
     }
 
     @Override
-    public MessageResponse sortDeleteAppointmentTreatment(int appointmentTreatmentId) {
+    public MessageResponse softDeleteAppointmentTreatment(int appointmentTreatmentId) {
         try {
             AppointmentTreatment appointmentTreatment =appointmentTreatmentRepository.findById(appointmentTreatmentId)
                                                                .orElseThrow(() -> new RuntimeException("Appointment treatment not found"));

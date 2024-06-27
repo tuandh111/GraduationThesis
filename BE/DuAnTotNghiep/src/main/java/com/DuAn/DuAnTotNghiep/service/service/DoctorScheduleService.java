@@ -6,11 +6,14 @@ import com.DuAn.DuAnTotNghiep.model.request.DoctorScheduleRequest;
 import com.DuAn.DuAnTotNghiep.model.request.RoleRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 
+import java.util.Date;
 import java.util.List;
 
 public interface DoctorScheduleService {
     DoctorSchedule findByDoctorScheduleId(int doctorScheduleId);
 
+    List<DoctorSchedule> findAllDoctorScheduleByDoctor(int doctorId);
+    List<DoctorSchedule> findAllDoctorScheduleByDate(Date date);
     List<DoctorSchedule> findAllDoctorSchedule();
 
     List<DoctorSchedule> findAllDoctorScheduleExceptDeleted();
@@ -21,5 +24,5 @@ public interface DoctorScheduleService {
 
     MessageResponse delete(int doctorScheduleId);
 
-    MessageResponse sortDeleteDoctorSchedule(int doctorScheduleId);
+    MessageResponse softDeleteDoctorSchedule(int doctorScheduleId);
 }

@@ -78,7 +78,7 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public MessageResponse sortDeleteBillId(int billId) {
+    public MessageResponse softDeleteBillId(int billId) {
         try {
             var bill = billRepository.findById(billId)
                                .orElseThrow(() -> new RuntimeException("bill not found"));

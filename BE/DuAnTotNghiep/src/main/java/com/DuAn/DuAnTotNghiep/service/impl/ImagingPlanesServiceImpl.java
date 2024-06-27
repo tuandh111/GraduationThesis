@@ -69,7 +69,7 @@ public class ImagingPlanesServiceImpl implements ImagingPlanesService {
     }
 
     @Override
-    public MessageResponse sortDeletePlanesService(int imagingPlanesId) {
+    public MessageResponse softDeletePlanesService(int imagingPlanesId) {
         try {
             ImagingPlanes imagingPlanes = imagingPlanesRepository.findById(imagingPlanesId)
                                                   .orElseThrow(() -> new RuntimeException("imaging Planes not found"));

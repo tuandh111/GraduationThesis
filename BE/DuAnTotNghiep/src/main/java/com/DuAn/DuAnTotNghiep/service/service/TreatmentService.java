@@ -21,5 +21,5 @@ public interface TreatmentService {
 
     MessageResponse delete(int treatmentId);
 
-    MessageResponse sortDeleteTreatment(int treatmentId);
+    MessageResponse softDeleteTreatment(int treatmentId);
 }

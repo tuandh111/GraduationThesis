@@ -58,9 +58,9 @@ public class ImagingPlanesController {
         return ResponseEntity.ok(imagingPlanesService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-imaging-planes/{Id}")
-    @Operation(summary = "delete ImagingPlanes")
-    public ResponseEntity<MessageResponse> sortDeleteImagingPlanes(@PathVariable int Id){
-        return ResponseEntity.ok(imagingPlanesService.sortDeletePlanesService(Id));
+    @DeleteMapping("soft-delete-imaging-planes/{Id}")
+    @Operation(summary = "soft delete ImagingPlanes")
+    public ResponseEntity<MessageResponse> softDeleteImagingPlanes(@PathVariable int Id){
+        return ResponseEntity.ok(imagingPlanesService.softDeletePlanesService(Id));
     }
 }

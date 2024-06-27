@@ -72,7 +72,7 @@ public class AppointmentStatusServiceImpl implements AppointmentStatusService {
     }
 
     @Override
-    public MessageResponse sortDeleteAppointmentStatus(int appointmentStatusId) {
+    public MessageResponse softDeleteAppointmentStatus(int appointmentStatusId) {
         try {
             var appointmentStatus = appointmentStatusRepository.findById(appointmentStatusId)
                                             .orElseThrow(() -> new RuntimeException("appointment status not found"));

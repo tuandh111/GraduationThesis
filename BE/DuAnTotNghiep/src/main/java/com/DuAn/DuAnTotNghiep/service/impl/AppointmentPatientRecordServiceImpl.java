@@ -42,7 +42,7 @@ public class AppointmentPatientRecordServiceImpl implements AppointmentPatientRe
     public AppointmentPatientRecord saveAppointmentPatientRecord(AppointmentPatientRecordRequest appointmentPatientRecordRequest) {
         AppointmentPatientRecord appointmentPatientRecord = AppointmentPatientRecord
                                                                     .builder()
-                                                                    .patient(patientRepository.findById(appointmentPatientRecordRequest.getPatientId()).orElse(null))
+                                                                    .patientId(appointmentPatientRecordRequest.getPatientId())
                                                                     .createAt(appointmentPatientRecordRequest.getCreateAt())
                                                                     .currentCodition(appointmentPatientRecordRequest.getCurrentCondition())
                                                                     .reExamination(appointmentPatientRecordRequest.getReExamination())
@@ -56,7 +56,7 @@ public class AppointmentPatientRecordServiceImpl implements AppointmentPatientRe
         AppointmentPatientRecord appointmentPatientRecord = AppointmentPatientRecord
                                                                     .builder()
                                                                     .appointmentPatientRecordId(appointmentPatientRecordId)
-                                                                    .patient(patientRepository.findById(appointmentPatientRecordRequest.getPatientId()).orElse(null))
+                                                                    .patientId(appointmentPatientRecordRequest.getPatientId())
                                                                     .createAt(appointmentPatientRecordRequest.getCreateAt())
                                                                     .currentCodition(appointmentPatientRecordRequest.getCurrentCondition())
                                                                     .reExamination(appointmentPatientRecordRequest.getReExamination())
@@ -77,7 +77,7 @@ public class AppointmentPatientRecordServiceImpl implements AppointmentPatientRe
     }
 
     @Override
-    public MessageResponse sortDeleteAppointmentType(int appointmentPatientRecordId) {
+    public MessageResponse softDeleteAppointmentType(int appointmentPatientRecordId) {
         try {
             AppointmentPatientRecord appointmentPatientRecord =  appointmentPatientRecordRepository.findById(appointmentPatientRecordId)
                                                                          .orElseThrow(() -> new RuntimeException("appointment Patient Record not found"));

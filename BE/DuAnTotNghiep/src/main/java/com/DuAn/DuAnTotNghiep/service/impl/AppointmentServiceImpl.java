@@ -2,6 +2,7 @@ package com.DuAn.DuAnTotNghiep.service.impl;
 
 import com.DuAn.DuAnTotNghiep.entities.Appointment;
 import com.DuAn.DuAnTotNghiep.entities.DentalStaff;
+import com.DuAn.DuAnTotNghiep.entities.Patient;
 import com.DuAn.DuAnTotNghiep.model.request.AppointmentRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.repositories.*;
@@ -19,6 +20,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     AppointmentRepository appointmentRepository;
     @Autowired
     DentalStaffRepository dentalStaffRepository;
+    @Autowired
+    PatientRepository patientRepository;
     @Autowired
     AppointmentStatusRepository appointmentStatusRepository;
     @Autowired
@@ -49,14 +52,15 @@ public class AppointmentServiceImpl implements AppointmentService {
     public Appointment saveAppointment(AppointmentRequest appointmentRequest) {
         var appointment = Appointment
                                   .builder()
-                                  .doctor(null)
-                                  .appointmentType(null)
+                                  .doctor(doctorRepository.findById(appointmentRequest.getDoctorId()).orElse(null))
+                                  .appointmentType(appointmentTypeRepository.findById(appointmentRequest.getAppointmentType()).orElse(null))
                                   .createAt(new Date())
-                                  .appointmentStatus(null)
-                                  .appointmentPatientRecord(null)
-                                  .AppointmentDate(new Date())
-                                  .dentalStaff(null)
-                                  .note(null)
+                                  .appointmentStatus(appointmentStatusRepository.findById(appointmentRequest.getAppointmentStatus()).orElse(null))
+                                  .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRequest.getAppointmentPatientRecord()).orElse(null))
+                                  .AppointmentDate(appointmentRequest.getAppointmentDate())
+                                  .patient(patientRepository.findById(appointmentRequest.getPatientId()).orElse(null))
+                                  .dentalStaff(dentalStaffRepository.findById(appointmentRequest.getDentalStaffId()).orElse(null))
+                                  .note(appointmentRequest.getNote())
                                   .build();
         appointmentRepository.save(appointment);
         return appointment;
@@ -73,6 +77,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                                   .appointmentStatus(appointmentStatusRepository.findById(appointmentRequest.getAppointmentStatus()).orElse(null))
                                   .appointmentPatientRecord(appointmentPatientRecordRepository.findById(appointmentRequest.getAppointmentPatientRecord()).orElse(null))
                                   .AppointmentDate(Appointment.builder().build().getAppointmentDate())
+                                  .patient(patientRepository.findById(appointmentRequest.getPatientId()).orElse(null))
                                   .dentalStaff(dentalStaffRepository.findById(appointmentRequest.getDentalStaffId()).orElse(null))
                                   .note(appointmentRequest.getNote())
                                   .build();
@@ -92,7 +97,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public MessageResponse sortDeleteAppointment(int appointmentId) {
+    public MessageResponse softDeleteAppointment(int appointmentId) {
         try {
             var appointment = appointmentRepository.findById(appointmentId)
                                       .orElseThrow(() -> new RuntimeException("appointment not found"));

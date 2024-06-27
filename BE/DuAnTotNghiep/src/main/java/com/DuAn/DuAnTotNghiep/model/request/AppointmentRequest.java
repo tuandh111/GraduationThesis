@@ -20,4 +20,6 @@ public class AppointmentRequest {
     private int dentalStaffId;
 
     private int doctorId;
+
+    private int patientId;
  }

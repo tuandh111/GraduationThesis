@@ -78,7 +78,7 @@ public class AppointmentRecordIssuesServiceImpl implements AppointmentRecordIssu
     }
 
     @Override
-    public MessageResponse sortDeleteAppointmentRecordIssues(int appointmentRecordIssuesId) {
+    public MessageResponse softDeleteAppointmentRecordIssues(int appointmentRecordIssuesId) {
         try {
             AppointmentRecordIssues appointmentRecordIssues = appointmentRecordIssuesRepository.findById(appointmentRecordIssuesId)
                                                                       .orElseThrow(() -> new RuntimeException("Appointment Record Issues not found"));

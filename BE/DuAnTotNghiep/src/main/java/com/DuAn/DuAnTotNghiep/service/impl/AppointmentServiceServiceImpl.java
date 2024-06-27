@@ -78,7 +78,7 @@ public class AppointmentServiceServiceImpl implements AppointmentServiceService 
     }
 
     @Override
-    public MessageResponse sortDeleteAppointmentService(int appointmentServiceId) {
+    public MessageResponse softDeleteAppointmentService(int appointmentServiceId) {
         try {
             AppointmentService appointmentService = appointmentServiceRepository.findById(appointmentServiceId)
                                                             .orElseThrow(() -> new RuntimeException("appointment Service not found"));

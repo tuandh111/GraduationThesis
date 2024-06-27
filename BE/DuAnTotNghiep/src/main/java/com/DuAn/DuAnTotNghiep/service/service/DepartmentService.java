@@ -21,5 +21,5 @@ public interface DepartmentService {
 
     MessageResponse delete(int departmentId);
 
-    MessageResponse sortDeleteDepartment(int departmentId);
+    MessageResponse softDeleteDepartment(int departmentId);
 }

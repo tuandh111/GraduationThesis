@@ -58,9 +58,9 @@ public class DoctorUnavailabilityController {
         return ResponseEntity.ok(doctorUnavailabilityService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-doctorUnavailability/{Id}")
-    @Operation(summary = "delete sort doctorUnavailability")
-    public ResponseEntity<MessageResponse> sortDeleteDoctorUnavailability(@PathVariable int Id){
+    @DeleteMapping("soft-delete-doctorUnavailability/{Id}")
+    @Operation(summary = "delete soft doctorUnavailability")
+    public ResponseEntity<MessageResponse> softDeleteDoctorUnavailability(@PathVariable int Id){
         return ResponseEntity.ok(doctorUnavailabilityService.softDeleteDoctorUnavailability(Id));
     }
 }

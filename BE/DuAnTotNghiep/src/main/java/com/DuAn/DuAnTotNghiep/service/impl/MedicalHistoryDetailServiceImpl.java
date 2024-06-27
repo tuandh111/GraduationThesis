@@ -78,7 +78,7 @@ public class MedicalHistoryDetailServiceImpl implements MedicalHistoryDetailServ
     }
 
     @Override
-    public MessageResponse sortDeleteMedicalHistoryDetail(int medicalHistoryDetailId) {
+    public MessageResponse softDeleteMedicalHistoryDetail(int medicalHistoryDetailId) {
         try {
             var medicalHistoryDetail = medicalHistoryDetailRepository.findById(medicalHistoryDetailId)
                                                .orElseThrow(() -> new RuntimeException("medical History Detail Automation not found"));

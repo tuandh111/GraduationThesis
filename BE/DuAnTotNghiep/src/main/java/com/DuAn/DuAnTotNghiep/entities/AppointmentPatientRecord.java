@@ -41,11 +41,13 @@ public class AppointmentPatientRecord {
     @JsonIgnore
     private List<Appointment> appointments;
 
-    @ManyToOne
-    @JoinColumn(name="patientId")
-    private Patient patient;
+//    @ManyToOne
+//    @JoinColumn(name="patientId")
+    private int patientId;
 
     @OneToMany(mappedBy = "prescriptionId")
     @JsonIgnore
     private List<Prescription> prescriptions;
+
+
 }

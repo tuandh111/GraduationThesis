@@ -57,9 +57,9 @@ public class ServiceController {
         return ResponseEntity.ok(serviceService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-service/{Id}")
-    @Operation(summary = "delete sort service ")
-    public ResponseEntity<MessageResponse> sortDeleteService(@PathVariable int Id){
-        return ResponseEntity.ok(serviceService.sortDeleteService(Id));
+    @DeleteMapping("soft-delete-service/{Id}")
+    @Operation(summary = "delete soft service ")
+    public ResponseEntity<MessageResponse> softDeleteService(@PathVariable int Id){
+        return ResponseEntity.ok(serviceService.softDeleteService(Id));
     }
 }

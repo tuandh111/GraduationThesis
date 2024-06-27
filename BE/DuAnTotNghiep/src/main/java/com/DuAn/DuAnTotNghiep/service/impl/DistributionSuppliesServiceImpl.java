@@ -77,7 +77,7 @@ public class DistributionSuppliesServiceImpl implements DistributionSuppliesServ
     }
 
     @Override
-    public MessageResponse sortDeleteDistributionSupplies(int distributionSuppliesId) {
+    public MessageResponse softDeleteDistributionSupplies(int distributionSuppliesId) {
         try {
             var distributionSupplies= distributionSuppliesRepository.findById(distributionSuppliesId)
                                               .orElseThrow(() -> new RuntimeException("distribution supplies not found"));

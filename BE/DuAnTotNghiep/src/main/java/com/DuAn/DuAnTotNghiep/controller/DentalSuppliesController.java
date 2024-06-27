@@ -59,9 +59,9 @@ public class DentalSuppliesController {
         return ResponseEntity.ok(dentalSuppliesService.delete(Id));
     }
 
-    @DeleteMapping("sort-delete-dental-supplies/{Id}")
-    @Operation(summary = "delete sort dental supplies")
-    public ResponseEntity<MessageResponse> sortDeleteDentalSupplies(@PathVariable int Id){
-        return ResponseEntity.ok(dentalSuppliesService.sortDeleteDentalSupplies(Id));
+    @DeleteMapping("soft-delete-dental-supplies/{Id}")
+    @Operation(summary = "delete soft dental supplies")
+    public ResponseEntity<MessageResponse> softDeleteDentalSupplies(@PathVariable int Id){
+        return ResponseEntity.ok(dentalSuppliesService.softDeleteDentalSupplies(Id));
     }
 }
