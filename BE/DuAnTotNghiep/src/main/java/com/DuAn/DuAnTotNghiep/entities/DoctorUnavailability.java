@@ -29,7 +29,7 @@ public class DoctorUnavailability {
     private TimeOfShift timeOfShift;
 
 
-    @ManyToOne
-    @JoinColumn(name = "doctorId")
-    private Doctor doctor;
+    @OneToOne
+    @JoinColumn(name = "AppointmentId")
+    private Appointment appointment;
 }

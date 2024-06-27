@@ -3,7 +3,7 @@ package com.DuAn.DuAnTotNghiep.service.impl;
 import com.DuAn.DuAnTotNghiep.entities.DoctorUnavailability;
 import com.DuAn.DuAnTotNghiep.model.request.DoctorUnavailabilityRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
-import com.DuAn.DuAnTotNghiep.repositories.DoctorRepository;
+import com.DuAn.DuAnTotNghiep.repositories.AppointmentRepository;
 import com.DuAn.DuAnTotNghiep.repositories.DoctorUnavailabilityRepository;
 import com.DuAn.DuAnTotNghiep.repositories.TimeOfShiftRepository;
 import com.DuAn.DuAnTotNghiep.service.service.DoctorUnavailabilityService;
@@ -23,7 +23,7 @@ public class DoctorUnavailabilityServiceImpl implements DoctorUnavailabilityServ
     TimeOfShiftRepository timeOfShiftRepository ;
 
     @Autowired
-    DoctorRepository doctorRepository ;
+    AppointmentRepository appointmentRepository ;
 
     @Override
     public DoctorUnavailability findDoctorUnavailabilityById(int doctorUnavailabilityId) {
@@ -48,7 +48,7 @@ public class DoctorUnavailabilityServiceImpl implements DoctorUnavailabilityServ
                 .description(doctorUnavailabilityRequest.getDescription())
                 .timeOfShift(timeOfShiftRepository.findById(doctorUnavailabilityRequest.getTimeOfShiftId()).orElse(null))
                 .date(doctorUnavailabilityRequest.getDate())
-                .doctor(doctorRepository.findById(doctorUnavailabilityRequest.getDoctorId()).orElse(null))
+                .appointment(appointmentRepository.findById(doctorUnavailabilityRequest.getAppointmentId()).orElse(null))
                 .build() ;
         doctorUnavailabilityRepository.save(doctorUnavailability) ;
         return doctorUnavailability;
@@ -61,7 +61,7 @@ public class DoctorUnavailabilityServiceImpl implements DoctorUnavailabilityServ
                 .description(doctorUnavailabilityRequest.getDescription())
                 .date(doctorUnavailabilityRequest.getDate())
                 .timeOfShift(timeOfShiftRepository.findById(doctorUnavailabilityRequest.getTimeOfShiftId()).orElse(null))
-                .doctor(doctorRepository.findById(doctorUnavailabilityRequest.getDoctorId()).orElse(null))
+                .appointment(appointmentRepository.findById(doctorUnavailabilityRequest.getAppointmentId()).orElse(null))
                 .build() ;
         doctorUnavailabilityRepository.save(doctorUnavailability) ;
         return null;

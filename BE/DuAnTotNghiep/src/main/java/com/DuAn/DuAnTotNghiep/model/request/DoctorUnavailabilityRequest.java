@@ -14,6 +14,6 @@ public class DoctorUnavailabilityRequest {
 
     private Date date;
 
-    private Integer doctorId;
+    private Integer appointmentId;
 
 }
