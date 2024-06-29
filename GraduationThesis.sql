@@ -835,5 +835,50 @@ VALUES
 (false, (SELECT service_id FROM service WHERE service_name = 'Cạo vôi răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng')),
 (false, (SELECT service_id FROM service WHERE service_name = 'Điều trị bệnh lý nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Súc miệng bằng nước muối'));
 
+INSERT INTO appointment_status (description,is_deleted,status) VALUES
+	 ('Cuộc hẹn đã được đặt thành công và đang chờ đến ngày giờ thực hiện.',0,'Đã Đặt'),
+	 ('Cuộc hẹn đã được xác nhận bởi nhân viên phòng khám.',0,'Đã Xác Nhận'),
+	 ('Cuộc hẹn đang được thực hiện',0,'Đang Diễn Ra'),
+	 ('Cuộc hẹn đã được hoàn thành',0,'Hoàn Thành'),
+	 ('Cuộc hẹn đã bị hủy bởi khách hàng hoặc phòng khám.',0,'Đã Hủy'),
+	 ('Khách hàng không đến theo lịch hẹn.',0,'Không Đến'),
+	 ('Cuộc hẹn đã được dời lại sang ngày giờ khác',0,'Hoãn');
 
+INSERT INTO GraduationThesis.department (department_name,description,is_deleted) VALUES
+	 ('Phòng Lễ Tân và Tiếp Đón Bệnh Nhân',NULL,0),
+	 ('Phòng Khám Tổng Quát',NULL,0),
+	 ('Phòng Chụp X-quang',NULL,0),
+	 ('Phòng Điều Trị',NULL,0),
+	 ('Phòng Phục Hình',NULL,0),
+	 ('Phòng Vệ Sinh Răng Miệng',NULL,0),
+	 ('Phòng Quản Lý và Hành Chính',NULL,0),
+	 ('Phòng Kỹ Thuật và Vật Tư',NULL,0);
+INSERT INTO shift (begin_time,description,end_time,is_deleted,name) VALUES
+	 ('07:30:00','Thời gian làm việc từ 7g30 đến 11g 30','11:30:00',0,'Sáng'),
+	 ('12:30:00','Thời gian làm việc từ 12g30 đến 16g 30','16:30:00',0,'Chiều'),
+	 ('17:30:00','Thời gian làm việc từ 17g30 đến 21g 30','21:30:00',0,'Tối');
+INSERT INTO time_of_shift (begin_time,end_time,is_deleted,shift_id) VALUES
+	 ('07:30:00','08:00:00',0,1),
+	 ('08:00:00','08:30:00',0,1),
+	 ('08:30:00','09:00:00',0,1),
+	 ('09:00:00','09:30:00',0,1),
+	 ('09:30:00','10:00:00',0,1),
+	 ('10:00:00','10:30:00',0,1),
+	 ('10:30:00','11:00:00',0,1),
+	 ('11:00:00','11:30:00',0,1),
+	 ('12:30:00','13:00:00',0,2),
+	 ('13:00:00','13:30:00',0,2),
+	 ('13:30:00','14:00:00',0,2),
+	 ('14:00:00','14:30:00',0,2),
+	 ('14:30:00','15:00:00',0,2),
+	 ('15:00:00','15:30:00',0,2),
+	 ('15:30:00','16:00:00',0,2),
+	 ('16:00:00','16:30:00',0,2),
+	 ('17:30:00','18:00:00',0,3),
+	 ('18:00:00','18:30:00',0,3),
+	 ('18:30:00','19:00:00',0,3),
+	 ('19:00:00','19:30:00',0,3),
+	 ('19:30:00','20:00:00',0,3),
+	 ('20:00:00','21:30:00',0,3);
+	 
 
