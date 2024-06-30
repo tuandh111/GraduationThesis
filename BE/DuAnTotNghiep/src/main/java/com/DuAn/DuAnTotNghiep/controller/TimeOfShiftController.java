@@ -59,6 +59,13 @@ public class TimeOfShiftController {
         System.out.println(doctorId);
         return ResponseEntity.ok(timeOfShiftService.findAllTimeOfShiftAvailable(shiftId,date,doctorId));
     }
+
+    @GetMapping("time-of-shift-available-by-month")
+    @Operation(summary = "time of shift available by month")
+    public ResponseEntity<List<Object>> getTimeOfShiftAvailableByMonth(@RequestParam("shiftId") Integer shiftId,
+                                                                @RequestParam("month") Integer month, @RequestParam("year") Integer year,@RequestParam("doctorId") Integer doctorId) {
+        return ResponseEntity.ok(timeOfShiftService.getAvailableShiftsByMonth(doctorId,month,year,shiftId));
+    }
     @PostMapping("time-of-shift")
     @Operation(summary = "Save time-of-shift")
     public ResponseEntity<TimeOfShift> saveTimeOfShift(@Valid @RequestBody TimeOfShiftRequest timeOfShiftRequest){
