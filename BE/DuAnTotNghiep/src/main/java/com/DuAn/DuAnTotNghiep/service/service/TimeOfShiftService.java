@@ -16,7 +16,7 @@ public interface TimeOfShiftService {
     List<TimeOfShift> findAllTimeOfShiftByShift(int ShiftId);
 
     List<Object> findAllTimeOfShiftAvailable(int shiftId, Date date, int doctorId);
-    List<Object> getAvailableShiftsByMonth(int doctorId, int month, int year, int shiftId);
+    List<Object> getAvailableShiftsByMonth(int doctorId, int month, int year);
     List<TimeOfShift> findAllTimeOfShiftExceptDeleted();
 
     TimeOfShift saveTimeOfShift(TimeOfShiftRequest timeOfShiftRequest);
