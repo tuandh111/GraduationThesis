@@ -42,7 +42,9 @@ public class TimeOfShiftServiceImpl implements TimeOfShiftService {
     public List<Object> findAllTimeOfShiftAvailable(int shiftId, Date date, int doctorId) {
         return timeOfShiftRepository.getTimeOfShiftAvailable(doctorId,date,shiftId);
     }
-
+    public List<Object> getAvailableShiftsByMonth(int doctorId, int month, int year, int shiftId) {
+        return timeOfShiftRepository.getTimeOfShiftAvailableByMonth(doctorId, month, year, shiftId);
+    }
     @Override
     public List<TimeOfShift> findAllTimeOfShiftExceptDeleted() {
         return timeOfShiftRepository.findAll().stream()

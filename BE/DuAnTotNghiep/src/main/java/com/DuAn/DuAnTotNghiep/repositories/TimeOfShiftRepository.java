@@ -23,4 +23,13 @@ public interface TimeOfShiftRepository extends JpaRepository<TimeOfShift,Integer
             "AND tos.timeOfShiftId NOT IN (SELECT du.timeOfShift.timeOfShiftId FROM DoctorUnavailability du where du.date=:d)")
     List<Object> getTimeOfShiftAvailable(@Param("doctorId") Integer doctorId, @Param("d") Date d, @Param("shiftId") Integer shiftId);
 
+    @Query("SELECT ds, tos " +
+            "FROM DoctorSchedule ds " +
+            "JOIN TimeOfShift tos ON tos.shift.shiftId = ds.shift.shiftId " +
+            "WHERE ds.doctor.doctorId = :doctorId " +
+            "AND FUNCTION('MONTH', ds.date) = :month " +
+            "AND FUNCTION('YEAR', ds.date) = :year " +
+            "AND ds.shift.shiftId = :shiftId " +
+            "AND tos.timeOfShiftId NOT IN (SELECT du.timeOfShift.timeOfShiftId FROM DoctorUnavailability du)")
+    List<Object> getTimeOfShiftAvailableByMonth(@Param("doctorId") Integer doctorId, @Param("month") int month, @Param("year") int year, @Param("shiftId") Integer shiftId);
 }
