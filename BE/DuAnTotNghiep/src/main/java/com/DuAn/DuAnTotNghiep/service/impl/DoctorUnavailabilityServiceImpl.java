@@ -64,7 +64,7 @@ public class DoctorUnavailabilityServiceImpl implements DoctorUnavailabilityServ
                 .appointment(appointmentRepository.findById(doctorUnavailabilityRequest.getAppointmentId()).orElse(null))
                 .build() ;
         doctorUnavailabilityRepository.save(doctorUnavailability) ;
-        return null;
+        return doctorUnavailability;
     }
 
     @Override
