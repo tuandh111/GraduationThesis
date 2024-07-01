@@ -34,17 +34,25 @@ public class FileManagerServiceImpl implements FileManagerService {
     @Override
     public List<String> save(String folder, MultipartFile[] files) {
         List<String> fileNames = new ArrayList<>();
+        Path uploadImagePath = Paths.get("", "files", folder);
+        try {
+            Files.createDirectories(uploadImagePath);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to create directory: " + uploadImagePath.toString(), e);
+        }
         for (MultipartFile file : files) {
             String name = System.currentTimeMillis() + file.getOriginalFilename();
             String filename = Integer.toHexString(name.hashCode()) + name.substring(name.lastIndexOf("."));
-            Path path = this.getPath(folder, filename);
+            Path path = uploadImagePath.resolve(filename);
+
             try {
                 file.transferTo(path);
                 fileNames.add(filename);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to save file: " + filename, e);
             }
         }
+
         return fileNames;
     }
 

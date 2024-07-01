@@ -22,38 +22,39 @@ public class FileManagerController {
     FileManagerService fileManagerService;
 
     @GetMapping("image/{folder}/{file}")
-    public byte[] dowmload(@PathVariable("folder") String folder, @PathVariable("file") String file){
-        return fileManagerService.read(folder,file);
+    public byte[] dowmload(@PathVariable("folder") String folder, @PathVariable("file") String file) {
+        return fileManagerService.read(folder, file);
     }
 
     @GetMapping("listImage/{folder}")
-    public  List<String> list (@PathVariable("folder") String folder){
+    public List<String> list(@PathVariable("folder") String folder) {
         return fileManagerService.list(folder);
     }
+
     @PostMapping("saveImage/{folder}")
-    public  List<String> upload (@PathVariable("folder") String folder, @PathParam("files") MultipartFile[] files){
-        return fileManagerService.save(folder,files);
+    public List<String> upload(@PathVariable("folder") String folder, @RequestParam("files") MultipartFile[] files) {
+        return fileManagerService.save(folder, files);
     }
 
     @DeleteMapping("deleteImage/{folder}/{file}")
-    public void delete(@PathVariable("folder") String folder, @PathVariable("file") String file){
-        fileManagerService.delete(folder,file);
+    public void delete(@PathVariable("folder") String folder, @PathVariable("file") String file) {
+        fileManagerService.delete(folder, file);
     }
 
     @PostMapping("moveImage/{folder}")
     public void move(@PathVariable("folder") String folder) {
-        System.out.println("move folder " +folder);
+        System.out.println("move folder " + folder);
         fileManagerService.move(folder);
     }
 
     @GetMapping("uploadImage/{file}")
     public byte[] dowmloadImagesForProduct(@PathVariable("file") String file) {
-        String folder = "uploadImage"; // Đọc tệp từ thư mục uploadImage
+        String folder = "uploads"; // Đọc tệp từ thư mục uploadImage
         return fileManagerService.readImgProd(folder, file);
     }
 
     @GetMapping("uploadImage")
-    public  List<String> listUploadImage (){
+    public List<String> listUploadImage() {
         String folder = "uploadImage";
         return fileManagerService.list(folder);
     }
