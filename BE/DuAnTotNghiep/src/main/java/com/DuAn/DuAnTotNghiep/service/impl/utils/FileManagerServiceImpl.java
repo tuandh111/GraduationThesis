@@ -142,7 +142,6 @@ public class FileManagerServiceImpl implements FileManagerService {
 
         return imageData;
     }
-
     @Override
     public List<String> list(String folder) {
         List<String> fileNames = new ArrayList<>();
@@ -152,6 +151,7 @@ public class FileManagerServiceImpl implements FileManagerService {
             for (File file : files) {
                 fileNames.add(file.getName());
             }
+
         }
         return fileNames;
     }
