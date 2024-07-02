@@ -1,8 +1,6 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
-import com.DuAn.DuAnTotNghiep.entities.Abnormality;
 import com.DuAn.DuAnTotNghiep.entities.DoctorUnavailability;
-import com.DuAn.DuAnTotNghiep.model.request.AbnormalityRequest;
 import com.DuAn.DuAnTotNghiep.model.request.DoctorUnavailabilityRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.service.service.DoctorUnavailabilityService;
@@ -36,6 +34,13 @@ public class DoctorUnavailabilityController {
         return ResponseEntity.ok(doctorUnavailabilityService.findAllDoctorUnavailabilityExceptDeleted());
     }
 
+    @GetMapping("doctorUnavailability-by-doctor")
+    @Operation(summary = "List doctorUnavailability by doctord")
+    public ResponseEntity<List<DoctorUnavailability>> getAllDoctorUnavailabilityByDoctor(@RequestParam("doctorId") Integer doctorId) {
+        return ResponseEntity.ok(doctorUnavailabilityService.findAllDoctorUnavailabilityByDoctor(doctorId));
+    }
+
+
     @GetMapping("doctorUnavailability-id/{Id}")
     @Operation(summary = "dental doctorUnavailability Id")
     public ResponseEntity<DoctorUnavailability> getDoctorUnavailabilityId( @PathVariable Integer Id) {
@@ -49,6 +54,7 @@ public class DoctorUnavailabilityController {
     @PutMapping("doctorUnavailability/{Id}")
     @Operation(summary = "update doctorUnavailability")
     public ResponseEntity<DoctorUnavailability> updateDoctorUnavailability(@PathVariable int Id, @Valid @RequestBody DoctorUnavailabilityRequest doctorUnavailabilityRequest){
+        System.out.println("doctorUnavailabilityRequest"+doctorUnavailabilityRequest);
         return ResponseEntity.ok(doctorUnavailabilityService.updateDoctorUnavailability(Id, doctorUnavailabilityRequest));
     }
 

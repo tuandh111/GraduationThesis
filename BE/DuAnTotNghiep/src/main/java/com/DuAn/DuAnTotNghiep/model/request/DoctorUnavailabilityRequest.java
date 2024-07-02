@@ -16,6 +16,6 @@ public class DoctorUnavailabilityRequest {
 
     private Integer appointmentId;
 
-    private boolean isDeleted ;
+    private boolean isDeleted;
 
 }
