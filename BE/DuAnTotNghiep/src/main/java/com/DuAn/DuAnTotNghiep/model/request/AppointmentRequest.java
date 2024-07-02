@@ -22,4 +22,6 @@ public class AppointmentRequest {
     private int doctorId;
 
     private int patientId;
+
+    private boolean isDeleted;
  }

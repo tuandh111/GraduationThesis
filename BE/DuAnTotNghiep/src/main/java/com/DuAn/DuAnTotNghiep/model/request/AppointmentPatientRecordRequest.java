@@ -13,4 +13,6 @@ public class AppointmentPatientRecordRequest {
     private String currentCondition;
 
     private String reExamination;
+
+    private boolean isDeleted;
 }

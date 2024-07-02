@@ -60,6 +60,7 @@ public class AppointmentPatientRecordServiceImpl implements AppointmentPatientRe
                                                                     .createAt(appointmentPatientRecordRequest.getCreateAt())
                                                                     .currentCodition(appointmentPatientRecordRequest.getCurrentCondition())
                                                                     .reExamination(appointmentPatientRecordRequest.getReExamination())
+                                                                    .isDeleted(appointmentPatientRecordRequest.isDeleted())
                                                                     .build();
         appointmentPatientRecordRepository.save(appointmentPatientRecord);
         return appointmentPatientRecord;

@@ -80,6 +80,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                                   .patient(patientRepository.findById(appointmentRequest.getPatientId()).orElse(null))
                                   .dentalStaff(dentalStaffRepository.findById(appointmentRequest.getDentalStaffId()).orElse(null))
                                   .note(appointmentRequest.getNote())
+                                  .isDeleted(appointmentRequest.isDeleted())
                                   .build();
         appointmentRepository.save(appointment);
         return appointment;
