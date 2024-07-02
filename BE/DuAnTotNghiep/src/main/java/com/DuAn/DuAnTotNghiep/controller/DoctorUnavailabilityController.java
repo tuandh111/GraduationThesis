@@ -49,6 +49,7 @@ public class DoctorUnavailabilityController {
     @PutMapping("doctorUnavailability/{Id}")
     @Operation(summary = "update doctorUnavailability")
     public ResponseEntity<DoctorUnavailability> updateDoctorUnavailability(@PathVariable int Id, @Valid @RequestBody DoctorUnavailabilityRequest doctorUnavailabilityRequest){
+        System.out.println("doctorUnavailabilityRequest"+doctorUnavailabilityRequest);
         return ResponseEntity.ok(doctorUnavailabilityService.updateDoctorUnavailability(Id, doctorUnavailabilityRequest));
     }
 

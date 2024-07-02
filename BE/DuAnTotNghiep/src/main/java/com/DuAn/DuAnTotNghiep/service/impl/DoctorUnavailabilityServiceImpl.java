@@ -60,6 +60,7 @@ public class DoctorUnavailabilityServiceImpl implements DoctorUnavailabilityServ
                 .doctorUnavailabilityId(doctorUnavailabilityId)
                 .description(doctorUnavailabilityRequest.getDescription())
                 .date(doctorUnavailabilityRequest.getDate())
+                .isDeleted(doctorUnavailabilityRequest.isDeleted())
                 .timeOfShift(timeOfShiftRepository.findById(doctorUnavailabilityRequest.getTimeOfShiftId()).orElse(null))
                 .appointment(appointmentRepository.findById(doctorUnavailabilityRequest.getAppointmentId()).orElse(null))
                 .build() ;

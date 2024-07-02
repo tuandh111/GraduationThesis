@@ -20,7 +20,7 @@ public class DoctorUnavailability {
 
     private String description ;
 
-    private boolean isDeleted = false;
+    private boolean isDeleted;
 
     private Date date;
 
