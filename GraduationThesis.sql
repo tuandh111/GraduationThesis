@@ -835,5 +835,134 @@ VALUES
 (false, (SELECT service_id FROM service WHERE service_name = 'Cạo vôi răng'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Vệ sinh răng miệng')),
 (false, (SELECT service_id FROM service WHERE service_name = 'Điều trị bệnh lý nướu'), (SELECT treatment_id FROM treatment WHERE treatment_name = 'Súc miệng bằng nước muối'));
 
+INSERT INTO appointment_status (description,is_deleted,status) VALUES
+	 ('Cuộc hẹn đã được đặt thành công và đang chờ đến ngày giờ thực hiện.',0,'Đã Đặt'),
+	 ('Cuộc hẹn đã được xác nhận bởi nhân viên phòng khám.',0,'Đã Xác Nhận'),
+	 ('Cuộc hẹn đang được thực hiện',0,'Đang Diễn Ra'),
+	 ('Cuộc hẹn đã được hoàn thành',0,'Hoàn Thành'),
+	 ('Cuộc hẹn đã bị hủy bởi khách hàng hoặc phòng khám.',0,'Đã Hủy'),
+	 ('Khách hàng không đến theo lịch hẹn.',0,'Không Đến'),
+	 ('Cuộc hẹn đã được dời lại sang ngày giờ khác',0,'Hoãn');
 
+INSERT INTO GraduationThesis.department (department_name,description,is_deleted) VALUES
+	 ('Phòng Lễ Tân và Tiếp Đón Bệnh Nhân',NULL,0),
+	 ('Phòng Khám Tổng Quát',NULL,0),
+	 ('Phòng Chụp X-quang',NULL,0),
+	 ('Phòng Điều Trị',NULL,0),
+	 ('Phòng Phục Hình',NULL,0),
+	 ('Phòng Vệ Sinh Răng Miệng',NULL,0),
+	 ('Phòng Quản Lý và Hành Chính',NULL,0),
+	 ('Phòng Kỹ Thuật và Vật Tư',NULL,0);
+INSERT INTO shift (begin_time,description,end_time,is_deleted,name) VALUES
+	 ('07:30:00','Thời gian làm việc từ 7g30 đến 11g 30','11:30:00',0,'Sáng'),
+	 ('12:30:00','Thời gian làm việc từ 12g30 đến 16g 30','16:30:00',0,'Chiều'),
+	 ('17:30:00','Thời gian làm việc từ 17g30 đến 21g 30','21:30:00',0,'Tối');
+INSERT INTO time_of_shift (begin_time,end_time,is_deleted,shift_id) VALUES
+	 ('07:30:00','08:00:00',0,1),
+	 ('08:00:00','08:30:00',0,1),
+	 ('08:30:00','09:00:00',0,1),
+	 ('09:00:00','09:30:00',0,1),
+	 ('09:30:00','10:00:00',0,1),
+	 ('10:00:00','10:30:00',0,1),
+	 ('10:30:00','11:00:00',0,1),
+	 ('11:00:00','11:30:00',0,1),
+	 ('12:30:00','13:00:00',0,2),
+	 ('13:00:00','13:30:00',0,2),
+	 ('13:30:00','14:00:00',0,2),
+	 ('14:00:00','14:30:00',0,2),
+	 ('14:30:00','15:00:00',0,2),
+	 ('15:00:00','15:30:00',0,2),
+	 ('15:30:00','16:00:00',0,2),
+	 ('16:00:00','16:30:00',0,2),
+	 ('17:30:00','18:00:00',0,3),
+	 ('18:00:00','18:30:00',0,3),
+	 ('18:30:00','19:00:00',0,3),
+	 ('19:00:00','19:30:00',0,3),
+	 ('19:30:00','20:00:00',0,3),
+	 ('20:00:00','21:30:00',0,3);
+	 
+INSERT INTO doctor (address, birthday, degrees, full_name, gender, image, is_deleted, phone_number, signature, specialty_id) VALUES
+('Kiên Giang', '1998-12-31T17:00:00.000Z', '1', 'Đinh Lê Hoàn', 'MALE', 'abc.jpg', b'0', '0949005087', 'abc', 4),
+('nhà', '1998-12-31T17:00:00.000Z', '1', 'Ronaldo', 'MALE', 'abc.jpg', b'0', '0949002522', 'abc', 1),
+('Hà Lan', '12/12/2001', '1', 'Nguyễn Hà Lan', 'FEMALE', NULL, b'0', '0123456891', NULL, 1),
+('Ngạn', '12/12/2001', '1', 'Trần Trung Ngạn', 'MALE', NULL, b'0', '0123456892', NULL, 1),
+('Thành phố ', '12/12/2000', '1', 'Tờ Tê Rờ Dũng', 'MALE', NULL, b'0', '01234567893', '1', 2),
+('Thành phố ', '12/12/2001', '1', 'Tha Thiêt', 'MALE', NULL, b'0', '01234567893', '3', 2),
+('Thành phố ', '12/12/2001', '1', 'Yêu Nước', 'MALE', NULL, b'0', '01234567893', '4', 3),
+('Thành phố ', '12/12/2001', '1', 'Trung Nghĩa', 'MALE', NULL, b'0', '01234567893', '2', 4),
+('Thành phố ', '12/12/2001', '1', 'Bảo Tiến', 'MALE', NULL, b'0', '01234567893', '2', 5),
+('Thành phố ', '12/12/2001', '1', 'Thắng Nghiên', 'MALE', NULL, b'0', '01234567893', '2', 6),
+('Thành phố ', '12/12/2001', '1', 'Liêm Lê', 'MALE', NULL, b'0', '01234567893', '2', 7),
+('Thành phố ', '12/12/2001', '1', 'Thủy Cung', 'MALE', NULL, b'0', '01234567893', '2', 8),
+('Thành phố ', '12/12/2001', '1', 'Trần Tiến', 'MALE', NULL, b'0', '01234567893', '2', 9),
+('Thành phố ', '12/12/2001', '1', 'Nuy Lê', 'FEMALE', NULL, b'0', '01234567893', '2', 10),
+('gà', '1998-12-31T17:00:00.000Z', '1', 'Gà', 'MALE', 'abc.jpg', b'0', '0949005087', 'abc', 1);
 
+INSERT INTO doctor_schedule (create_at, date, is_deleted, update_at, doctor_id, shift_id, is_available) VALUES
+
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 1, 1, b'1'),
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 1, 2, b'1'),
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 1, 3, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 1, 1, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 1, 2, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 1, 3, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 1, 1, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 1, 2, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 1, 3, b'1'),
+
+-- Doctor 2
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 2, 1, b'1'),
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 2, 2, b'1'),
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 2, 3, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 2, 1, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 2, 2, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 2, 3, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 2, 1, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 2, 2, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 2, 3, b'1'),
+
+-- Doctor 3
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 3, 1, b'1'),
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 3, 2, b'1'),
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 3, 3, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 3, 1, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 3, 2, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 3, 3, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 3, 1, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 3, 2, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 3, 3, b'1'),
+
+-- Doctor 4
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 4, 1, b'1'),
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 4, 2, b'1'),
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 4, 3, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 4, 1, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 4, 2, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 4, 3, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 4, 1, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 4, 2, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 4, 3, b'1'),
+
+-- Doctor 5
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 5, 1, b'1'),
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 5, 2, b'1'),
+(NOW(), '2024-07-01 00:00:00.000000', b'0', NULL, 5, 3, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 5, 1, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 5, 2, b'1'),
+(NOW(), '2024-07-02 00:00:00.000000', b'0', NULL, 5, 3, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 5, 1, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 5, 2, b'1'),
+(NOW(), '2024-07-03 00:00:00.000000', b'0', NULL, 5, 3, b'1');
+
+INSERT INTO appointment_type ( description, is_deleted, type_name) VALUES ('Khám', b'0', 'Tiểu phẫu');
+INSERT INTO appointment_type ( description, is_deleted, type_name) VALUES ( 'Khám', b'0', 'Khám');
+
+INSERT INTO patient (patient_id, citizen_identification_number,type, birthday, full_name, gender, imageurl, is_deleted, phone_number) VALUES (NULL, '123124125', NULL, '2003-10-13 20:13:33.000000', 'Bệnh Tật ', 'MALE', NULL, b'0', '01234567894');
+
+INSERT INTO appointment (appointment_id, appointment_date, create_at, is_deleted, note, appointment_patient_record_id, appointment_status_id, appointment_type_id, dental_staff_id, doctor_id, patient_id) VALUES (NULL, '2024-07-01', '2024-06-28', b'0', 'hay', NULL, 1, 1, NULL, 1, 1);
+INSERT INTO appointment (appointment_id, appointment_date, create_at, is_deleted, note, appointment_patient_record_id, appointment_status_id, appointment_type_id, dental_staff_id, doctor_id, patient_id) VALUES (NULL, '2024-07-01', '2024-06-28', b'0', 'hay', NULL, 2, 1, NULL, 1, 1);
+INSERT INTO appointment (appointment_id, appointment_date, create_at, is_deleted, note, appointment_patient_record_id, appointment_status_id, appointment_type_id, dental_staff_id, doctor_id, patient_id) VALUES (NULL, '2024-07-01', '2024-06-28', b'0', 'hay', NULL, 3, 1, NULL, 1, 1);
+
+INSERT INTO doctor_unavailability (doctor_unavailability_id, description, is_deleted, time_of_shift_id, date, appointment_id) VALUES (NULL, 'Bận', b'0', 1, '2024-07-01 07:30:00.000000', 1);
+INSERT INTO doctor_unavailability (doctor_unavailability_id, description, is_deleted, time_of_shift_id, date, appointment_id) VALUES (NULL, 'Bận', b'0', 2, '2024-07-01 08:30:00.000000', 2);
+INSERT INTO doctor_unavailability (doctor_unavailability_id, description, is_deleted, time_of_shift_id, date, appointment_id) VALUES (NULL, 'Bận', b'0', 3, '2024-07-01 08:30:00.000000', 3);
