@@ -12,6 +12,7 @@ public interface DoctorUnavailabilityService {
 
     List<DoctorUnavailability> findAllDoctorUnavailability();
 
+    List<DoctorUnavailability> findAllDoctorUnavailabilityByDoctor(int doctorId);
     List<DoctorUnavailability> findAllDoctorUnavailabilityExceptDeleted();
 
     DoctorUnavailability saveDoctorUnavailability(DoctorUnavailabilityRequest doctorUnavailabilityRequest);
