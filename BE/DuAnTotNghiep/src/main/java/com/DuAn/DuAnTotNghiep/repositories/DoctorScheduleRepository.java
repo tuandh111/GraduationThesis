@@ -12,7 +12,8 @@ import java.util.List;
 
 @Repository
 public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule,Integer> {
-    @Query("SELECT ds from  DoctorSchedule ds where ds.doctor.doctorId=:id")
+    @Query("SELECT ds from  DoctorSchedule ds where ds.doctor.doctorId=:id " +
+            "order by ds.date desc")
     List<DoctorSchedule> getDoctorScheduleByDoctor(@Param("id") Integer id);
 
     @Query("SELECT ds FROM DoctorSchedule ds WHERE " +
