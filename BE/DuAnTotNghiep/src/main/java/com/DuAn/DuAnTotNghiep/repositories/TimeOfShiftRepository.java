@@ -20,6 +20,7 @@ public interface TimeOfShiftRepository extends JpaRepository<TimeOfShift,Integer
             "WHERE ds.doctor.doctorId = :doctorId " +
             "AND ds.date = :d " +
             "AND ds.shift.shiftId = :shiftId " +
+            "AND ds.isDeleted=false " +
             "AND tos.timeOfShiftId NOT IN (SELECT du.timeOfShift.timeOfShiftId FROM DoctorUnavailability du where du.date=:d and du.isDeleted=false)")
     List<Object> getTimeOfShiftAvailable(@Param("doctorId") Integer doctorId, @Param("d") Date d, @Param("shiftId") Integer shiftId);
 
