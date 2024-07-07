@@ -23,5 +23,14 @@ public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule,I
             "DAY(ds.date) = DAY(:d) " +
             "AND ds.isDeleted=false")
     List<DoctorSchedule> getDoctorScheduleByDate(@Param("d") Date d);
+    @Query("SELECT DISTINCT (ds.doctor), ds.date FROM DoctorSchedule ds " +
+            "where ds.isDeleted=false")
+    List<Object> getDoctorFromDoctorSchedule();
+
+    @Query("SELECT ds.shift,ds.doctorScheduleId  FROM DoctorSchedule ds WHERE " +
+            "ds.date=:date " +
+            "and ds.doctor.doctorId=:doctorId " +
+            "and ds.isDeleted=false")
+    List<Object> getShiftOfDoctorFromDoctorSchedule(@Param("date") Date d,@Param("doctorId") Integer doctorId);
 
 }

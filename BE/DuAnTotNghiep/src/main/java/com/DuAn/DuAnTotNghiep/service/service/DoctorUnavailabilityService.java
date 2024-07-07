@@ -4,6 +4,7 @@ import com.DuAn.DuAnTotNghiep.entities.DoctorUnavailability;
 import com.DuAn.DuAnTotNghiep.model.request.DoctorUnavailabilityRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 
+import java.util.Date;
 import java.util.List;
 
 public interface DoctorUnavailabilityService {
@@ -13,6 +14,9 @@ public interface DoctorUnavailabilityService {
     List<DoctorUnavailability> findAllDoctorUnavailability();
 
     List<DoctorUnavailability> findAllDoctorUnavailabilityByDoctor(int doctorId);
+
+    List<Object> findShiftOfDoctorFromDoctorUnavailability(Date date, int doctorId);
+
     List<DoctorUnavailability> findAllDoctorUnavailabilityExceptDeleted();
 
     DoctorUnavailability saveDoctorUnavailability(DoctorUnavailabilityRequest doctorUnavailabilityRequest);
