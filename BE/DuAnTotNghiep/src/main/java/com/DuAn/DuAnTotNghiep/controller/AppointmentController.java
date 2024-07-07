@@ -10,10 +10,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -42,6 +44,18 @@ public class AppointmentController {
     @Operation(summary = "dental appointment Id")
     public ResponseEntity<Appointment> getAppointmentId(@PathVariable Integer Id) {
         return ResponseEntity.ok(appointmentService.findByAppointmentId(Id));
+    }
+
+    @GetMapping("date-of-appointment-except-deleted")
+    @Operation(summary = "List date of appointment except deleted")
+    public ResponseEntity<List<Object>> getAllDateOfAppointmentExceptDeleted() {
+        return ResponseEntity.ok(appointmentService.findAllDateOfAppointment());
+    }
+
+    @GetMapping("appointment-by-date-except-deleted")
+    @Operation(summary = "List appointment by date except deleted")
+    public ResponseEntity<List<Appointment>> getAppointmentByDateExceptDeleted(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        return ResponseEntity.ok(appointmentService.findAppointmentByDate(date));
     }
 
     @PostMapping("appointment")

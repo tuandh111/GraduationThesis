@@ -110,4 +110,14 @@ public class AppointmentServiceImpl implements AppointmentService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public List<Object> findAllDateOfAppointment() {
+        return appointmentRepository.getAllDateOfAppointment();
+    }
+
+    @Override
+    public List<Appointment> findAppointmentByDate(Date date) {
+        return appointmentRepository.getAppointmentByDate(date);
+    }
 }
