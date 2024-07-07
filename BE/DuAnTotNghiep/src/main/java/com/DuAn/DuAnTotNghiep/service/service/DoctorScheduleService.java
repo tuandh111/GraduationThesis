@@ -14,6 +14,11 @@ public interface DoctorScheduleService {
 
     List<DoctorSchedule> findAllDoctorScheduleByDoctor(int doctorId);
     List<DoctorSchedule> findAllDoctorScheduleByDate(Date date);
+
+    List<Object> findDoctorFromDoctorSchedule();
+
+    List<Object> findShiftOfDoctorFromDoctorSchedule(Date date,int doctorId);
+
     List<DoctorSchedule> findAllDoctorSchedule();
 
     List<DoctorSchedule> findAllDoctorScheduleExceptDeleted();

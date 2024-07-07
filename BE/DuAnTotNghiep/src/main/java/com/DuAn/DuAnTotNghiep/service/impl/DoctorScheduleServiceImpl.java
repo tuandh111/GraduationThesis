@@ -44,6 +44,16 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     }
 
     @Override
+    public List<Object> findDoctorFromDoctorSchedule() {
+        return doctorScheduleRepository.getDoctorFromDoctorSchedule();
+    }
+
+    @Override
+    public List<Object> findShiftOfDoctorFromDoctorSchedule(Date date, int doctorId) {
+        return doctorScheduleRepository.getShiftOfDoctorFromDoctorSchedule(date,doctorId);
+    }
+
+    @Override
     public List<DoctorSchedule> findAllDoctorSchedule() {
         return doctorScheduleRepository.findAll() ;
     }
