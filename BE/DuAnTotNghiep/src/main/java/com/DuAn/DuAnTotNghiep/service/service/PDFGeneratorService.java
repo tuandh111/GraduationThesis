@@ -1,7 +1,7 @@
 package com.DuAn.DuAnTotNghiep.service.service;
 
 
-import com.DuAn.DuAnTotNghiep.demo.Invoice;
+import com.DuAn.DuAnTotNghiep.model.response.InvoiceRes;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -138,23 +138,23 @@ public class PDFGeneratorService {
             threeColumnTable1.addCell(new Cell().add("Thành tiền").setFont(vietnameseFont).setBold().setFontColor(Color.WHITE).setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER).setMarginRight(16f));
             document.add(threeColumnTable1);
 
-            java.util.List<Invoice> invoiceList = new ArrayList<>();
-            invoiceList.add(new Invoice("Dịch vụ nhổ răng", 1, 300, 300));
-            invoiceList.add(new Invoice("Dịch vụ tẩy trắng", 2, 150, 300));
-            invoiceList.add(new Invoice("Dịch vụ điều trị sâu răng", 1, 200, 200));
-            invoiceList.add(new Invoice("Dịch vụ cạo vôi răng", 3, 50, 150));
+            java.util.List<InvoiceRes> invoiceResList = new ArrayList<>();
+            invoiceResList.add(new InvoiceRes("Dịch vụ nhổ răng", 1, 300, 300));
+            invoiceResList.add(new InvoiceRes("Dịch vụ tẩy trắng", 2, 150, 300));
+            invoiceResList.add(new InvoiceRes("Dịch vụ điều trị sâu răng", 1, 200, 200));
+            invoiceResList.add(new InvoiceRes("Dịch vụ cạo vôi răng", 3, 50, 150));
 
             Table threeColTable2 = new Table(threeColumnWidth);
 
             float totalSum = 0f;
             int flag = 1;
-            for (Invoice invoice : invoiceList) {
-                float total = invoice.getQuantity() * invoice.getPricePerPiece();
+            for (InvoiceRes invoiceRes : invoiceResList) {
+                float total = invoiceRes.getQuantity() * invoiceRes.getPricePerPiece();
                 totalSum += total;
                 threeColTable2.addCell(new Cell().add(String.valueOf(flag)).setBorder(Border.NO_BORDER)).setMarginLeft(10f);
-                threeColTable2.addCell(new Cell().add(String.valueOf(invoice.getService())).setFont(vietnameseFont).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
-                threeColTable2.addCell(new Cell().add(String.valueOf(invoice.getQuantity())).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
-                threeColTable2.addCell(new Cell().add(String.valueOf(invoice.getUnitPrice())).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
+                threeColTable2.addCell(new Cell().add(String.valueOf(invoiceRes.getService())).setFont(vietnameseFont).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
+                threeColTable2.addCell(new Cell().add(String.valueOf(invoiceRes.getQuantity())).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
+                threeColTable2.addCell(new Cell().add(String.valueOf(invoiceRes.getUnitPrice())).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
                 threeColTable2.addCell(new Cell().add(String.valueOf(total)).setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER).setMarginRight(15f));
                 flag++;
             }
