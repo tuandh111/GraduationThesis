@@ -54,6 +54,11 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     }
 
     @Override
+    public List<Object> findDoctorScheduleByTimeRange(Date startDate, Date endDate) {
+        return doctorScheduleRepository.getDoctorScheduleByTimeRange(startDate,endDate);
+    }
+
+    @Override
     public List<DoctorSchedule> findAllDoctorSchedule() {
         return doctorScheduleRepository.findAll() ;
     }

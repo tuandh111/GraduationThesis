@@ -33,4 +33,8 @@ public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule,I
             "and ds.isDeleted=false")
     List<Object> getShiftOfDoctorFromDoctorSchedule(@Param("date") Date d,@Param("doctorId") Integer doctorId);
 
+    @Query("SELECT distinct(ds.doctor.doctorId) FROM  DoctorSchedule ds " +
+            "where ds.date BETWEEN :startStr and :endStr and ds.isDeleted=false")
+    List<Object> getDoctorScheduleByTimeRange(@Param("startStr") Date startDate,@Param("endStr") Date endDate);
+
 }
