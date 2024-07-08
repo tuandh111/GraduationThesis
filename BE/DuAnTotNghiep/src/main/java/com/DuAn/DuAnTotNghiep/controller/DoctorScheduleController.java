@@ -50,9 +50,18 @@ public class DoctorScheduleController {
     @GetMapping("get-doctor-shifts-excluding-deleted")
     @Operation(summary = "List shift of doctor from doctor schedule except deleted")
     public ResponseEntity<List<Object>> getDoctorShiftsExcludingDeleted(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
-                                                                                        @RequestParam("doctorId") Integer doctorId) {
+                                                                        @RequestParam("doctorId") Integer doctorId) {
         return ResponseEntity.ok(doctorScheduleService.findShiftOfDoctorFromDoctorSchedule(date,doctorId));
     }
+
+    @GetMapping("doctor-schedule-by-time-range")
+    @Operation(summary = "List doctor from doctor schedule by time range")
+    public ResponseEntity<List<Object>> getDoctorScheduleByTimeRange(@RequestParam("startStr") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                                                     @RequestParam("endStr") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        return ResponseEntity.ok(doctorScheduleService.findDoctorScheduleByTimeRange(startDate,endDate));
+    }
+
+
 
     @GetMapping("doctor-schedule-id/{Id}")
     @Operation(summary = "doctor schedule Id")
