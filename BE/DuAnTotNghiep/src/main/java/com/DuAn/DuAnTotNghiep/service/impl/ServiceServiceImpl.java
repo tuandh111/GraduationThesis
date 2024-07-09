@@ -88,4 +88,9 @@ public class ServiceServiceImpl implements ServiceService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public List<Object> findServiceByDentalIssues(List<Integer> ids) {
+        return serviceRepository.getServiceByDentalIssues(ids);
+    }
 }
