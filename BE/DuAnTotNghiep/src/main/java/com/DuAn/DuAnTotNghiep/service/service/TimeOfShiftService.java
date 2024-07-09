@@ -26,4 +26,6 @@ public interface TimeOfShiftService {
     MessageResponse delete(int timeOfShiftId);
 
     MessageResponse softDeleteTimeOfShift(int timeOfShiftId);
+
+    List<Object> findAllTimeOfShiftDetails(int shiftId, Date date, int doctorId);
 }
