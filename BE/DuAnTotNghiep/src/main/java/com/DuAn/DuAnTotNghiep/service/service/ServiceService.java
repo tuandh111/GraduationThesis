@@ -3,6 +3,7 @@ package com.DuAn.DuAnTotNghiep.service.service;
 import com.DuAn.DuAnTotNghiep.entities.Service;
 import com.DuAn.DuAnTotNghiep.model.request.ServiceRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface ServiceService {
     MessageResponse delete(int serviceId);
 
     MessageResponse softDeleteService(int serviceId);
+
+    List<Object> findServiceByDentalIssues(List<Integer> ids);
 }
