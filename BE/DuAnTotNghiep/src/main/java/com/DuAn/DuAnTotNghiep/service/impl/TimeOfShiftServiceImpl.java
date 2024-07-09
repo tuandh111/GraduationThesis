@@ -98,4 +98,9 @@ public class TimeOfShiftServiceImpl implements TimeOfShiftService {
         }
     }
 
+    @Override
+    public List<Object> findAllTimeOfShiftDetails(int shiftId, Date date, int doctorId) {
+        return timeOfShiftRepository.getAllTimeOfShiftDetails(doctorId,date,shiftId);
+    }
+
 }
