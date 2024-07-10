@@ -4,6 +4,7 @@ import com.DuAn.DuAnTotNghiep.entities.TimeOfShift;
 import com.DuAn.DuAnTotNghiep.model.request.TimeOfShiftRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -28,4 +29,6 @@ public interface TimeOfShiftService {
     MessageResponse softDeleteTimeOfShift(int timeOfShiftId);
 
     List<Object> findAllTimeOfShiftDetails(int shiftId, Date date, int doctorId);
+
+    List<TimeOfShift> findTimeOfShiftByRangeTime(LocalTime startStr, LocalTime endStr);
 }

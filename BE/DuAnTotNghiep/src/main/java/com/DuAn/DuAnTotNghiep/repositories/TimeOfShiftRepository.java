@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -43,5 +44,7 @@ public interface TimeOfShiftRepository extends JpaRepository<TimeOfShift,Integer
             "AND ds.isDeleted=false")
     List<Object> getAllTimeOfShiftDetails(@Param("doctorId") Integer doctorId, @Param("d") Date d, @Param("shiftId") Integer shiftId);
 
-
+    @Query("SELECT tos FROM TimeOfShift tos " +
+            "WHERE tos.beginTime >=:startStr and tos.endTime<=:endStr")
+    List<TimeOfShift> getTimeOfShiftByRangeTime(@Param("startStr")LocalTime startStr,@Param("endStr") LocalTime endStr);
 }

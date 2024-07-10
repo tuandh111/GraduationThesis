@@ -1,5 +1,6 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
+import com.DuAn.DuAnTotNghiep.entities.AppointmentStatus;
 import com.DuAn.DuAnTotNghiep.entities.Doctor;
 import com.DuAn.DuAnTotNghiep.entities.DoctorSchedule;
 import com.DuAn.DuAnTotNghiep.model.request.DoctorRequest;
@@ -15,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -40,6 +42,12 @@ public class DoctorController {
     @Operation(summary = "List doctor except deleted")
     public ResponseEntity<List<Doctor>> getAllDoctorExceptDeleted() {
         return ResponseEntity.ok(doctorService.findAllDoctorExceptDeleted());
+    }
+
+    @GetMapping("doctor-with-appointment-status")
+    @Operation(summary = "List doctor except deleted")
+    public ResponseEntity<Map<String,List<AppointmentStatus>>> getDoctorsWithAppointmentStatus() {
+        return ResponseEntity.ok(doctorService.findDoctorsWithAppointmentStatus());
     }
 
     @GetMapping("doctor-id/{Id}")

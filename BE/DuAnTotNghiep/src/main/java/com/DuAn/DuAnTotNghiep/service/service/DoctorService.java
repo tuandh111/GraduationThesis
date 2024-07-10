@@ -1,12 +1,12 @@
 package com.DuAn.DuAnTotNghiep.service.service;
 
+import com.DuAn.DuAnTotNghiep.entities.AppointmentStatus;
 import com.DuAn.DuAnTotNghiep.entities.Doctor;
-import com.DuAn.DuAnTotNghiep.entities.Role;
 import com.DuAn.DuAnTotNghiep.model.request.DoctorRequest;
-import com.DuAn.DuAnTotNghiep.model.request.RoleRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DoctorService {
     Doctor findByDoctorId(int DoctorId);
@@ -24,4 +24,6 @@ public interface DoctorService {
     MessageResponse softDeleteDoctor(int doctorId);
 
     List<Doctor> findDoctorBySpecialty(int specialtyId);
+
+    Map<String,List<AppointmentStatus>> findDoctorsWithAppointmentStatus();
 }
