@@ -1,17 +1,20 @@
 package com.DuAn.DuAnTotNghiep.service.impl;
 
+import com.DuAn.DuAnTotNghiep.entities.AppointmentStatus;
 import com.DuAn.DuAnTotNghiep.entities.Doctor;
-import com.DuAn.DuAnTotNghiep.entities.Specialty;
 import com.DuAn.DuAnTotNghiep.entities._enum.Gender;
 import com.DuAn.DuAnTotNghiep.model.request.DoctorRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.repositories.DoctorRepository;
 import com.DuAn.DuAnTotNghiep.repositories.SpecialtyRepository;
+import com.DuAn.DuAnTotNghiep.service.service.AppointmentStatusService;
 import com.DuAn.DuAnTotNghiep.service.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,6 +23,8 @@ public class DoctorServiceImpl implements DoctorService {
     DoctorRepository doctorRepository;
     @Autowired
     SpecialtyRepository specialtyRepository;
+    @Autowired
+    AppointmentStatusService appointmentStatusService;
 
     @Override
     public Doctor findByDoctorId(int DoctorId) {
@@ -106,4 +111,18 @@ public class DoctorServiceImpl implements DoctorService {
     public List<Doctor> findDoctorBySpecialty(int specialtyId) {
         return doctorRepository.findBySpecialtySpecialtyId(specialtyId);
     }
+
+    @Override
+    public Map<String,List<AppointmentStatus>> findDoctorsWithAppointmentStatus() {
+        List<Doctor> doctors = this.findAllDoctorExceptDeleted();
+
+        Map<String,List<AppointmentStatus>> doctorStatusMap = new HashMap<>();
+        List<AppointmentStatus> appointmentStatuses = appointmentStatusService.findAllAppointmentStatusExceptDeleted();
+        for(Doctor doctor:doctors ){
+            doctorStatusMap.put(doctor.getDoctorId()+"-"+doctor.getFullName(),appointmentStatuses);
+        }
+        return doctorStatusMap;
+    }
+
+
 }
