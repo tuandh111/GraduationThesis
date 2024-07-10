@@ -30,7 +30,11 @@ public class AppointmentController {
     public ResponseEntity<List<Appointment>> getAllAppointment() {
         return ResponseEntity.ok(appointmentService.findAllAppointment());
     }
-
+    @GetMapping("appointment-invoice")
+    @Operation(summary = "List appointment")
+    public ResponseEntity<List<?>> getAllAppointments() {
+        return ResponseEntity.ok(appointmentService.findAllAppointmentService());
+    }
     @GetMapping("appointment-except-deleted")
     @Operation(summary = "List appointment except deleted")
     public ResponseEntity<List<Appointment>> getAllAppointmentExceptDeleted() {

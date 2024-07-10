@@ -73,16 +73,16 @@ public class PDFGeneratorService {
             Table table = new Table(twocolumnWidth);
             table.addCell(new Cell().add("Hóa đơn").setFont(vietnameseFont).setFontSize(18f).setBorder(Border.NO_BORDER).setBold());
             Table nestedTable = new Table(new float[]{twocol / 2, twocol / 2});
-            nestedTable.addCell(getHeaderTextCell("Số hóa đơn:"));
-            nestedTable.addCell(getHeaderTextCellValue("USHODAYA17010"));
+            nestedTable.addCell(getHeaderTextCell("Số hóa đơn:")).setFont(vietnameseFont);
+            nestedTable.addCell(getHeaderTextCellValue("USHODAYA17010")).setFont(vietnameseFont);
             nestedTable.addCell(getHeaderTextCell("Ngày tạo:")).setFont(vietnameseFont);
             LocalDate currentDate = LocalDate.now();
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             String formattedDate = currentDate.format(formatter);
             nestedTable.addCell(getHeaderTextCellValue(formattedDate));
-            nestedTable.addCell(getHeaderTextCell("GSTIN :"));
-            nestedTable.addCell(getHeaderTextCellValue("12CUJPB8751J1Z3"));
+            nestedTable.addCell(getHeaderTextCell("GSTIN :")).setFont(vietnameseFont);
+            nestedTable.addCell(getHeaderTextCellValue("12CUJPB8751J1Z3")).setFont(vietnameseFont);
             table.addCell(new Cell().add(nestedTable).setBorder(Border.NO_BORDER));
             com.itextpdf.layout.border.Border border = new SolidBorder(Color.GRAY, 2f);
             Table divider = new Table(fullwidth);
@@ -101,7 +101,7 @@ public class PDFGeneratorService {
             twoColTable2.addCell(getCell10fLeft("Công ty", true)).setFont(vietnameseFont);
             twoColTable2.addCell(getCell10fLeft("Họ và tên ", true)).setFont(vietnameseFont);
             twoColTable2.addCell(getCell10fLeft("AMSoftGlobal", false)).setFont(vietnameseFont);
-            twoColTable2.addCell(getCell10fLeft("B Manoj Kumar Reddy", false));
+            twoColTable2.addCell(getCell10fLeft("B Manoj Kumar Reddy", false)).setFont(vietnameseFont);
             document.add(twoColTable2);
 
             Table twoColTable3 = new Table(twocolumnWidth);
@@ -119,7 +119,7 @@ public class PDFGeneratorService {
             oneColTable1.addCell(getCell10fLeft("Email", true));
             oneColTable1.addCell(getCell10fLeft("manojbh1999@gmail.com", false));
             oneColTable1.addCell(getCell10fLeft("Số điện thoại", true)).setFont(vietnameseFont);
-            oneColTable1.addCell(getCell10fLeft("+91 9010917345", false));
+            oneColTable1.addCell(getCell10fLeft("+91 9010917345", false)).setFont(vietnameseFont);
             document.add(oneColTable1.setMarginBottom(10f));
 
             Table tableDivider2 = new Table(fullwidth);

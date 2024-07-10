@@ -4,6 +4,7 @@ import com.DuAn.DuAnTotNghiep.entities.Appointment;
 import com.DuAn.DuAnTotNghiep.entities.AppointmentStatus;
 import com.DuAn.DuAnTotNghiep.model.request.AppointmentRequest;
 import com.DuAn.DuAnTotNghiep.model.request.AppointmentStatusRequest;
+import com.DuAn.DuAnTotNghiep.model.response.AppointmentWithServicesResponse;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 
 import java.util.List;
@@ -22,4 +23,7 @@ public interface AppointmentService {
     MessageResponse delete(int appointmentId);
 
     MessageResponse softDeleteAppointment(int appointmentId);
+
+    List<AppointmentWithServicesResponse> findAllAppointmentService();
+
 }
