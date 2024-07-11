@@ -48,5 +48,6 @@ public class Patient {
     private List<MedicalHistoryDetail> medicalHistoryDetails;
 
     @OneToOne(mappedBy = "patient")
+    @JsonIgnore
     private User user;
 }

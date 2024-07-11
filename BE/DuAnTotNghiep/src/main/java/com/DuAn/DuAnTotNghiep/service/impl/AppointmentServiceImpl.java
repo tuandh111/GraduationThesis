@@ -120,5 +120,52 @@ public class AppointmentServiceImpl implements AppointmentService {
                        ))
                        .collect(Collectors.toList());
     }
+    public AppointmentWithServicesResponse findAppointmentServiceByAppointmentId(int appointmentId) {
+        // Retrieve all appointments and filter by non-deleted ones
+        List<Appointment> appointments = appointmentRepository.findAll()
+                                                 .stream()
+                                                 .filter(appointment -> !appointment.isDeleted())
+                                                 .filter(appointment -> appointment.getAppointmentId() == appointmentId) // Filter by appointmentId
+                                                 .collect(Collectors.toList());
+
+        // If no appointment is found, return null or throw an exception
+        if (appointments.isEmpty()) {
+            return null; // hoặc throw new EntityNotFoundException("Appointment not found");
+        }
+
+        Appointment appointment = appointments.get(0);
+
+        // Retrieve all appointment services and filter by non-deleted ones
+        List<com.DuAn.DuAnTotNghiep.entities.AppointmentService> appointmentServices = appointmentServiceRepository.findAll()
+                                                                                               .stream()
+                                                                                               .filter(appointmentService -> !appointmentService.isDeleted())
+                                                                                               .collect(Collectors.toList());
+
+        // Retrieve all bills and filter by non-deleted ones
+        List<Bill> bills = billRepository.findAll()
+                                   .stream()
+                                   .filter(bill -> !bill.isDeleted())
+                                   .collect(Collectors.toList());
+
+        // Group appointment services by appointmentId
+        Map<Integer, List<com.DuAn.DuAnTotNghiep.entities.Service>> appointmentIdToServicesMap = appointmentServices.stream()
+                                                                                                         .collect(Collectors.groupingBy(
+                                                                                                                 appointmentService -> appointmentService.getAppointment().getAppointmentId(),
+                                                                                                                 Collectors.mapping(com.DuAn.DuAnTotNghiep.entities.AppointmentService::getService, Collectors.toList())
+                                                                                                         ));
+
+        // Collect appointmentIds with bills into a set
+        Set<Integer> appointmentIdsWithBills = bills.stream()
+                                                       .map(bill -> bill.getAppointment().getAppointmentId())
+                                                       .collect(Collectors.toSet());
+
+        // Create and return the response object
+        return new AppointmentWithServicesResponse(
+                appointment,
+                appointmentIdToServicesMap.getOrDefault(appointment.getAppointmentId(), new ArrayList<>()),
+                appointmentIdsWithBills.contains(appointment.getAppointmentId())
+        );
+    }
+
 
 }

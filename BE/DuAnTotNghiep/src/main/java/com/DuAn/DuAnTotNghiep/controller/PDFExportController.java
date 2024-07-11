@@ -26,19 +26,19 @@ import java.util.Date;
 @Validated
 public class PDFExportController {
 
-    private final PDFGeneratorService pdfGeneratorService;
+/*    private final PDFGeneratorService pdfGeneratorService;
 
     public PDFExportController(PDFGeneratorService pdfGeneratorService) {
         this.pdfGeneratorService = pdfGeneratorService;
-    }
-    @GetMapping("/pdf/generate")
-    @Operation(summary = "PDF")
-    public void generatePDF() throws IOException {
-        PDFGeneratorService exporter = new PDFGeneratorService();
-        try {
-            exporter.export("files", "invoice.pdf");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    }*/
+  /*  @GetMapping("/pdf/generate")
+    @Operation(summary = "PDF")*/
+//    public void generatePDF() throws IOException {
+//        PDFGeneratorService exporter = new PDFGeneratorService();
+//        try {
+//            exporter.export("files", "invoice.pdf",Invoic);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    //}
 }

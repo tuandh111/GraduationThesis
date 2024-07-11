@@ -26,4 +26,6 @@ public interface AppointmentService {
 
     List<AppointmentWithServicesResponse> findAllAppointmentService();
 
+    AppointmentWithServicesResponse findAppointmentServiceByAppointmentId(int appointmentId);
+
 }

@@ -1,6 +1,9 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
-import com.DuAn.DuAnTotNghiep.model.request.MailerRequest;
+import com.DuAn.DuAnTotNghiep.model.request.PaymentRequest;
+import com.DuAn.DuAnTotNghiep.model.response.AppointmentWithServicesResponse;
+import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import com.DuAn.DuAnTotNghiep.service.service.AppointmentService;
 import com.DuAn.DuAnTotNghiep.service.service.PDFGeneratorService;
 import com.DuAn.DuAnTotNghiep.service.service.utils.FileManagerService;
 import com.DuAn.DuAnTotNghiep.service.service.utils.MailerService;
@@ -15,8 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -34,22 +36,25 @@ public class SendEmailController {
     @Autowired
     private PDFGeneratorService pdfGeneratorService;
 
+    @Autowired
+    AppointmentService appointmentService;
+
     @PostMapping("sendMail")
     @Operation(summary = "Send mail with attachment")
-    public ResponseEntity<String> sendMail(  @RequestParam("to") String to,
-            @RequestParam("subject") String subject,
-            @RequestParam("body") String body, @RequestBody String jsonRequest) {
+    public ResponseEntity<MessageResponse> sendMail(@RequestBody PaymentRequest paymentRequest) {
+        AppointmentWithServicesResponse appointmentWithServicesResponseList = appointmentService.findAppointmentServiceByAppointmentId(paymentRequest.getAppointmentId());
+        System.out.println();
         try {
-            pdfGeneratorService.export("files", "invoice.pdf");
+            pdfGeneratorService.export("files", "invoice.pdf",paymentRequest.getText(),appointmentWithServicesResponseList);
             byte[] fileBytes = pdfGeneratorService.read("files", "invoice.pdf");
             MultipartFile file = MultipartFileUtil.createFile(fileBytes, "invoice", "invoice.pdf", "application/pdf");
-            mailerService.send(to, subject, body, file);
-
-            return ResponseEntity.ok("Successfully sent mail");
+            mailerService.send(appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail().toString(), "Đơn xác nhận thanh toán dịch vụ nha khoa Tooth Teeth", "Cảm ơn quý khách đã sử dụng dịch vụ tại nha khoa Tooth Teeth\n" + "chúng tôi xin gửi quý khách hóa đơn thanh toán: ", file);
+            System.out.println("ok");
+            return ResponseEntity.ok(new MessageResponse("Successfully send mail"));
         } catch (IOException e) {
-            return ResponseEntity.status(500).body("Error generating or reading PDF: " + e.getMessage());
+            return ResponseEntity.ok(new MessageResponse("fail"));
         } catch (MessagingException e) {
-            return ResponseEntity.status(500).body("Error sending email: " + e.getMessage());
+            return ResponseEntity.ok(new MessageResponse("fail"));
         }
     }
 

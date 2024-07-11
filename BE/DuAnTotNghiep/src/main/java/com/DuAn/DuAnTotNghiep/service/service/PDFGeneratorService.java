@@ -1,7 +1,11 @@
 package com.DuAn.DuAnTotNghiep.service.service;
 
 
+import com.DuAn.DuAnTotNghiep.model.request.InvoiceRequest;
+import com.DuAn.DuAnTotNghiep.model.request.PaymentRequest;
+import com.DuAn.DuAnTotNghiep.model.response.AppointmentWithServicesResponse;
 import com.DuAn.DuAnTotNghiep.model.response.InvoiceRes;
+import com.DuAn.DuAnTotNghiep.utils.CurrencyFormatter;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -40,7 +44,7 @@ public class PDFGeneratorService {
     @Value("${app.pdf.directory}")
     private String pdfDirectory;
 
-    public void export(String directory, String filename) throws IOException {
+    public void export(String directory, String filename,String text, AppointmentWithServicesResponse appointmentWithServicesResponseList) throws IOException {
         try {
             String fontPath = "font/ARIAL.TTF";
 
@@ -107,7 +111,7 @@ public class PDFGeneratorService {
             Table twoColTable3 = new Table(twocolumnWidth);
             twoColTable3.addCell(getCell10fLeft("Họ và tên", true)).setFont(vietnameseFont);
             twoColTable3.addCell(getCell10fLeft("Địa chỉ", true)).setFont(vietnameseFont);
-            twoColTable3.addCell(getCell10fLeft("Bhimavarapu Prasanthi", false)).setFont(vietnameseFont);
+            twoColTable3.addCell(getCell10fLeft(appointmentWithServicesResponseList.getAppointment().getPatient().getFullName(), false)).setFont(vietnameseFont);
             twoColTable3.addCell(getCell10fLeft("3-551/4 , Tulasi Nilayam,\nAndhra Pradesh - 522501,\nIndia.", false)).setFont(vietnameseFont);
             document.add(twoColTable3);
 
@@ -115,11 +119,11 @@ public class PDFGeneratorService {
 
             Table oneColTable1 = new Table(oneColumnWidth);
             oneColTable1.addCell(getCell10fLeft("Địa chỉ", true)).setFont(vietnameseFont);
-            oneColTable1.addCell(getCell10fLeft("3-551/4 , Tulasi Nilayam,\nAndhra Pradesh - 522501,\nIndia.", false)).setFont(vietnameseFont);
+            oneColTable1.addCell(getCell10fLeft("ap khanh hoi, thi tran nga sau, ct,hg", false)).setFont(vietnameseFont);
             oneColTable1.addCell(getCell10fLeft("Email", true));
-            oneColTable1.addCell(getCell10fLeft("manojbh1999@gmail.com", false));
+            oneColTable1.addCell(getCell10fLeft(appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail(), false));
             oneColTable1.addCell(getCell10fLeft("Số điện thoại", true)).setFont(vietnameseFont);
-            oneColTable1.addCell(getCell10fLeft("+91 9010917345", false)).setFont(vietnameseFont);
+            oneColTable1.addCell(getCell10fLeft(appointmentWithServicesResponseList.getAppointment().getPatient().getPhoneNumber(), false)).setFont(vietnameseFont);
             document.add(oneColTable1.setMarginBottom(10f));
 
             Table tableDivider2 = new Table(fullwidth);
@@ -133,29 +137,30 @@ public class PDFGeneratorService {
             threeColumnTable1.setBackgroundColor(Color.BLACK, 0.7f);
             threeColumnTable1.addCell(new Cell().add("Số thứ tự").setFont(vietnameseFont).setBold().setFontColor(Color.WHITE).setBorder(Border.NO_BORDER));
             threeColumnTable1.addCell(new Cell().add("Dich vụ").setFont(vietnameseFont).setBold().setFontColor(Color.WHITE).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
-            threeColumnTable1.addCell(new Cell().add("Sô lượng").setFont(vietnameseFont).setBold().setFontColor(Color.WHITE).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
+            threeColumnTable1.addCell(new Cell().add("Số lượng").setFont(vietnameseFont).setBold().setFontColor(Color.WHITE).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
             threeColumnTable1.addCell(new Cell().add("Đơn giá").setFont(vietnameseFont).setBold().setFontColor(Color.WHITE).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
             threeColumnTable1.addCell(new Cell().add("Thành tiền").setFont(vietnameseFont).setBold().setFontColor(Color.WHITE).setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER).setMarginRight(16f));
             document.add(threeColumnTable1);
 
-            java.util.List<InvoiceRes> invoiceResList = new ArrayList<>();
+          /*  java.util.List<InvoiceRes> invoiceResList = new ArrayList<>();
+            invoiceResList = appointmentWithServicesResponseList.getServices();
             invoiceResList.add(new InvoiceRes("Dịch vụ nhổ răng", 1, 300, 300));
             invoiceResList.add(new InvoiceRes("Dịch vụ tẩy trắng", 2, 150, 300));
             invoiceResList.add(new InvoiceRes("Dịch vụ điều trị sâu răng", 1, 200, 200));
             invoiceResList.add(new InvoiceRes("Dịch vụ cạo vôi răng", 3, 50, 150));
-
+*/
             Table threeColTable2 = new Table(threeColumnWidth);
 
             float totalSum = 0f;
             int flag = 1;
-            for (InvoiceRes invoiceRes : invoiceResList) {
-                float total = invoiceRes.getQuantity() * invoiceRes.getPricePerPiece();
+            for (com.DuAn.DuAnTotNghiep.entities.Service invoiceRes : appointmentWithServicesResponseList.getServices()) {
+                double total = 1 * invoiceRes.getPrice();
                 totalSum += total;
                 threeColTable2.addCell(new Cell().add(String.valueOf(flag)).setBorder(Border.NO_BORDER)).setMarginLeft(10f);
-                threeColTable2.addCell(new Cell().add(String.valueOf(invoiceRes.getService())).setFont(vietnameseFont).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
-                threeColTable2.addCell(new Cell().add(String.valueOf(invoiceRes.getQuantity())).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
-                threeColTable2.addCell(new Cell().add(String.valueOf(invoiceRes.getUnitPrice())).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
-                threeColTable2.addCell(new Cell().add(String.valueOf(total)).setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER).setMarginRight(15f));
+                threeColTable2.addCell(new Cell().add(String.valueOf(invoiceRes.getServiceName())).setFont(vietnameseFont).setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER));
+                threeColTable2.addCell(new Cell().add(String.valueOf(1)).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
+                threeColTable2.addCell(new Cell().add(String.valueOf(CurrencyFormatter.formatCurrency(invoiceRes.getPrice()) +" VNĐ")).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
+                threeColTable2.addCell(new Cell().add(String.valueOf(CurrencyFormatter.formatCurrency(total)+" VNĐ")).setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER).setMarginRight(15f));
                 flag++;
             }
             document.add(threeColTable2.setMarginBottom(20f));
@@ -168,10 +173,16 @@ public class PDFGeneratorService {
 
             Table threeColTable3 = new Table(threeColumnWidth);
             threeColTable3.addCell(new Cell().add("").setBorder(Border.NO_BORDER)).setMarginLeft(10f);
-            threeColTable3.addCell(new Cell().add("Tổng số tiền").setFont(vietnameseFont).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
-            threeColTable3.addCell(new Cell().add(String.valueOf(totalSum)).setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER)).setMarginRight(15f);
+            threeColTable3.addCell(new Cell().add("Tổng số tiền").setFont(vietnameseFont).setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER));
+            threeColTable3.addCell(new Cell().add(String.valueOf(CurrencyFormatter.formatCurrency(totalSum) +" VNĐ")).setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER)).setMarginRight(15f);
 
             document.add(threeColTable3);
+            Table threeColTable5 = new Table(threeColumnWidth);
+            threeColTable5.addCell(new Cell().add("").setBorder(Border.NO_BORDER)).setMarginLeft(10f);
+            threeColTable5.addCell(new Cell().add("Thanh chu").setFont(vietnameseFont).setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER));
+            threeColTable5.addCell(new Cell().add(String.valueOf(text +"Đồng")).setFont(vietnameseFont).setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER)).setMarginRight(15f);
+
+            document.add(threeColTable5);
             document.add(tableDivider2);
             document.add(new Paragraph("\n"));
             document.add(divider.setBorder(new SolidBorder(Color.GRAY, 1)).setMarginBottom(15f));
