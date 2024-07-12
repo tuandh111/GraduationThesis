@@ -28,4 +28,6 @@ public interface AppointmentService {
 
     AppointmentWithServicesResponse findAppointmentServiceByAppointmentId(int appointmentId);
 
+    List<AppointmentWithServicesResponse> findAllAppointmentService(String startDate, String endDate);
+
 }

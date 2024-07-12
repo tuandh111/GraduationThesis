@@ -10,6 +10,8 @@ import com.DuAn.DuAnTotNghiep.service.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -166,6 +168,51 @@ public class AppointmentServiceImpl implements AppointmentService {
                 appointmentIdsWithBills.contains(appointment.getAppointmentId())
         );
     }
+    public List<AppointmentWithServicesResponse> findAllAppointmentService(String startDate, String endDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date start;
+        Date end;
+        try {
+            start = dateFormat.parse(startDate);
+            end = dateFormat.parse(endDate);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Invalid date format. Please use dd/MM/yyyy.");
+        }
 
+        List<Appointment> appointments = appointmentRepository.findAll()
+                                                 .stream()
+                                                 .filter(appointment -> !appointment.isDeleted() &&
+                                                                                !appointment.getAppointmentDate().before(start) &&
+                                                                                !appointment.getAppointmentDate().after(end))
+                                                 .collect(Collectors.toList());
+
+        List<com.DuAn.DuAnTotNghiep.entities.AppointmentService> appointmentServices = appointmentServiceRepository.findAll()
+                                                                                               .stream().filter(appointmentService -> !appointmentService.isDeleted())
+                                                                                               .collect(Collectors.toList());
+
+        List<Bill> bills = billRepository.findAll()
+                                   .stream()
+                                   .filter(bill -> !bill.isDeleted())
+                                   .collect(Collectors.toList());
+
+        Map<Integer, List<com.DuAn.DuAnTotNghiep.entities.Service>> appointmentIdToServicesMap = appointmentServices.stream()
+                                                                                                         .collect(Collectors.groupingBy(
+                                                                                                                 appointmentService -> appointmentService.getAppointment().getAppointmentId(),
+                                                                                                                 Collectors.mapping(com.DuAn.DuAnTotNghiep.entities.AppointmentService::getService, Collectors.toList())
+                                                                                                         ));
+
+        Set<Integer> appointmentIdsWithBills = bills.stream()
+                                                       .map(bill -> bill.getAppointment().getAppointmentId())
+                                                       .collect(Collectors.toSet());
+
+        return appointments.stream()
+                       .sorted((a1, a2) -> a2.getAppointmentDate().compareTo(a1.getAppointmentDate()))
+                       .map(appointment -> new AppointmentWithServicesResponse(
+                               appointment,
+                               appointmentIdToServicesMap.getOrDefault(appointment.getAppointmentId(), new ArrayList<>()),
+                               appointmentIdsWithBills.contains(appointment.getAppointmentId())
+                       ))
+                       .collect(Collectors.toList());
+    }
 
 }
