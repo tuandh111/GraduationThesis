@@ -4,6 +4,7 @@ import com.DuAn.DuAnTotNghiep.model.request.PaymentRequest;
 import com.DuAn.DuAnTotNghiep.model.response.AppointmentWithServicesResponse;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.service.service.AppointmentService;
+import com.DuAn.DuAnTotNghiep.service.service.BillService;
 import com.DuAn.DuAnTotNghiep.service.service.PDFGeneratorService;
 import com.DuAn.DuAnTotNghiep.service.service.utils.FileManagerService;
 import com.DuAn.DuAnTotNghiep.service.service.utils.MailerService;
@@ -45,11 +46,13 @@ public class SendEmailController {
         AppointmentWithServicesResponse appointmentWithServicesResponseList = appointmentService.findAppointmentServiceByAppointmentId(paymentRequest.getAppointmentId());
         System.out.println();
         try {
-            pdfGeneratorService.export("files", "invoice.pdf",paymentRequest.getText(),appointmentWithServicesResponseList);
-            byte[] fileBytes = pdfGeneratorService.read("files", "invoice.pdf");
-            MultipartFile file = MultipartFileUtil.createFile(fileBytes, "invoice", "invoice.pdf", "application/pdf");
-            mailerService.send(appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail().toString(), "Đơn xác nhận thanh toán dịch vụ nha khoa Tooth Teeth", "Cảm ơn quý khách đã sử dụng dịch vụ tại nha khoa Tooth Teeth\n" + "chúng tôi xin gửi quý khách hóa đơn thanh toán: ", file);
-            System.out.println("ok");
+            pdfGeneratorService.export("files", "invoice"+paymentRequest.getAppointmentId()+".pdf",paymentRequest.getText(),appointmentWithServicesResponseList);
+            byte[] fileBytes = pdfGeneratorService.read("files", "invoice"+paymentRequest.getAppointmentId()+".pdf");
+            MultipartFile file = MultipartFileUtil.createFile(fileBytes, "invoice", "invoice"+paymentRequest.getAppointmentId()+".pdf", "application/pdf");
+            mailerService.send(appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail().toString(), 
+                    "Đơn xác nhận thanh toán dịch vụ nha khoa Tooth Teeth", "Cảm ơn quý khách đã sử dụng dịch vụ tại nha khoa Tooth Teeth\n"
+                                                                                    + "chúng tôi xin gửi quý khách hóa đơn thanh toán: ", file);
+
             return ResponseEntity.ok(new MessageResponse("Successfully send mail"));
         } catch (IOException e) {
             return ResponseEntity.ok(new MessageResponse("fail"));

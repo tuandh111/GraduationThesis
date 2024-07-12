@@ -1,11 +1,13 @@
 package com.DuAn.DuAnTotNghiep.service.service;
 
 
+import com.DuAn.DuAnTotNghiep.model.request.BillRequest;
 import com.DuAn.DuAnTotNghiep.model.request.InvoiceRequest;
 import com.DuAn.DuAnTotNghiep.model.request.PaymentRequest;
 import com.DuAn.DuAnTotNghiep.model.response.AppointmentWithServicesResponse;
 import com.DuAn.DuAnTotNghiep.model.response.InvoiceRes;
 import com.DuAn.DuAnTotNghiep.utils.CurrencyFormatter;
+import com.DuAn.DuAnTotNghiep.utils.DateUtils;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -18,6 +20,7 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.itextpdf.kernel.color.Color;
@@ -43,8 +47,11 @@ import com.itextpdf.layout.border.SolidBorder;
 public class PDFGeneratorService {
     @Value("${app.pdf.directory}")
     private String pdfDirectory;
+    @Autowired
+    BillService billService;
 
-    public void export(String directory, String filename,String text, AppointmentWithServicesResponse appointmentWithServicesResponseList) throws IOException {
+
+    public void export(String directory, String filename, String text, AppointmentWithServicesResponse appointmentWithServicesResponseList) throws IOException {
         try {
             String fontPath = "font/ARIAL.TTF";
 
@@ -102,24 +109,24 @@ public class PDFGeneratorService {
             document.add(twoColTable.setMarginBottom(10f));
 
             Table twoColTable2 = new Table(twocolumnWidth);
-            twoColTable2.addCell(getCell10fLeft("Công ty", true)).setFont(vietnameseFont);
+            twoColTable2.addCell(getCell10fLeft("Họ và tên", true)).setFont(vietnameseFont);
             twoColTable2.addCell(getCell10fLeft("Họ và tên ", true)).setFont(vietnameseFont);
-            twoColTable2.addCell(getCell10fLeft("AMSoftGlobal", false)).setFont(vietnameseFont);
+            twoColTable2.addCell(getCell10fLeft(appointmentWithServicesResponseList.getAppointment().getPatient().getFullName(), false)).setFont(vietnameseFont);
             twoColTable2.addCell(getCell10fLeft("B Manoj Kumar Reddy", false)).setFont(vietnameseFont);
             document.add(twoColTable2);
 
             Table twoColTable3 = new Table(twocolumnWidth);
-            twoColTable3.addCell(getCell10fLeft("Họ và tên", true)).setFont(vietnameseFont);
+            twoColTable3.addCell(getCell10fLeft("Ngày sinh", true)).setFont(vietnameseFont);
             twoColTable3.addCell(getCell10fLeft("Địa chỉ", true)).setFont(vietnameseFont);
-            twoColTable3.addCell(getCell10fLeft(appointmentWithServicesResponseList.getAppointment().getPatient().getFullName(), false)).setFont(vietnameseFont);
-            twoColTable3.addCell(getCell10fLeft("3-551/4 , Tulasi Nilayam,\nAndhra Pradesh - 522501,\nIndia.", false)).setFont(vietnameseFont);
+            twoColTable3.addCell(getCell10fLeft(DateUtils.formatDate(appointmentWithServicesResponseList.getAppointment().getPatient().getBirthday()), false)).setFont(vietnameseFont);
+            twoColTable3.addCell(getCell10fLeft("ấp Khánh Hội, Thị trấn Ngã Sáu,\n Huyện Châu Thành, Hậu Giang.", false)).setFont(vietnameseFont);
             document.add(twoColTable3);
 
             float oneColumnWidth[] = {twocol150};
 
             Table oneColTable1 = new Table(oneColumnWidth);
             oneColTable1.addCell(getCell10fLeft("Địa chỉ", true)).setFont(vietnameseFont);
-            oneColTable1.addCell(getCell10fLeft("ap khanh hoi, thi tran nga sau, ct,hg", false)).setFont(vietnameseFont);
+            oneColTable1.addCell(getCell10fLeft("ấp Khánh Hội, Thị trấn Ngã Sáu, Huyện Châu Thành, Hậu Giang.", false)).setFont(vietnameseFont);
             oneColTable1.addCell(getCell10fLeft("Email", true));
             oneColTable1.addCell(getCell10fLeft(appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail(), false));
             oneColTable1.addCell(getCell10fLeft("Số điện thoại", true)).setFont(vietnameseFont);
@@ -159,8 +166,8 @@ public class PDFGeneratorService {
                 threeColTable2.addCell(new Cell().add(String.valueOf(flag)).setBorder(Border.NO_BORDER)).setMarginLeft(10f);
                 threeColTable2.addCell(new Cell().add(String.valueOf(invoiceRes.getServiceName())).setFont(vietnameseFont).setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER));
                 threeColTable2.addCell(new Cell().add(String.valueOf(1)).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
-                threeColTable2.addCell(new Cell().add(String.valueOf(CurrencyFormatter.formatCurrency(invoiceRes.getPrice()) +" VNĐ")).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
-                threeColTable2.addCell(new Cell().add(String.valueOf(CurrencyFormatter.formatCurrency(total)+" VNĐ")).setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER).setMarginRight(15f));
+                threeColTable2.addCell(new Cell().add(String.valueOf(CurrencyFormatter.formatCurrency(invoiceRes.getPrice()))).setFont(vietnameseFont).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
+                threeColTable2.addCell(new Cell().add(String.valueOf(CurrencyFormatter.formatCurrency(total))).setFont(vietnameseFont).setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER).setMarginRight(15f));
                 flag++;
             }
             document.add(threeColTable2.setMarginBottom(20f));
@@ -174,13 +181,14 @@ public class PDFGeneratorService {
             Table threeColTable3 = new Table(threeColumnWidth);
             threeColTable3.addCell(new Cell().add("").setBorder(Border.NO_BORDER)).setMarginLeft(10f);
             threeColTable3.addCell(new Cell().add("Tổng số tiền").setFont(vietnameseFont).setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER));
-            threeColTable3.addCell(new Cell().add(String.valueOf(CurrencyFormatter.formatCurrency(totalSum) +" VNĐ")).setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER)).setMarginRight(15f);
+            threeColTable3.addCell(new Cell().add(String.valueOf(CurrencyFormatter.formatCurrency(totalSum))).setFont(vietnameseFont).setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER)).setMarginRight(15f);
 
             document.add(threeColTable3);
-            Table threeColTable5 = new Table(threeColumnWidth);
+            float ColumnWidth[] = {100f, 100f, 200f, 0f, 120f};
+            Table threeColTable5 = new Table(ColumnWidth);
             threeColTable5.addCell(new Cell().add("").setBorder(Border.NO_BORDER)).setMarginLeft(10f);
-            threeColTable5.addCell(new Cell().add("Thanh chu").setFont(vietnameseFont).setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER));
-            threeColTable5.addCell(new Cell().add(String.valueOf(text +"Đồng")).setFont(vietnameseFont).setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER)).setMarginRight(15f);
+            threeColTable5.addCell(new Cell().add("Thành chữ").setFont(vietnameseFont).setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER));
+            threeColTable5.addCell(new Cell().add(String.valueOf(text + " đồng")).setFont(vietnameseFont).setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER)).setMarginRight(15f);
 
             document.add(threeColTable5);
             document.add(tableDivider2);
@@ -197,6 +205,8 @@ public class PDFGeneratorService {
                 table1.addCell(new Cell().add(tnc).setFont(vietnameseFont).setFontSize(10f).setBorder(Border.NO_BORDER));
             }
             document.add(table1);
+            BillRequest billRequest = BillRequest.builder().paymentMethod("Tiền mặt").status("Đã thanh toán").totalCost(totalSum).appointmentId(appointmentWithServicesResponseList.getAppointment().getAppointmentId()).createAt(new Date()).build();
+            billService.saveBill(billRequest);
             document.close();
         } catch (Exception e) {
             e.printStackTrace();
