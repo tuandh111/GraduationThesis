@@ -47,6 +47,11 @@ public class DoctorUnavailabilityServiceImpl implements DoctorUnavailabilityServ
     }
 
     @Override
+    public List<DoctorUnavailability> findDoctorUnavailabilityByAppId(Integer appointmentId) {
+        return doctorUnavailabilityRepository.getDoctorUnavailabilityByAppId(appointmentId);
+    }
+
+    @Override
     public List<DoctorUnavailability> findAllDoctorUnavailabilityExceptDeleted() {
         return doctorUnavailabilityRepository.findAll().stream()
                 .filter(doctorUnavailability -> !doctorUnavailability.isDeleted())

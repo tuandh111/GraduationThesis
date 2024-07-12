@@ -3,6 +3,7 @@ package com.DuAn.DuAnTotNghiep.service.service;
 import com.DuAn.DuAnTotNghiep.entities.DoctorUnavailability;
 import com.DuAn.DuAnTotNghiep.model.request.DoctorUnavailabilityRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,8 @@ public interface DoctorUnavailabilityService {
     List<DoctorUnavailability> findAllDoctorUnavailabilityByDoctor(int doctorId);
 
     List<Object> findShiftOfDoctorFromDoctorUnavailability(Date date, int doctorId);
+
+    List<DoctorUnavailability> findDoctorUnavailabilityByAppId(Integer appointmentId);
 
     List<DoctorUnavailability> findAllDoctorUnavailabilityExceptDeleted();
 
