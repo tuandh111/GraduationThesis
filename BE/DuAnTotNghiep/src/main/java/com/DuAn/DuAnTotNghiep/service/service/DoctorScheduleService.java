@@ -1,5 +1,6 @@
 package com.DuAn.DuAnTotNghiep.service.service;
 
+import com.DuAn.DuAnTotNghiep.entities.AppointmentStatus;
 import com.DuAn.DuAnTotNghiep.entities.DoctorSchedule;
 import com.DuAn.DuAnTotNghiep.entities.Role;
 import com.DuAn.DuAnTotNghiep.model.request.DoctorScheduleRequest;
@@ -8,6 +9,7 @@ import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface DoctorScheduleService {
     DoctorSchedule findByDoctorScheduleId(int doctorScheduleId);
@@ -32,4 +34,8 @@ public interface DoctorScheduleService {
     MessageResponse delete(int doctorScheduleId);
 
     MessageResponse softDeleteDoctorSchedule(int doctorScheduleId);
+
+    Map<String,List<AppointmentStatus>> findDSWithAppointmentStatus(Date date);
+
+    List<Object> findDsAnfTos();
 }

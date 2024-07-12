@@ -37,6 +37,12 @@ public class AppointmentServiceController {
         return ResponseEntity.ok(appointmentServiceService.findAllAppointmentServiceExceptDeleted());
     }
 
+    @GetMapping("appointment-service-by-appid")
+    @Operation(summary = "List appointment service by appointment id")
+    public ResponseEntity<List<AppointmentService>> getAppointmentServiceByAppId(@RequestParam("appId") Integer appointmentId) {
+        return ResponseEntity.ok(appointmentServiceService.findAppointmentServiceByAppId(appointmentId));
+    }
+
     @GetMapping("appointment-service-id/{Id}")
     @Operation(summary = "dental appointment service Id")
     public ResponseEntity<AppointmentService> getAppointmentServiceId( @PathVariable Integer Id) {

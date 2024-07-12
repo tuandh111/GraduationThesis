@@ -1,5 +1,6 @@
 package com.DuAn.DuAnTotNghiep.repositories;
 
+import com.DuAn.DuAnTotNghiep.entities.AppointmentService;
 import com.DuAn.DuAnTotNghiep.entities.DoctorUnavailability;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +22,9 @@ public interface DoctorUnavailabilityRepository extends JpaRepository<DoctorUnav
             "and du.appointment.doctor.doctorId=:doctorId " +
             "and du.isDeleted=false")
     List<Object> getShiftOfDoctorFromDoctorUnavailability(@Param("date") Date d, @Param("doctorId") Integer doctorId);
+
+    @Query("SELECT du FROM DoctorUnavailability du " +
+            "WHERE du.appointment.appointmentId=:appId")
+    List<DoctorUnavailability> getDoctorUnavailabilityByAppId(@Param("appId") Integer appointmentId);
+
 }
