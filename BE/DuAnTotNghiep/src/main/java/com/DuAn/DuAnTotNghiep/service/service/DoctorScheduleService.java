@@ -3,9 +3,11 @@ package com.DuAn.DuAnTotNghiep.service.service;
 import com.DuAn.DuAnTotNghiep.entities.AppointmentStatus;
 import com.DuAn.DuAnTotNghiep.entities.DoctorSchedule;
 import com.DuAn.DuAnTotNghiep.entities.Role;
+import com.DuAn.DuAnTotNghiep.entities.Shift;
 import com.DuAn.DuAnTotNghiep.model.request.DoctorScheduleRequest;
 import com.DuAn.DuAnTotNghiep.model.request.RoleRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -37,5 +39,9 @@ public interface DoctorScheduleService {
 
     Map<String,List<AppointmentStatus>> findDSWithAppointmentStatus(Date date);
 
-    List<Object> findDsAnfTos();
+    List<Object> findDsAndTos();
+
+    List<DoctorSchedule> findDSByTimeRange(Date startDate, Date endDate);
+
+
 }
