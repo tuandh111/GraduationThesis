@@ -58,7 +58,7 @@ public class DoctorScheduleController {
     @GetMapping("doctor-schedule-and-tos")
     @Operation(summary = "List doctor schedule and timeofshift")
     public ResponseEntity<List<Object>> getDsAnfTos() {
-        return ResponseEntity.ok(doctorScheduleService.findDsAnfTos());
+        return ResponseEntity.ok(doctorScheduleService.findDsAndTos());
     }
 
     @GetMapping("get-doctor-shifts-excluding-deleted")
@@ -75,7 +75,12 @@ public class DoctorScheduleController {
         return ResponseEntity.ok(doctorScheduleService.findDoctorScheduleByTimeRange(startDate,endDate));
     }
 
-
+    @GetMapping("ds-by-time-range")
+    @Operation(summary = "List doctor from doctor schedule by time range")
+    public ResponseEntity<List<DoctorSchedule>> getDSByTimeRange(@RequestParam("startStr") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                                                     @RequestParam("endStr") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        return ResponseEntity.ok(doctorScheduleService.findDSByTimeRange(startDate,endDate));
+    }
 
     @GetMapping("doctor-schedule-id/{Id}")
     @Operation(summary = "doctor schedule Id")

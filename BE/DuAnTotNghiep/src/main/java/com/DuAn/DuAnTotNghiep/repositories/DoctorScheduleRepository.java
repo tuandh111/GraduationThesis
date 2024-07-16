@@ -42,4 +42,7 @@ public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule,I
             "where ds.isDeleted=false")
     List<Object> getDsAnfTos();
 
+    @Query("SELECT ds FROM  DoctorSchedule ds " +
+            "where ds.date BETWEEN :startStr and :endStr and ds.isDeleted=false")
+    List<DoctorSchedule> getDSByTimeRange(@Param("startStr") Date startDate,@Param("endStr") Date endDate);
 }

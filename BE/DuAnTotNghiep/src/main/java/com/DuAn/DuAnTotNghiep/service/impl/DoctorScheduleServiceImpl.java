@@ -17,10 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -73,6 +70,9 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     public List<DoctorSchedule> findAllDoctorScheduleExceptDeleted() {
         return doctorScheduleRepository.findAll().stream()
                 .filter(doctorSchedule -> !doctorSchedule.isDeleted())
+                .sorted(Comparator.comparing(DoctorSchedule::getDate).reversed()
+                        .thenComparing(ds -> ds.getDoctor().getFullName())
+                        .thenComparing(ds -> ds.getShift().getShiftId()))
                 .collect(Collectors.toList());
     }
 
@@ -144,7 +144,13 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     }
 
     @Override
-    public List<Object> findDsAnfTos() {
+    public List<Object> findDsAndTos() {
         return doctorScheduleRepository.getDsAnfTos();
     }
+
+    @Override
+    public List<DoctorSchedule> findDSByTimeRange(Date startDate, Date endDate) {
+        return doctorScheduleRepository.getDSByTimeRange(startDate,endDate);
+    }
+
 }
