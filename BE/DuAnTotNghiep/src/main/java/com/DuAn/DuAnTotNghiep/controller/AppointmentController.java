@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -46,16 +47,25 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.findByAppointmentId(Id));
     }
 
-    @GetMapping("date-of-appointment-except-deleted")
-    @Operation(summary = "List date of appointment except deleted")
-    public ResponseEntity<List<Object>> getAllDateOfAppointmentExceptDeleted() {
+    @GetMapping("date-of-appointment")
+    @Operation(summary = "List date of appointment")
+    public ResponseEntity<List<Object>> getAllDateOfAppointment() {
         return ResponseEntity.ok(appointmentService.findAllDateOfAppointment());
     }
 
-    @GetMapping("appointment-by-date-except-deleted")
-    @Operation(summary = "List appointment by date except deleted")
-    public ResponseEntity<List<Appointment>> getAppointmentByDateExceptDeleted(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+    @GetMapping("appointment-by-date")
+    @Operation(summary = "List appointment by date")
+    public ResponseEntity<List<Appointment>> getAppointmentByDate(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         return ResponseEntity.ok(appointmentService.findAppointmentByDate(date));
+    }
+
+    @GetMapping("appointment-group-by-date")
+    @Operation(summary = "List appointment by date")
+    public ResponseEntity<Map<Date, List<Appointment>>> getAllAppGroupByDate(@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                                                             @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+                                                                             @RequestParam(value = "patientIds", required = false) List<Integer> patientIds,
+                                                                             @RequestParam(value = "doctorIds", required = false) List<Integer> doctorIds) {
+        return ResponseEntity.ok(appointmentService.findAllAppGroupByDate(startDate,endDate,patientIds,doctorIds));
     }
 
     @PostMapping("appointment")
