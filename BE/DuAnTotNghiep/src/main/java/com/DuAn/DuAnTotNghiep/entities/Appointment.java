@@ -69,4 +69,8 @@ public class Appointment {
     @ManyToOne
     @JoinColumn(name="patientId")
     private Patient patient;
+
+    @OneToMany(mappedBy = "doctorUnavailabilityId")
+    @JsonIgnore
+    private List <DoctorUnavailability> doctorUnavailabilities;
 }
