@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -59,6 +60,21 @@ public class TimeOfShiftController {
         System.out.println(doctorId);
         return ResponseEntity.ok(timeOfShiftService.findAllTimeOfShiftAvailable(shiftId,date,doctorId));
     }
+
+    @GetMapping("time-of-shift-details")
+    @Operation(summary = "All time of shift")
+    public ResponseEntity<List<Object>> getAllTimeOfShiftDetails(@RequestParam("shiftId") Integer shiftId,
+                                                                @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,@RequestParam("doctorId") Integer doctorId) {
+        return ResponseEntity.ok(timeOfShiftService.findAllTimeOfShiftDetails(shiftId,date,doctorId));
+    }
+
+    @GetMapping("time-of-shift-by-range")
+    @Operation(summary = "Time Of Shift By Range")
+    public ResponseEntity<List<TimeOfShift>> getTimeOfShiftByRangeTime(@RequestParam("startStr") LocalTime startStr,
+                                                                 @RequestParam("endStr") LocalTime endStr) {
+        return ResponseEntity.ok(timeOfShiftService.findTimeOfShiftByRangeTime(startStr,endStr));
+    }
+
 
     @GetMapping("time-of-shift-available-by-month")
     @Operation(summary = "time of shift available by month")

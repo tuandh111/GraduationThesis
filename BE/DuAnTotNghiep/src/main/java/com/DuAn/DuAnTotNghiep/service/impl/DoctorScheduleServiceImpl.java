@@ -1,5 +1,6 @@
 package com.DuAn.DuAnTotNghiep.service.impl;
 
+import com.DuAn.DuAnTotNghiep.entities.AppointmentStatus;
 import com.DuAn.DuAnTotNghiep.entities.DoctorSchedule;
 import com.DuAn.DuAnTotNghiep.entities.Role;
 import com.DuAn.DuAnTotNghiep.entities.Shift;
@@ -10,13 +11,13 @@ import com.DuAn.DuAnTotNghiep.repositories.DoctorRepository;
 import com.DuAn.DuAnTotNghiep.repositories.DoctorScheduleRepository;
 import com.DuAn.DuAnTotNghiep.repositories.ShiftRepository;
 import com.DuAn.DuAnTotNghiep.repositories.TimeOfShiftRepository;
+import com.DuAn.DuAnTotNghiep.service.service.AppointmentStatusService;
 import com.DuAn.DuAnTotNghiep.service.service.DoctorScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +28,8 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     ShiftRepository shiftRepository;
     @Autowired
     DoctorRepository doctorRepository;
+    @Autowired
+    AppointmentStatusService appointmentStatusService;
 
     @Override
     public DoctorSchedule findByDoctorScheduleId(int doctorScheduleId) {
@@ -44,6 +47,21 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     }
 
     @Override
+    public List<Object> findDoctorFromDoctorSchedule() {
+        return doctorScheduleRepository.getDoctorFromDoctorSchedule();
+    }
+
+    @Override
+    public List<Object> findShiftOfDoctorFromDoctorSchedule(Date date, int doctorId) {
+        return doctorScheduleRepository.getShiftOfDoctorFromDoctorSchedule(date,doctorId);
+    }
+
+    @Override
+    public List<Object> findDoctorScheduleByTimeRange(Date startDate, Date endDate) {
+        return doctorScheduleRepository.getDoctorScheduleByTimeRange(startDate,endDate);
+    }
+
+    @Override
     public List<DoctorSchedule> findAllDoctorSchedule() {
         return doctorScheduleRepository.findAll() ;
     }
@@ -52,6 +70,9 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     public List<DoctorSchedule> findAllDoctorScheduleExceptDeleted() {
         return doctorScheduleRepository.findAll().stream()
                 .filter(doctorSchedule -> !doctorSchedule.isDeleted())
+                .sorted(Comparator.comparing(DoctorSchedule::getDate).reversed()
+                        .thenComparing(ds -> ds.getDoctor().getFullName())
+                        .thenComparing(ds -> ds.getShift().getShiftId()))
                 .collect(Collectors.toList());
     }
 
@@ -109,4 +130,27 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public Map<String, List<AppointmentStatus>> findDSWithAppointmentStatus(Date date) {
+        Map<String,List<AppointmentStatus>> dsStatusMap = new HashMap<>();
+
+        List<DoctorSchedule> listDs = this.findAllDoctorScheduleByDate(date);
+        List<AppointmentStatus> appointmentStatuses = appointmentStatusService.findAllAppointmentStatusExceptDeleted();
+        for (DoctorSchedule ds:listDs){
+            dsStatusMap.put(ds.getDoctor().getDoctorId()+"-"+ds.getDoctor().getFullName(),appointmentStatuses);
+        }
+        return dsStatusMap;
+    }
+
+    @Override
+    public List<Object> findDsAndTos() {
+        return doctorScheduleRepository.getDsAnfTos();
+    }
+
+    @Override
+    public List<DoctorSchedule> findDSByTimeRange(Date startDate, Date endDate) {
+        return doctorScheduleRepository.getDSByTimeRange(startDate,endDate);
+    }
+
 }

@@ -10,9 +10,16 @@ import com.DuAn.DuAnTotNghiep.service.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import java.util.stream.Collectors;
 
 @Service
@@ -213,6 +220,61 @@ public class AppointmentServiceImpl implements AppointmentService {
                                appointmentIdsWithBills.contains(appointment.getAppointmentId())
                        ))
                        .collect(Collectors.toList());
+    }
+
+
+    public List<Object> findAllDateOfAppointment() {
+        return appointmentRepository.getAllDateOfAppointment();
+    }
+
+    @Override
+    public List<Appointment> findAppointmentByDate(Date date) {
+        return appointmentRepository.getAppointmentByDate(date);
+    }
+
+    @Override
+    public List<Appointment> findAllAppByTimeRange(Date startDate, Date endDate) {
+        return appointmentRepository.getAllAppByTimeRange(startDate,endDate);
+    }
+
+    @Override
+    public Map<Date, List<Appointment>> findAllAppGroupByDate(Date startDate, Date endDate, List<Integer> patientIds,List<Integer> doctorIds) {
+        Map<Date, List<Appointment>> mapApps = new HashMap<>();
+
+        List<Object> dates = this.findAllDateOfAppointment();
+
+        if (endDate == null && startDate != null) {
+            endDate = startDate;
+        }
+
+        final Date finalStartDate = startDate;
+        final Date finalEndDate = endDate;
+
+
+        if (finalStartDate != null) {
+            dates = dates.stream()
+                    .map(date -> (Date) date)
+                    .filter(date -> !date.before(finalStartDate) && !date.after(finalEndDate))
+                    .collect(Collectors.toList());
+        }
+
+        for (Object date : dates){
+            List<Appointment> apps = this.findAppointmentByDate((Date) date);
+            if (patientIds != null && !patientIds.isEmpty()) {
+                apps = apps.stream()
+                        .filter(app -> patientIds.contains(app.getPatient().getPatientId()))
+                        .collect(Collectors.toList());
+            }
+            if (doctorIds != null && !doctorIds.isEmpty()) {
+                apps = apps.stream()
+                        .filter(app -> doctorIds.contains(app.getDoctor().getDoctorId()))
+                        .collect(Collectors.toList());
+            }
+            mapApps.put((Date) date,apps);
+        }
+
+
+        return mapApps;
     }
 
 }

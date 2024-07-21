@@ -10,8 +10,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AppointmentServiceRepository extends JpaRepository<AppointmentService, Integer> {
-    @Query("select  appointment_service from AppointmentService appointment_service " +
+public interface AppointmentServiceRepository extends JpaRepository<AppointmentService,Integer> {
+
+ @Query("select  appointment_service from AppointmentService appointment_service " +
                    "where  appointment_service.appointment.appointmentId=:appointmentId")
     List<AppointmentService> findByAppointmentServiceByAppointmentId(@Param("appointmentId") int appointmentId);
+    
+    @Query("SELECT as2 FROM AppointmentService as2 " +
+            "WHERE as2.appointment.appointmentId=:appId")
+    List<AppointmentService> getAppointmentServiceByAppId(@Param("appId") Integer appointmentId);
+
 }

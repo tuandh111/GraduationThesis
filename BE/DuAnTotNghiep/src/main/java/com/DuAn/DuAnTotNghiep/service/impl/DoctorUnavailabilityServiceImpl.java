@@ -1,5 +1,6 @@
 package com.DuAn.DuAnTotNghiep.service.impl;
 
+import com.DuAn.DuAnTotNghiep.entities.DoctorSchedule;
 import com.DuAn.DuAnTotNghiep.entities.DoctorUnavailability;
 import com.DuAn.DuAnTotNghiep.model.request.DoctorUnavailabilityRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
@@ -10,6 +11,8 @@ import com.DuAn.DuAnTotNghiep.service.service.DoctorUnavailabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,12 +35,25 @@ public class DoctorUnavailabilityServiceImpl implements DoctorUnavailabilityServ
 
     @Override
     public List<DoctorUnavailability> findAllDoctorUnavailability() {
-        return doctorUnavailabilityRepository.findAll() ;
+        return doctorUnavailabilityRepository.findAll().stream()
+                .sorted(Comparator.comparing(DoctorUnavailability::getDate).reversed()
+                        .thenComparing(du -> du.getTimeOfShift().getBeginTime()))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<DoctorUnavailability> findAllDoctorUnavailabilityByDoctor(int doctorId) {
         return doctorUnavailabilityRepository.getDoctorUnavailabilityByDoctor(doctorId);
+    }
+
+    @Override
+    public List<Object> findShiftOfDoctorFromDoctorUnavailability(Date date, int doctorId) {
+        return doctorUnavailabilityRepository.getShiftOfDoctorFromDoctorUnavailability(date,doctorId);
+    }
+
+    @Override
+    public List<DoctorUnavailability> findDoctorUnavailabilityByAppId(Integer appointmentId) {
+        return doctorUnavailabilityRepository.getDoctorUnavailabilityByAppId(appointmentId);
     }
 
     @Override

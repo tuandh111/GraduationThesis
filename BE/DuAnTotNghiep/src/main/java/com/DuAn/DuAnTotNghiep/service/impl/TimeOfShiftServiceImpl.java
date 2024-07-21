@@ -10,6 +10,7 @@ import com.DuAn.DuAnTotNghiep.service.service.TimeOfShiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -96,6 +97,16 @@ public class TimeOfShiftServiceImpl implements TimeOfShiftService {
         } catch (Exception e) {
             return new MessageResponse("Failed") ;
         }
+    }
+
+    @Override
+    public List<Object> findAllTimeOfShiftDetails(int shiftId, Date date, int doctorId) {
+        return timeOfShiftRepository.getAllTimeOfShiftDetails(doctorId,date,shiftId);
+    }
+
+    @Override
+    public List<TimeOfShift> findTimeOfShiftByRangeTime(LocalTime startStr, LocalTime endStr) {
+        return timeOfShiftRepository.getTimeOfShiftByRangeTime(startStr,endStr);
     }
 
 }

@@ -97,4 +97,9 @@ public class AppointmentServiceServiceImpl implements AppointmentServiceService 
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public List<AppointmentService> findAppointmentServiceByAppId(Integer appointmentId) {
+        return appointmentServiceRepository.getAppointmentServiceByAppId(appointmentId);
+    }
 }

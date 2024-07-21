@@ -35,6 +35,13 @@ public class ServiceController {
         return ResponseEntity.ok(serviceService.findAllServiceExceptDeleted());
     }
 
+    @GetMapping("service-by-dental-issues")
+    @Operation(summary = "List service except deleted")
+    public ResponseEntity<List<Object>> getServiceByDentalIssues(@RequestParam("ids") List<Integer> ids) {
+        return ResponseEntity.ok(serviceService.findServiceByDentalIssues(ids));
+    }
+
+
     @GetMapping("service-id/{Id}")
     @Operation(summary = "service")
     public ResponseEntity<Service> getServiceId( @PathVariable Integer Id) {
