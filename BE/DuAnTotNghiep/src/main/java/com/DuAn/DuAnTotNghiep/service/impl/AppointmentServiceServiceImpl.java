@@ -2,6 +2,7 @@ package com.DuAn.DuAnTotNghiep.service.impl;
 
 import com.DuAn.DuAnTotNghiep.entities.AppointmentService;
 import com.DuAn.DuAnTotNghiep.model.request.AppointmentServiceRequest;
+import com.DuAn.DuAnTotNghiep.model.response.InvoiceRes;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.repositories.AppointmentRepository;
 import com.DuAn.DuAnTotNghiep.repositories.AppointmentServiceRepository;
@@ -25,6 +26,12 @@ public class AppointmentServiceServiceImpl implements AppointmentServiceService 
     @Override
     public AppointmentService findByAppointmentServiceId(int appointmentId) {
         return appointmentServiceRepository.findById(appointmentId).orElseThrow(null);
+    }
+
+    @Override
+    public List<AppointmentService> findByAppointmentServiceByAppointmentId(int appointmentId) {
+        return  appointmentServiceRepository.findByAppointmentServiceByAppointmentId(appointmentId);
+
     }
 
     @Override

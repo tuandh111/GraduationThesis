@@ -4,6 +4,7 @@ import com.DuAn.DuAnTotNghiep.entities.Appointment;
 import com.DuAn.DuAnTotNghiep.entities.AppointmentStatus;
 import com.DuAn.DuAnTotNghiep.model.request.AppointmentRequest;
 import com.DuAn.DuAnTotNghiep.model.request.AppointmentStatusRequest;
+import com.DuAn.DuAnTotNghiep.model.response.AppointmentWithServicesResponse;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import org.springframework.data.repository.query.Param;
 
@@ -26,6 +27,14 @@ public interface AppointmentService {
 
     MessageResponse softDeleteAppointment(int appointmentId);
 
+
+    List<AppointmentWithServicesResponse> findAllAppointmentService();
+
+    AppointmentWithServicesResponse findAppointmentServiceByAppointmentId(int appointmentId);
+
+    List<AppointmentWithServicesResponse> findAllAppointmentService(String startDate, String endDate);
+
+
     List<Object> findAllDateOfAppointment();
 
     List<Appointment> findAppointmentByDate(Date date);
@@ -33,4 +42,5 @@ public interface AppointmentService {
     List<Appointment> findAllAppByTimeRange(Date startDate,Date endDate);
 
     Map<Date,List<Appointment>> findAllAppGroupByDate(Date startDate, Date endDate, List<Integer> patientIds,List<Integer> doctorIds);
+
 }

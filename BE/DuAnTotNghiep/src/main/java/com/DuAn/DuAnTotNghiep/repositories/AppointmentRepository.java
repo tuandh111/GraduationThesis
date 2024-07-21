@@ -2,10 +2,13 @@ package com.DuAn.DuAnTotNghiep.repositories;
 
 import com.DuAn.DuAnTotNghiep.entities.Abnormality;
 import com.DuAn.DuAnTotNghiep.entities.Appointment;
+import com.DuAn.DuAnTotNghiep.model.request.InvoiceRequest;
+import com.DuAn.DuAnTotNghiep.model.response.InvoiceRes;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 
 import java.util.Date;
 import java.util.List;
@@ -22,4 +25,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Integer
     @Query("SELECT a from Appointment a " +
             "where a.AppointmentDate BETWEEN :startStr and :endStr")
     List<Appointment> getAllAppByTimeRange(@Param("startStr") Date startDate,@Param("endStr") Date endDate);
+
 }

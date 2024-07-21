@@ -4,6 +4,8 @@ import com.DuAn.DuAnTotNghiep.entities.Abnormality;
 import com.DuAn.DuAnTotNghiep.entities.Appointment;
 import com.DuAn.DuAnTotNghiep.model.request.AbnormalityRequest;
 import com.DuAn.DuAnTotNghiep.model.request.AppointmentRequest;
+import com.DuAn.DuAnTotNghiep.model.request.DateRangeRequest;
+import com.DuAn.DuAnTotNghiep.model.response.AppointmentWithServicesResponse;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.service.service.AppointmentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,7 +35,11 @@ public class AppointmentController {
     public ResponseEntity<List<Appointment>> getAllAppointment() {
         return ResponseEntity.ok(appointmentService.findAllAppointment());
     }
-
+    @GetMapping("appointment-invoice")
+    @Operation(summary = "List appointment")
+    public ResponseEntity<List<?>> getAllAppointments() {
+        return ResponseEntity.ok(appointmentService.findAllAppointmentService());
+    }
     @GetMapping("appointment-except-deleted")
     @Operation(summary = "List appointment except deleted")
     public ResponseEntity<List<Appointment>> getAllAppointmentExceptDeleted() {
@@ -73,7 +79,10 @@ public class AppointmentController {
     public ResponseEntity<Appointment> saveAppointment(@Valid @RequestBody AppointmentRequest appointmentRequest) {
         return ResponseEntity.ok(appointmentService.saveAppointment(appointmentRequest));
     }
-
+    @PostMapping("/appointment-filter")
+    public List<AppointmentWithServicesResponse> filterAppointmentsByDateRange(@RequestBody DateRangeRequest dateRangeRequest) {
+        return appointmentService.findAllAppointmentService(dateRangeRequest.getStartDate(), dateRangeRequest.getEndDate());
+    }
     @PutMapping("appointment/{Id}")
     @Operation(summary = "update appointment")
     public ResponseEntity<Appointment> updateAppointment(@PathVariable int Id, @Valid @RequestBody AppointmentRequest appointmentRequest) {

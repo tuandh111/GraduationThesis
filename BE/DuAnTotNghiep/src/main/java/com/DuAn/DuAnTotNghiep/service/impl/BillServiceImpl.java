@@ -45,6 +45,8 @@ public class BillServiceImpl implements BillService {
                           .totalCost(billRequest.getTotalCost())
                           .paymentMethod(billRequest.getPaymentMethod())
                           .createAt(billRequest.getCreateAt())
+                          .appointment(appointmentRepository.findById(billRequest.getAppointmentId())
+                                               .orElseThrow(()->new RuntimeException("Appointment not found")))
                           .build();
         billRepository.save(bill);
 

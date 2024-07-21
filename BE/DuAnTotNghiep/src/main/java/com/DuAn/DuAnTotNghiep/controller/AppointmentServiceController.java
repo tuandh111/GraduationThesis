@@ -48,6 +48,11 @@ public class AppointmentServiceController {
     public ResponseEntity<AppointmentService> getAppointmentServiceId( @PathVariable Integer Id) {
         return ResponseEntity.ok(appointmentServiceService.findByAppointmentServiceId(Id));
     }
+    @GetMapping("appointment-service-appointment-id/{Id}")
+    @Operation(summary = "dental appointment service by appointment Id")
+    public ResponseEntity<List<AppointmentService>> getAppointmentServiceByAppointmentId( @PathVariable Integer Id) {
+        return ResponseEntity.ok(appointmentServiceService.findByAppointmentServiceByAppointmentId(Id));
+    }
     @PostMapping("appointment-service")
     @Operation(summary = "save appointment service")
     public ResponseEntity<AppointmentService> saveAppointmentService(@Valid @RequestBody AppointmentServiceRequest appointmentServiceRequest){
