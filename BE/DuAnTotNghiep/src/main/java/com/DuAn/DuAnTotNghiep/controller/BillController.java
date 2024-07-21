@@ -41,6 +41,14 @@ public class BillController {
     public ResponseEntity<Bill> getBillId( @PathVariable Integer Id) {
         return ResponseEntity.ok(billService.findByBillId(Id));
     }
+
+    @GetMapping("bill-by-appointment-and-patient")
+    @Operation(summary = "List bill By Appointment And Patient")
+    public ResponseEntity<List<Bill>> getByAppointmentAndPatient(@RequestParam(value = "appointmentId", required = false) Integer appointmentId,
+                                                                 @RequestParam(value = "patientId", required = false) Integer patientId) {
+        return ResponseEntity.ok(billService.findByAppointmentAndPatient(appointmentId,patientId)) ;
+    }
+
     @PostMapping("bill")
     @Operation(summary = "Save bill")
     public ResponseEntity<Bill> saveBill(@Valid @RequestBody BillRequest billRequest){

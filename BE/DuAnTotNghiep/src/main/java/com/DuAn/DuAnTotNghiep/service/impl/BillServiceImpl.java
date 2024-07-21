@@ -92,4 +92,9 @@ public class BillServiceImpl implements BillService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public List<Bill> findByAppointmentAndPatient(Integer appointmentId, Integer patientId) {
+        return billRepository.getByAppointmentAndPatient(appointmentId,patientId);
+    }
 }
