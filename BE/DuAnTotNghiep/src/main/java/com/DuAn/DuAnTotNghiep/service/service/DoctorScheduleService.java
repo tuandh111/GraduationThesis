@@ -43,5 +43,11 @@ public interface DoctorScheduleService {
 
     List<DoctorSchedule> findDSByTimeRange(Date startDate, Date endDate);
 
+    Map<Integer,List<DoctorSchedule>> findDoctorSchedulesMap(Date startStr, Date endStr);
 
+    List<DoctorSchedule> findDSByTimeRangeAndDoctor(Date startDate, Date endDate, Integer doctorId);
+
+    List<Object> findDateDoctorScheduleInTimeRange(Date startDate, Date endDate);
+
+    Map<Date,List<DoctorSchedule>> findDSByTimeRangeAndDateMap(Date startDate, Date endDate);
 }

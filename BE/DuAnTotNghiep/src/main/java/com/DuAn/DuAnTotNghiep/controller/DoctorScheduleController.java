@@ -82,6 +82,20 @@ public class DoctorScheduleController {
         return ResponseEntity.ok(doctorScheduleService.findDSByTimeRange(startDate,endDate));
     }
 
+    @GetMapping("map-ds-by-time-range")
+    @Operation(summary = "Map doctor from doctor schedule by time range")
+    public ResponseEntity<Map<Integer, List<DoctorSchedule>>> getMapDSByTimeRange(@RequestParam("startStr") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                                                 @RequestParam("endStr") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        return ResponseEntity.ok(doctorScheduleService.findDoctorSchedulesMap(startDate,endDate));
+    }
+
+    @GetMapping("map-date-ds-by-time-range")
+    @Operation(summary = "Map doctor from doctor schedule by time range")
+    public ResponseEntity<Map<Date, List<DoctorSchedule>>> getMapDSByTimeRangeAndDate(@RequestParam("startStr") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                                                                  @RequestParam("endStr") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        return ResponseEntity.ok(doctorScheduleService.findDSByTimeRangeAndDateMap(startDate,endDate));
+    }
+
     @GetMapping("doctor-schedule-id/{Id}")
     @Operation(summary = "doctor schedule Id")
     public ResponseEntity<DoctorSchedule> getDoctorScheduleId( @PathVariable Integer Id) {
