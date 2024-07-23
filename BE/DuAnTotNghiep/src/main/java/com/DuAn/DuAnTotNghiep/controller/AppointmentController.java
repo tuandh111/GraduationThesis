@@ -65,6 +65,13 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.findAppointmentByDate(date));
     }
 
+    @GetMapping("appointment-by-patient")
+    @Operation(summary = "List appointment by patient")
+    public ResponseEntity<List<Appointment>> getAllAppByPatient(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date now,
+                                                                @RequestParam("patientId") Integer patientId) {
+        return ResponseEntity.ok(appointmentService.findAllAppByPatient(now,patientId));
+    }
+
     @GetMapping("appointment-group-by-date")
     @Operation(summary = "List appointment by date")
     public ResponseEntity<Map<Date, List<Appointment>>> getAllAppGroupByDate(@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,

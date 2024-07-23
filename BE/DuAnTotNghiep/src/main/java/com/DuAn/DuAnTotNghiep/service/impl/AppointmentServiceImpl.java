@@ -277,4 +277,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         return mapApps;
     }
 
+    @Override
+    public List<Appointment> findAllAppByPatient(Date now, Integer patientId) {
+        return appointmentRepository.getAllAppByPatient(now,patientId);
+    }
+
 }
