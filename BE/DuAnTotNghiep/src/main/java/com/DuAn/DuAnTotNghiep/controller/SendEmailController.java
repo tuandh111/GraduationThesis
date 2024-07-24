@@ -1,5 +1,8 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
+import com.DuAn.DuAnTotNghiep.entities.Appointment;
+import com.DuAn.DuAnTotNghiep.entities.Bill;
+import com.DuAn.DuAnTotNghiep.model.request.BillRequest;
 import com.DuAn.DuAnTotNghiep.model.request.PaymentRequest;
 import com.DuAn.DuAnTotNghiep.model.response.AppointmentWithServicesResponse;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
@@ -40,20 +43,45 @@ public class SendEmailController {
     @Autowired
     AppointmentService appointmentService;
 
+    @Autowired
+    BillService billService;
+
     @PostMapping("sendMail")
     @Operation(summary = "Send mail with attachment")
     public ResponseEntity<MessageResponse> sendMail(@RequestBody PaymentRequest paymentRequest) {
         AppointmentWithServicesResponse appointmentWithServicesResponseList = appointmentService.findAppointmentServiceByAppointmentId(paymentRequest.getAppointmentId());
-        System.out.println();
         try {
             pdfGeneratorService.export("files", "invoice"+paymentRequest.getAppointmentId()+".pdf",paymentRequest.getText(),appointmentWithServicesResponseList);
-            byte[] fileBytes = pdfGeneratorService.read("files", "invoice"+paymentRequest.getAppointmentId()+".pdf");
-            MultipartFile file = MultipartFileUtil.createFile(fileBytes, "invoice", "invoice"+paymentRequest.getAppointmentId()+".pdf", "application/pdf");
-            mailerService.send(appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail().toString(), 
-                    "Đơn xác nhận thanh toán dịch vụ nha khoa Tooth Teeth", "Cảm ơn quý khách đã sử dụng dịch vụ tại nha khoa Tooth Teeth\n"
-                                                                                    + "chúng tôi xin gửi quý khách hóa đơn thanh toán: ", file);
+            if(appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail().toString() != null){
+                byte[] fileBytes = pdfGeneratorService.read("files", "invoice"+paymentRequest.getAppointmentId()+".pdf");
+                MultipartFile file = MultipartFileUtil.createFile(fileBytes, "invoice", "invoice"+paymentRequest.getAppointmentId()+".pdf", "application/pdf");
+                mailerService.send(appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail().toString(),
+                        "Đơn xác nhận thanh toán dịch vụ nha khoa Tooth Teeth", "Cảm ơn quý khách đã sử dụng dịch vụ tại nha khoa Tooth Teeth\n"
+                                                                                        + "chúng tôi xin gửi quý khách hóa đơn thanh toán: ", file);
+                Bill bill = billService.findByBillId(appointmentWithServicesResponseList.getAppointment().getBills().get(0).getBillId());
+                BillRequest billRequest = new BillRequest();
+                billRequest.setAppointmentId(billRequest.getAppointmentId());
+                billRequest.setStatus("Đã thanh toán");
+                billRequest.setCreateAt(bill.getCreateAt());
+                billRequest.setTotalCost(bill.getTotalCost());
+                billRequest.setPaymentMethod("Tiền mặt");
+                billRequest.setAppointmentId(bill.getAppointment().getAppointmentId());
+                billService.updateBill(bill.getBillId(), billRequest);
+                return ResponseEntity.ok(new MessageResponse("Successfully send mail"));
+            }else{
+                Bill  bill = (Bill) appointmentWithServicesResponseList.getAppointment().getBills();
+                System.out.println(bill);
+                BillRequest billRequest = new BillRequest();
+                billRequest.setAppointmentId(billRequest.getAppointmentId());
+                billRequest.setStatus("Đã thanh toán");
+                billRequest.setCreateAt(bill.getCreateAt());
+                billRequest.setTotalCost(bill.getTotalCost());
+                billRequest.setPaymentMethod("Tiền mặt");
+                billRequest.setAppointmentId(bill.getAppointment().getAppointmentId());
+                billService.updateBill(bill.getBillId(), billRequest);
+                return ResponseEntity.ok(new MessageResponse("Successfully"));
+            }
 
-            return ResponseEntity.ok(new MessageResponse("Successfully send mail"));
         } catch (IOException e) {
             return ResponseEntity.ok(new MessageResponse("fail"));
         } catch (MessagingException e) {

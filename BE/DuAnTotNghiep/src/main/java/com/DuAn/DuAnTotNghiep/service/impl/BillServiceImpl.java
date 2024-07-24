@@ -62,6 +62,7 @@ public class BillServiceImpl implements BillService {
                           .totalCost(billRequest.getTotalCost())
                           .paymentMethod(billRequest.getPaymentMethod())
                           .createAt(billRequest.getCreateAt())
+                          .appointment(appointmentRepository.findById(billRequest.getAppointmentId()).orElse(null))
                           .build();
         billRepository.save(bill);
 
@@ -92,4 +93,14 @@ public class BillServiceImpl implements BillService {
             return new MessageResponse("fail");
         }
     }
+<<<<<<< Updated upstream
+=======
+
+    @Override
+    public List<Bill> findByAppointmentAndPatient(Integer appointmentId, Integer patientId) {
+        return billRepository.getByAppointmentAndPatient(appointmentId,patientId);
+    }
+
+
+>>>>>>> Stashed changes
 }

@@ -2,6 +2,7 @@ package com.DuAn.DuAnTotNghiep.service.service;
 
 import com.DuAn.DuAnTotNghiep.entities.Appointment;
 import com.DuAn.DuAnTotNghiep.entities.AppointmentStatus;
+import com.DuAn.DuAnTotNghiep.entities.Bill;
 import com.DuAn.DuAnTotNghiep.model.request.AppointmentRequest;
 import com.DuAn.DuAnTotNghiep.model.request.AppointmentStatusRequest;
 import com.DuAn.DuAnTotNghiep.model.response.AppointmentWithServicesResponse;
@@ -30,6 +31,8 @@ public interface AppointmentService {
 
     List<AppointmentWithServicesResponse> findAllAppointmentService();
 
+    List<AppointmentWithServicesResponse> findAllBillCancel();
+
     AppointmentWithServicesResponse findAppointmentServiceByAppointmentId(int appointmentId);
 
     List<AppointmentWithServicesResponse> findAllAppointmentService(String startDate, String endDate);
@@ -39,8 +42,12 @@ public interface AppointmentService {
 
     List<Appointment> findAppointmentByDate(Date date);
 
-    List<Appointment> findAllAppByTimeRange(Date startDate,Date endDate);
+    List<Appointment> findAllAppByTimeRange(Date startDate, Date endDate);
 
+<<<<<<< Updated upstream
     Map<Date,List<Appointment>> findAllAppGroupByDate(Date startDate, Date endDate, List<Integer> patientIds,List<Integer> doctorIds);
+=======
+    Map<Date, List<Appointment>> findAllAppGroupByDate(Date startDate, Date endDate, List<Integer> patientIds, List<Integer> doctorIds);
+>>>>>>> Stashed changes
 
 }
