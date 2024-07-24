@@ -44,10 +44,7 @@ public interface AppointmentService {
 
     List<Appointment> findAllAppByTimeRange(Date startDate, Date endDate);
 
-<<<<<<< Updated upstream
-    Map<Date,List<Appointment>> findAllAppGroupByDate(Date startDate, Date endDate, List<Integer> patientIds,List<Integer> doctorIds);
-=======
     Map<Date, List<Appointment>> findAllAppGroupByDate(Date startDate, Date endDate, List<Integer> patientIds, List<Integer> doctorIds);
->>>>>>> Stashed changes
+
 
 }

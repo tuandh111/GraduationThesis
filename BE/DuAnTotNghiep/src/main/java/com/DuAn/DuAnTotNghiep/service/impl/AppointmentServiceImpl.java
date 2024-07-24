@@ -314,9 +314,4 @@ public class AppointmentServiceImpl implements AppointmentService {
         return mapApps;
     }
 
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
 }
