@@ -41,6 +41,21 @@ public class TreatmentController {
     public ResponseEntity<Treatment> getTreatmentId( @PathVariable Integer Id) {
         return ResponseEntity.ok(treatmentService.findByTreatmentId(Id));
     }
+
+    @GetMapping("treatment-by-dental-issues")
+    @Operation(summary = "List treatment by dental issues")
+    public ResponseEntity<List<Object>> getTreatmentByDentalIssues(@RequestParam("ids") List<Integer> ids) {
+        return ResponseEntity.ok(treatmentService.findTreatmentByDentalIssues(ids));
+    }
+
+
+    @GetMapping("service-by-treatment")
+    @Operation(summary = "List service by treatment")
+    public ResponseEntity<List<Object>> getServiceByTreatment(@RequestParam("ids") List<Integer> ids) {
+        return ResponseEntity.ok(treatmentService.findServiceByTreatment(ids));
+    }
+
+
     @PostMapping("treatment")
     @Operation(summary = "Save treatment")
     public ResponseEntity<Treatment> saveTreatment(@Valid @RequestBody TreatmentRequest treatmentRequest){
