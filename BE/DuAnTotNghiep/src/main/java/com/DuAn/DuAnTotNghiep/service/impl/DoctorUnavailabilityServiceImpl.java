@@ -11,9 +11,7 @@ import com.DuAn.DuAnTotNghiep.service.service.DoctorUnavailabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -114,4 +112,31 @@ public class DoctorUnavailabilityServiceImpl implements DoctorUnavailabilityServ
             return new MessageResponse("Fail");
         }
     }
+
+    @Override
+    public List<Object> findDistinctDateOfDuByTimeRange(Date startDate, Date endDate, Integer doctorId) {
+        return doctorUnavailabilityRepository.getDistinctDateOfDuByTimeRange(startDate,endDate,doctorId);
+    }
+
+    @Override
+    public List<DoctorUnavailability> findDoctorUnavailabilityByDate(Date date) {
+        return doctorUnavailabilityRepository.getDoctorUnavailabilityByDate(date);
+    }
+
+    @Override
+    public Map<Date, List<DoctorUnavailability>> findDUByTimeRangeAndDateMap(Date startDate, Date endDate, Integer doctorId) {
+        Map<Date, List<DoctorUnavailability>> duDateMap=new HashMap<>();
+        List<Object> dates=this.findDistinctDateOfDuByTimeRange(startDate,endDate,doctorId);
+        for (Object object : dates){
+            Date date = (Date) object;
+            List<DoctorUnavailability> listDu=this.findDoctorUnavailabilityByDate(date);
+            duDateMap.put(date,listDu);
+        }
+        TreeMap<Date, List<DoctorUnavailability>> sortedMap = new TreeMap<>(Collections.reverseOrder());
+        sortedMap.putAll(duDateMap);
+
+        return sortedMap;
+    }
+
+
 }
