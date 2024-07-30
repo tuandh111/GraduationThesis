@@ -3,6 +3,7 @@ package com.DuAn.DuAnTotNghiep.controller;
 import com.DuAn.DuAnTotNghiep.entities.Prescription;
 import com.DuAn.DuAnTotNghiep.model.request.PrescriptionRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import com.DuAn.DuAnTotNghiep.model.response.PrescriptionWithMedicinesResponse;
 import com.DuAn.DuAnTotNghiep.service.service.PrescriptionService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -39,6 +40,11 @@ public class PrescriptionController {
     @Operation(summary = "Get prescription by ID")
     public ResponseEntity<Prescription> getPrescriptionById(@PathVariable Integer id) {
         return ResponseEntity.ok(prescriptionService.findByPrescriptionId(id)) ;
+    }
+    @GetMapping("/prescription-by-appointment")
+    @Operation(summary = "Get prescription by appointment")
+    public ResponseEntity<List<PrescriptionWithMedicinesResponse>> getPrescriptionWithMedicinesByAppointment(@RequestParam(value = "appointmentId",required = false) Integer appointmentId){
+        return ResponseEntity.ok(prescriptionService.findPrescriptionByAppointment(appointmentId));
     }
 
     @PostMapping("/prescriptions")
