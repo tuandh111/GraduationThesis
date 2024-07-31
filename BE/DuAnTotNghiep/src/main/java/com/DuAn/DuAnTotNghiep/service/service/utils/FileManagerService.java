@@ -12,6 +12,8 @@ import java.util.List;
 public interface FileManagerService {
     byte[] read(String folder, String name);
 
+    byte[] readImg(String folder, String name);
+
     List<String> save(String folder, MultipartFile[] files);
 
     Path getPath(String folder, String filename);
@@ -19,6 +21,9 @@ public interface FileManagerService {
     void delete(String folder, String filename);
 
     void move(String folder);
+
+    void moveTempFolder(String tempFolder, String realFolder);
+
 
     boolean hasFiles(Path directory) throws IOException;
 

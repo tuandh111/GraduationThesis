@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,27 +33,53 @@ public class FileManagerServiceImpl implements FileManagerService {
     }
 
     @Override
-    public List<String> save(String folder, MultipartFile[] files) {
-        List<String> fileNames = new ArrayList<>();
-        Path uploadImagePath = Paths.get("", "files", folder);
+    public byte[] readImg(String folder, String name) {
+        byte[] imageData = null;
+        Path imagePath = Paths.get("", "files", folder, name);
         try {
-            Files.createDirectories(uploadImagePath);
+            imageData = Files.readAllBytes(imagePath);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to create directory: " + uploadImagePath.toString(), e);
+            throw new RuntimeException("Failed to read image file: " + imagePath.toString(), e);
         }
-        for (MultipartFile file : files) {
-            String name = System.currentTimeMillis() + file.getOriginalFilename();
-            String filename = Integer.toHexString(name.hashCode()) + name.substring(name.lastIndexOf("."));
-            Path path = uploadImagePath.resolve(filename);
 
+        return imageData;
+    }
+
+    @Override
+    public List<String> save(String folder, MultipartFile[] files) {
+//        List<String> fileNames = new ArrayList<>();
+//        Path uploadImagePath = Paths.get("", "files", folder);
+//        try {
+//            Files.createDirectories(uploadImagePath);
+//        } catch (IOException e) {
+//            throw new RuntimeException("Failed to create directory: " + uploadImagePath.toString(), e);
+//        }
+//        for (MultipartFile file : files) {
+//            String name = System.currentTimeMillis() + file.getOriginalFilename();
+//            String filename = Integer.toHexString(name.hashCode()) + name.substring(name.lastIndexOf("."));
+//            Path path = uploadImagePath.resolve(filename);
+//
+//            try {
+//                file.transferTo(path);
+//                fileNames.add(filename);
+//            } catch (IOException e) {
+//                throw new RuntimeException("Failed to save file: " + filename, e);
+//            }
+//        }
+//
+//        return fileNames;
+        List<String> fileNames = new ArrayList<>();
+        for (MultipartFile file: files){
+            String name = System.currentTimeMillis()+file.getOriginalFilename();
+            String filename=Integer.toHexString(name.hashCode())+name.substring(name.lastIndexOf("."));
+            Path path =  this.getPath(folder,filename);
             try {
                 file.transferTo(path);
                 fileNames.add(filename);
-            } catch (IOException e) {
-                throw new RuntimeException("Failed to save file: " + filename, e);
+            }catch (Exception e){
+                e.printStackTrace();
             }
         }
-
         return fileNames;
     }
 
@@ -60,14 +87,14 @@ public class FileManagerServiceImpl implements FileManagerService {
     public Path getPath(String folder, String filename) {
         File dir = Paths.get(app.getRealPath("/files/"), folder).toFile();
         if (!dir.exists()) {
-            // dir.mkdirs();
             boolean created = dir.mkdirs();
+
             if (!created) {
-                // Xử lý khi việc tạo thư mục không thành công
                 throw new RuntimeException("Failed to create directory: " + dir.getAbsolutePath());
             }
         }
         return Paths.get(dir.getAbsolutePath(), filename);
+
     }
 
     @Override
@@ -118,6 +145,50 @@ public class FileManagerServiceImpl implements FileManagerService {
             throw new RuntimeException("Failed to walk directory: " + sourceFolderPath.toString(), e);
         }
     }
+
+    @Override
+    public void moveTempFolder(String tempFolder, String realFolder) {
+        Path projectRoot = Paths.get("");
+
+        Path uploadImagePath = projectRoot.resolve("files").resolve(realFolder);
+
+        if (!Files.exists(uploadImagePath)) {
+            try {
+                Files.createDirectories(uploadImagePath);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to create directory: " + uploadImagePath.toString(), e);
+            }
+        }
+
+        // Xác định đường dẫn của thư mục gốc
+        Path sourceFolderPath = Paths.get(app.getRealPath("/files/"), tempFolder);
+        try {
+            if (!Files.exists(sourceFolderPath) || !Files.isDirectory(sourceFolderPath) || !hasFiles(sourceFolderPath)) {
+                return;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            Files.walk(sourceFolderPath)
+                    .filter(Files::isRegularFile)
+                    .forEach(sourceFile -> {
+                        try {
+
+                            Path targetFile = uploadImagePath.resolve(sourceFolderPath.relativize(sourceFile));
+
+                            Files.move(sourceFile, targetFile, StandardCopyOption.REPLACE_EXISTING);
+                        } catch (IOException e) {
+                            throw new RuntimeException("Failed to move file: " + sourceFile.toString(), e);
+                        }
+                    });
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to walk directory: " + sourceFolderPath.toString(), e);
+        }
+    }
+
+
 
     @Override
     public boolean hasFiles(Path directory) throws IOException {
