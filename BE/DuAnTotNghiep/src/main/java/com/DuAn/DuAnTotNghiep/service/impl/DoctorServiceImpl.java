@@ -10,6 +10,7 @@ import com.DuAn.DuAnTotNghiep.repositories.SpecialtyRepository;
 import com.DuAn.DuAnTotNghiep.service.service.AppointmentStatusService;
 import com.DuAn.DuAnTotNghiep.service.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public List<Doctor> findAllDoctor() {
-        return doctorRepository.findAll() ;
+        return doctorRepository.findAll(Sort.by(Sort.Direction.DESC,"doctorId")) ;
     }
 
     @Override
