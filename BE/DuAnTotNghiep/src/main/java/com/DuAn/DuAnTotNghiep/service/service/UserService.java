@@ -4,6 +4,7 @@ import com.DuAn.DuAnTotNghiep.entities.User;
 import com.DuAn.DuAnTotNghiep.model.request.ChangePasswordRequest;
 import com.DuAn.DuAnTotNghiep.model.request.UpdatePasswordRequest;
 import com.DuAn.DuAnTotNghiep.model.response.ForgotPasswordResponse;
+import org.springframework.data.repository.query.Param;
 
 import java.security.Principal;
 import java.util.List;
@@ -20,4 +21,7 @@ public interface UserService {
 
 
     void updatePassword(UpdatePasswordRequest updatePasswordRequest);
+
+
+    boolean checkUserByAnObject(Integer doctorId,Integer patientId,Integer dentalStaffId);
 }
