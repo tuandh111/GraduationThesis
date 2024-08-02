@@ -1,5 +1,6 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
+import com.DuAn.DuAnTotNghiep.model.MailInfo;
 import com.DuAn.DuAnTotNghiep.model.request.PaymentRequest;
 import com.DuAn.DuAnTotNghiep.model.response.AppointmentWithServicesResponse;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
@@ -61,4 +62,10 @@ public class SendEmailController {
         }
     }
 
+    @PostMapping("/send-account-info")
+    @Operation(summary = "Send account infomation afer create account")
+    public ResponseEntity<MessageResponse> sendAccountInfo(@RequestBody MailInfo mailInfo) throws MessagingException {
+        mailerService.sendVerify(mailInfo);
+        return ResponseEntity.ok(new MessageResponse("Successfully send mail"));
+    }
 }
