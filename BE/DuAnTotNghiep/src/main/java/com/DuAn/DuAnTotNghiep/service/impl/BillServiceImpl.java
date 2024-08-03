@@ -32,22 +32,12 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public List<Bill> findAllBillExceptDeleted() {
-        return billRepository.findAll().stream()
-                .filter(bill -> !bill.isDeleted())
-                .collect(Collectors.toList());
+        return billRepository.findAll().stream().filter(bill -> !bill.isDeleted()).collect(Collectors.toList());
     }
 
     @Override
     public Bill saveBill(BillRequest billRequest) {
-        var bill =Bill.
-                          builder()
-                          .status(billRequest.getStatus())
-                          .totalCost(billRequest.getTotalCost())
-                          .paymentMethod(billRequest.getPaymentMethod())
-                          .createAt(billRequest.getCreateAt())
-                          .appointment(appointmentRepository.findById(billRequest.getAppointmentId())
-                                               .orElseThrow(()->new RuntimeException("Appointment not found")))
-                          .build();
+        var bill = Bill.builder().status(billRequest.getStatus()).totalCost(billRequest.getTotalCost()).paymentMethod(billRequest.getPaymentMethod()).createAt(billRequest.getCreateAt()).appointment(appointmentRepository.findById(billRequest.getAppointmentId()).orElseThrow(() -> new RuntimeException("Appointment not found"))).build();
         billRepository.save(bill);
 
         return bill;
@@ -55,14 +45,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public Bill updateBill(int billId, BillRequest billRequest) {
-        var bill =Bill.
-                              builder()
-                          .billId(billId)
-                          .status(billRequest.getStatus())
-                          .totalCost(billRequest.getTotalCost())
-                          .paymentMethod(billRequest.getPaymentMethod())
-                          .createAt(billRequest.getCreateAt())
-                          .build();
+        var bill = Bill.builder().billId(billId).status(billRequest.getStatus()).totalCost(billRequest.getTotalCost()).paymentMethod(billRequest.getPaymentMethod()).createAt(billRequest.getCreateAt()).appointment(appointmentRepository.findById(billRequest.getAppointmentId()).orElse(null)).build();
         billRepository.save(bill);
 
         return bill;
@@ -70,31 +53,34 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public MessageResponse deleteBillId(int billId) {
-       try {
+        try {
             billRepository.deleteById(billId);
             return new MessageResponse("successfully");
-       }catch (Exception e){
-           e.printStackTrace();
-           return new MessageResponse("fail");
-       }
-    }
-
-    @Override
-    public MessageResponse softDeleteBillId(int billId) {
-        try {
-            var bill = billRepository.findById(billId)
-                               .orElseThrow(() -> new RuntimeException("bill not found"));
-            bill.setDeleted(true);
-            billRepository.save(bill);
-            return new MessageResponse("successfully");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return new MessageResponse("fail");
         }
     }
 
     @Override
+    public MessageResponse softDeleteBillId(int billId) {
+        try {
+            var bill = billRepository.findById(billId).orElseThrow(() -> new RuntimeException("bill not found"));
+            bill.setDeleted(true);
+            billRepository.save(bill);
+            return new MessageResponse("successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new MessageResponse("fail");
+        }
+    }
+
+
+
+
+    @Override
     public List<Bill> findByAppointmentAndPatient(Integer appointmentId, Integer patientId) {
         return billRepository.getByAppointmentAndPatient(appointmentId,patientId);
     }
+
 }

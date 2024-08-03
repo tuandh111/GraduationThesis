@@ -103,8 +103,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<AppointmentWithServicesResponse> findAllAppointmentService() {
+
         List<Appointment> appointments = appointmentRepository.findAll()
-                                                 .stream().filter(appointment -> !appointment.isDeleted()).collect(Collectors.toList());
+                                                 .stream().filter(appointment -> !appointment.isDeleted() && appointment.getBills() != null && !appointment.getBills().isEmpty()).collect(Collectors.toList());
         List<com.DuAn.DuAnTotNghiep.entities.AppointmentService> appointmentServices = appointmentServiceRepository.findAll()
                                                                                                .stream().filter(appointmentService -> !appointmentService.isDeleted()).collect(Collectors.toList());
         List<Bill> bills = billRepository.findAll()
@@ -116,16 +117,50 @@ public class AppointmentServiceImpl implements AppointmentService {
                                                                                                                  appointmentService -> appointmentService.getAppointment().getAppointmentId(),
                                                                                                                  Collectors.mapping(com.DuAn.DuAnTotNghiep.entities.AppointmentService::getService, Collectors.toList())
                                                                                                          ));
-        Set<Integer> appointmentIdsWithBills = bills.stream()
-                                                       .map(bill -> bill.getAppointment().getAppointmentId())
-                                                       .collect(Collectors.toSet());
+        String paidStatus = "Đã thanh toán";
+        Set<Integer> paidBillIds = bills.stream()
+                                           .filter(bill -> paidStatus.equalsIgnoreCase(bill.getStatus()))
+                                           .map(Bill::getBillId)
+                                           .collect(Collectors.toSet());
 
         return appointments.stream()
                        .sorted((a1, a2) -> a2.getAppointmentDate().compareTo(a1.getAppointmentDate()))
                        .map(appointment -> new AppointmentWithServicesResponse(
-                               appointment,
-                               appointmentIdToServicesMap.getOrDefault(appointment.getAppointmentId(), new ArrayList<>()),
-                               appointmentIdsWithBills.contains(appointment.getAppointmentId())
+                               appointment, appointmentIdToServicesMap.getOrDefault(appointment.getAppointmentId(), new ArrayList<>()),
+                               paidBillIds.contains(appointment.getAppointmentId())
+                       ))
+                       .collect(Collectors.toList());
+    }
+    @Override
+    public List<AppointmentWithServicesResponse> findAllBillCancel() {
+        List<Bill> canceledBills = billRepository.findAll()
+                                           .stream()
+                                           .filter(bill -> !bill.isDeleted() && "Đã hủy".equalsIgnoreCase(bill.getStatus()))
+                                           .collect(Collectors.toList());
+
+        Set<Integer> canceledBillAppointmentIds = canceledBills.stream()
+                                                          .map(bill -> bill.getAppointment().getAppointmentId())
+                                                          .collect(Collectors.toSet());
+        List<Appointment> appointments = appointmentRepository.findAll()
+                                                 .stream()
+                                                 .filter(appointment -> !appointment.isDeleted()
+                                                                                && appointment.getBills() != null
+                                                                                && !appointment.getBills().isEmpty()
+                                                                                && appointment.getBills().stream().anyMatch(bill -> canceledBillAppointmentIds.contains(bill.getAppointment().getAppointmentId())))
+                                                 .collect(Collectors.toList());
+        List<com.DuAn.DuAnTotNghiep.entities.AppointmentService> appointmentServices = appointmentServiceRepository.findAll()
+                                                                                               .stream().filter(appointmentService -> !appointmentService.isDeleted()).collect(Collectors.toList());
+        Map<Integer, List<com.DuAn.DuAnTotNghiep.entities.Service>> appointmentIdToServicesMap = appointmentServices.stream()
+                                                                                                         .collect(Collectors.groupingBy(
+                                                                                                                 appointmentService -> appointmentService.getAppointment().getAppointmentId(),
+                                                                                                                 Collectors.mapping(com.DuAn.DuAnTotNghiep.entities.AppointmentService::getService, Collectors.toList())
+                                                                                                         ));
+
+        return appointments.stream()
+                       .sorted((a1, a2) -> a2.getAppointmentDate().compareTo(a1.getAppointmentDate()))
+                       .map(appointment -> new AppointmentWithServicesResponse(
+                               appointment, appointmentIdToServicesMap.getOrDefault(appointment.getAppointmentId(), new ArrayList<>()),
+                               false
                        ))
                        .collect(Collectors.toList());
     }
@@ -208,16 +243,18 @@ public class AppointmentServiceImpl implements AppointmentService {
                                                                                                                  Collectors.mapping(com.DuAn.DuAnTotNghiep.entities.AppointmentService::getService, Collectors.toList())
                                                                                                          ));
 
-        Set<Integer> appointmentIdsWithBills = bills.stream()
-                                                       .map(bill -> bill.getAppointment().getAppointmentId())
-                                                       .collect(Collectors.toSet());
+        String paidStatus = "Đã thanh toán";
+        Set<Integer> paidBillIds = bills.stream()
+                                           .filter(bill -> paidStatus.equalsIgnoreCase(bill.getStatus()))
+                                           .map(Bill::getBillId)
+                                           .collect(Collectors.toSet());
 
         return appointments.stream()
                        .sorted((a1, a2) -> a2.getAppointmentDate().compareTo(a1.getAppointmentDate()))
                        .map(appointment -> new AppointmentWithServicesResponse(
                                appointment,
                                appointmentIdToServicesMap.getOrDefault(appointment.getAppointmentId(), new ArrayList<>()),
-                               appointmentIdsWithBills.contains(appointment.getAppointmentId())
+                               paidBillIds.contains(appointment.getAppointmentId())
                        ))
                        .collect(Collectors.toList());
     }

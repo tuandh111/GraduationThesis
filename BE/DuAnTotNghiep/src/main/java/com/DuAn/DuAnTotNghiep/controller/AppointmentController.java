@@ -35,11 +35,19 @@ public class AppointmentController {
     public ResponseEntity<List<Appointment>> getAllAppointment() {
         return ResponseEntity.ok(appointmentService.findAllAppointment());
     }
+
     @GetMapping("appointment-invoice")
     @Operation(summary = "List appointment")
     public ResponseEntity<List<?>> getAllAppointments() {
         return ResponseEntity.ok(appointmentService.findAllAppointmentService());
     }
+
+    @GetMapping("appointment-invoice-cancel")
+    @Operation(summary = "List appointment")
+    public ResponseEntity<List<?>> getAllBillsCancel() {
+        return ResponseEntity.ok(appointmentService.findAllBillCancel());
+    }
+
     @GetMapping("appointment-except-deleted")
     @Operation(summary = "List appointment except deleted")
     public ResponseEntity<List<Appointment>> getAllAppointmentExceptDeleted() {
@@ -74,11 +82,8 @@ public class AppointmentController {
 
     @GetMapping("appointment-group-by-date")
     @Operation(summary = "List appointment by date")
-    public ResponseEntity<Map<Date, List<Appointment>>> getAllAppGroupByDate(@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                                                                             @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
-                                                                             @RequestParam(value = "patientIds", required = false) List<Integer> patientIds,
-                                                                             @RequestParam(value = "doctorIds", required = false) List<Integer> doctorIds) {
-        return ResponseEntity.ok(appointmentService.findAllAppGroupByDate(startDate,endDate,patientIds,doctorIds));
+    public ResponseEntity<Map<Date, List<Appointment>>> getAllAppGroupByDate(@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate, @RequestParam(value = "patientIds", required = false) List<Integer> patientIds, @RequestParam(value = "doctorIds", required = false) List<Integer> doctorIds) {
+        return ResponseEntity.ok(appointmentService.findAllAppGroupByDate(startDate, endDate, patientIds, doctorIds));
     }
 
     @PostMapping("appointment")
@@ -86,10 +91,12 @@ public class AppointmentController {
     public ResponseEntity<Appointment> saveAppointment(@Valid @RequestBody AppointmentRequest appointmentRequest) {
         return ResponseEntity.ok(appointmentService.saveAppointment(appointmentRequest));
     }
+
     @PostMapping("/appointment-filter")
     public List<AppointmentWithServicesResponse> filterAppointmentsByDateRange(@RequestBody DateRangeRequest dateRangeRequest) {
         return appointmentService.findAllAppointmentService(dateRangeRequest.getStartDate(), dateRangeRequest.getEndDate());
     }
+
     @PutMapping("appointment/{Id}")
     @Operation(summary = "update appointment")
     public ResponseEntity<Appointment> updateAppointment(@PathVariable int Id, @Valid @RequestBody AppointmentRequest appointmentRequest) {
