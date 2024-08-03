@@ -47,4 +47,6 @@ public interface AppointmentService {
     Map<Date, List<Appointment>> findAllAppGroupByDate(Date startDate, Date endDate, List<Integer> patientIds, List<Integer> doctorIds);
 
 
+    List<Appointment> findAllAppByPatient(Date now, Integer patientId);
+
 }

@@ -1,8 +1,11 @@
 package com.DuAn.DuAnTotNghiep.service.impl;
 
+import com.DuAn.DuAnTotNghiep.entities.Medicines;
 import com.DuAn.DuAnTotNghiep.entities.Prescription;
+import com.DuAn.DuAnTotNghiep.entities.PrescriptionMedicines;
 import com.DuAn.DuAnTotNghiep.model.request.PrescriptionRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import com.DuAn.DuAnTotNghiep.model.response.PrescriptionWithMedicinesResponse;
 import com.DuAn.DuAnTotNghiep.repositories.AppointmentPatientRecordRepository;
 import com.DuAn.DuAnTotNghiep.repositories.PrescriptionRepository;
 import com.DuAn.DuAnTotNghiep.repositories.TreatmentDurationRepository;
@@ -12,7 +15,9 @@ import com.DuAn.DuAnTotNghiep.service.service.TreatmentDurationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 // còn lỗi get và get by id
@@ -89,5 +94,28 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             e.printStackTrace();
             return new MessageResponse("Failed") ;
         }
+    }
+
+    @Override
+    public List<PrescriptionWithMedicinesResponse> findPrescriptionByAppointment(Integer appId) {
+        //return prescriptionRepository.getPrescriptionByAppointment(appId);
+        List<Prescription> prescriptions =prescriptionRepository.getPrescriptions(appId);
+
+        List<Integer> prescriptionIds =prescriptions.stream()
+                .map(Prescription::getPrescriptionId).collect(Collectors.toList());
+
+        List<PrescriptionMedicines> prescriptionMedicines=prescriptionRepository.getMedicinesByPrescriptionIds(prescriptionIds);
+
+        Map<Integer, List<Medicines>> medicineMap = prescriptionMedicines.stream()
+                .collect(Collectors.groupingBy(
+                        pm -> pm.getPrescription().getPrescriptionId(),
+                        Collectors.mapping(PrescriptionMedicines::getMedicines, Collectors.toList())
+                ));
+
+
+        return prescriptions.stream()
+                .map(pr->new PrescriptionWithMedicinesResponse(pr,medicineMap.get(pr.getPrescriptionId()),prescriptionMedicines))
+                .collect(Collectors.toList());
+
     }
 }
