@@ -97,4 +97,12 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(updatePasswordRequest.getPassword()));
         userRepository.save(user);
     }
+
+
+
+    @Override
+    public boolean checkUserByAnObject(Integer doctorId, Integer patientId, Integer dentalStaffId) {
+        List<User> users = userRepository.getUserByObject(doctorId,patientId,dentalStaffId);
+        return !users.isEmpty();
+    }
 }

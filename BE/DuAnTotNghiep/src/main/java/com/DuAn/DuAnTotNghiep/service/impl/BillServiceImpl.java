@@ -76,4 +76,11 @@ public class BillServiceImpl implements BillService {
     }
 
 
+
+
+    @Override
+    public List<Bill> findByAppointmentAndPatient(Integer appointmentId, Integer patientId) {
+        return billRepository.getByAppointmentAndPatient(appointmentId,patientId);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.DuAn.DuAnTotNghiep.repositories;
 
 import com.DuAn.DuAnTotNghiep.entities.AppointmentService;
+import com.DuAn.DuAnTotNghiep.entities.DoctorSchedule;
 import com.DuAn.DuAnTotNghiep.entities.DoctorUnavailability;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +28,18 @@ public interface DoctorUnavailabilityRepository extends JpaRepository<DoctorUnav
             "WHERE du.appointment.appointmentId=:appId")
     List<DoctorUnavailability> getDoctorUnavailabilityByAppId(@Param("appId") Integer appointmentId);
 
+    @Query("SELECT distinct(du.appointment.AppointmentDate) FROM DoctorUnavailability du " +
+            "WHERE (:startStr IS NULL OR du.appointment.AppointmentDate >= :startStr) " +
+            "AND (:endStr IS NULL OR du.appointment.AppointmentDate <= :endStr) " +
+            "AND (:doctorId IS NULL OR du.appointment.doctor.doctorId = :doctorId) " +
+            "order by du.appointment.AppointmentDate desc ")
+    List<Object> getDistinctDateOfDuByTimeRange(@Param("startStr") Date startDate,@Param("endStr") Date endDate,@Param("doctorId") Integer doctorId);
+
+
+    @Query("SELECT du FROM DoctorUnavailability du WHERE " +
+            "YEAR(du.appointment.AppointmentDate) = YEAR(:d) AND " +
+            "MONTH(du.appointment.AppointmentDate) = MONTH(:d) AND " +
+            "DAY(du.appointment.AppointmentDate) = DAY(:d) " +
+            "order by du.appointment.AppointmentDate desc")
+    List<DoctorUnavailability> getDoctorUnavailabilityByDate(@Param("d") Date d);
 }

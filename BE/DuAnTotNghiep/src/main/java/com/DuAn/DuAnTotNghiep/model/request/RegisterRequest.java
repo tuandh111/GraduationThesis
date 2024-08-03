@@ -32,4 +32,7 @@ public class RegisterRequest {
     private String password;
 
     private int roleId;
+    private int dentalStaffId;
+    private int patientId;
+    private int doctorId;
 }

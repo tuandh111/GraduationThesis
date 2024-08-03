@@ -5,6 +5,7 @@ import com.DuAn.DuAnTotNghiep.entities.CTResultAbnormality;
 import com.DuAn.DuAnTotNghiep.model.request.BillRequest;
 import com.DuAn.DuAnTotNghiep.model.request.CTResultAbnormalityRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface BillService {
     MessageResponse deleteBillId(int billId);
 
     MessageResponse softDeleteBillId(int billId);
+
+    List<Bill> findByAppointmentAndPatient(Integer appointmentId, Integer patientId);
 }

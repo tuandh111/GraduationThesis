@@ -3,6 +3,8 @@ package com.DuAn.DuAnTotNghiep.service.service;
 import com.DuAn.DuAnTotNghiep.entities.Prescription;
 import com.DuAn.DuAnTotNghiep.model.request.PrescriptionRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import com.DuAn.DuAnTotNghiep.model.response.PrescriptionWithMedicinesResponse;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -20,4 +22,6 @@ public interface PrescriptionService {
     MessageResponse deletePrescription(int prescriptionId) ;
 
     MessageResponse softDeletePrescription(int prescriptionId) ;
+
+    List<PrescriptionWithMedicinesResponse> findPrescriptionByAppointment(Integer appId);
 }

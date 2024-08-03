@@ -21,7 +21,7 @@ public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule,I
             "YEAR(ds.date) = YEAR(:d) AND " +
             "MONTH(ds.date) = MONTH(:d) AND " +
             "DAY(ds.date) = DAY(:d) " +
-            "AND ds.isDeleted=false")
+            "AND ds.isDeleted=false order by ds.date desc")
     List<DoctorSchedule> getDoctorScheduleByDate(@Param("d") Date d);
     @Query("SELECT DISTINCT (ds.doctor), ds.date FROM DoctorSchedule ds " +
             "where ds.isDeleted=false")
@@ -45,4 +45,15 @@ public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule,I
     @Query("SELECT ds FROM  DoctorSchedule ds " +
             "where ds.date BETWEEN :startStr and :endStr and ds.isDeleted=false")
     List<DoctorSchedule> getDSByTimeRange(@Param("startStr") Date startDate,@Param("endStr") Date endDate);
+
+    @Query("SELECT ds FROM  DoctorSchedule ds " +
+            "where ds.date BETWEEN :startStr and :endStr and ds.isDeleted=false " +
+            "and ds.doctor.doctorId=:doctorId order by ds.doctorScheduleId asc")
+    List<DoctorSchedule> getDSByTimeRangeAndDoctor(@Param("startStr") Date startDate,@Param("endStr") Date endDate,@Param("doctorId") Integer doctorId);
+
+
+    @Query("SELECT distinct(ds.date) FROM  DoctorSchedule ds " +
+            "where ds.date BETWEEN :startStr and :endStr and ds.isDeleted=false ORDER BY ds.date desc")
+    List<Object> getDateDoctorScheduleInTimeRange(@Param("startStr") Date startDate,@Param("endStr") Date endDate);
+
 }

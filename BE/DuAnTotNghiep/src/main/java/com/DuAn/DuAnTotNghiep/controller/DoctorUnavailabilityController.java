@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -54,6 +55,21 @@ public class DoctorUnavailabilityController {
     @Operation(summary = "List doctorUnavailability by appointment id")
     public ResponseEntity<List<DoctorUnavailability>> getDoctorUnavailabilityByAppId(@RequestParam("appId") Integer appointmentId) {
         return ResponseEntity.ok(doctorUnavailabilityService.findDoctorUnavailabilityByAppId(appointmentId));
+    }
+
+    @GetMapping("map-doctorUnavailability-by-date")
+    @Operation(summary = "List doctorUnavailability by date")
+    public ResponseEntity<Map<Date, List<DoctorUnavailability>>> getDUByTimeRangeAndDateMap(@RequestParam(value = "startStr",required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                                                                            @RequestParam(value = "endStr",required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+                                                                                            @RequestParam(value = "doctorId",required = false) Integer doctorId){
+        return ResponseEntity.ok(doctorUnavailabilityService.findDUByTimeRangeAndDateMap(startDate,endDate,doctorId));
+    }
+    @GetMapping("doctorUnavailability-by-distinct-date")
+    @Operation(summary = "List doctorUnavailability by date")
+    public ResponseEntity<List<Object>> getDistinctDateOfDuByTimeRange(@RequestParam(value = "startStr",required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                                                       @RequestParam(value = "endStr",required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+                                                                       @RequestParam(value = "doctorId",required = false) Integer doctorId){
+        return ResponseEntity.ok(doctorUnavailabilityService.findDistinctDateOfDuByTimeRange(startDate,endDate,doctorId));
     }
 
     @GetMapping("doctorUnavailability-id/{Id}")

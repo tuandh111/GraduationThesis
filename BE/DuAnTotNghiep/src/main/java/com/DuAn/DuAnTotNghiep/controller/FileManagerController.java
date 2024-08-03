@@ -58,4 +58,21 @@ public class FileManagerController {
         String folder = "uploadImage";
         return fileManagerService.list(folder);
     }
+
+    @GetMapping("/{folder}/{file}")
+    public byte[] dowmloadImages(@PathVariable("folder") String folder,@PathVariable("file") String file) {
+        //String folder = "uploadImage";
+        return fileManagerService.readImg(folder, file);
+    }
+
+    @GetMapping("/{folder}")
+    public  List<String> listFolderUploadImage (@PathVariable("folder") String folder){
+        //String folder = "uploadImage";
+        return fileManagerService.list(folder);
+    }
+
+    @PostMapping("/move/{tempFolder}/{realFolder}")
+    public void moveTempFolder(@PathVariable("tempFolder") String tempFolder, @PathVariable("realFolder") String realFolder) {
+        fileManagerService.moveTempFolder(tempFolder,realFolder);
+    }
 }

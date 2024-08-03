@@ -78,4 +78,14 @@ public class TreatmentServiceImpl implements TreatmentService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public List<Object> findTreatmentByDentalIssues(List<Integer> ids) {
+        return treatmentRepository.getTreatmentByDentalIssues(ids);
+    }
+
+    @Override
+    public List<Object> findServiceByTreatment(List<Integer> ids) {
+        return treatmentRepository.getServiceByTreatment(ids);
+    }
 }

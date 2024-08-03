@@ -1,22 +1,20 @@
 package com.DuAn.DuAnTotNghiep.security.service;
 
 
-import com.DuAn.DuAnTotNghiep.entities.Role;
-import com.DuAn.DuAnTotNghiep.entities.User;
+import com.DuAn.DuAnTotNghiep.entities.*;
 import com.DuAn.DuAnTotNghiep.model.request.RegisterRequest;
+import com.DuAn.DuAnTotNghiep.repositories.*;
 import com.DuAn.DuAnTotNghiep.service.impl.RoleServiceImpl;
 import com.DuAn.DuAnTotNghiep.service.service.RoleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.DuAn.DuAnTotNghiep.entities.Token;
 import com.DuAn.DuAnTotNghiep.entities._enum.Gender;
 import com.DuAn.DuAnTotNghiep.entities._enum.TokenType;
 import com.DuAn.DuAnTotNghiep.model.request.AuthenticationRequest;
 import com.DuAn.DuAnTotNghiep.model.response.AuthenticationResponse;
-import com.DuAn.DuAnTotNghiep.repositories.TokenRepository;
-import com.DuAn.DuAnTotNghiep.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,9 +33,20 @@ public class AuthenticationService {
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
+
+  @Autowired
+  DoctorRepository doctorRepository;
+  @Autowired
+  DentalStaffRepository dentalStaffRepository;
+  @Autowired
+  PatientRepository patientRepository;
+
   public AuthenticationResponse register(RegisterRequest request) {
     Date date = new Date("2000/01/01");
     Role role = roleService.findByRoleId(request.getRoleId());
+    Doctor doctor = doctorRepository.findById(request.getDoctorId()).orElse(null);
+    Patient patient =patientRepository.findById(request.getPatientId()).orElse(null);
+    DentalStaff dentalStaff = dentalStaffRepository.findById(request.getDentalStaffId()).orElse(null);
     if(role == null){
       return null;
     }
@@ -48,6 +57,9 @@ public class AuthenticationService {
         .birthDay(date)
         .password(passwordEncoder.encode(request.getPassword()))
         .role(role)
+        .doctor(doctor)
+        .dentalStaff(dentalStaff)
+        .patient(patient)
         .build();
     var savedUser = userRepository.save(user);
     var jwtToken = jwtService.generateToken(user);

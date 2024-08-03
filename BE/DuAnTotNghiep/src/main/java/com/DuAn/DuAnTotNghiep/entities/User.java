@@ -70,7 +70,6 @@ public class User implements UserDetails {
 
     @OneToOne
     @JoinColumn(name = "doctorId")
-    @JsonIgnore
     private Doctor doctor;
 
     @OneToMany(mappedBy = "user")

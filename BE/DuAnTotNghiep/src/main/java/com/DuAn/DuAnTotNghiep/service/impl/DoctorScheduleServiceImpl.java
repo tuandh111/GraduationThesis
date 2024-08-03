@@ -153,4 +153,45 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
         return doctorScheduleRepository.getDSByTimeRange(startDate,endDate);
     }
 
+    @Override
+    public Map<Integer, List<DoctorSchedule>> findDoctorSchedulesMap(Date startStr, Date endStr) {
+        Map<Integer, List<DoctorSchedule>> dsMap = new HashMap<>();
+
+        List<Object> doctorIds = this.findDoctorScheduleByTimeRange(startStr,endStr);
+
+        for (Object object : doctorIds){
+            int doctorId = (int) object;
+            List<DoctorSchedule> ds = this.findDSByTimeRangeAndDoctor(startStr,endStr,doctorId);
+            dsMap.put(doctorId,ds);
+        }
+        return dsMap;
+    }
+
+    @Override
+    public List<DoctorSchedule> findDSByTimeRangeAndDoctor(Date startDate, Date endDate, Integer doctorId) {
+        return doctorScheduleRepository.getDSByTimeRangeAndDoctor(startDate,endDate,doctorId);
+    }
+
+    @Override
+    public List<Object> findDateDoctorScheduleInTimeRange(Date startDate, Date endDate) {
+        return doctorScheduleRepository.getDateDoctorScheduleInTimeRange(startDate,endDate);
+    }
+
+    @Override
+    public Map<Date, List<DoctorSchedule>> findDSByTimeRangeAndDateMap(Date startDate, Date endDate) {
+        Map<Date, List<DoctorSchedule>> dsDateMap=new HashMap<>();
+        List<Object> dates=this.findDateDoctorScheduleInTimeRange(startDate,endDate);
+        for (Object object : dates){
+            Date date = (Date) object;
+            List<DoctorSchedule> listDs=this.findAllDoctorScheduleByDate(date);
+            dsDateMap.put(date,listDs);
+        }
+        TreeMap<Date, List<DoctorSchedule>> sortedMap = new TreeMap<>(Collections.reverseOrder());
+        sortedMap.putAll(dsDateMap);
+
+        return sortedMap;
+        //return dsDateMap;
+    }
+
+
 }

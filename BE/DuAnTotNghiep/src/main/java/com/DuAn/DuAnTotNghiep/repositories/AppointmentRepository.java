@@ -26,4 +26,8 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Integer
             "where a.AppointmentDate BETWEEN :startStr and :endStr")
     List<Appointment> getAllAppByTimeRange(@Param("startStr") Date startDate,@Param("endStr") Date endDate);
 
+    @Query("SELECT a from Appointment a " +
+            "where a.patient.patientId=:patientId and a.AppointmentDate = :date and a.isDeleted=false")
+    List<Appointment> getAllAppByPatient(@Param("date") Date now,@Param("patientId") Integer patientId);
+
 }
