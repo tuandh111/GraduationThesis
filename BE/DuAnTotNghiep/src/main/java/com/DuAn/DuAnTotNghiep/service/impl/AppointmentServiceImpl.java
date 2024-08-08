@@ -319,4 +319,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentRepository.getAllAppByPatient(now,patientId);
     }
 
+    @Override
+    public List<Appointment> findAppointmentsByDateMonthYear(Integer date, Integer month, Integer year) {
+        return appointmentRepository.getAppointmentsByDateMonthYear(date,month,year);
+    }
+
 }
