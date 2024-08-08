@@ -7,10 +7,13 @@ import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.repositories.AppointmentRepository;
 import com.DuAn.DuAnTotNghiep.repositories.BillRepository;
 import com.DuAn.DuAnTotNghiep.service.service.BillService;
+import com.DuAn.DuAnTotNghiep.service.service.DateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,6 +22,8 @@ public class BillServiceImpl implements BillService {
     BillRepository billRepository;
     @Autowired
     AppointmentRepository appointmentRepository;
+    @Autowired
+    DateService dateService;
 
     @Override
     public Bill findByBillId(int billId) {
@@ -81,6 +86,45 @@ public class BillServiceImpl implements BillService {
     @Override
     public List<Bill> findByAppointmentAndPatient(Integer appointmentId, Integer patientId) {
         return billRepository.getByAppointmentAndPatient(appointmentId,patientId);
+    }
+
+    @Override
+    public Double getRevenue(Date date,Integer month, Integer year) {
+        return billRepository.getRevenue(date,month,year);
+    }
+
+    @Override
+    public Map<String, Object> getRevenueAndDate(String monthParam, Integer month,Integer year) {
+        Map<String, Object> data = new LinkedHashMap<>();
+        List<String> getDateCategories =dateService.getDateCategories(monthParam);
+        for(String dateString  : getDateCategories){
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date date = formatter.parse(dateString);
+                Double revenue = Optional.ofNullable(billRepository.getRevenue(date,month,year))
+                        .orElse(0.0);
+                data.put(dateString,revenue);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return data;
+    }
+
+    @Override
+    public Object[] getRevenueAndDateAsArray(String monthParam,Integer month,Integer year) {
+        Map<String, Object> dataMap = getRevenueAndDate(monthParam,month,year);
+        List<String> categories = new ArrayList<>(dataMap.keySet());
+        List<Double> datas = dataMap.values().stream()
+                .map(value -> (Double) value)
+                .collect(Collectors.toList());
+
+        return new Object[]{categories, datas};
+    }
+
+    @Override
+    public List<Object[]> findTop5Service(Integer day, Integer month, Integer year) {
+        return billRepository.getTop5Service(day,month,year);
     }
 
 }

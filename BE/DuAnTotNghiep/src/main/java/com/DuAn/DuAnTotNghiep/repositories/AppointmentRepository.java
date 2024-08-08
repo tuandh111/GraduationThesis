@@ -30,4 +30,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Integer
             "where a.patient.patientId=:patientId and a.AppointmentDate = :date and a.isDeleted=false")
     List<Appointment> getAllAppByPatient(@Param("date") Date now,@Param("patientId") Integer patientId);
 
+
+    @Query("SELECT a FROM Appointment a WHERE " +
+            "(:date is null or DAY(a.AppointmentDate)=:date) " +
+            "AND (:month is null or MONTH(a.AppointmentDate)=:month) " +
+            "AND (:year is null or YEAR(a.AppointmentDate)=:year)")
+    List<Appointment> getAppointmentsByDateMonthYear(@Param("date") Integer date ,@Param("month") Integer month,
+                                                @Param("year") Integer year);
+
 }

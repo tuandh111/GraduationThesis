@@ -86,6 +86,14 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.findAllAppGroupByDate(startDate, endDate, patientIds, doctorIds));
     }
 
+    @GetMapping("appoinment-by-day-month-year")
+    @Operation(summary = "Get list appoinment by day or month or year")
+    public ResponseEntity<List<Appointment>> getAppointmentsByDateMonthYear(@RequestParam(value = "day",required = false) Integer day,
+                                                                            @RequestParam(value = "month",required = false) Integer month,
+                                                                            @RequestParam(value = "year",required = false) Integer year){
+        return ResponseEntity.ok(appointmentService.findAppointmentsByDateMonthYear(day,month,year));
+    }
+
     @PostMapping("appointment")
     @Operation(summary = "Save appointment")
     public ResponseEntity<Appointment> saveAppointment(@Valid @RequestBody AppointmentRequest appointmentRequest) {
