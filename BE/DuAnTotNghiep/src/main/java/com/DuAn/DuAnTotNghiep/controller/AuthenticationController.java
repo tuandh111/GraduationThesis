@@ -8,6 +8,7 @@ import com.DuAn.DuAnTotNghiep.model.request.UpdatePasswordRequest;
 import com.DuAn.DuAnTotNghiep.model.response.AuthenticationResponse;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.security.service.AuthenticationService;
+import com.DuAn.DuAnTotNghiep.security.service.GetTokenRefreshToken;
 import com.DuAn.DuAnTotNghiep.security.service.JwtService;
 import com.DuAn.DuAnTotNghiep.service.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -56,6 +57,16 @@ public class AuthenticationController {
 //        System.out.println("Email: " + jwtService.extractUsername("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0dWFuZGhwYzA1MDc2QGZwdC5lZHUudm4iLCJpYXQiOjE3MTA4MDk5NTIsImV4cCI6MTcxMDg5NjM1Mn0.8Ata74reIX-DVJavfDNwaeHsSehS5A2SxX3KDjGNcAY"));
         return ResponseEntity.ok(service.authenticate(request));
     }
+
+    @GetMapping("/get-user-by-token")
+    @Operation(summary = "Get user by token")
+    public ResponseEntity<?> getUser(HttpServletRequest httpServletRequest){
+        var token= GetTokenRefreshToken.getToken(httpServletRequest);
+        var email=jwtService.extractUsername(token);
+        User user =userService.findByEmail(email).get();
+        return ResponseEntity.ok(user);
+    }
+
 
     @PostMapping("/refresh-token")
     @Operation(summary = "Refresh token")
