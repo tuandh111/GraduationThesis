@@ -67,6 +67,12 @@ public class AuthenticationController {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping("/get-user-by-email")
+    @Operation(summary = "Get user by email")
+    public ResponseEntity<?> getUserByEmail(@RequestParam("email") String email){
+        return ResponseEntity.ok(userService.findByEmail(email).get());
+    }
+
 
     @PostMapping("/refresh-token")
     @Operation(summary = "Refresh token")
