@@ -1,7 +1,11 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
+import com.DuAn.DuAnTotNghiep.Rest.RestFB;
+import com.DuAn.DuAnTotNghiep.Rest.RestGG;
 import com.DuAn.DuAnTotNghiep.entities.User;
 import com.DuAn.DuAnTotNghiep.entities._enum.Role;
+import com.DuAn.DuAnTotNghiep.model.UserFacebookDto;
+import com.DuAn.DuAnTotNghiep.model.UserGoogleDto;
 import com.DuAn.DuAnTotNghiep.model.request.AuthenticationRequest;
 import com.DuAn.DuAnTotNghiep.model.request.RegisterRequest;
 import com.DuAn.DuAnTotNghiep.model.request.UpdatePasswordRequest;
@@ -16,10 +20,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -60,16 +69,16 @@ public class AuthenticationController {
 
     @GetMapping("/get-user-by-token")
     @Operation(summary = "Get user by token")
-    public ResponseEntity<?> getUser(HttpServletRequest httpServletRequest){
-        var token= GetTokenRefreshToken.getToken(httpServletRequest);
-        var email=jwtService.extractUsername(token);
-        User user =userService.findByEmail(email).get();
+    public ResponseEntity<?> getUser(HttpServletRequest httpServletRequest) {
+        var token = GetTokenRefreshToken.getToken(httpServletRequest);
+        var email = jwtService.extractUsername(token);
+        User user = userService.findByEmail(email).get();
         return ResponseEntity.ok(user);
     }
 
     @GetMapping("/get-user-by-email")
     @Operation(summary = "Get user by email")
-    public ResponseEntity<?> getUserByEmail(@RequestParam("email") String email){
+    public ResponseEntity<?> getUserByEmail(@RequestParam("email") String email) {
         return ResponseEntity.ok(userService.findByEmail(email).get());
     }
 
@@ -107,5 +116,38 @@ public class AuthenticationController {
         return false;
     }
 
+    @Value("${google.client.id}")
+    private String googleClientId;
+
+    @Value("${google.client.secret}")
+    private String googleClientSecret;
+
+    @Value("${google.redirect.uri}")
+    private String googleRedirectUri;
+
+    @SneakyThrows
+    @PostMapping("/google/callback")
+    public ResponseEntity<?> googleCallback(@RequestBody Map<String, String> body) {
+        String code = body.get("code");
+        if (code != null) {
+            String accessToken = RestGG.getToken(code);
+            UserGoogleDto user = RestGG.getUserInfo(accessToken);
+            System.out.println(user);
+            return ResponseEntity.ok(user);
+        }
+        return ResponseEntity.ok(null);
+    }
+    @SneakyThrows
+    @PostMapping("/facebook/callback")
+    public ResponseEntity<?> faceCallback(@RequestBody Map<String, String> body) {
+        String code = body.get("code");
+        if (code != null) {
+            String accessToken = RestFB.getToken(code);
+            UserFacebookDto user = RestFB.getUserInfo(accessToken);
+            System.out.println(user);
+            return ResponseEntity.ok(user);
+        }
+        return ResponseEntity.ok(null);
+    }
 
 }
