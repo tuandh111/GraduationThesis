@@ -2,11 +2,13 @@ package com.DuAn.DuAnTotNghiep.controller;
 
 import com.DuAn.DuAnTotNghiep.Rest.RestFB;
 import com.DuAn.DuAnTotNghiep.Rest.RestGG;
+import com.DuAn.DuAnTotNghiep.entities.Patient;
 import com.DuAn.DuAnTotNghiep.entities.User;
 import com.DuAn.DuAnTotNghiep.entities._enum.Role;
 import com.DuAn.DuAnTotNghiep.model.UserFacebookDto;
 import com.DuAn.DuAnTotNghiep.model.UserGoogleDto;
 import com.DuAn.DuAnTotNghiep.model.request.AuthenticationRequest;
+import com.DuAn.DuAnTotNghiep.model.request.PatientRequest;
 import com.DuAn.DuAnTotNghiep.model.request.RegisterRequest;
 import com.DuAn.DuAnTotNghiep.model.request.UpdatePasswordRequest;
 import com.DuAn.DuAnTotNghiep.model.response.AuthenticationResponse;
@@ -14,6 +16,7 @@ import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.security.service.AuthenticationService;
 import com.DuAn.DuAnTotNghiep.security.service.GetTokenRefreshToken;
 import com.DuAn.DuAnTotNghiep.security.service.JwtService;
+import com.DuAn.DuAnTotNghiep.service.service.PatientService;
 import com.DuAn.DuAnTotNghiep.service.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,6 +47,8 @@ import java.util.Optional;
 public class AuthenticationController {
     @Autowired
     UserService userService;
+    @Autowired
+    PatientService patientService;
     private final JwtService jwtService;
 
     private final AuthenticationService service;
@@ -132,11 +137,22 @@ public class AuthenticationController {
         if (code != null) {
             String accessToken = RestGG.getToken(code);
             UserGoogleDto user = RestGG.getUserInfo(accessToken);
-            System.out.println(user);
+            User checkUser = userService.findByEmail(user.getEmail()).orElse(null);
+            if (checkUser == null) {
+                PatientRequest patientRequest = new PatientRequest();
+                patientRequest.setGender("UNISEX");
+                Patient patient = patientService.savePatient(patientRequest);
+                RegisterRequest registerRequest = RegisterRequest.builder().patientId(patient.getPatientId()).email(user.getEmail())
+                                                          .roleId(1)
+                                                          .password("123456").build();
+                service.register(registerRequest);
+            }
+            System.out.println("usergg: " + user);
             return ResponseEntity.ok(user);
         }
         return ResponseEntity.ok(null);
     }
+
     @SneakyThrows
     @PostMapping("/facebook/callback")
     public ResponseEntity<?> faceCallback(@RequestBody Map<String, String> body) {
@@ -144,7 +160,7 @@ public class AuthenticationController {
         if (code != null) {
             String accessToken = RestFB.getToken(code);
             UserFacebookDto user = RestFB.getUserInfo(accessToken);
-            System.out.println(user);
+            System.out.println("userfb" + user);
             return ResponseEntity.ok(user);
         }
         return ResponseEntity.ok(null);
