@@ -37,15 +37,15 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public Patient savePatient(PatientRequest patientRequest) {
         var patient = Patient
-                              .builder()
-                              .fullName(patientRequest.getFullName())
-                              .phoneNumber(patientRequest.getPhoneNumber())
-                              .Type(patientRequest.getType())
-                              .CitizenIdentificationNumber(patientRequest.getCitizenIdentificationNumber())
-                              .birthday(patientRequest.getBirthday())
-                              .imageURL(patientRequest.getImageURL())
-                              .gender(Gender.valueOf(patientRequest.getGender()))
-                              .build();
+                .builder()
+                .fullName(patientRequest.getFullName())
+                .phoneNumber(patientRequest.getPhoneNumber())
+                .citizenIdentificationNumber(patientRequest.getCitizenIdentificationNumber())
+                .birthday(patientRequest.getBirthday())
+                .imageURL(patientRequest.getImageURL())
+                .gender(Gender.valueOf(patientRequest.getGender()))
+                .address(patientRequest.getAddress())
+                .build();
         patientRepository.save(patient);
         return patient;
     }
@@ -53,16 +53,15 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public Patient updatePatient(int patientId, PatientRequest patientRequest) {
         var patient = Patient
-                              .builder()
-                              .patientId(patientId)
-                              .fullName(patientRequest.getFullName())
-                              .phoneNumber(patientRequest.getPhoneNumber())
-                              .Type(patientRequest.getType())
-                              .CitizenIdentificationNumber(patientRequest.getCitizenIdentificationNumber())
-                              .birthday(patientRequest.getBirthday())
-                              .imageURL(patientRequest.getImageURL())
-                              .gender(Gender.valueOf(patientRequest.getGender()))
-                              .build();
+                .builder()
+                .patientId(patientId)
+                .fullName(patientRequest.getFullName())
+                .phoneNumber(patientRequest.getPhoneNumber())
+                .citizenIdentificationNumber(patientRequest.getCitizenIdentificationNumber())
+                .birthday(patientRequest.getBirthday())
+                .imageURL(patientRequest.getImageURL())
+                .gender(Gender.valueOf(patientRequest.getGender()))
+                .build();
         patientRepository.save(patient);
         return patient;
     }
@@ -82,7 +81,7 @@ public class PatientServiceImpl implements PatientService {
     public MessageResponse softDeletePatient(int patientId) {
         try {
             var patient = patientRepository.findById(patientId)
-                                  .orElseThrow(() -> new RuntimeException("patient not found"));
+                    .orElseThrow(() -> new RuntimeException("patient not found"));
             patient.setDeleted(true) ;
             patientRepository.save(patient);
             return new MessageResponse("successfully");

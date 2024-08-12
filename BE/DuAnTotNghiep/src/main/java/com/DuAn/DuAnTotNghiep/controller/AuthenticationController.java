@@ -142,9 +142,12 @@ public class AuthenticationController {
                 PatientRequest patientRequest = new PatientRequest();
                 patientRequest.setGender("UNISEX");
                 Patient patient = patientService.savePatient(patientRequest);
-                RegisterRequest registerRequest = RegisterRequest.builder().patientId(patient.getPatientId()).email(user.getEmail())
-                                                          .roleId(1)
-                                                          .password("123456").build();
+                RegisterRequest registerRequest = RegisterRequest.builder()
+                        .patientId(patient.getPatientId())
+                        .email(user.getEmail())
+                        .roleId(4)
+                        .password(user.getEmail()+"123")
+                        .build();
                 service.register(registerRequest);
             }
             System.out.println("usergg: " + user);
