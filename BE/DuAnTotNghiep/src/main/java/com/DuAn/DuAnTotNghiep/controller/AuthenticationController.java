@@ -77,14 +77,30 @@ public class AuthenticationController {
     public ResponseEntity<?> getUser(HttpServletRequest httpServletRequest) {
         var token = GetTokenRefreshToken.getToken(httpServletRequest);
         var email = jwtService.extractUsername(token);
-        User user = userService.findByEmail(email).get();
-        return ResponseEntity.ok(user);
+        Optional<User> optionalUser = userService.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User not found");
+        }
+        //User user = userService.findByEmail(email).get();
+        //return ResponseEntity.ok(user);
     }
 
     @GetMapping("/get-user-by-email")
     @Operation(summary = "Get user by email")
     public ResponseEntity<?> getUserByEmail(@RequestParam("email") String email) {
-        return ResponseEntity.ok(userService.findByEmail(email).get());
+        Optional<User> optionalUser = userService.findByEmail(email);
+
+        if (optionalUser.isPresent()) {
+            return ResponseEntity.ok(optionalUser.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User not found");
+        }
+//        return ResponseEntity.ok(userService.findByEmail(email).get());
     }
 
 
@@ -164,6 +180,12 @@ public class AuthenticationController {
             return ResponseEntity.ok(user);
         }
         return ResponseEntity.ok(null);
+    }
+
+    @PostMapping("/valid-password")
+    public ResponseEntity<Boolean> validPassword(@RequestBody Map<String, String> passwordMap) {
+        boolean isValid = service.validPassword(passwordMap);
+        return ResponseEntity.ok(isValid);
     }
 
 }

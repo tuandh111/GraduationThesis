@@ -4,10 +4,8 @@ package com.DuAn.DuAnTotNghiep.security.service;
 import com.DuAn.DuAnTotNghiep.entities.*;
 import com.DuAn.DuAnTotNghiep.model.request.RegisterRequest;
 import com.DuAn.DuAnTotNghiep.repositories.*;
-import com.DuAn.DuAnTotNghiep.service.impl.RoleServiceImpl;
 import com.DuAn.DuAnTotNghiep.service.service.RoleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.DuAn.DuAnTotNghiep.entities._enum.Gender;
 import com.DuAn.DuAnTotNghiep.entities._enum.TokenType;
 import com.DuAn.DuAnTotNghiep.model.request.AuthenticationRequest;
 import com.DuAn.DuAnTotNghiep.model.response.AuthenticationResponse;
@@ -23,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -141,4 +140,11 @@ public class AuthenticationService {
       }
     }
   }
+
+  public boolean validPassword(Map<String, String> passwordMap){
+    String rawPassword=passwordMap.get("newPassword");
+    String encodedPassword=passwordMap.get("currentPassword");
+    return passwordEncoder.matches(rawPassword,encodedPassword);
+  }
+
 }
