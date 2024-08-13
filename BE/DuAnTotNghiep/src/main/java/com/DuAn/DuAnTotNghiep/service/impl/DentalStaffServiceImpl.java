@@ -10,6 +10,7 @@ import com.DuAn.DuAnTotNghiep.repositories.DentalStaffRepository;
 import com.DuAn.DuAnTotNghiep.repositories.DepartmentRepository;
 import com.DuAn.DuAnTotNghiep.service.service.DentalStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class DentalStaffServiceImpl implements DentalStaffService {
 
     @Override
     public List<DentalStaff> findAllDentalStaff() {
-        return dentalStaffRepository.findAll() ;
+        return dentalStaffRepository.findAll(Sort.by(Sort.Direction.DESC,"dentalStaffId"));
     }
 
     @Override

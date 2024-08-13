@@ -49,5 +49,6 @@ public class    DentalStaff {
     private Department department;
 
     @OneToOne(mappedBy = "dentalStaff")
+    @JsonIgnore
     private User user;
 }
