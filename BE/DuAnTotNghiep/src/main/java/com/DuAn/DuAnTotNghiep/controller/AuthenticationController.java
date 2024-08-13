@@ -5,12 +5,10 @@ import com.DuAn.DuAnTotNghiep.Rest.RestGG;
 import com.DuAn.DuAnTotNghiep.entities.Patient;
 import com.DuAn.DuAnTotNghiep.entities.User;
 import com.DuAn.DuAnTotNghiep.entities._enum.Role;
+import com.DuAn.DuAnTotNghiep.exception.BadRequestException;
 import com.DuAn.DuAnTotNghiep.model.UserFacebookDto;
 import com.DuAn.DuAnTotNghiep.model.UserGoogleDto;
-import com.DuAn.DuAnTotNghiep.model.request.AuthenticationRequest;
-import com.DuAn.DuAnTotNghiep.model.request.PatientRequest;
-import com.DuAn.DuAnTotNghiep.model.request.RegisterRequest;
-import com.DuAn.DuAnTotNghiep.model.request.UpdatePasswordRequest;
+import com.DuAn.DuAnTotNghiep.model.request.*;
 import com.DuAn.DuAnTotNghiep.model.response.AuthenticationResponse;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.security.service.AuthenticationService;
@@ -82,8 +80,7 @@ public class AuthenticationController {
             User user = optionalUser.get();
             return ResponseEntity.ok(user);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
         //User user = userService.findByEmail(email).get();
         //return ResponseEntity.ok(user);
@@ -97,8 +94,7 @@ public class AuthenticationController {
         if (optionalUser.isPresent()) {
             return ResponseEntity.ok(optionalUser.get());
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
 //        return ResponseEntity.ok(userService.findByEmail(email).get());
     }
@@ -158,12 +154,7 @@ public class AuthenticationController {
                 PatientRequest patientRequest = new PatientRequest();
                 patientRequest.setGender("UNISEX");
                 Patient patient = patientService.savePatient(patientRequest);
-                RegisterRequest registerRequest = RegisterRequest.builder()
-                        .patientId(patient.getPatientId())
-                        .email(user.getEmail())
-                        .roleId(4)
-                        .password(user.getEmail()+"123")
-                        .build();
+                RegisterRequest registerRequest = RegisterRequest.builder().patientId(patient.getPatientId()).email(user.getEmail()).roleId(4).password(user.getEmail() + "123").build();
                 service.register(registerRequest);
             }
             System.out.println("usergg: " + user);
@@ -189,6 +180,19 @@ public class AuthenticationController {
     public ResponseEntity<Boolean> validPassword(@RequestBody Map<String, String> passwordMap) {
         boolean isValid = service.validPassword(passwordMap);
         return ResponseEntity.ok(isValid);
+    }
+
+    @PostMapping("/patient-user")
+    @Operation(summary = "Reigister account patient")
+    public ResponseEntity<?> patientAndUser(@RequestBody PatientAndUserRequest patientAndUserRequest) {
+        String status = userService.registerUserAndPatient(patientAndUserRequest);
+        if ("Email exists".equalsIgnoreCase(status)) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Cannot add a new email user that already exists"));
+        } else if ("Failed".equalsIgnoreCase(status)) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Failed to create account"));
+        } else {
+            return ResponseEntity.ok(new MessageResponse("Created account"));
+        }
     }
 
 }

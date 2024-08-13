@@ -1,18 +1,31 @@
 package com.DuAn.DuAnTotNghiep.service.impl;
 
+import com.DuAn.DuAnTotNghiep.entities.Patient;
 import com.DuAn.DuAnTotNghiep.entities.User;
+import com.DuAn.DuAnTotNghiep.entities._enum.Gender;
 import com.DuAn.DuAnTotNghiep.exception.NotFoundException;
 import com.DuAn.DuAnTotNghiep.model.request.ChangePasswordRequest;
+import com.DuAn.DuAnTotNghiep.model.request.PatientAndUserRequest;
+import com.DuAn.DuAnTotNghiep.model.request.PatientRequest;
 import com.DuAn.DuAnTotNghiep.model.request.UpdatePasswordRequest;
+import com.DuAn.DuAnTotNghiep.repositories.PatientRepository;
+import com.DuAn.DuAnTotNghiep.repositories.RoleRepositoty;
 import com.DuAn.DuAnTotNghiep.repositories.UserRepository;
 import com.DuAn.DuAnTotNghiep.security.service.JwtService;
+import com.DuAn.DuAnTotNghiep.service.service.PDFGeneratorService;
+import com.DuAn.DuAnTotNghiep.service.service.PatientService;
 import com.DuAn.DuAnTotNghiep.service.service.UserService;
+import com.DuAn.DuAnTotNghiep.service.service.utils.MailerService;
+import com.DuAn.DuAnTotNghiep.utils.MultipartFileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +39,16 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     JwtService jwtService;
+
+    @Autowired
+    PatientRepository patientRepository;
+    @Autowired
+    RoleRepositoty roleRepositoty;
+    @Autowired
+    MailerService mailerService;
+    @Autowired
+    private PDFGeneratorService pdfGeneratorService;
+
 
     //Tất cả các logic xử lí điều phải xử lí trong service này hết
     @Override
@@ -100,5 +123,44 @@ public class UserServiceImpl implements UserService {
     public boolean checkUserByAnObject(Integer doctorId, Integer patientId, Integer dentalStaffId) {
         List<User> users = userRepository.getUserByObject(doctorId,patientId,dentalStaffId);
         return !users.isEmpty();
+    }
+
+    @Override
+    public String registerUserAndPatient(PatientAndUserRequest patientAndUserRequest) {
+        try {
+            User checkUser = userRepository.findByEmail(patientAndUserRequest.getEmail()).orElse(null);
+            if(checkUser != null){
+                return "Email exists";
+            }
+            Patient patient = Patient.builder()
+                                      .fullName(patientAndUserRequest.getFullName())
+                                      .phoneNumber(patientAndUserRequest.getPhoneNumber())
+                                      .citizenIdentificationNumber(patientAndUserRequest.getCitizenIdentificationNumber())
+                                      .birthday(patientAndUserRequest.getBirthday())
+                                      .imageURL(patientAndUserRequest.getImageURL())
+                                      .gender(Gender.valueOf(patientAndUserRequest.getGender()))
+                                      .address(patientAndUserRequest.getAddress())
+                                      .build();
+            Patient patient1= patientRepository.save(patient);
+            User user = User.builder()
+                                .role(roleRepositoty.findByRoleName("BENH_NHAN").orElse(null))
+                                .email(patientAndUserRequest.getEmail())
+                                .password(passwordEncoder.encode(patientAndUserRequest.getPassword()))
+                                .patient(patient1)
+                                .doctor(null)
+                                .dentalStaff(null)
+                                .build();
+            userRepository.save(user);
+            if(user.getEmail() != null){
+                byte[] fileBytes = pdfGeneratorService.read("files", "tooth.jpg");
+                MultipartFile file = new MockMultipartFile("tooth.jpg", "tooth.jpg", "image/jpeg", fileBytes);
+                mailerService.send(user.getEmail(),"Thông báo đăng kí tài khoản ","Chúc mừng bạn đã tạo thành công tài khoản tại phòng khám nha khoa Tooth Teeth. \nThông tin đăng nhập của bạn là Email: , Password",file);
+            }
+            return "Successfully";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Failed";
+        }
+
     }
 }
