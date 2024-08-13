@@ -1,5 +1,6 @@
 package com.DuAn.DuAnTotNghiep.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +29,7 @@ public class Bill {
     @Temporal(TemporalType.DATE)
     private Date createAt;
 
-    @ManyToOne()
-    @JoinColumn(name = "appointmentId")
-    private Appointment appointment;
+    @OneToOne
+    @JoinColumn(name ="appointmentId")
+    private Appointment appointments;
 }

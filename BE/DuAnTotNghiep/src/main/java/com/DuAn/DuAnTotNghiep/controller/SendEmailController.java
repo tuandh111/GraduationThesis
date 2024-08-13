@@ -62,14 +62,14 @@ public class SendEmailController {
                 mailerService.send(appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail().toString(),
                         "Đơn xác nhận thanh toán dịch vụ nha khoa Tooth Teeth", "Cảm ơn quý khách đã sử dụng dịch vụ tại nha khoa Tooth Teeth\n"
                                                                                         + "chúng tôi xin gửi quý khách hóa đơn thanh toán: ", file);
-                Bill bill = billService.findByBillId(appointmentWithServicesResponseList.getAppointment().getBills().get(0).getBillId());
+                Bill bill = billService.findByBillId(appointmentWithServicesResponseList.getAppointment().getBills().getBillId());
                 BillRequest billRequest = new BillRequest();
                 billRequest.setAppointmentId(billRequest.getAppointmentId());
                 billRequest.setStatus("Đã thanh toán");
                 billRequest.setCreateAt(bill.getCreateAt());
                 billRequest.setTotalCost(bill.getTotalCost());
                 billRequest.setPaymentMethod("Tiền mặt");
-                billRequest.setAppointmentId(bill.getAppointment().getAppointmentId());
+                billRequest.setAppointmentId(bill.getAppointments().getAppointmentId());
                 billService.updateBill(bill.getBillId(), billRequest);
                 return ResponseEntity.ok(new MessageResponse("Successfully send mail"));
             }else{
@@ -81,7 +81,7 @@ public class SendEmailController {
                 billRequest.setCreateAt(bill.getCreateAt());
                 billRequest.setTotalCost(bill.getTotalCost());
                 billRequest.setPaymentMethod("Tiền mặt");
-                billRequest.setAppointmentId(bill.getAppointment().getAppointmentId());
+                billRequest.setAppointmentId(bill.getAppointments().getAppointmentId());
                 billService.updateBill(bill.getBillId(), billRequest);
                 return ResponseEntity.ok(new MessageResponse("Successfully"));
             }

@@ -37,17 +37,17 @@ public class AppointmentPatientRecord {
     @JsonIgnore
     private List<AppointmentRecordIssues> appointmentRecordIssues;
 
-    @OneToMany(mappedBy = "appointmentId")
-    @JsonIgnore
-    private List<Appointment> appointments;
 
-//    @ManyToOne
-//    @JoinColumn(name="patientId")
+    @OneToOne(mappedBy = "appointmentPatientRecord")
+    @JsonIgnore
+    private Appointment appointments;
+
+
     private int patientId;
 
-    @OneToMany(mappedBy = "prescriptionId")
+    @OneToOne(mappedBy = "appointmentPatientRecord")
     @JsonIgnore
-    private List<Prescription> prescriptions;
+    private Prescription prescriptions;
 
 
 }

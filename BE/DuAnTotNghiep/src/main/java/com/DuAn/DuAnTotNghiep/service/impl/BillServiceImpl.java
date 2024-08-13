@@ -42,7 +42,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public Bill saveBill(BillRequest billRequest) {
-        var bill = Bill.builder().status(billRequest.getStatus()).totalCost(billRequest.getTotalCost()).paymentMethod(billRequest.getPaymentMethod()).createAt(billRequest.getCreateAt()).appointment(appointmentRepository.findById(billRequest.getAppointmentId()).orElseThrow(() -> new RuntimeException("Appointment not found"))).build();
+        var bill = Bill.builder().status(billRequest.getStatus()).totalCost(billRequest.getTotalCost()).paymentMethod(billRequest.getPaymentMethod()).createAt(billRequest.getCreateAt()).appointments(appointmentRepository.findById(billRequest.getAppointmentId()).orElseThrow(() -> new RuntimeException("Appointment not found"))).build();
         billRepository.save(bill);
 
         return bill;
@@ -50,7 +50,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public Bill updateBill(int billId, BillRequest billRequest) {
-        var bill = Bill.builder().billId(billId).status(billRequest.getStatus()).totalCost(billRequest.getTotalCost()).paymentMethod(billRequest.getPaymentMethod()).createAt(billRequest.getCreateAt()).appointment(appointmentRepository.findById(billRequest.getAppointmentId()).orElse(null)).build();
+        var bill = Bill.builder().billId(billId).status(billRequest.getStatus()).totalCost(billRequest.getTotalCost()).paymentMethod(billRequest.getPaymentMethod()).createAt(billRequest.getCreateAt()).appointments(appointmentRepository.findById(billRequest.getAppointmentId()).orElse(null)).build();
         billRepository.save(bill);
 
         return bill;
