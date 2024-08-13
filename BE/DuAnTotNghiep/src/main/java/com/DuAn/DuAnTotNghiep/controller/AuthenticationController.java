@@ -80,8 +80,7 @@ public class AuthenticationController {
             User user = optionalUser.get();
             return ResponseEntity.ok(user);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
         //User user = userService.findByEmail(email).get();
         //return ResponseEntity.ok(user);
@@ -95,8 +94,7 @@ public class AuthenticationController {
         if (optionalUser.isPresent()) {
             return ResponseEntity.ok(optionalUser.get());
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
 //        return ResponseEntity.ok(userService.findByEmail(email).get());
     }
@@ -156,12 +154,7 @@ public class AuthenticationController {
                 PatientRequest patientRequest = new PatientRequest();
                 patientRequest.setGender("UNISEX");
                 Patient patient = patientService.savePatient(patientRequest);
-                RegisterRequest registerRequest = RegisterRequest.builder()
-                        .patientId(patient.getPatientId())
-                        .email(user.getEmail())
-                        .roleId(4)
-                        .password(user.getEmail()+"123")
-                        .build();
+                RegisterRequest registerRequest = RegisterRequest.builder().patientId(patient.getPatientId()).email(user.getEmail()).roleId(4).password(user.getEmail() + "123").build();
                 service.register(registerRequest);
             }
             System.out.println("usergg: " + user);
@@ -191,13 +184,15 @@ public class AuthenticationController {
 
     @PostMapping("/patient-user")
     @Operation(summary = "Reigister account patient")
-    public ResponseEntity<?> patientAndUser(@RequestBody PatientAndUserRequest patientAndUserRequest){
+    public ResponseEntity<?> patientAndUser(@RequestBody PatientAndUserRequest patientAndUserRequest) {
         String status = userService.registerUserAndPatient(patientAndUserRequest);
-        if(status.equalsIgnoreCase("Failed")){
-            throw new BadRequestException("Failed account");
+        if ("Email exists".equalsIgnoreCase(status)) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Cannot add a new email user that already exists"));
+        } else if ("Failed".equalsIgnoreCase(status)) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Failed to create account"));
+        } else {
+            return ResponseEntity.ok(new MessageResponse("Created account"));
         }
-        return ResponseEntity.ok(new MessageResponse("Created account"));
-
     }
 
 }

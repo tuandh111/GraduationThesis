@@ -128,6 +128,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public String registerUserAndPatient(PatientAndUserRequest patientAndUserRequest) {
         try {
+            User checkUser = userRepository.findByEmail(patientAndUserRequest.getEmail()).orElse(null);
+            if(checkUser != null){
+                return "Email exists";
+            }
             Patient patient = Patient.builder()
                                       .fullName(patientAndUserRequest.getFullName())
                                       .phoneNumber(patientAndUserRequest.getPhoneNumber())
