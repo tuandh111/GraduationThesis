@@ -5,12 +5,10 @@ import com.DuAn.DuAnTotNghiep.Rest.RestGG;
 import com.DuAn.DuAnTotNghiep.entities.Patient;
 import com.DuAn.DuAnTotNghiep.entities.User;
 import com.DuAn.DuAnTotNghiep.entities._enum.Role;
+import com.DuAn.DuAnTotNghiep.exception.BadRequestException;
 import com.DuAn.DuAnTotNghiep.model.UserFacebookDto;
 import com.DuAn.DuAnTotNghiep.model.UserGoogleDto;
-import com.DuAn.DuAnTotNghiep.model.request.AuthenticationRequest;
-import com.DuAn.DuAnTotNghiep.model.request.PatientRequest;
-import com.DuAn.DuAnTotNghiep.model.request.RegisterRequest;
-import com.DuAn.DuAnTotNghiep.model.request.UpdatePasswordRequest;
+import com.DuAn.DuAnTotNghiep.model.request.*;
 import com.DuAn.DuAnTotNghiep.model.response.AuthenticationResponse;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.security.service.AuthenticationService;
@@ -189,6 +187,17 @@ public class AuthenticationController {
     public ResponseEntity<Boolean> validPassword(@RequestBody Map<String, String> passwordMap) {
         boolean isValid = service.validPassword(passwordMap);
         return ResponseEntity.ok(isValid);
+    }
+
+    @PostMapping("/patient-user")
+    @Operation(summary = "Reigister account patient")
+    public ResponseEntity<?> patientAndUser(@RequestBody PatientAndUserRequest patientAndUserRequest){
+        String status = userService.registerUserAndPatient(patientAndUserRequest);
+        if(status.equalsIgnoreCase("Failed")){
+            throw new BadRequestException("Failed account");
+        }
+        return ResponseEntity.ok(new MessageResponse("Created account"));
+
     }
 
 }

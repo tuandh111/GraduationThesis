@@ -2,6 +2,8 @@ package com.DuAn.DuAnTotNghiep.service.service;
 
 import com.DuAn.DuAnTotNghiep.entities.User;
 import com.DuAn.DuAnTotNghiep.model.request.ChangePasswordRequest;
+import com.DuAn.DuAnTotNghiep.model.request.PatientAndUserRequest;
+import com.DuAn.DuAnTotNghiep.model.request.PatientRequest;
 import com.DuAn.DuAnTotNghiep.model.request.UpdatePasswordRequest;
 import com.DuAn.DuAnTotNghiep.model.response.ForgotPasswordResponse;
 import org.springframework.data.repository.query.Param;
@@ -24,4 +26,7 @@ public interface UserService {
 
 
     boolean checkUserByAnObject(Integer doctorId,Integer patientId,Integer dentalStaffId);
+
+
+    String registerUserAndPatient(PatientAndUserRequest patientAndUserRequest);
 }

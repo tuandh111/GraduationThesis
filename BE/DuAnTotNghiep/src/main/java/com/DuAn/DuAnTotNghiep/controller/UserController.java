@@ -45,4 +45,5 @@ public class UserController {
         boolean isExist = userService.checkUserByAnObject(doctorId,patientId,dentalStaffId);
         return ResponseEntity.ok(new MessageResponse(isExist ? "true" : "false"));
     }
+
 }
