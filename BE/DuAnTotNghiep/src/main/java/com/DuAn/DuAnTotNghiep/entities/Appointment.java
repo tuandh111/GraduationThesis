@@ -44,17 +44,14 @@ public class Appointment {
     @JsonIgnore
     private List <AppointmentService> appointmentServices;
 
-    @ManyToOne
-    @JoinColumn(name = "appointmentPatientRecordId")
+    @OneToOne
+    @JoinColumn(name ="appointmentPatientRecordId")
     private AppointmentPatientRecord appointmentPatientRecord;
 
-//    @OneToMany(mappedBy = "billId")
-//    @JsonIgnore
-//    private List<Bill> bills;
 
-    @OneToMany(mappedBy = "appointment", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "appointments")
     @JsonIgnore
-    private List<Bill> bills;
+    private Bill bills;
 
     @OneToMany(mappedBy = "appointmentCTResultId")
     @JsonIgnore

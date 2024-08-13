@@ -21,6 +21,7 @@ public class PrescriptionMedicines {
     private boolean isDeleted = false;
 
     private String frequency;
+
     @ManyToOne
     @JoinColumn(name = "prescriptionId")
     private Prescription prescription;

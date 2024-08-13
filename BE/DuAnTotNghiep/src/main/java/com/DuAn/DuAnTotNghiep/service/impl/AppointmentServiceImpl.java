@@ -104,8 +104,13 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public List<AppointmentWithServicesResponse> findAllAppointmentService() {
 
+//        List<Appointment> appointments = appointmentRepository.findAll()
+//                                                 .stream().filter(appointment -> !appointment.isDeleted() && appointment.getBills() != null && !(appointment.getBills()==null).collect(Collectors.toList());
         List<Appointment> appointments = appointmentRepository.findAll()
-                                                 .stream().filter(appointment -> !appointment.isDeleted() && appointment.getBills() != null && !appointment.getBills().isEmpty()).collect(Collectors.toList());
+                .stream()
+                .filter(appointment -> !appointment.isDeleted()
+                        && appointment.getBills() != null)
+                .collect(Collectors.toList());
         List<com.DuAn.DuAnTotNghiep.entities.AppointmentService> appointmentServices = appointmentServiceRepository.findAll()
                                                                                                .stream().filter(appointmentService -> !appointmentService.isDeleted()).collect(Collectors.toList());
         List<Bill> bills = billRepository.findAll()
@@ -139,15 +144,20 @@ public class AppointmentServiceImpl implements AppointmentService {
                                            .collect(Collectors.toList());
 
         Set<Integer> canceledBillAppointmentIds = canceledBills.stream()
-                                                          .map(bill -> bill.getAppointment().getAppointmentId())
+                                                          .map(bill -> bill.getAppointments().getAppointmentId())
                                                           .collect(Collectors.toSet());
+//        List<Appointment> appointments = appointmentRepository.findAll()
+//                                                 .stream()
+//                                                 .filter(appointment -> !appointment.isDeleted()
+//                                                                                && appointment.getBills() != null
+//                                                                                && appointment.getBills().stream().anyMatch(bill -> canceledBillAppointmentIds.contains(bill.getAppointment().getAppointmentId())))
+//                                                 .collect(Collectors.toList());
         List<Appointment> appointments = appointmentRepository.findAll()
-                                                 .stream()
-                                                 .filter(appointment -> !appointment.isDeleted()
-                                                                                && appointment.getBills() != null
-                                                                                && !appointment.getBills().isEmpty()
-                                                                                && appointment.getBills().stream().anyMatch(bill -> canceledBillAppointmentIds.contains(bill.getAppointment().getAppointmentId())))
-                                                 .collect(Collectors.toList());
+                .stream()
+                .filter(appointment -> !appointment.isDeleted()
+                        && appointment.getBills() != null
+                        && canceledBillAppointmentIds.contains(appointment.getBills().getAppointments().getAppointmentId()))
+                .collect(Collectors.toList());
         List<com.DuAn.DuAnTotNghiep.entities.AppointmentService> appointmentServices = appointmentServiceRepository.findAll()
                                                                                                .stream().filter(appointmentService -> !appointmentService.isDeleted()).collect(Collectors.toList());
         Map<Integer, List<com.DuAn.DuAnTotNghiep.entities.Service>> appointmentIdToServicesMap = appointmentServices.stream()
@@ -200,7 +210,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         // Collect appointmentIds with bills into a set
         Set<Integer> appointmentIdsWithBills = bills.stream()
-                                                       .map(bill -> bill.getAppointment().getAppointmentId())
+                                                       .map(bill -> bill.getAppointments().getAppointmentId())
                                                        .collect(Collectors.toSet());
 
         // Create and return the response object

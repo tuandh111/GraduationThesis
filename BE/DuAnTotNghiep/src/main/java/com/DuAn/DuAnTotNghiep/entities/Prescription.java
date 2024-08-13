@@ -23,7 +23,7 @@ public class Prescription {
 
     private boolean isDeleted = false;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "appointmentPatientRecordId")
     private AppointmentPatientRecord appointmentPatientRecord;
 

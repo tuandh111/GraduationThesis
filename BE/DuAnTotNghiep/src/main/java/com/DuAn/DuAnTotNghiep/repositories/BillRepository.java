@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public interface BillRepository extends JpaRepository<Bill,Integer> {
     @Query("SELECT b FROM Bill b " +
-            "WHERE (:appId IS NULL OR b.appointment.appointmentId = :appId) " +
-            "AND (:pId IS NULL OR b.appointment.patient.patientId = :pId)")
+            "WHERE (:appId IS NULL OR b.appointments.appointmentId = :appId) " +
+            "AND (:pId IS NULL OR b.appointments.patient.patientId = :pId)")
     List<Bill> getByAppointmentAndPatient(@Param("appId") Integer appointmentId,@Param("pId") Integer patientId);
 
     @Query("select SUM(b.totalCost) from Bill b " +
@@ -27,7 +27,7 @@ public interface BillRepository extends JpaRepository<Bill,Integer> {
     @Query("SELECT as2.service,(as2.price*as2.quantity) FROM AppointmentService as2 " +
             "JOIN Service s ON s.serviceId=as2.service.serviceId " +
             "JOIN Appointment a ON a.appointmentId=as2.appointment.appointmentId " +
-            "JOIN Bill b ON b.appointment.appointmentId=a.appointmentId " +
+            "JOIN Bill b ON b.appointments.appointmentId=a.appointmentId " +
             "WHERE (:day is null or day(b.createAt) =:day) " +
             "AND (:month is null or MONTH(b.createAt)=:month) " +
             "AND (:year is null or year(b.createAt)=:year) " +
