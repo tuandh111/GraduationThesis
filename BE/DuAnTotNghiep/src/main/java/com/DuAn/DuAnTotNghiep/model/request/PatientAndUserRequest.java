@@ -14,7 +14,7 @@ public class PatientAndUserRequest {
 
     @NotEmpty(message = "Full name is required")
     @Size(max = 100, message = "Full name should not exceed 100 characters")
-    @Pattern(regexp = "^[a-zA-Z\\s'-]+$", message = "Full name should only contain letters, spaces, hyphens, or apostrophes")
+    @Pattern(regexp = "^[\\p{L}\\s'-]+$", message = "Full name should only contain letters, spaces, hyphens, or apostrophes")
     private String fullName;
 
     @NotEmpty(message = "Phone number is required")
