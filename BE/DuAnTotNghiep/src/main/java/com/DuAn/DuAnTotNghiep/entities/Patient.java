@@ -28,17 +28,19 @@ public class Patient {
 
     private String  phoneNumber;
 
-    private String Type;
+    private boolean type = false;
 
-    private String CitizenIdentificationNumber;
+    private String citizenIdentificationNumber;
 
     private Date birthday;
 
     private String imageURL;
 
+    private String  address;
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    
+
     @OneToMany(mappedBy = "appointmentPatientRecordId")
     @JsonIgnore
     private List<AppointmentPatientRecord> appointmentPatientRecords;

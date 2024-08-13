@@ -41,7 +41,6 @@ public class AuthenticationService {
   PatientRepository patientRepository;
 
   public AuthenticationResponse register(RegisterRequest request) {
-    Date date = new Date("2000/01/01");
     Role role = roleService.findByRoleId(request.getRoleId());
     Doctor doctor = doctorRepository.findById(request.getDoctorId()).orElse(null);
     Patient patient =patientRepository.findById(request.getPatientId()).orElse(null);
@@ -50,54 +49,51 @@ public class AuthenticationService {
       return null;
     }
     var user = User.builder()
-        .firstname(request.getFirstname())
-        .lastname(request.getLastname())
-        .email(request.getEmail())
-        .birthDay(date)
-        .password(passwordEncoder.encode(request.getPassword()))
-        .role(role)
-        .doctor(doctor)
-        .dentalStaff(dentalStaff)
-        .patient(patient)
-        .build();
+            .email(request.getEmail())
+            .password(passwordEncoder.encode(request.getPassword()))
+            .role(role)
+            .doctor(doctor)
+            .dentalStaff(dentalStaff)
+            .patient(patient)
+            .build();
     var savedUser = userRepository.save(user);
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, jwtToken);
     return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
-        .refreshToken(refreshToken)
-        .build();
+            .accessToken(jwtToken)
+            .refreshToken(refreshToken)
+            .build();
   }
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
     authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(
-            request.getEmail(),
-            request.getPassword()
-        )
+            new UsernamePasswordAuthenticationToken(
+                    request.getEmail(),
+                    request.getPassword()
+            )
     );
     var user = userRepository.findByEmail(request.getEmail())
-        .orElseThrow();
+            .orElseThrow();
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
     return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
+            .accessToken(jwtToken)
             .refreshToken(refreshToken)
             .user(user)
-        .build();
+            .build();
   }
 
   private void saveUserToken(User user, String jwtToken) {
     var token = Token.builder()
-        .user(user)
-        .token(jwtToken)
-        .tokenType(TokenType.BEARER)
-        .expired(false)
-        .revoked(false)
-        .build();
+            .user(user)
+            .token(jwtToken)
+            .tokenType(TokenType.BEARER)
+            .expired(false)
+            .revoked(false)
+            .build();
     tokenRepository.save(token);
   }
 

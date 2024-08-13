@@ -23,22 +23,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 @Table(name = "Account")
 public class User implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private boolean isDeleted = false;
 
-    @Nationalized
-    @NotBlank(message = "Vui lòng nhập họ")
-    @Pattern(regexp = "^[a-zA-ZÀ-ỹ\\s]*$", message = "Họ không hợp lệ")
-    private String firstname;
-
-    @Nationalized
-    @NotBlank(message = "Vui lòng nhập tên")
-    @Pattern(regexp = "^[a-zA-ZÀ-ỹ\\s]*$", message = "Tên không hợp lệ")
-    private String lastname;
+    private boolean status = true;
 
     @Email(message = "Email không hợp lệ")
     @NotNull(message = "Vui lòng nhập email")
@@ -46,15 +37,9 @@ public class User implements UserDetails {
 
     @Column
     @NotBlank(message = "Vui lòng nhập mật khẩu")
-    @Size(min = 6, message = "Mật khẩu phải chứa ít nhất 6 ký tự")
+    @Size(min = 8, message = "Mật khẩu phải chứa ít nhất 8 ký tự")
     @Pattern(regexp = ".*[a-zA-Z].*", message = "Mật khẩu phải chứa ít nhất một chữ cái")
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-
-    @Temporal(TemporalType.DATE)
-    private Date birthDay;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "roleId")
@@ -113,6 +98,6 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", firstname='" + firstname + '\'' + ", lastname='" + lastname + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", gender=" + gender + ", birthDay=" + birthDay + ", role=" + role + '}';
+        return "User{" + "id=" + ", email='" + email + '\'' + ", password='" + password + '\'' + ", role=" + role + '}';
     }
 }
