@@ -60,6 +60,7 @@ public class PatientServiceImpl implements PatientService {
                 .citizenIdentificationNumber(patientRequest.getCitizenIdentificationNumber())
                 .birthday(patientRequest.getBirthday())
                 .imageURL(patientRequest.getImageURL())
+                .address(patientRequest.getAddress())
                 .gender(Gender.valueOf(patientRequest.getGender()))
                 .build();
         patientRepository.save(patient);
