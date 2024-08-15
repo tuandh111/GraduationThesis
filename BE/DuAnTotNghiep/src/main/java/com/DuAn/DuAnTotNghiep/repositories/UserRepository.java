@@ -17,8 +17,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
           "where (:doctorId IS null  or u.doctor.doctorId=:doctorId) " +
           "AND (:patientId IS null  or u.patient.patientId=:patientId) " +
           "AND (:dentalStaffId IS null  or u.dentalStaff.dentalStaffId=:dentalStaffId) " +
-          "AND u.isDeleted=false")
-  List<User> getUserByObject(@Param("doctorId") Integer doctorId, @Param("patientId") Integer patientId, @Param("dentalStaffId") Integer dentalStaffId);
+          "AND u.isDeleted=:isDeleted")
+  List<User> getUserByObject(@Param("doctorId") Integer doctorId, @Param("patientId") Integer patientId, @Param("dentalStaffId") Integer dentalStaffId,@Param("isDeleted") boolean isDeleted);
 
 
 }

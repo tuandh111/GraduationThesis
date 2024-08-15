@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -41,9 +42,19 @@ public class UserController {
     @Operation(summary = "Check exist user")
     public ResponseEntity<MessageResponse> checkUserByAnObject(@RequestParam(value = "doctorId",required = false) Integer doctorId,
                                                                @RequestParam(value = "patientId",required = false) Integer patientId,
-                                                               @RequestParam(value = "dentalStaffId",required = false) Integer dentalStaffId){
-        boolean isExist = userService.checkUserByAnObject(doctorId,patientId,dentalStaffId);
+                                                               @RequestParam(value = "dentalStaffId",required = false) Integer dentalStaffId,
+                                                               @RequestParam(value = "isDeleted",required = false) boolean isDeleted){
+        boolean isExist = userService.checkUserByAnObject(doctorId,patientId,dentalStaffId,isDeleted);
         return ResponseEntity.ok(new MessageResponse(isExist ? "true" : "false"));
+    }
+
+    @GetMapping("/get-all-account")
+    @Operation(summary = "Get all account")
+    public ResponseEntity<List<User>> getAllAccount(@RequestParam(value = "doctorId",required = false) Integer doctorId,
+                                                    @RequestParam(value = "patientId",required = false) Integer patientId,
+                                                    @RequestParam(value = "dentalStaffId",required = false) Integer dentalStaffId,
+                                                    @RequestParam(value = "isDeleted",required = false) boolean isDeleted){
+        return ResponseEntity.ok(userService.findAllAccount(doctorId,patientId,dentalStaffId,isDeleted));
     }
 
 }
