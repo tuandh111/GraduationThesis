@@ -25,8 +25,9 @@ public interface UserService {
     void updatePassword(UpdatePasswordRequest updatePasswordRequest);
 
 
-    boolean checkUserByAnObject(Integer doctorId,Integer patientId,Integer dentalStaffId);
+    boolean checkUserByAnObject(Integer doctorId,Integer patientId,Integer dentalStaffId,boolean isDeleted);
 
+    List<User> findAllAccount(Integer doctorId,Integer patientId,Integer dentalStaffId,boolean isDeleted);
 
     String registerUserAndPatient(PatientAndUserRequest patientAndUserRequest);
 }

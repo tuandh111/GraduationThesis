@@ -120,9 +120,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public boolean checkUserByAnObject(Integer doctorId, Integer patientId, Integer dentalStaffId) {
-        List<User> users = userRepository.getUserByObject(doctorId,patientId,dentalStaffId);
+    public boolean checkUserByAnObject(Integer doctorId, Integer patientId, Integer dentalStaffId,boolean isDeleted) {
+        List<User> users = userRepository.getUserByObject(doctorId,patientId,dentalStaffId,isDeleted);
         return !users.isEmpty();
+    }
+
+    @Override
+    public List<User> findAllAccount(Integer doctorId, Integer patientId, Integer dentalStaffId, boolean isDeleted) {
+        return userRepository.getUserByObject(doctorId,patientId,dentalStaffId,isDeleted);
     }
 
     @Override
