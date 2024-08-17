@@ -2,6 +2,8 @@ package com.DuAn.DuAnTotNghiep.config;
 
 import com.DuAn.DuAnTotNghiep.auditing.ApplicationAuditAware;
 import com.DuAn.DuAnTotNghiep.repositories.UserRepository;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
@@ -21,6 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
+import java.util.Map;
 
 @Configuration
 public class ApplicationConfig {
@@ -70,5 +73,14 @@ public class ApplicationConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+    @Bean
+    public Cloudinary cloudinary() {
+        Map<String, String> config = ObjectUtils.asMap(
+                "cloud_name", "ddpmzwtbs",  // Your Cloud Name
+                "api_key", "344625262215537", // Your API Key
+                "api_secret", "zN2LEG_PjZpA2WIBfihPmN6lCNo" // Your API Secret
+        );
+        return new Cloudinary(config);
     }
 }

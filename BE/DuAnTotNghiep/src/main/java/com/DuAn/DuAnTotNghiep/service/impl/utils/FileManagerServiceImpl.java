@@ -47,39 +47,43 @@ public class FileManagerServiceImpl implements FileManagerService {
 
     @Override
     public List<String> save(String folder, MultipartFile[] files) {
-//        List<String> fileNames = new ArrayList<>();
-//        Path uploadImagePath = Paths.get("", "files", folder);
-//        try {
-//            Files.createDirectories(uploadImagePath);
-//        } catch (IOException e) {
-//            throw new RuntimeException("Failed to create directory: " + uploadImagePath.toString(), e);
-//        }
-//        for (MultipartFile file : files) {
-//            String name = System.currentTimeMillis() + file.getOriginalFilename();
-//            String filename = Integer.toHexString(name.hashCode()) + name.substring(name.lastIndexOf("."));
-//            Path path = uploadImagePath.resolve(filename);
-//
-//            try {
-//                file.transferTo(path);
-//                fileNames.add(filename);
-//            } catch (IOException e) {
-//                throw new RuntimeException("Failed to save file: " + filename, e);
-//            }
-//        }
-//
-//        return fileNames;
         List<String> fileNames = new ArrayList<>();
-        for (MultipartFile file: files){
-            String name = System.currentTimeMillis()+file.getOriginalFilename();
-            String filename=Integer.toHexString(name.hashCode())+name.substring(name.lastIndexOf("."));
-            Path path =  this.getPath(folder,filename);
+        for (MultipartFile file : files) {
+            String name = System.currentTimeMillis() + file.getOriginalFilename();
+            String filename = Integer.toHexString(name.hashCode()) + name.substring(name.lastIndexOf("."));
+            Path path = this.getPath(folder, filename);
             try {
                 file.transferTo(path);
                 fileNames.add(filename);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        return fileNames;
+    }
+
+    @Override
+    public List<String> saveCTResult(String folder, MultipartFile[] files) {
+        List<String> fileNames = new ArrayList<>();
+        Path uploadImagePath = Paths.get("", "files", folder);
+        try {
+            Files.createDirectories(uploadImagePath);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to create directory: " + uploadImagePath.toString(), e);
+        }
+        for (MultipartFile file : files) {
+            String name = System.currentTimeMillis() + file.getOriginalFilename();
+            String filename = Integer.toHexString(name.hashCode()) + name.substring(name.lastIndexOf("."));
+            Path path = uploadImagePath.resolve(filename);
+
+            try {
+                file.transferTo(path);
+                fileNames.add(filename);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to save file: " + filename, e);
+            }
+        }
+
         return fileNames;
     }
 
@@ -171,23 +175,20 @@ public class FileManagerServiceImpl implements FileManagerService {
         }
 
         try {
-            Files.walk(sourceFolderPath)
-                    .filter(Files::isRegularFile)
-                    .forEach(sourceFile -> {
-                        try {
+            Files.walk(sourceFolderPath).filter(Files::isRegularFile).forEach(sourceFile -> {
+                try {
 
-                            Path targetFile = uploadImagePath.resolve(sourceFolderPath.relativize(sourceFile));
+                    Path targetFile = uploadImagePath.resolve(sourceFolderPath.relativize(sourceFile));
 
-                            Files.move(sourceFile, targetFile, StandardCopyOption.REPLACE_EXISTING);
-                        } catch (IOException e) {
-                            throw new RuntimeException("Failed to move file: " + sourceFile.toString(), e);
-                        }
-                    });
+                    Files.move(sourceFile, targetFile, StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    throw new RuntimeException("Failed to move file: " + sourceFile.toString(), e);
+                }
+            });
         } catch (IOException e) {
             throw new RuntimeException("Failed to walk directory: " + sourceFolderPath.toString(), e);
         }
     }
-
 
 
     @Override
@@ -213,6 +214,7 @@ public class FileManagerServiceImpl implements FileManagerService {
 
         return imageData;
     }
+
     @Override
     public List<String> list(String folder) {
         List<String> fileNames = new ArrayList<>();

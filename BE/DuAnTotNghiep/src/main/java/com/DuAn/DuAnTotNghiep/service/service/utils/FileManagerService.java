@@ -16,6 +16,8 @@ public interface FileManagerService {
 
     List<String> save(String folder, MultipartFile[] files);
 
+    List<String> saveCTResult(String folder, MultipartFile[] files);
+
     Path getPath(String folder, String filename);
 
     void delete(String folder, String filename);

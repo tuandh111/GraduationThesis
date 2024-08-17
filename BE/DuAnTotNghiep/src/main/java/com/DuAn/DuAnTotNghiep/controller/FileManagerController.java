@@ -49,6 +49,7 @@ public class FileManagerController {
 
     @GetMapping("uploadImage/{file}")
     public byte[] dowmloadImagesForProduct(@PathVariable("file") String file) {
+        System.out.println("file: "+ file);
         String folder = "uploads"; // Đọc tệp từ thư mục uploadImage
         return fileManagerService.readImgProd(folder, file);
     }
