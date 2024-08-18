@@ -39,7 +39,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public List<Doctor> findAllDoctorExceptDeleted() {
-        return doctorRepository.findAll().stream()
+        return doctorRepository.findAll(Sort.by(Sort.Direction.DESC,"doctorId")).stream()
                 .filter(doctor -> !doctor.isDeleted())
                 .collect(Collectors.toList());
     }
