@@ -31,8 +31,13 @@ public class QRCodeController {
     @Autowired
     QrCodeService qrCodeService;
 
-    @PostMapping(value = "/generateBarcode", produces = "text/plain; charset=UTF-8")
-    public String generateBarcode(@RequestBody Map<String, String> requestBody) {
+    @PostMapping(value = "generateQRCode")
+    public ResponseEntity<?> generateQRCode(@RequestBody URLRequest sdi) {
+        return ResponseEntity.ok(new MessageResponse(qrCodeService.generateQrCode(sdi)));
+    }
+
+    @PostMapping(value = "/generateBarcode")
+    public ResponseEntity<?> generateBarcode(@RequestBody Map<String, String> requestBody) {
         try {
             String text = requestBody.get("text");
             text = removeAccent(text);
@@ -41,20 +46,18 @@ public class QRCodeController {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(bufferedImage, "png", baos);
             byte[] imageBytes = baos.toByteArray();
-            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-            return "data:image/png;base64," + base64Image;
+            String base64Image = "data:image/png;base64,"+Base64.getEncoder().encodeToString(imageBytes);
+            System.out.println("ok"+ base64Image);
+            return ResponseEntity.ok(new MessageResponse(base64Image));
         } catch (Exception e) {
-            return "Lỗi khi tạo mã vạch: " + e.getMessage();
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(new MessageResponse("failed"));
         }
     }
 
     private String removeAccent(String text) {
-        // Tạo mảng các nhóm ký tự và ký tự không dấu tương ứng
         String[] vietnameseChars = {"àáảãạăắằẳẵặâấầẩẫậ", "èéẻẽẹêếềểễệ", "ìíỉĩị", "òóỏõọôốồổỗộơớờởỡợ", "ùúủũụưứừửữự", "ỳýỷỹỵ", "đ", "ÀÁẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬ", "ÈÉẺẼẸÊẾỀỂỄỆ", "ÌÍỈĨỊ", "ÒÓỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢ", "ÙÚỦŨỤƯỨỪỬỮỰ", "ỲÝỶỸỴ", "Đ"};
-
         String[] correspondingChars = {"a", "e", "i", "o", "u", "y", "d", "A", "E", "I", "O", "U", "Y", "D"};
-
-        // Thay thế từng nhóm ký tự tiếng Việt có dấu thành ký tự không dấu tương ứng
         for (int i = 0; i < vietnameseChars.length; i++) {
             for (int j = 0; j < vietnameseChars[i].length(); j++) {
                 text = text.replace(vietnameseChars[i].charAt(j), correspondingChars[i].charAt(0));
@@ -63,5 +66,4 @@ public class QRCodeController {
 
         return text;
     }
-
 }
