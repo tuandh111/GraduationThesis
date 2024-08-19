@@ -42,6 +42,13 @@ public class MedicalHistoryController {
     public ResponseEntity<MedicalHistory> getMedicalHistory( @PathVariable Integer Id) {
         return ResponseEntity.ok(medicalHistoryService.findByMedicalHistoryId(Id));
     }
+
+    @GetMapping("medical-history-patientId/{Id}")
+    @Operation(summary = "Get Medical history by patient")
+    public ResponseEntity<List<MedicalHistory>> getMedicalHistoryByPatient(@PathVariable(required = false) Integer Id){
+        return ResponseEntity.ok(medicalHistoryService.findMedicalHistoryByPatient(Id));
+    }
+
     @PostMapping("medical-history")
     @Operation(summary = "Save Medical History")
     public ResponseEntity<MedicalHistory> saveMedicalHistory(@Valid @RequestBody MedicalHistoryRequest medicalHistoryRequest){

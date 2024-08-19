@@ -82,4 +82,9 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public List<MedicalHistory> findMedicalHistoryByPatient(Integer patientId) {
+        return medicalHistoryRepository.getMedicalHistoryByPatient(patientId);
+    }
 }
