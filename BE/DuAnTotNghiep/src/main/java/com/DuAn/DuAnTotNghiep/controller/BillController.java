@@ -5,6 +5,8 @@ import com.DuAn.DuAnTotNghiep.entities.CTResultAbnormality;
 import com.DuAn.DuAnTotNghiep.model.request.BillRequest;
 import com.DuAn.DuAnTotNghiep.model.request.CTResultAbnormalityRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import com.DuAn.DuAnTotNghiep.model.response.Transaction;
+import com.DuAn.DuAnTotNghiep.model.response.TransactionResponse;
 import com.DuAn.DuAnTotNghiep.service.service.BillService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -28,6 +30,7 @@ import java.util.Map;
 public class BillController {
     @Autowired
     BillService billService;
+
     @GetMapping("bill")
     @Operation(summary = "List bill")
     public ResponseEntity<List<Bill>> getAllBill() {
@@ -98,5 +101,16 @@ public class BillController {
     @Operation(summary = "delete soft bill")
     public ResponseEntity<MessageResponse> softDeleteBill(@PathVariable int Id){
         return ResponseEntity.ok(billService.softDeleteBillId(Id));
+    }
+
+
+
+
+    @GetMapping("/transactions")
+    public ResponseEntity<TransactionResponse> getTransactionSuccess(
+            @RequestParam String accountNumber,
+            @RequestParam String transactionDateMin,
+            @RequestParam int limit) {
+        return ResponseEntity.ok(billService.getTransactionSuccess(accountNumber, transactionDateMin, limit));
     }
 }
