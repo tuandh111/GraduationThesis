@@ -41,6 +41,13 @@ public class CTResultAbnormalityController {
     public ResponseEntity<CTResultAbnormality> getCTResultAbnormalityId( @PathVariable Integer Id) {
         return ResponseEntity.ok(ctResultAbnormalityService.findByCTResultAbnormalityId(Id));
     }
+
+    @GetMapping("ct-result-abnormality-by-appointmnet-id/{Id}")
+    @Operation(summary = "dental ct result abnormality by appointmnet")
+    public ResponseEntity<List<CTResultAbnormality>> getCTResultAbnormalityByAppointmentId( @PathVariable(required = false) Integer Id) {
+        return ResponseEntity.ok(ctResultAbnormalityService.findCTResultAbnormalityByAppointmentId(Id));
+    }
+
     @PostMapping("ct-result-abnormality")
     @Operation(summary = "Save ct result abnormality")
     public ResponseEntity<CTResultAbnormality> saveCTResultAbnormality(@Valid @RequestBody CTResultAbnormalityRequest ctResultAbnormalityRequest){
