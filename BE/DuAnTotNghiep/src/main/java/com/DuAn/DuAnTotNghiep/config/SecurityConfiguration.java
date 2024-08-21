@@ -18,7 +18,13 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
+
+import java.util.Arrays;
 
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
@@ -33,6 +39,8 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfiguration {
     //Day la duong dan public neu can thi cau hinh de khong can phai chung thuc
     private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**",
+            "/ws/**",
+            "/api/v1/auth/**",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
@@ -61,6 +69,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
+                                .requestMatchers("/ws/**").permitAll()
                                 //day la nhung url can phai chung thuc voi role là gi va co quyen gi cũng nhu method gi
                                 .requestMatchers("/api/v1/management/**").hasAnyRole(Role.ADMIN.name(), Role.MANAGER.name())
                                 .requestMatchers(POST, "/api/v1/management/**").hasAnyRole(Role.ADMIN.name())
@@ -86,4 +95,18 @@ public class SecurityConfiguration {
         return http.build();
 
     }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("http://127.0.0.1:5501"); // Thay đổi URL này theo domain của frontend của bạn
+        config.addAllowedOriginPattern("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
+
 }
