@@ -88,4 +88,9 @@ public class CTResultAbnormalityServiceImpl implements CTResultAbnormalityServic
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public List<CTResultAbnormality> findCTResultAbnormalityByAppointmentId(Integer appId) {
+        return ctResultAbnormalityRepository.getCTResultAbnormalityByAppointmentId(appId);
+    }
 }

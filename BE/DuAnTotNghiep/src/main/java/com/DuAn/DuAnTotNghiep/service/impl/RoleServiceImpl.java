@@ -23,7 +23,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role findByRoleId(int roleId) {
-        return roleRepositoty.findById(roleId).orElseThrow(null);
+        return roleRepositoty.findById(roleId).orElse(null);
     }
 
     @Override

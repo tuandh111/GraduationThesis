@@ -50,7 +50,7 @@ public class PostServiceImpl implements PostService {
                         .title(postRequest.getTitle())
                         .body(postRequest.getBody())
                         .createDate(new Date())
-                        .createBy(dentalStaffRepository.findById(postRequest.getCreateById()).orElse(null))
+                        .createBy(dentalStaffRepository.findById(postRequest.getCreateById()).orElseThrow(null))
                         .build() ;
         postRepository.save(post);
         return post;

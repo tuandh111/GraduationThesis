@@ -5,6 +5,7 @@ import com.DuAn.DuAnTotNghiep.entities.Patient;
 import com.DuAn.DuAnTotNghiep.model.request.MedicalHistoryRequest;
 import com.DuAn.DuAnTotNghiep.model.request.PatientRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface MedicalHistoryService {
     MessageResponse delete(int medicalHistoryId);
 
     MessageResponse softDeleteMedicalHistory(int medicalHistoryId);
+
+    List<MedicalHistory> findMedicalHistoryByPatient(Integer patientId);
 }
