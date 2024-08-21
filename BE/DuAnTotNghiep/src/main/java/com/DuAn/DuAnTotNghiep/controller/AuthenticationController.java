@@ -70,6 +70,15 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.authenticate(request));
     }
 
+    @GetMapping("user-login")
+    @Operation(summary = "login")
+    public ResponseEntity<User> userResponseEntity(HttpServletRequest httpServletRequest) {
+        String token = GetTokenRefreshToken.getToken(httpServletRequest);
+        String email = jwtService.extractUsername(token);
+        return ResponseEntity.ok(userService.findByEmail(email).orElseThrow(null));
+    }
+
+
     @GetMapping("/get-user-by-token")
     @Operation(summary = "Get user by token")
     public ResponseEntity<?> getUser(HttpServletRequest httpServletRequest) {
@@ -150,15 +159,24 @@ public class AuthenticationController {
             String accessToken = RestGG.getToken(code);
             UserGoogleDto user = RestGG.getUserInfo(accessToken);
             User checkUser = userService.findByEmail(user.getEmail()).orElse(null);
+            AuthenticationResponse authenticationResponse = null;
             if (checkUser == null) {
                 PatientRequest patientRequest = new PatientRequest();
                 patientRequest.setGender("UNISEX");
                 Patient patient = patientService.savePatient(patientRequest);
-                RegisterRequest registerRequest = RegisterRequest.builder().patientId(patient.getPatientId()).email(user.getEmail()).roleId(4).password(user.getEmail() + "123").build();
-                service.register(registerRequest);
+                RegisterRequest registerRequest = RegisterRequest.builder()
+                                                          .patientId(patient.getPatientId())
+                                                          .email(user.getEmail())
+                                                          .roleId(4)
+                                                          .password(user.getEmail() + "123").build();
+
+                authenticationResponse =   service.register(registerRequest);
+            }else{
+                authenticationResponse= service.authenticate(new AuthenticationRequest(user.getEmail(),user.getEmail()+"123"));
             }
-            System.out.println("usergg: " + user);
-            return ResponseEntity.ok(user);
+            User checkUser1 = userService.findByEmail(user.getEmail()).orElse(null);
+            authenticationResponse.setUser(checkUser1);
+            return ResponseEntity.ok(authenticationResponse);
         }
         return ResponseEntity.ok(null);
     }

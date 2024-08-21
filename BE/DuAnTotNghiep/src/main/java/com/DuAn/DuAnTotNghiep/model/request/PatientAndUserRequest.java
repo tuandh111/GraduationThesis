@@ -21,17 +21,17 @@ public class PatientAndUserRequest {
     @Pattern(regexp = "^(\\+\\d{1,3}[- ]?)?\\d{10}$", message = "Phone number should be valid and contain 10 digits")
     private String phoneNumber;
 
-    @NotEmpty(message = "Citizen Identification Number is required")
-    @Size(min = 9, max = 12, message = "Citizen Identification Number should be between 9 and 12 characters")
-    private String citizenIdentificationNumber;
+//    @NotEmpty(message = "Citizen Identification Number is required")
+//    @Size(min = 9, max = 12, message = "Citizen Identification Number should be between 9 and 12 characters")
+//    private String citizenIdentificationNumber;
 
     @NotNull(message = "Birthday is required")
     @Past(message = "Birthday must be a past date")
     private Date birthday;
 
-    @NotEmpty(message = "Image URL is required")
-    @URL(message = "Image URL should be valid")
-    private String imageURL;
+//    @NotEmpty(message = "Image URL is required")
+//    @URL(message = "Image URL should be valid")
+//    private String imageURL;
 
     @NotEmpty(message = "Gender is required")
     @Pattern(regexp = " MALE| FEMALE|UNISEX", message = "Gender should be Male, Female, or Other")

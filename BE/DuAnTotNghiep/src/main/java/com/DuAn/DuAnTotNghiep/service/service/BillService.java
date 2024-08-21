@@ -5,6 +5,7 @@ import com.DuAn.DuAnTotNghiep.entities.CTResultAbnormality;
 import com.DuAn.DuAnTotNghiep.model.request.BillRequest;
 import com.DuAn.DuAnTotNghiep.model.request.CTResultAbnormalityRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import com.DuAn.DuAnTotNghiep.model.response.TransactionResponse;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
@@ -36,4 +37,7 @@ public interface BillService {
     Object[] getRevenueAndDateAsArray(String monthParam,Integer month,Integer year);
 
     List<Object[]> findTop5Service(Integer day,Integer month,Integer year);
+
+    TransactionResponse getTransactionSuccess(String accountNumber, String transactionDateMin, int limit);
+
 }

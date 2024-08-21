@@ -140,9 +140,9 @@ public class UserServiceImpl implements UserService {
             Patient patient = Patient.builder()
                                       .fullName(patientAndUserRequest.getFullName())
                                       .phoneNumber(patientAndUserRequest.getPhoneNumber())
-                                      .citizenIdentificationNumber(patientAndUserRequest.getCitizenIdentificationNumber())
+//                                      .citizenIdentificationNumber(patientAndUserRequest.getCitizenIdentificationNumber())
                                       .birthday(patientAndUserRequest.getBirthday())
-                                      .imageURL(patientAndUserRequest.getImageURL())
+//                                      .imageURL(patientAndUserRequest.getImageURL())
                                       .gender(Gender.valueOf(patientAndUserRequest.getGender()))
                                       .address(patientAndUserRequest.getAddress())
                                       .build();
@@ -157,9 +157,9 @@ public class UserServiceImpl implements UserService {
                                 .build();
             userRepository.save(user);
             if(user.getEmail() != null){
-                byte[] fileBytes = pdfGeneratorService.read("files", "tooth.jpg");
-                MultipartFile file = new MockMultipartFile("tooth.jpg", "tooth.jpg", "image/jpeg", fileBytes);
-                mailerService.send(user.getEmail(),"Thông báo đăng kí tài khoản ","Chúc mừng bạn đã tạo thành công tài khoản tại phòng khám nha khoa Tooth Teeth. \nThông tin đăng nhập của bạn là Email: , Password",file);
+//                byte[] fileBytes = pdfGeneratorService.read("files", "tooth.jpg");
+//                MultipartFile file = new MockMultipartFile("tooth.jpg", "tooth.jpg", "image/jpeg", fileBytes);
+                mailerService.send(user.getEmail(),"Thông báo đăng kí tài khoản ","Chúc mừng bạn đã tạo thành công tài khoản tại phòng khám nha khoa Tooth Teeth. \nThông tin đăng nhập của bạn là Email: , Password", null);
             }
             return "Successfully";
         }catch (Exception e){
