@@ -50,4 +50,6 @@ public interface AppointmentService {
     List<Appointment> findAllAppByPatient(Date now, Integer patientId);
 
     List<Appointment> findAppointmentsByDateMonthYear(Integer date ,Integer month,Integer year);
+
+    List<Appointment> findAppointmentWithOutBill(Integer appStatus);
 }
