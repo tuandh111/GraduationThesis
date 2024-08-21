@@ -25,6 +25,8 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.annotation.Validated;
@@ -211,6 +213,13 @@ public class AuthenticationController {
         } else {
             return ResponseEntity.ok(new MessageResponse("Created account"));
         }
+    }
+    private final LogoutHandler logoutHandler;
+
+    @PostMapping("/logout")
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("logout");
+        logoutHandler.logout(request, response, null);
     }
 
 }
