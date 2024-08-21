@@ -124,6 +124,12 @@ public class AuthenticationController {
         return ResponseEntity.ok(userService.updateUser(request));
     }
 
+    @PostMapping("/disabled-user")
+    @Operation(summary = "Cập nhật user")
+    public ResponseEntity<?> disabledUser(@RequestBody User request) {
+        return ResponseEntity.ok(userService.disabledUser(request));
+    }
+
     @GetMapping("")
     @Operation(summary = "Danh sách người dùng")
     public ResponseEntity<?> findAllUser() {
