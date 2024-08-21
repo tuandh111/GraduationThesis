@@ -81,6 +81,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User disabledUser(User request) {
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new NotFoundException("Not Found User"));
+        user.setDeleted(request.isDeleted());
+        userRepository.save(user);
+        return user;
+    }
+
+    @Override
     public List<User> findAll() {
         return userRepository.findAll();
     }
