@@ -80,6 +80,12 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.findAllAppByPatient(now,patientId));
     }
 
+    @GetMapping("appointment-without-bill")
+    @Operation(summary = "List appointment without bill")
+    public ResponseEntity<List<Appointment>> getAppointmentWithOutBill(@RequestParam(value = "appStatus",required = false) Integer appStatus) {
+        return ResponseEntity.ok(appointmentService.findAppointmentWithOutBill(appStatus));
+    }
+
     @GetMapping("appointment-group-by-date")
     @Operation(summary = "List appointment by date")
     public ResponseEntity<Map<Date, List<Appointment>>> getAllAppGroupByDate(@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate, @RequestParam(value = "patientIds", required = false) List<Integer> patientIds, @RequestParam(value = "doctorIds", required = false) List<Integer> doctorIds) {

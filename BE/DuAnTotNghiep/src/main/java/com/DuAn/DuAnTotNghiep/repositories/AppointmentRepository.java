@@ -38,4 +38,9 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Integer
     List<Appointment> getAppointmentsByDateMonthYear(@Param("date") Integer date ,@Param("month") Integer month,
                                                 @Param("year") Integer year);
 
+    @Query("Select a FROM Appointment a " +
+            "WHERE (:appStatus is null or a.appointmentStatus.appointment_StatusId=:appStatus) " +
+            "AND a.appointmentId not in (select b.appointments.appointmentId from Bill b WHERE b.isDeleted=false)")
+    List<Appointment> getAppointmentWithOutBill(@Param("appStatus") Integer appStatus);
+
 }

@@ -334,4 +334,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentRepository.getAppointmentsByDateMonthYear(date,month,year);
     }
 
+    @Override
+    public List<Appointment> findAppointmentWithOutBill(Integer appStatus) {
+        return appointmentRepository.getAppointmentWithOutBill(appStatus);
+    }
+
 }
