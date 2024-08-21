@@ -18,6 +18,8 @@ public interface UserService {
 
     User updateUser(User request);
 
+    User disabledUser(User request);
+
     List<User> findAll();
 
     Optional<User> findByEmail(String email);
