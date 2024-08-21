@@ -205,8 +205,6 @@ public class PDFGeneratorService {
                 table1.addCell(new Cell().add(tnc).setFont(vietnameseFont).setFontSize(10f).setBorder(Border.NO_BORDER));
             }
             document.add(table1);
-            BillRequest billRequest = BillRequest.builder().paymentMethod("Tiền mặt").status("Đã thanh toán").totalCost(totalSum).appointmentId(appointmentWithServicesResponseList.getAppointment().getAppointmentId()).createAt(new Date()).build();
-            billService.saveBill(billRequest);
             document.close();
         } catch (Exception e) {
             e.printStackTrace();

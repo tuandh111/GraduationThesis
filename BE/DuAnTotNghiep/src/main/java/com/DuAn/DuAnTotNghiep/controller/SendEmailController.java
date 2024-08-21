@@ -15,7 +15,11 @@ import com.DuAn.DuAnTotNghiep.service.service.BillService;
 import com.DuAn.DuAnTotNghiep.service.service.PDFGeneratorService;
 import com.DuAn.DuAnTotNghiep.service.service.utils.FileManagerService;
 import com.DuAn.DuAnTotNghiep.service.service.utils.MailerService;
+import com.DuAn.DuAnTotNghiep.utils.CurrencyFormatter;
 import com.DuAn.DuAnTotNghiep.utils.MultipartFileUtil;
+import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.property.TextAlignment;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
@@ -55,32 +59,43 @@ public class SendEmailController {
     public ResponseEntity<MessageResponse> sendMail(@RequestBody PaymentRequest paymentRequest) {
         AppointmentWithServicesResponse appointmentWithServicesResponseList = appointmentService.findAppointmentServiceByAppointmentId(paymentRequest.getAppointmentId());
         try {
-            pdfGeneratorService.export("files", "invoice"+paymentRequest.getAppointmentId()+".pdf",paymentRequest.getText(),appointmentWithServicesResponseList);
-            if(appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail().toString() != null){
-                byte[] fileBytes = pdfGeneratorService.read("files", "invoice"+paymentRequest.getAppointmentId()+".pdf");
-                MultipartFile file = MultipartFileUtil.createFile(fileBytes, "invoice", "invoice"+paymentRequest.getAppointmentId()+".pdf", "application/pdf");
-                mailerService.send(appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail().toString(),
-                        "Đơn xác nhận thanh toán dịch vụ nha khoa Tooth Teeth", "Cảm ơn quý khách đã sử dụng dịch vụ tại nha khoa Tooth Teeth\n"
-                                                                                        + "chúng tôi xin gửi quý khách hóa đơn thanh toán: ", file);
+            pdfGeneratorService.export("files", "invoice" + paymentRequest.getAppointmentId() + ".pdf", paymentRequest.getText(), appointmentWithServicesResponseList);
+            if (appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail().toString() != null) {
+
+                byte[] fileBytes = pdfGeneratorService.read("files", "invoice" + paymentRequest.getAppointmentId() + ".pdf");
+                MultipartFile file = MultipartFileUtil.createFile(fileBytes, "invoice", "invoice" + paymentRequest.getAppointmentId() + ".pdf", "application/pdf");
+                mailerService.send(appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail().toString(), "Đơn xác nhận thanh toán dịch vụ nha khoa Tooth Teeth", "Cảm ơn quý khách đã sử dụng dịch vụ tại nha khoa Tooth Teeth\n" + "chúng tôi xin gửi quý khách hóa đơn thanh toán: ", file);
                 Bill bill = billService.findByBillId(appointmentWithServicesResponseList.getAppointment().getBills().getBillId());
+                float totalSum = 0f;
+                for (com.DuAn.DuAnTotNghiep.entities.Service invoiceRes : appointmentWithServicesResponseList.getServices()) {
+                    double total = 1 * invoiceRes.getPrice();
+                    totalSum += total;
+
+                }
                 BillRequest billRequest = new BillRequest();
                 billRequest.setAppointmentId(billRequest.getAppointmentId());
                 billRequest.setStatus("Đã thanh toán");
                 billRequest.setCreateAt(bill.getCreateAt());
-                billRequest.setTotalCost(bill.getTotalCost());
-                billRequest.setPaymentMethod("Tiền mặt");
+                billRequest.setTotalCost(totalSum);
+                billRequest.setPaymentMethod(paymentRequest.getPaymentMethod());
                 billRequest.setAppointmentId(bill.getAppointments().getAppointmentId());
                 billService.updateBill(bill.getBillId(), billRequest);
                 return ResponseEntity.ok(new MessageResponse("Successfully send mail"));
-            }else{
+            } else {
+                float totalSum = 0f;
+                for (com.DuAn.DuAnTotNghiep.entities.Service invoiceRes : appointmentWithServicesResponseList.getServices()) {
+                    double total = 1 * invoiceRes.getPrice();
+                    totalSum += total;
+
+                }
                 Bill  bill = (Bill) appointmentWithServicesResponseList.getAppointment().getBills();
                 System.out.println(bill);
                 BillRequest billRequest = new BillRequest();
                 billRequest.setAppointmentId(billRequest.getAppointmentId());
                 billRequest.setStatus("Đã thanh toán");
                 billRequest.setCreateAt(bill.getCreateAt());
-                billRequest.setTotalCost(bill.getTotalCost());
-                billRequest.setPaymentMethod("Tiền mặt");
+                billRequest.setTotalCost(totalSum);
+                billRequest.setPaymentMethod(paymentRequest.getPaymentMethod());
                 billRequest.setAppointmentId(bill.getAppointments().getAppointmentId());
                 billService.updateBill(bill.getBillId(), billRequest);
                 return ResponseEntity.ok(new MessageResponse("Successfully"));

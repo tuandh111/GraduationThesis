@@ -11,4 +11,6 @@ public class PaymentRequest {
     private int appointmentId;
 
     private String text;
+
+    private String paymentMethod;
 }
