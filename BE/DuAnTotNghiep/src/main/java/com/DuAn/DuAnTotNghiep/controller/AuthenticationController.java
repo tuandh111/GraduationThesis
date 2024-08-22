@@ -222,4 +222,15 @@ public class AuthenticationController {
         logoutHandler.logout(request, response, null);
     }
 
+    @GetMapping("/get-email-by-patient-id")
+    @Operation(summary = "Get email by patientId")
+    public ResponseEntity<?> getEmailByPatientId(@RequestParam("patientId") Integer patientId) {
+        Optional<User> optionalUser = userService.findByPatientId(patientId);
+
+        if (optionalUser.isPresent()) {
+            return ResponseEntity.ok(optionalUser.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+    }
 }

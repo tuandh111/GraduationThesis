@@ -31,4 +31,7 @@ public interface UserService {
     List<User> findAllAccount(Integer doctorId,Integer patientId,Integer dentalStaffId,boolean isDeleted);
 
     String registerUserAndPatient(PatientAndUserRequest patientAndUserRequest);
+
+    Optional<User> findByPatientId(Integer patientId);
+
 }
