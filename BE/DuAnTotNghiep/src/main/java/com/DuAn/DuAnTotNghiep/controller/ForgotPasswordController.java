@@ -1,8 +1,10 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
+import com.DuAn.DuAnTotNghiep.entities.User;
 import com.DuAn.DuAnTotNghiep.model.MailInfo;
 import com.DuAn.DuAnTotNghiep.model.VerificationCode;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import com.DuAn.DuAnTotNghiep.service.service.UserService;
 import com.DuAn.DuAnTotNghiep.service.service.utils.MailerService;
 import com.DuAn.DuAnTotNghiep.utils.CodeGenerator;
 import jakarta.mail.MessagingException;
@@ -27,12 +29,20 @@ public class ForgotPasswordController {
     @Autowired
     private MailerService mailerService;
 
+    @Autowired
+    private UserService userService;
+
+
     @PostMapping("/send-code")
     public ResponseEntity<MessageResponse> sendCode(@RequestParam String email) {
         String code = CodeGenerator.generateCode();
-        VerificationCode verificationCode = new VerificationCode(code, 45);
+        VerificationCode verificationCode = new VerificationCode(code, 3000);
         verificationCodes.put(email, verificationCode);
-        MailInfo mailInfo = new MailInfo(email, "Mã xác nhận tài khoản nha khoa ToothTeeth", "<b>Mã xác nhận của bạn là: </b>"+code) ;
+        User user = userService.findByEmail(email).orElse(null) ;
+        if (user == null) {
+            return ResponseEntity.ok(new MessageResponse("null"));
+        }
+        MailInfo mailInfo = new MailInfo(email, "Mã xác nhận tài khoản nha khoa ToothTeeth", "<b>Mã xác thực của bạn là: </b>"+code + "<br>Mã xác thực có hiệu lực trong 5 phút !") ;
         try {
             mailerService.sendVerify(mailInfo);
             return ResponseEntity.ok(new MessageResponse("Successfully send mail"));
