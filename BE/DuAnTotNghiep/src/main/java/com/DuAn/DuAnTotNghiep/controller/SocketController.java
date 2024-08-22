@@ -1,6 +1,7 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
 import com.DuAn.DuAnTotNghiep.entities.Appointment;
+import com.DuAn.DuAnTotNghiep.model.request.MessageSendRequest;
 import com.DuAn.DuAnTotNghiep.service.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +16,11 @@ public class SocketController {
     AppointmentService appointmentService;
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
-//    @MessageMapping("/private-message")
-//    public Message recMessage(@Payload Message message){
-//        simpMessagingTemplate.convertAndSendToUser(message.getGetterMail(),"/private",message);
-//        addMessageToRoom(message);
-//        return message;
-//    }
+    @MessageMapping("/private-message")
+    public MessageSendRequest recMessage(@Payload MessageSendRequest message){
+        simpMessagingTemplate.convertAndSendToUser(message.getGetterMail(),"/private",message.getBody());
+        return message;
+    }
 
     @MessageMapping("/user/chatroom")
     public String getRealtimeBooking(String id){
