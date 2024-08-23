@@ -69,6 +69,10 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request, HttpServletRequest httpServletRequest) {
 //        GetTokenRefreshToken.getToken(httpServletRequest);
 //        System.out.println("Email: " + jwtService.extractUsername("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0dWFuZGhwYzA1MDc2QGZwdC5lZHUudm4iLCJpYXQiOjE3MTA4MDk5NTIsImV4cCI6MTcxMDg5NjM1Mn0.8Ata74reIX-DVJavfDNwaeHsSehS5A2SxX3KDjGNcAY"));
+        User user = userService.findByEmail(request.getEmail()).orElse(null) ;
+        if (user.isDeleted()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null); // User is deleted
+        }
         return ResponseEntity.ok(service.authenticate(request));
     }
 
@@ -213,9 +217,9 @@ public class AuthenticationController {
     public ResponseEntity<?> patientAndUser(@RequestBody PatientAndUserRequest patientAndUserRequest) {
         String status = userService.registerUserAndPatient(patientAndUserRequest);
         if ("Email exists".equalsIgnoreCase(status)) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Cannot add a new email user that already exists"));
+            return ResponseEntity.badRequest().body(new MessageResponse("email already exists"));
         } else if ("Failed".equalsIgnoreCase(status)) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Failed to create account"));
+            return ResponseEntity.badRequest().body(new MessageResponse("failed to create account"));
         } else {
             return ResponseEntity.ok(new MessageResponse("Created account"));
         }

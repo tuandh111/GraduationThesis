@@ -222,12 +222,12 @@ public class BillServiceImpl implements BillService {
         if (transactionContent != null) {
             String[] parts = transactionContent.split("appointment ");
             if (parts.length > 1) {
-                String[] idPart = parts[1].split("-");
-                if (idPart.length > 0) {
-                    return idPart[0].trim();
-                }
+                // Split on the first non-digit character after the appointment number
+                String idPart = parts[1].split("[^0-9]")[0].trim();
+                return idPart;
             }
         }
         return null;  // Return null if appointment ID is not found
     }
+
 }

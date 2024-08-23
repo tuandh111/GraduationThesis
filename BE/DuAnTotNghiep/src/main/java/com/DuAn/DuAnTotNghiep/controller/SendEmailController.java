@@ -3,6 +3,7 @@ package com.DuAn.DuAnTotNghiep.controller;
 
 import com.DuAn.DuAnTotNghiep.entities.Appointment;
 import com.DuAn.DuAnTotNghiep.entities.Bill;
+import com.DuAn.DuAnTotNghiep.entities.User;
 import com.DuAn.DuAnTotNghiep.model.request.BillRequest;
 
 import com.DuAn.DuAnTotNghiep.model.MailInfo;
@@ -13,6 +14,7 @@ import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.service.service.AppointmentService;
 import com.DuAn.DuAnTotNghiep.service.service.BillService;
 import com.DuAn.DuAnTotNghiep.service.service.PDFGeneratorService;
+import com.DuAn.DuAnTotNghiep.service.service.UserService;
 import com.DuAn.DuAnTotNghiep.service.service.utils.FileManagerService;
 import com.DuAn.DuAnTotNghiep.service.service.utils.MailerService;
 import com.DuAn.DuAnTotNghiep.utils.CurrencyFormatter;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.List;
 
 @RestController
@@ -54,13 +57,22 @@ public class SendEmailController {
     @Autowired
     BillService billService;
 
+    @Autowired
+    UserService userService;
+
     @PostMapping("sendMail")
     @Operation(summary = "Send mail with attachment")
     public ResponseEntity<MessageResponse> sendMail(@RequestBody PaymentRequest paymentRequest) {
         AppointmentWithServicesResponse appointmentWithServicesResponseList = appointmentService.findAppointmentServiceByAppointmentId(paymentRequest.getAppointmentId());
         try {
-            pdfGeneratorService.export("files", "invoice" + paymentRequest.getAppointmentId() + ".pdf", paymentRequest.getText(), appointmentWithServicesResponseList);
-            if (appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail().toString() != null && appointmentWithServicesResponseList.getAppointment().getPatient().getUser()!= null ) {
+            var patientId=appointmentWithServicesResponseList.getAppointment().getPatient().getPatientId();
+
+            List<User> users = userService.findAllAccount(null,patientId,null,false);
+            if (!users.isEmpty()) {
+
+
+                pdfGeneratorService.export("files", "invoice" + paymentRequest.getAppointmentId() + ".pdf", paymentRequest.getText(), appointmentWithServicesResponseList);
+
 
                 byte[] fileBytes = pdfGeneratorService.read("files", "invoice" + paymentRequest.getAppointmentId() + ".pdf");
                 MultipartFile file = MultipartFileUtil.createFile(fileBytes, "invoice", "invoice" + paymentRequest.getAppointmentId() + ".pdf", "application/pdf");
@@ -82,6 +94,7 @@ public class SendEmailController {
                 billService.updateBill(bill.getBillId(), billRequest);
                 return ResponseEntity.ok(new MessageResponse("Successfully send mail"));
             } else {
+
                 float totalSum = 0f;
                 for (com.DuAn.DuAnTotNghiep.entities.Service invoiceRes : appointmentWithServicesResponseList.getServices()) {
                     double total = 1 * invoiceRes.getPrice();
@@ -89,7 +102,6 @@ public class SendEmailController {
 
                 }
                 Bill  bill = (Bill) appointmentWithServicesResponseList.getAppointment().getBills();
-                System.out.println(bill);
                 BillRequest billRequest = new BillRequest();
                 billRequest.setAppointmentId(billRequest.getAppointmentId());
                 billRequest.setStatus("Đã thanh toán");
