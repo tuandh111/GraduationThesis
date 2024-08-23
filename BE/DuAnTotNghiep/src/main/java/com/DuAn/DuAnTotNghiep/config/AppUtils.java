@@ -1,6 +1,6 @@
 package com.DuAn.DuAnTotNghiep.config;
 
-import com.DuAn.DuAnTotNghiep.model.request.URLRequest;
+import com.DuAn.DuAnTotNghiep.model.request.Data;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -14,12 +14,12 @@ import java.util.Base64;
 
 public class AppUtils {
 
-    public static String prettyObject(URLRequest object) {
+    public static String prettyObject(Data object) {
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            String url = object.getData().substring(object.getData().indexOf(":") + 3, object.getData().length());
-            System.out.println("url: " + url);
-            return "https://" + object.getData();
+//            ObjectMapper mapper = new ObjectMapper();
+//            String url = object.getData().substring(object.getData().indexOf(":") + 3, object.getData().length());
+//            System.out.println("url: " + url);
+            return object.getData();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,8 +1,6 @@
 package com.DuAn.DuAnTotNghiep.model.request;
 
-import lombok.Data;
-
-@Data
-public class URLRequest {
+@lombok.Data
+public class Data {
     private String data;
 }

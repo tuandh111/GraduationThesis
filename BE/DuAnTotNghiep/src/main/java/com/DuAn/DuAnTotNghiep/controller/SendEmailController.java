@@ -60,7 +60,7 @@ public class SendEmailController {
         AppointmentWithServicesResponse appointmentWithServicesResponseList = appointmentService.findAppointmentServiceByAppointmentId(paymentRequest.getAppointmentId());
         try {
             pdfGeneratorService.export("files", "invoice" + paymentRequest.getAppointmentId() + ".pdf", paymentRequest.getText(), appointmentWithServicesResponseList);
-            if (appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail().toString() != null) {
+            if (appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail().toString() != null && appointmentWithServicesResponseList.getAppointment().getPatient().getUser()!= null ) {
 
                 byte[] fileBytes = pdfGeneratorService.read("files", "invoice" + paymentRequest.getAppointmentId() + ".pdf");
                 MultipartFile file = MultipartFileUtil.createFile(fileBytes, "invoice", "invoice" + paymentRequest.getAppointmentId() + ".pdf", "application/pdf");

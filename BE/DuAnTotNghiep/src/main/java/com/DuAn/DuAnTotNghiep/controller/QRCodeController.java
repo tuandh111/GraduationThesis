@@ -1,6 +1,6 @@
 package com.DuAn.DuAnTotNghiep.controller;
 
-import com.DuAn.DuAnTotNghiep.model.request.URLRequest;
+import com.DuAn.DuAnTotNghiep.model.request.Data;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
 import com.DuAn.DuAnTotNghiep.service.service.utils.QrCodeService;
 import com.google.zxing.BarcodeFormat;
@@ -17,8 +17,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.util.Base64;
 import java.util.Map;
 
@@ -32,8 +30,8 @@ public class QRCodeController {
     QrCodeService qrCodeService;
 
     @PostMapping(value = "generateQRCode")
-    public ResponseEntity<?> generateQRCode(@RequestBody URLRequest sdi) {
-        return ResponseEntity.ok(new MessageResponse(qrCodeService.generateQrCode(sdi)));
+    public ResponseEntity<?> generateQRCode(@RequestBody Data data) {
+        return ResponseEntity.ok(new MessageResponse(qrCodeService.generateQrCode(data)));
     }
 
     @PostMapping(value = "/generateBarcode")
