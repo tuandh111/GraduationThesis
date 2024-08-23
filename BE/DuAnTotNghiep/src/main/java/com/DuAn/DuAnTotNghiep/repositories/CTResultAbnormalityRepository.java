@@ -13,6 +13,6 @@ import java.util.List;
 public interface CTResultAbnormalityRepository extends JpaRepository<CTResultAbnormality,Integer> {
     @Query("select ca from CTResultAbnormality ca " +
             "JOIN AppointmentCTResult ac ON ac.appointmentCTResultId=ca.appointmentCTResult.appointmentCTResultId " +
-            "WHERE (:appId is null or ac.appointment.appointmentId=:appId)")
+            "WHERE (:appId is null or ac.appointment.appointmentId=:appId) and ca.isDeleted=false")
     List<CTResultAbnormality> getCTResultAbnormalityByAppointmentId(@Param("appId") Integer appId);
 }

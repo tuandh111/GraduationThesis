@@ -88,4 +88,9 @@ public class AppointmentCTResultServiceImpl implements AppointmentCTResultServic
             return new MessageResponse("fail");
         }
     }
+
+    @Override
+    public List<AppointmentCTResult> findAppointmentCTResultByAppId(Integer appId) {
+        return appointmentCTResultRepository.getAppointmentCTResultByAppId(appId);
+    }
 }

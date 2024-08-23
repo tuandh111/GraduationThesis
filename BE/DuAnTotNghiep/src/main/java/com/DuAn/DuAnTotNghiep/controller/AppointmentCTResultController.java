@@ -41,6 +41,13 @@ public class AppointmentCTResultController {
     public ResponseEntity<AppointmentCTResult> getAppointmentCTResultId( @PathVariable Integer Id) {
         return ResponseEntity.ok(appointmentCTResultService.findByAppointmentCTResultId(Id));
     }
+
+    @GetMapping("appointment-ct-result-by-appointment/{Id}")
+    @Operation(summary = "dental appointment ct result Id")
+    public ResponseEntity<List<AppointmentCTResult>> getAppointmentCTResultByAppId(@PathVariable Integer Id) {
+        return ResponseEntity.ok(appointmentCTResultService.findAppointmentCTResultByAppId(Id));
+    }
+
     @PostMapping("appointment-ct-result")
     @Operation(summary = "save appointment ct result")
     public ResponseEntity<AppointmentCTResult> saveAppointmentCTResult(@Valid @RequestBody AppointmentCTResultRequest appointmentCTResultRequest){
