@@ -194,8 +194,12 @@ public class BillServiceImpl implements BillService {
                         if (entity != null) {
                             String responseBody = EntityUtils.toString(entity);
                             JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
-                            System.out.println("API Response: " + jsonObject.toString());
                             TransactionResponse transactionResponse = TransactionResponseConverter.convertToTransactionResponse(jsonObject);
+                            if(!transactionResponse.getTransactions().isEmpty()){
+                                System.out.println(transactionResponse.getTransactions().toString());
+                                int appointmentId = Integer.parseInt(extractAppointmentId(transactionResponse.getTransactions().toString()));
+                                transactionResponse.setAppointmentId(appointmentId);
+                            }
                             return transactionResponse;
                         }
                     } else {
@@ -212,5 +216,18 @@ public class BillServiceImpl implements BillService {
             return errorResponse;
         }
         return null;
+    }
+
+    public String extractAppointmentId(String transactionContent) {
+        if (transactionContent != null) {
+            String[] parts = transactionContent.split("appointment ");
+            if (parts.length > 1) {
+                String[] idPart = parts[1].split("-");
+                if (idPart.length > 0) {
+                    return idPart[0].trim();
+                }
+            }
+        }
+        return null;  // Return null if appointment ID is not found
     }
 }
