@@ -148,9 +148,7 @@ public class UserServiceImpl implements UserService {
             Patient patient = Patient.builder()
                                       .fullName(patientAndUserRequest.getFullName())
                                       .phoneNumber(patientAndUserRequest.getPhoneNumber())
-//                                      .citizenIdentificationNumber(patientAndUserRequest.getCitizenIdentificationNumber())
                                       .birthday(patientAndUserRequest.getBirthday())
-//                                      .imageURL(patientAndUserRequest.getImageURL())
                                       .gender(Gender.valueOf(patientAndUserRequest.getGender()))
                                       .address(patientAndUserRequest.getAddress())
                                       .build();
