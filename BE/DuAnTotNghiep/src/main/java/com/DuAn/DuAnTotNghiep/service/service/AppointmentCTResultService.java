@@ -5,6 +5,7 @@ import com.DuAn.DuAnTotNghiep.entities.ImagingPlanes;
 import com.DuAn.DuAnTotNghiep.model.request.AppointmentCTResultRequest;
 import com.DuAn.DuAnTotNghiep.model.request.ImagingPlanesRequest;
 import com.DuAn.DuAnTotNghiep.model.response.MessageResponse;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface AppointmentCTResultService {
     MessageResponse deleteById(int AppointmentCTResultId);
 
     MessageResponse softDeleteAppointmentCTResult(int AppointmentCTResultId);
+
+    List<AppointmentCTResult> findAppointmentCTResultByAppId(Integer appId);
 }

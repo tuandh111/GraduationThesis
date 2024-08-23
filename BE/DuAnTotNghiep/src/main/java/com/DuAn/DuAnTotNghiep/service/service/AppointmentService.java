@@ -52,4 +52,6 @@ public interface AppointmentService {
     List<Appointment> findAppointmentsByDateMonthYear(Integer date ,Integer month,Integer year);
 
     List<Appointment> findAppointmentWithOutBill(Integer appStatus);
+
+    List<Appointment> findAppointmentWithOutCtresult();
 }

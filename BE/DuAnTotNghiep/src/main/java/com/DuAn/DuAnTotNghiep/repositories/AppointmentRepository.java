@@ -43,4 +43,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Integer
             "AND a.appointmentId not in (select b.appointments.appointmentId from Bill b WHERE b.isDeleted=false)")
     List<Appointment> getAppointmentWithOutBill(@Param("appStatus") Integer appStatus);
 
+    @Query("Select a FROM Appointment a "+
+            "WHERE a.appointmentId not in (select ac.appointment.appointmentId from AppointmentCTResult ac WHERE ac.isDeleted=false)")
+    List<Appointment> getAppointmentWithOutCtresult();
 }

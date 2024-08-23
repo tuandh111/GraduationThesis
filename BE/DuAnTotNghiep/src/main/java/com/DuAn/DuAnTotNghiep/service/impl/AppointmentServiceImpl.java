@@ -320,4 +320,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentRepository.getAppointmentWithOutBill(appStatus);
     }
 
+    @Override
+    public List<Appointment> findAppointmentWithOutCtresult() {
+        return appointmentRepository.getAppointmentWithOutCtresult();
+    }
+
 }
