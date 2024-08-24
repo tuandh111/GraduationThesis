@@ -50,7 +50,7 @@ public class Appointment {
 
 
     @OneToOne(mappedBy = "appointments")
-
+    @JsonIgnore
     private Bill bills;
 
     @OneToMany(mappedBy = "appointmentCTResultId")

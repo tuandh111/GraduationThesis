@@ -130,6 +130,11 @@ public class AppointmentServiceImpl implements AppointmentService {
                                            .filter(bill -> paidStatus.equalsIgnoreCase(bill.getStatus()))
                                            .map(bill -> bill.getAppointments().getAppointmentId())
                                            .collect(Collectors.toSet());
+        Map<Integer, Integer> appointmentIdToBillIdMap = bills.stream()
+                                                                 .collect(Collectors.toMap(
+                                                                         bill -> bill.getAppointments().getAppointmentId(),
+                                                                         Bill::getBillId
+                                                                 ));
         return appointments.stream()
                        .sorted((a1, a2) -> a2.getAppointmentDate().compareTo(a1.getAppointmentDate()))
                        .map(appointment -> {
@@ -143,10 +148,12 @@ public class AppointmentServiceImpl implements AppointmentService {
                                                                           return service;
                                                                       })
                                                                       .collect(Collectors.toList());
+                           Integer billId = appointmentIdToBillIdMap.get(appointment.getAppointmentId());
 
                            return new AppointmentWithServicesResponse(
                                    appointment,
                                    servicesWithPrices,
+                                   billId,
                                    paidBillIds.contains(appointment.getAppointmentId())
                            );
                        })
@@ -186,7 +193,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointments.stream()
                        .sorted((a1, a2) -> a2.getAppointmentDate().compareTo(a1.getAppointmentDate()))
                        .map(appointment -> new AppointmentWithServicesResponse(
-                               appointment, appointmentIdToServicesMap.getOrDefault(appointment.getAppointmentId(), new ArrayList<>()),
+                               appointment, appointmentIdToServicesMap.getOrDefault(appointment.getAppointmentId(), new ArrayList<>()),1,
                                false
                        ))
                        .collect(Collectors.toList());
@@ -244,7 +251,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                        .sorted((a1, a2) -> a2.getAppointmentDate().compareTo(a1.getAppointmentDate()))
                        .map(appointment -> new AppointmentWithServicesResponse(
                                appointment,
-                               appointmentIdToServicesMap.getOrDefault(appointment.getAppointmentId(), new ArrayList<>()),
+                               appointmentIdToServicesMap.getOrDefault(appointment.getAppointmentId(), new ArrayList<>()),1,
                                paidBillIds.contains(appointment.getAppointmentId())
                        ))
                        .collect(Collectors.toList());

@@ -15,7 +15,7 @@ import java.util.List;
 public class AppointmentWithServicesResponse {
     private Appointment appointment;
     private List<Service> services;
-
+    private Integer billId;
     private boolean status;
 
 

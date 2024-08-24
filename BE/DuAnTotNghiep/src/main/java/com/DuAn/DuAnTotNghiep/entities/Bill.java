@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data
-@AllArgsConstructor@NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Entity
 public class Bill {
@@ -24,13 +25,13 @@ public class Bill {
 
     private double totalCost;
 
-    private  String paymentMethod;
+    private String paymentMethod;
 
     @Temporal(TemporalType.DATE)
     private Date createAt;
 
     @OneToOne
-    @JoinColumn(name ="appointmentId")
-    @JsonIgnore
+    @JoinColumn(name = "appointmentId")
+
     private Appointment appointments;
 }
