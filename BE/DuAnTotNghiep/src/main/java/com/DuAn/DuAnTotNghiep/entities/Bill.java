@@ -31,5 +31,6 @@ public class Bill {
 
     @OneToOne
     @JoinColumn(name ="appointmentId")
+    @JsonIgnore
     private Appointment appointments;
 }
