@@ -71,7 +71,7 @@ public class AuthenticationController {
 //        System.out.println("Email: " + jwtService.extractUsername("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0dWFuZGhwYzA1MDc2QGZwdC5lZHUudm4iLCJpYXQiOjE3MTA4MDk5NTIsImV4cCI6MTcxMDg5NjM1Mn0.8Ata74reIX-DVJavfDNwaeHsSehS5A2SxX3KDjGNcAY"));
         User user = userService.findByEmail(request.getEmail()).orElse(null) ;
         if (user.isDeleted()) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null); // User is deleted
+            return ResponseEntity.status(HttpStatus.GONE).body(null); // User is deleted
         }
         return ResponseEntity.ok(service.authenticate(request));
     }
