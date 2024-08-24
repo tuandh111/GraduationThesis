@@ -23,10 +23,16 @@ public class SocketController {
     }
 
     @MessageMapping("/user/chatroom")
-    public String getRealtimeBooking(String id){
-        ResponseEntity.ok(appointmentService.findByAppointmentId(Integer.parseInt(id)));
-        simpMessagingTemplate.convertAndSend("/chatroom",appointmentService.findByAppointmentId(Integer.parseInt(id)));
-        System.out.println("i got"+ id);
+    public String getRealtimeBooking(String id) {
+        try {
+            int appointmentId = Integer.parseInt(id);
+
+            var appointment = appointmentService.findByAppointmentId(appointmentId);
+            simpMessagingTemplate.convertAndSend("/chatroom", appointment);
+        } catch (NumberFormatException e) {
+            simpMessagingTemplate.convertAndSend("/chatroom", id);
+        }
         return id;
     }
+
 }
