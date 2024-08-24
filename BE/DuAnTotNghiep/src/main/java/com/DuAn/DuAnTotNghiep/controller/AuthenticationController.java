@@ -184,7 +184,10 @@ public class AuthenticationController {
 
                 authenticationResponse =   service.register(registerRequest);
             }else{
-                authenticationResponse= service.authenticate(new AuthenticationRequest(user.getEmail(),user.getEmail()+"123"));
+                if(checkUser.isDeleted()) {
+                    return ResponseEntity.status(HttpStatus.GONE).body(null);
+                }
+                authenticationResponse= service.authenticateGoogle(new AuthenticationRequest(user.getEmail(),checkUser.getPassword()));
             }
             User checkUser1 = userService.findByEmail(user.getEmail()).orElse(null);
             authenticationResponse.setUser(checkUser1);

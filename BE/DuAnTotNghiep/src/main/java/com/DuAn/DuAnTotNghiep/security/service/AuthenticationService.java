@@ -86,6 +86,25 @@ public class AuthenticationService {
             .build();
   }
 
+  public AuthenticationResponse authenticateGoogle(AuthenticationRequest request) {
+
+    var user = userRepository.findByEmail(request.getEmail())
+            .orElseThrow();
+    if (request.getPassword().equalsIgnoreCase(user.getPassword())) {
+      var jwtToken = jwtService.generateToken(user);
+      var refreshToken = jwtService.generateRefreshToken(user);
+      revokeAllUserTokens(user);
+      saveUserToken(user, jwtToken);
+      return AuthenticationResponse.builder()
+              .accessToken(jwtToken)
+              .refreshToken(refreshToken)
+              .user(user)
+              .build();
+    }
+    return null ;
+  }
+
+
   private void saveUserToken(User user, String jwtToken) {
     var token = Token.builder()
             .user(user)
