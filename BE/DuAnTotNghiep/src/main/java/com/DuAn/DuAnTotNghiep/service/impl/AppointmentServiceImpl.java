@@ -297,6 +297,14 @@ public class AppointmentServiceImpl implements AppointmentService {
             List<Appointment> apps = this.findAppointmentByDate((Date) date);
             if (patientIds != null && !patientIds.isEmpty()) {
                 apps = apps.stream()
+                        .filter(app->app.getPatient()!=null)
+                        .collect(Collectors.toList());
+
+                apps = apps.stream()
+                        .filter(app->app.getDoctor()!=null)
+                        .collect(Collectors.toList());
+
+                apps = apps.stream()
                         .filter(app -> patientIds.contains(app.getPatient().getPatientId()))
                         .collect(Collectors.toList());
             }
