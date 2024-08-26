@@ -208,10 +208,13 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
         return null;
     }
+    @Override
     public List<AppointmentWithServicesResponse> findAllAppointmentService(String startDate, String endDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date start;
         Date end;
+
+        // Parse ngày bắt đầu và ngày kết thúc
         try {
             start = dateFormat.parse(startDate);
             end = dateFormat.parse(endDate);
@@ -219,43 +222,79 @@ public class AppointmentServiceImpl implements AppointmentService {
             throw new IllegalArgumentException("Invalid date format. Please use dd/MM/yyyy.");
         }
 
+        // Lọc các cuộc hẹn không bị xóa, có hóa đơn liên kết và nằm trong khoảng thời gian
         List<Appointment> appointments = appointmentRepository.findAll()
                                                  .stream()
                                                  .filter(appointment -> !appointment.isDeleted() &&
                                                                                 !appointment.getAppointmentDate().before(start) &&
-                                                                                !appointment.getAppointmentDate().after(end))
+                                                                                !appointment.getAppointmentDate().after(end) &&
+                                                                                appointment.getBills() != null)
                                                  .collect(Collectors.toList());
 
+        // Lọc các dịch vụ cuộc hẹn không bị xóa
         List<com.DuAn.DuAnTotNghiep.entities.AppointmentService> appointmentServices = appointmentServiceRepository.findAll()
-                                                                                               .stream().filter(appointmentService -> !appointmentService.isDeleted())
+                                                                                               .stream()
+                                                                                               .filter(appointmentService -> !appointmentService.isDeleted())
                                                                                                .collect(Collectors.toList());
 
+        // Lọc các hóa đơn không bị xóa
         List<Bill> bills = billRepository.findAll()
                                    .stream()
                                    .filter(bill -> !bill.isDeleted())
                                    .collect(Collectors.toList());
 
-        Map<Integer, List<com.DuAn.DuAnTotNghiep.entities.Service>> appointmentIdToServicesMap = appointmentServices.stream()
-                                                                                                         .collect(Collectors.groupingBy(
-                                                                                                                 appointmentService -> appointmentService.getAppointment().getAppointmentId(),
-                                                                                                                 Collectors.mapping(com.DuAn.DuAnTotNghiep.entities.AppointmentService::getService, Collectors.toList())
-                                                                                                         ));
+        // Tạo map từ appointmentId tới danh sách AppointmentService
+        Map<Integer, List<com.DuAn.DuAnTotNghiep.entities.AppointmentService>> appointmentIdToServicesMap = appointmentServices.stream()
+                                                                                                                    .collect(Collectors.groupingBy(
+                                                                                                                            appointmentService -> appointmentService.getAppointment().getAppointmentId(),
+                                                                                                                            Collectors.toList()
+                                                                                                                    ));
 
+        // Xác định trạng thái "Đã thanh toán"
         String paidStatus = "Đã thanh toán";
         Set<Integer> paidBillIds = bills.stream()
                                            .filter(bill -> paidStatus.equalsIgnoreCase(bill.getStatus()))
-                                           .map(Bill::getBillId)
+                                           .map(bill -> bill.getAppointments().getAppointmentId())
                                            .collect(Collectors.toSet());
 
+        // Tạo map từ appointmentId tới billId
+        Map<Integer, Integer> appointmentIdToBillIdMap = bills.stream()
+                                                                 .collect(Collectors.toMap(
+                                                                         bill -> bill.getAppointments().getAppointmentId(),
+                                                                         Bill::getBillId
+                                                                 ));
+
+        // Duyệt qua danh sách các cuộc hẹn và tạo AppointmentWithServicesResponse
         return appointments.stream()
                        .sorted((a1, a2) -> a2.getAppointmentDate().compareTo(a1.getAppointmentDate()))
-                       .map(appointment -> new AppointmentWithServicesResponse(
-                               appointment,
-                               appointmentIdToServicesMap.getOrDefault(appointment.getAppointmentId(), new ArrayList<>()),1,
-                               paidBillIds.contains(appointment.getAppointmentId())
-                       ))
+                       .map(appointment -> {
+                           // Lấy danh sách AppointmentService liên quan đến cuộc hẹn này
+                           List<com.DuAn.DuAnTotNghiep.entities.AppointmentService> appointmentServicesForAppointment = appointmentIdToServicesMap.getOrDefault(appointment.getAppointmentId(), new ArrayList<>());
+
+                           // Tính toán giá dịch vụ
+                           List<com.DuAn.DuAnTotNghiep.entities.Service> servicesWithPrices = appointmentServicesForAppointment.stream()
+                                                                                                      .map(appointmentService -> {
+                                                                                                          com.DuAn.DuAnTotNghiep.entities.Service service = appointmentService.getService();
+                                                                                                          double calculatedPrice = appointmentService.getPrice() * appointmentService.getQuantity(); // Tính giá
+                                                                                                          service.setPrice(calculatedPrice); // Gán giá vào Service
+                                                                                                          return service;
+                                                                                                      })
+                                                                                                      .collect(Collectors.toList());
+
+                           // Lấy billId liên quan đến cuộc hẹn này
+                           Integer billId = appointmentIdToBillIdMap.get(appointment.getAppointmentId());
+
+                           // Tạo đối tượng AppointmentWithServicesResponse
+                           return new AppointmentWithServicesResponse(
+                                   appointment,
+                                   servicesWithPrices,
+                                   billId,
+                                   paidBillIds.contains(appointment.getAppointmentId()) // Kiểm tra xem đã thanh toán chưa
+                           );
+                       })
                        .collect(Collectors.toList());
     }
+
 
 
     public List<Object> findAllDateOfAppointment() {
