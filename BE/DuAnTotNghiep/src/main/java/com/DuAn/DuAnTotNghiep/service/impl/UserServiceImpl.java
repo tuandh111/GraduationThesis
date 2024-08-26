@@ -179,4 +179,9 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByPatientId(Integer patientId) {
         return userRepository.findByPatient_PatientId(patientId);
     }
+
+    @Override
+    public Optional<User> findByDoctorId(Integer doctorId) {
+        return userRepository.findByDoctor_DoctorId(doctorId);
+    }
 }

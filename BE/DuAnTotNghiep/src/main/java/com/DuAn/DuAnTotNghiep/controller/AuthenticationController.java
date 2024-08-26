@@ -246,4 +246,16 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
     }
+
+    @GetMapping("/get-email-by-doctor-id")
+    @Operation(summary = "Get email by doctorId")
+    public ResponseEntity<?> getEmailByDoctorId(@RequestParam("doctorId") Integer doctorId) {
+        Optional<User> optionalUser = userService.findByDoctorId(doctorId);
+
+        if (optionalUser.isPresent()) {
+            return ResponseEntity.ok(optionalUser.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+    }
 }
