@@ -35,5 +35,5 @@ public interface UserService {
     String registerUserAndPatient(PatientAndUserRequest patientAndUserRequest);
 
     Optional<User> findByPatientId(Integer patientId);
-
+    Optional<User> findByDoctorId(Integer patientId);
 }
