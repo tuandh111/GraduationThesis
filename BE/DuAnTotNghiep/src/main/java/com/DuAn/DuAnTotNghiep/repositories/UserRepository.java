@@ -21,5 +21,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
   List<User> getUserByObject(@Param("doctorId") Integer doctorId, @Param("patientId") Integer patientId, @Param("dentalStaffId") Integer dentalStaffId,@Param("isDeleted") boolean isDeleted);
 
   Optional<User> findByPatient_PatientId(Integer patientId);
-
+  Optional<User> findByDoctor_DoctorId(Integer doctorId);
 }
