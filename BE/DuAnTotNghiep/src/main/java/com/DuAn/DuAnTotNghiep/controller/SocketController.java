@@ -35,4 +35,10 @@ public class SocketController {
         return id;
     }
 
+
+    @MessageMapping("/user/appointmentdone")
+    public String getRealtimeAppointmenDone(String id) {
+            simpMessagingTemplate.convertAndSend("/appointmentdone", id);
+        return id;
+    }
 }
