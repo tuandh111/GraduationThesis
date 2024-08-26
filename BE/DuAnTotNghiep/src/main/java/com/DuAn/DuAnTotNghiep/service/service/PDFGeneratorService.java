@@ -110,23 +110,23 @@ public class PDFGeneratorService {
 
             Table twoColTable2 = new Table(twocolumnWidth);
             twoColTable2.addCell(getCell10fLeft("Họ và tên", true)).setFont(vietnameseFont);
-            twoColTable2.addCell(getCell10fLeft("Họ và tên ", true)).setFont(vietnameseFont);
+            twoColTable2.addCell(getCell10fLeft("Tên công ty ", true)).setFont(vietnameseFont);
             twoColTable2.addCell(getCell10fLeft(appointmentWithServicesResponseList.getAppointment().getPatient().getFullName(), false)).setFont(vietnameseFont);
-            twoColTable2.addCell(getCell10fLeft("B Manoj Kumar Reddy", false)).setFont(vietnameseFont);
+            twoColTable2.addCell(getCell10fLeft("Nha khoa ToothTeeth", false)).setFont(vietnameseFont);
             document.add(twoColTable2);
 
             Table twoColTable3 = new Table(twocolumnWidth);
             twoColTable3.addCell(getCell10fLeft("Ngày sinh", true)).setFont(vietnameseFont);
             twoColTable3.addCell(getCell10fLeft("Địa chỉ", true)).setFont(vietnameseFont);
             twoColTable3.addCell(getCell10fLeft(DateUtils.formatDate(appointmentWithServicesResponseList.getAppointment().getPatient().getBirthday()), false)).setFont(vietnameseFont);
-            twoColTable3.addCell(getCell10fLeft("ấp Khánh Hội, Thị trấn Ngã Sáu,\n Huyện Châu Thành, Hậu Giang.", false)).setFont(vietnameseFont);
+            twoColTable3.addCell(getCell10fLeft("Số 51/A, đường 3/2 \n quận Ninh Kiều, thành phố Cần Thơ", false)).setFont(vietnameseFont);
             document.add(twoColTable3);
 
             float oneColumnWidth[] = {twocol150};
 
             Table oneColTable1 = new Table(oneColumnWidth);
             oneColTable1.addCell(getCell10fLeft("Địa chỉ", true)).setFont(vietnameseFont);
-            oneColTable1.addCell(getCell10fLeft("ấp Khánh Hội, Thị trấn Ngã Sáu, Huyện Châu Thành, Hậu Giang.", false)).setFont(vietnameseFont);
+            oneColTable1.addCell(getCell10fLeft(appointmentWithServicesResponseList.getAppointment().getPatient().getAddress(), false)).setFont(vietnameseFont);
             oneColTable1.addCell(getCell10fLeft("Email", true));
             oneColTable1.addCell(getCell10fLeft(appointmentWithServicesResponseList.getAppointment().getPatient().getUser().getEmail(), false));
             oneColTable1.addCell(getCell10fLeft("Số điện thoại", true)).setFont(vietnameseFont);
